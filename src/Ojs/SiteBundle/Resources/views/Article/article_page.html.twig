@@ -74,7 +74,8 @@
                                     <img src="//dergipark.ulakbim.gov.tr/assets/images/mendeley.ico" width="16"/>
                                     Mendeley</a> |
                                 <a href="#" class="btn btn-sm download-link" data-raw="{{ bibtex }}"
-                                   data-filename="article.bib" data-mime="text/plain">BibTex</a>
+                                   data-filename="article.bib" data-mime="text/plain">BibTex</a> |
+                                <a href="{{ app.request.schemeAndHttpHost ~ app.request.requestUri }}#article_cite" class="btn btn-sm">{{ "article.cite"|trans }}</a>
 
                             </div>
                             {% if article.articleFiles|length > 0 %}
@@ -84,7 +85,7 @@
                                            class="btn btn-sm btn-link" target="_blank"><i
                                                     class="fa fa-file-pdf-o"></i> {{ file.title }}
                                             <small>
-                                                (<i class="fa fa-arrow-circle-o-down"></i> {{ file.downloadCount|number_format }}
+                                                ( <i class="fa fa-arrow-circle-o-down"></i> {{ file.downloadCount|number_format }}
                                                 )
                                             </small>
                                         </a>
@@ -228,6 +229,59 @@
                         </table>
                     </div>
 
+                    <div id="article_cite">
+                        <h4 class="page-header">{{ "article.cite"|trans }}</h4>
+
+                        <table class="table table-striped">
+                            <tr>
+                                <td>Bibtex</td>
+                                <td><code>{{ bibtex }}</code></td>
+                            </tr>
+                            <tr>
+                                <td><abbr tooltip="Author, A.A.. (Publication Year). Article title. Periodical Title, Volume(Issue), pp.-pp. doi:XX.XXXXX or Retrieved from journal URL">APA</abbr></td>
+                                <td>{% if article.articleAuthors %}
+                                        {% for authorsInfo in article.articleAuthors %}
+                                            {{ authorsInfo.author.lastName }}, {{ authorsInfo.author.firstname|first }}
+                                            {% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    {% endif %}.
+                                    ({{ bibtex_data.year }}).
+                                    {{ bibtex_data.title }}.
+                                    {{ bibtex_data.journal }}, {% if article.issue %}{{ article.issue.volume }} ( {{ article.issue.number }} )
+                                    {% endif %}, {% if article.firstPage is not null and article.lastPage is not null %}{{ article.firstPage }}-{{ article.lastPage }}{% endif %}.
+                                    {% if article.doi is not empty %}doi:{{ article.doi }}{% else %}Retrieved from {{ app.request.schemeAndHttpHost ~ app.request.requestUri }}{% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><abbr tooltip="Last Name, First Name. “Article Title.” Journal Name Volume Number (Year Published): Page Numbers. Medium.">MLA</abbr></td>
+                                <td>
+                                    {% if article.articleAuthors %}
+                                    {% for authorsInfo in article.articleAuthors %}
+                                        {{ authorsInfo.author.lastName }}, {{ authorsInfo.author.firstname|first }}
+                                        {% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                    {% endif %}.
+                                    "{{ bibtex_data.title }}".
+                                    {{ bibtex_data.journal }}  {% if article.issue %}{{ article.issue.volume }} {% endif %} ({{ bibtex_data.year }}): {% if article.firstPage is not null and article.lastPage is not null %}{{ article.firstPage }}-{{ article.lastPage }}{% endif %}
+                                    < {{ app.request.schemeAndHttpHost ~ app.request.requestUri }} >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><abbr tooltip="Last Name, First Name. “Article Title.” Journal Name Volume Number (Year Published): Page Numbers.">Chicago</abbr></td>
+                                <td>
+                                    {% if article.articleAuthors %}
+                                    {% for authorsInfo in article.articleAuthors %}
+                                        {{ authorsInfo.author.lastName }}, {{ authorsInfo.author.firstname|first }}
+                                        {% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                    {% endif %}.
+                                    "{{ bibtex_data.title }}".
+                                    {{ bibtex_data.journal }}  {% if article.issue %}{{ article.issue.volume }} {% endif %} ({{ bibtex_data.year }}): {% if article.firstPage is not null and article.lastPage is not null %}{{ article.firstPage }}-{{ article.lastPage }}{% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
                 </div>
                 <div class="panel-footer">
                     {% if article.articleFiles|length > 0 %}
@@ -237,7 +291,7 @@
                                    class="btn btn-lg btn-primary" target="_blank"><i
                                             class="fa fa-download"></i> {{ file.title }}
                                     <small>
-                                        (<i class="fa fa-arrow-circle-o-down"></i> {{ file.downloadCount|number_format }}
+                                        ( <i class="fa fa-arrow-circle-o-down"></i> {{ file.downloadCount|number_format }}
                                         )
                                     </small>
                                 </a>
