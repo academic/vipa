@@ -14,6 +14,10 @@ parameters:
   admin_base_view: '::ojsbase.html.twig'
   router.request_context.host:   "%base_host%"
   router.request_context.scheme: http
+  elastica_listener:
+    insert: "%elastica_enabled%"
+    update: "%elastica_enabled%"
+    delete: "%elastica_enabled%"
 
 framework:
   translator:      { fallback: "%locale%" }
