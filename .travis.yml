@@ -42,7 +42,6 @@ before_script:
   - php app/console ojs:mail:events:sync --env=test
   - php app/console ojs:mail:events:sync --sync-desc --env=test
   - php app/console f:e:p --env=test
-  - sudo service elasticsearch stop
   - curl -XPOST 'http://localhost:9200/_shutdown'
 
 script:
