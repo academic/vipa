@@ -63,6 +63,19 @@
                                     </dd>
                                 {% endif %}
 
+<<<<<<< HEAD
+                                {% if journal.founded is defined %}
+                                    <dt>{{ "journal.founded"|trans }}</dt>
+                                    <dd>
+                                        {{ journal.founded|date('Y') }}
+                                        {% if journal.endingDate is defined %}
+                                             - {{ journal.endingDate|date('Y') }}
+                                        {% endif %}
+                                    </dd>
+                                {% endif %}
+
+=======
+>>>>>>> master
                                 {% if journal.publisher %}
                                     <dt>{{ "publisher"|trans }}</dt>
                                     <dd>{{ journal.publisher.name }}</dd>
