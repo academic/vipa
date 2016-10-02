@@ -16,7 +16,7 @@ class OaiExtension extends \Twig_Extension
 
     public function fixEncoding($value)
     {
-        return iconv('UTF-8', 'UTF-8//IGNORE', $value);
+        return preg_replace("/[[:cntrl:]]+/", "", $value);
     }
 
     /**
