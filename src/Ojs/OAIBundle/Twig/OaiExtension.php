@@ -2,8 +2,6 @@
 
 namespace Ojs\OAIBundle\Twig;
 
-use ForceUTF8\Encoding;
-
 class OaiExtension extends \Twig_Extension
 {
     /**
@@ -18,7 +16,7 @@ class OaiExtension extends \Twig_Extension
 
     public function fixEncoding($value)
     {
-        return Encoding::toUTF8($value);
+        return iconv('UTF-8', 'UTF-8//IGNORE', $value);
     }
 
     /**
