@@ -63,12 +63,12 @@
                                     </dd>
                                 {% endif %}
 
-                                {% if journal.founded|length > 0 %}
+                                {% if journal.founded is defined %}
                                     <dt>{{ "journal.founded"|trans }}</dt>
                                     <dd>
-                                        {{ journal.founded }}
-                                        {% if journal.endingDate|length > 0 %}
-                                             - {{ journal.endingDate }}
+                                        {{ journal.founded|date('Y') }}
+                                        {% if journal.endingDate is defined %}
+                                             - {{ journal.endingDate|date('Y') }}
                                         {% endif %}
                                     </dd>
                                 {% endif %}
