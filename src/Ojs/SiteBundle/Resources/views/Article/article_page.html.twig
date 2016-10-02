@@ -75,7 +75,7 @@
                                     Mendeley</a> |
                                 <a href="#" class="btn btn-sm download-link" data-raw="{{ bibtex }}"
                                    data-filename="article.bib" data-mime="text/plain">BibTex</a> |
-                                <a href="#article_cite" class="btn btn-sm">{{ "article.cite"|trans }}</a>
+                                <a href="{{ app.request.schemeAndHttpHost ~ app.request.requestUri }}#article_cite" class="btn btn-sm">{{ "article.cite"|trans }}</a>
 
                             </div>
                             {% if article.articleFiles|length > 0 %}
