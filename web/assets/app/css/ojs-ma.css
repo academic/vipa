@@ -1,5 +1,5 @@
 body {
-  background-color: #CCCCCC;
+  background-color: #efefef;
 }
 body.inverse {
   background: #333333;
@@ -3649,29 +3649,29 @@ h2.title {
   background: #CCCCCC;
 }
 
-.profile-page .header {
+.page-profile .header {
   height: 380px;
   background-position: top center;
 }
-.profile-page .profile {
+.page-profile .profile {
   text-align: center;
 }
-.profile-page .profile img {
+.page-profile .profile img {
   max-width: 160px;
   margin: -80px auto 0;
 }
-.profile-page .description {
+.page-profile .description {
   margin: 30px auto 0;
   max-width: 600px;
 }
-.profile-page .profile-tabs {
+.page-profile .profile-tabs {
   margin-top: 60px;
 }
-.profile-page .gallery {
+.page-profile .gallery {
   margin-top: 45px;
   padding-bottom: 50px;
 }
-.profile-page .gallery img {
+.page-profile .gallery img {
   width: 100%;
   margin-bottom: 30px;
 }
@@ -3688,7 +3688,7 @@ h2.title {
 }
 
 .landing-page .navbar-transparent,
-.profile-page .navbar-transparent,
+.page-profile .navbar-transparent,
 .signup-page .navbar-transparent,
 .index-page .navbar-transparent {
   padding-top: 25px;
