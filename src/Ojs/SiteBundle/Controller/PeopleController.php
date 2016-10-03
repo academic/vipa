@@ -90,7 +90,7 @@ class PeopleController extends Controller
             'role_filters'    => $roleFilters,
             'subject_filters' => $subjectFilters,
             'journal_filters' => $journalFilters,
-            'page'            => 'ojs_site_people_index',
+            'page'            => 'people',
             'search_section'  => 'user',
         ];
 

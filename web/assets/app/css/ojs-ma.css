@@ -3629,24 +3629,24 @@ h2.title {
   background: -webkit-linear-gradient(135deg, rgba(101, 47, 142, 0.88) 0%, rgba(125, 46, 185, 0.45) 100%);
 }
 
-.page-explore .header {
+.page-explore .header,.page-people .header {
   height: 100vh;
 }
-.page-explore .header .container {
+.page-explore .header .container,.page-people .header .container {
   padding-top: 26vh;
   color: #FFFFFF;
 }
-.page-explore .header .share {
+.page-explore .header .share,.page-people .header .share {
   margin-top: 150px;
 }
-.page-explore .header h1 {
+.page-explore .header h1,.page-people  .header h1 {
   font-weight: 600;
 }
-.page-explore .header .title {
+.page-explore .header .title,.page-people  .header .title {
   color: #FFFFFF;
 }
-.page-explore .wrapper {
-  background: #CCCCCC;
+.page-explore .wrapper,.page-people .wrapper{
+  background: rgba(0, 145, 177);
 }
 
 .page-profile .header {
