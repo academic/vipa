@@ -211,6 +211,11 @@ class Journal extends AbstractTranslatable
      */
     private $periods;
     /**
+     * @var ArrayCollection|Period[]
+     * @JMS\Expose
+     */
+    private $catalogs;
+    /**
      * @var string
      */
     private $languageCodeSet;
@@ -335,6 +340,7 @@ class Journal extends AbstractTranslatable
         $this->languages = new ArrayCollection();
         $this->sections = new ArrayCollection();
         $this->periods = new ArrayCollection();
+        $this->catalogs = new ArrayCollection();
         $this->subjects = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->journalApplicationUploadFiles = new ArrayCollection();
@@ -445,6 +451,37 @@ class Journal extends AbstractTranslatable
     public function getPeriods()
     {
         return $this->periods;
+    }
+
+    /**
+     * @param  Catalog $catalog
+     * @return Journal
+     */
+    public function addCatalog(Catalog $catalog)
+    {
+        if (!$this->catalogs->contains($catalog)) {
+            $this->catalogs->add($catalog);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Catalog $catalog
+     */
+    public function removeCatalog(Catalog $catalog)
+    {
+        if ($this->catalogs->contains($catalog)) {
+            $this->catalogs->removeElement($catalog);
+        }
+    }
+
+    /**
+     * @return ArrayCollection|Period[]
+     */
+    public function getCatalogs()
+    {
+        return $this->catalogs;
     }
 
     /**

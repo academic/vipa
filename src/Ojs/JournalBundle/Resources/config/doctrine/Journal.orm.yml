@@ -167,6 +167,18 @@ Ojs\JournalBundle\Entity\Journal:
             onDelete: CASCADE
       cache:
         usage: NONSTRICT_READ_WRITE
+    catalogs:
+      targetEntity: Ojs\JournalBundle\Entity\Catalog
+      joinTable:
+        name: journal_catalog
+        joinColumns:
+          journal_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          catalog_id:
+            referencedColumnName: id
+            onDelete: CASCADE
     bannedUsers:
       targetEntity: Ojs\UserBundle\Entity\User
       cascade: ["persist"]
