@@ -1,19 +1,54 @@
-<ul class="bxslider">
-    {% for announcement in announcements %}
-        <li>
-            {% if announcement.image is defined and announcement.image is not null %}
-                <a href="{{ announcement.content }}"><img
-                            src="{{ announcement.image|imagine_filter('announcement_original') }}"
-                            alt="{{ announcement.title }}"></a>
-            {% endif %}
+<div class="section" id="carousel">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
 
-        </li>
-    {% endfor %}
-</ul>
+                <!-- Carousel Card -->
+                <div class="card card-raised card-carousel">
+                    <div id="home-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel slide" data-ride="carousel">
 
-{% image output="assets/prod/js/images/controls.png"
-'%kernel.root_dir%/../web/vendor/bxslider-4/dist/images/controls.png' %}
-{% endimage %}
-{% image output="assets/prod/js/images/bx_loader.gif"
-'%kernel.root_dir%/../web/vendor/bxslider-4/dist/images/bx_loader.gif' %}
-{% endimage %}
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                {% for announcement in announcements %}
+                                    <li>
+                                    {% if announcement.image is defined and announcement.image is not null %}
+                                        <li data-target="#home-carousel" data-slide-to="{{ loop.index }}"></li>
+                                    {% endif %}
+
+                                    </li>
+                                {% endfor %}
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                {% for announcement in announcements %}
+                                    {% if announcement.image is defined and announcement.image is not null %}
+                                        <div class="item active">
+                                            <img src="{{ announcement.image|imagine_filter('announcement_original') }}"
+                                                 alt="{{ announcement.title }}">
+                                            <div class="carousel-caption">
+                                                <h4><i class="fa fa-link"></i> <a
+                                                            href="{{ announcement.content }}">{{ announcement.title }}</a>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#home-carousel" data-slide="prev">
+                                <i class="material-icons">keyboard_arrow_left</i>
+                            </a>
+                            <a class="right carousel-control" href="#home-carousel" data-slide="next">
+                                <i class="material-icons">keyboard_arrow_right</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Carousel Card -->
+            </div>
+        </div>
+    </div>
+</div>
