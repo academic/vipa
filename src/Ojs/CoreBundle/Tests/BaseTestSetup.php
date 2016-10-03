@@ -4,7 +4,6 @@ namespace Ojs\CoreBundle\Tests;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Ojs\CoreBundle\Service\SampleObjectLoader;
-use Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Doctrine\ORM\EntityManager;
@@ -53,11 +52,6 @@ abstract class BaseTestSetup extends WebTestCase
      * @var bool
      */
     protected static $isFirstTest = true;
-
-    /**
-     * @var bool | User
-     */
-    protected static $testAdminUser = false;
 
     protected function setUp()
     {
@@ -159,20 +153,8 @@ abstract class BaseTestSetup extends WebTestCase
         return $this->app->run(new ArrayInput($options));
     }
 
-    protected function logIn($username = null, $password = 'admin')
+    protected function logIn($username = 'admin', $password = 'admin')
     {
-        if($username === null && self::$testAdminUser === false){
-            self::$testAdminUser = $this->sampleObjectLoader->loadAdminUser();
-            $username = self::$testAdminUser->getUsername();
-
-            echo 'Created Admin User -> username -> '. $username."\n";
-        }elseif(self::$testAdminUser instanceof User){
-
-            $username = self::$testAdminUser->getUsername();
-        }else{
-            $username = 'admin';
-        }
-
         $this->client->setServerParameter('PHP_AUTH_USER', $username);
         $this->client->setServerParameter('PHP_AUTH_PW', $password);
     }

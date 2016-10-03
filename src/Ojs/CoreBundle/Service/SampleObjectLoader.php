@@ -507,25 +507,4 @@ class SampleObjectLoader
 
         return $objects['user']->getId();
     }
-
-    /**
-     * @return User
-     */
-    public function loadAdminUser()
-    {
-        $entity = new User();
-        $entity
-            ->setUsername('admin'.rand(0, 9999))
-            ->setPassword('$2y$13$f7YsOYlVTlvauEhV.wTnUO1Q76CuZjcg1Ukf5tLHC8j8IlQ1V4p5S')
-            ->setFirstName('admin '.rand(0,10))
-            ->setLastName('admin last'.rand(0,10))
-            ->setEmail('admin.email.'.rand(0,9999).'@test.com')
-            ->setEnabled(true)
-            ->addRole('ROLE_SUPER_ADMIN')
-        ;
-        $this->em->persist($entity);
-        $this->em->flush();
-
-        return $entity;
-    }
 }
