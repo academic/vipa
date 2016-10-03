@@ -30,7 +30,7 @@
                             <li>
                                 <a href="#tasks">
                                     <i class="fa fa-user"></i>
-                                     {{ stats.user|number_format(0,'.','.') }}
+                                    {{ stats.user|number_format(0,'.','.') }}
                                 </a>
                             </li>
                         </ul>
@@ -42,31 +42,31 @@
     </div>
 
     <div class="main main-raised">
-        <section role="search" id="search_section">
+        <div role="search" id="search_section">
             <div class="row">
 
-                    <form action="{{ path('ojs_search_index') }}" method="get">
+                <form action="{{ path('ojs_search_index') }}" method="get">
 
-                        <div class="form-group">
+                    <div class="form-group">
 
-                            <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-8 col-md-offset-2">
                             <input type="text" name="q" class="form-control" value=""
                                    placeholder="{{ "search.on.everywhere" | trans({'%project_name%' : project_name}) }}"
                                    id="q"/>
 
-                             </div>
-                            <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1">
                             <span class="input-group-btn">
                                         <button class="btn btn-primary" type="submit" title="{{ "search"|trans }}"><i
                                                     class="fa fa-search"></i></button>
                                     </span>
-                            </div>
                         </div>
-                        <input type="hidden" name="type" value="basic" id="search-type">
-                    </form>
+                    </div>
+                    <input type="hidden" name="type" value="basic" id="search-type">
+                </form>
             </div>
-        </section>
-        <section role="actions">
+        </div>
+        <div role="actions">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <div id="homepage-buttons" class="text-center">
@@ -100,73 +100,74 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <div class="section section-notifications" id="notifications">
-            <div class="alert alert-info">
-                <div class="container-fluid">
-                    <div class="alert-icon">
-                        <i class="fa fa-info"></i>
-                    </div>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true"><i class="fa fa-check"></i></span>
-                    </button>
-
-                    <b>bilgi</b> asdğaps ğpdağsdp ğapsdğüpa ğpü
-                </div>
-            </div>
-            <div class="clearfix"></div>
         </div>
 
         {% if announcements is defined and announcements is not empty %}
             {% include '::slider.html.twig' %}
         {% endif %}
-        <section role="featured">
-            <h4 class="page-header text-success"><i class="fa fa-trophy"></i> {{ 'featured'|trans }}</h4>
-
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <div class="row">
-                        {% for journal in journals %}
-                            {% set journalDefault = journal.setDefaultLocale(app.request.defaultLocale) %}
-                            {% include '::journal.html.twig' %}
-                        {% endfor %}
+        <div role="featured" class="section">
+            <div class="alert alert-success">
+                <div class="container-fluid">
+                    <div class="alert-icon">
+                        <i class="fa fa-trophy"></i>
                     </div>
+
+                    <b>{{ 'featured'|trans }}</b>
                 </div>
             </div>
-        </section>
+            <div class="row">
+                {% for journal in journals %}
+                    {% set journalDefault = journal.setDefaultLocale(app.request.defaultLocale) %}
+                    {% include '::journal.html.twig' %}
+                {% endfor %}
+            </div>
+        </div>
 
         {% if subjects is not empty %}
-            <section role="topics">
-                <h4 class="page-header text-info"><i class="fa fa-bookmark"></i> {{ "subject.plural"|trans }}</h4>
+            <div role="topics" class="section">
+                <div class="alert alert-warning">
+                    <div class="container-fluid">
+                        <div class="alert-icon">
+                            <i class="fa fa-bookmark"></i>
+                        </div>
 
+                        <b>{{ "subject.plural"|trans }}</b>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12 col-xs-12 home-subject-tree">
                         {{ subjects|raw }}
                     </div>
                 </div>
-            </section>
+            </div>
         {% endif %}
 
         {% if posts | length > 0 %}
-            <section role="posts">
-                <h4 class="page-header text-success">
-                    <i class="fa fa-file-text"></i>
-                    {{ 'title.posts'|trans }}
-                </h4>
+            <div role="posts" class="section">
+                <div class="row">
+                    <div class="col-md-8 col-md-push-2 col-xs-12">
+                        <h4 class="page-header text-success">
+                            <i class="fa fa-file-text"></i>
+                            {{ 'title.posts'|trans }}
+                        </h4>
+                    </div>
+                </div>
 
                 <div class="row">
-                    <ul class="fa-ul">
-                        {% for post in posts %}
-                            <li>
-                                <i class="fa-li fa fa-file-text-o"></i>
-                                <a href="{{ path('ojs_site_cms_post', {'slug': post.slug}) }}">
-                                    <h5>{{ post.title }}</h5>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    <div class="col-md-8 col-md-push-2 col-xs-12">
+                        <ul class="fa-ul">
+                            {% for post in posts %}
+                                <li>
+                                    <i class="fa-li fa fa-file-text-o"></i>
+                                    <a href="{{ path('ojs_site_cms_post', {'slug': post.slug}) }}">
+                                        <h5>{{ post.title }}</h5>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-            </section>
+            </div>
         {% endif %}
     </div>
 
