@@ -8,11 +8,9 @@ use Ojs\JournalBundle\Service\JournalService;
 
 class JournalFilter extends SQLFilter
 {
-    protected $listener;
-    protected $entityManager;
-    protected $disabled = array();
-
-    /** @var  JournalService */
+    /**
+     * @var  JournalService
+     */
     protected $journalService;
 
     /**
