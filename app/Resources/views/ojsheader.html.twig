@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top" role="navigation">
+<div class="navbar navbar-fixed-top navbar-zero-padding" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -45,7 +45,7 @@
                                    placeholder="{{ "search.on.everywhere" | trans({'%project_name%' : project_name}) }}"
                                    name="q">
                             <div class="input-group-btn">
-                                <button class="btn btn-primary btn-lg" type="submit"><i class="glyphicon glyphicon-search"></i>
+                                <button class="btn btn-just-icon btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </div>
                             {% if search_section is defined %}
