@@ -4,9 +4,6 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    {% stylesheets "@bxslider_css" output="assets/prod/js/bxslider.css" %}
-    <link rel="stylesheet" href="{{ asset_url }}">
-    {% endstylesheets %}
 {% endblock %}
 {% block body %}
     <div class="header" style="margin:140px 0 0px 0; min-height: 150px">
