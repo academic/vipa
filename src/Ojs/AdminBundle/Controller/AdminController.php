@@ -88,6 +88,7 @@ class AdminController extends Controller
             'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($slicedLastMonth),
             'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
             'exitedJournal' => $generator->generateExitedJournalData(),
+            'issuePublish' => $generator->generateIssuePublishCountData(),
         ];
 
         $cache->save('admin_statistics', $data, 1800);
