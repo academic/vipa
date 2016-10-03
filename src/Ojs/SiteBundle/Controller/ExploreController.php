@@ -143,7 +143,7 @@ class ExploreController extends Controller
 
         $data = [
             'types'          => $types,
-            'page'           => 'ojs_site_explore_publisher',
+            'page'           => 'explore',
             'publishers'     => $publishers,
             'pagerfanta'     => $pagerfanta,
             'type_filters'   => $typeFilters,

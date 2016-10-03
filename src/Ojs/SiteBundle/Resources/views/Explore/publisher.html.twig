@@ -12,44 +12,66 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-3 col-sm-3">
-            <div class="panel-group">
-                {% if types is not empty %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">{{ 'title.publisher_types'|trans }}</div>
-                        <ul class="list-group filter-box">
-                            {% for type in types %}
-                                <li class="list-group-item">
-                                    {% if type_filters is empty %}
-                                        {% set parameter = type.key %}
-                                        <a href="{{ path('ojs_site_explore_publisher', {type_filters: type.key}) }}">{{ type.key|trans }}</a>
-                                    {% else %}
-                                        {% if type.key in type_filters %}
-                                            {% set parameter = type_filters|pop(type.key) %}
-                                            {{ type.key|trans }}
-                                            <a href="{{ path('ojs_site_explore_publisher', {type_filters: parameter|join(',')}) }}">
-                                        <span class="label label-danger">
-                                            <i class="glyphicon glyphicon-remove"></i>
-                                        </span>
-                                            </a>
-                                        {% else %}
-                                            {% set parameter = type_filters|merge([type.key]) %}
-                                            <a href="{{ path('ojs_site_explore_publisher', {type_filters: parameter|join(',')}) }}">{{ type.key|trans }}</a>
-                                        {% endif %}
-                                    {% endif %}
-                                    <span class="badge">{{ type.doc_count }}</span>
-                                </li>
-                            {% endfor %}
-                        </ul>
+    <div class="wrapper">
+        <div class="header"
+             style="background-image: url('https://images.unsplash.com/photo-1433838552652-f9a46b332c40?crop=entropy&fit=crop&fm=png&h=750&q=80&w=1450');">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1 class="title">{{ "ojs.journal.welcome_msg"|trans }}</h1>
+                        <h4></h4>
+                        <br/>
+                        <a href="#" data-href="#page-explore-journals"
+                           class="btn btn-danger btn-raised btn-lg js-scroll-to">
+                            <i class="fa fa-globe"></i> Explore
+                        </a>
                     </div>
-                {% endif %}
+                </div>
             </div>
         </div>
 
-        <div class="col-md-9 col-sm-9">
-            {% for publisher in publishers %}
-                <a class="publisher" href="{{ path('ojs_site_explore_index', {publisher_filters: publisher.name}) }}">
+        <div class="main main-raised" id="page-explore-journals">
+            <div class="container">
+                <div class="section">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="panel-group">
+                                {% if types is not empty %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">{{ 'title.publisher_types'|trans }}</div>
+                                        <ul class="list-group filter-box">
+                                            {% for type in types %}
+                                                <li class="list-group-item">
+                                                    {% if type_filters is empty %}
+                                                        {% set parameter = type.key %}
+                                                        <a href="{{ path('ojs_site_explore_publisher', {type_filters: type.key}) }}">{{ type.key|trans }}</a>
+                                                    {% else %}
+                                                        {% if type.key in type_filters %}
+                                                            {% set parameter = type_filters|pop(type.key) %}
+                                                            {{ type.key|trans }}
+                                                            <a href="{{ path('ojs_site_explore_publisher', {type_filters: parameter|join(',')}) }}">
+                                        <span class="label label-danger">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </span>
+                                                            </a>
+                                                        {% else %}
+                                                            {% set parameter = type_filters|merge([type.key]) %}
+                                                            <a href="{{ path('ojs_site_explore_publisher', {type_filters: parameter|join(',')}) }}">{{ type.key|trans }}</a>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    <span class="badge">{{ type.doc_count }}</span>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-9 col-sm-9">
+                            {% for publisher in publishers %}
+                                <a class="publisher"
+                                   href="{{ path('ojs_site_explore_index', {publisher_filters: publisher.name}) }}">
                     <span class="publisher-inner">
                         {% if publisher.logo is defined and publisher.logo is not null %}
                             <span class="publisher-logo">
@@ -60,17 +82,21 @@
                         {% endif %}
                         <span class="publisher-title">{{ publisher.name }}</span>
                     </span>
-                </a>
-            {% endfor %}
-        </div>
-    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
 
-    <div class="row">
-        <div class="col-12-xs">
-            <div class="text-center">
-                <ul class="pagination">
-                    {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
-                </ul>
+                    <div class="row">
+                        <div class="col-12-xs">
+                            <div class="text-center">
+                                <ul class="pagination">
+                                    {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -3629,23 +3629,23 @@ h2.title {
   background: -webkit-linear-gradient(135deg, rgba(101, 47, 142, 0.88) 0%, rgba(125, 46, 185, 0.45) 100%);
 }
 
-.landing-page .header {
+.page-explore .header {
   height: 100vh;
 }
-.landing-page .header .container {
+.page-explore .header .container {
   padding-top: 26vh;
   color: #FFFFFF;
 }
-.landing-page .header .share {
+.page-explore .header .share {
   margin-top: 150px;
 }
-.landing-page .header h1 {
+.page-explore .header h1 {
   font-weight: 600;
 }
-.landing-page .header .title {
+.page-explore .header .title {
   color: #FFFFFF;
 }
-.landing-page .wrapper {
+.page-explore .wrapper {
   background: #CCCCCC;
 }
 
@@ -3687,7 +3687,7 @@ h2.title {
   color: #FFFFFF;
 }
 
-.landing-page .navbar-transparent,
+.page-explore .navbar-transparent,
 .page-profile .navbar-transparent,
 .page-signup .navbar-transparent,
 .index-page .navbar-transparent {
@@ -3695,11 +3695,11 @@ h2.title {
 }
 
 @media (max-width: 991px) {
-  .landing-page .header {
+  .page-explore .header {
     height: auto;
     min-height: 100vh;
   }
-  .landing-page .header .container {
+  .page-explore .header .container {
     padding-bottom: 70px;
   }
 }
