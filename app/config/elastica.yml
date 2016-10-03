@@ -64,7 +64,7 @@ fos_elastica:
             driver: orm
             model: Ojs\UserBundle\Entity\User
             provider: ~
-            listener: ~
+            listener: "%elastica_listener%"
             finder: ~
             provider:
               debug_logging: true
@@ -129,7 +129,7 @@ fos_elastica:
             driver: orm
             model: Ojs\JournalBundle\Entity\Article
             provider: ~
-            listener:
+            listener: "%elastica_listener%"
             finder: ~
             provider:
               debug_logging: false
@@ -160,7 +160,7 @@ fos_elastica:
             driver: orm
             model: Ojs\JournalBundle\Entity\Publisher
             provider: ~
-            listener: ~
+            listener: "%elastica_listener%"
             finder: ~
             provider:
               debug_logging: false
@@ -235,7 +235,7 @@ fos_elastica:
             driver: orm
             model: Ojs\JournalBundle\Entity\Journal
             provider: ~
-            listener: ~
+            listener: "%elastica_listener%"
             finder: ~
             provider:
               debug_logging: false
@@ -261,7 +261,7 @@ fos_elastica:
             driver: orm
             model: Ojs\JournalBundle\Entity\Subject
             provider: ~
-            listener: ~
+            listener: "%elastica_listener%"
             finder: ~
             provider:
               debug_logging: false
@@ -287,7 +287,7 @@ fos_elastica:
             driver: orm
             model: Ojs\JournalBundle\Entity\Citation
             provider: ~
-            listener: ~
+            listener: "%elastica_listener%"
             finder: ~
         journal_page:
           mappings:
@@ -302,7 +302,7 @@ fos_elastica:
             driver: orm
             model: Ojs\JournalBundle\Entity\JournalPage
             provider: ~
-            listener: ~
+            listener: "%elastica_listener%"
             finder: ~
         author:
           indexable_callback: 'isIndexable'
@@ -358,5 +358,5 @@ fos_elastica:
             driver: orm
             model: Ojs\JournalBundle\Entity\Author
             provider: ~
-            listener: ~
+            listener: "%elastica_listener%"
             finder: ~
