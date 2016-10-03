@@ -2,67 +2,60 @@
 {% block title %}{{ 'title.login'|trans }} {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 hidden-xs">
-                <p class="lead text-center">{{ project_name }}: {{ 'register_advantages_text'|trans }}</p>
-                <p class="text-center">
-                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-success btn-bg">
-                        <i class="fa fa-user"></i> {{ "register"|trans }}</a>
-                </p>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h1 class="panel-title"><i class="fa fa-key"></i> {{ "login"|trans }}</h1>
-                    </div>
-                    <div class="panel-body">
-                        <form action="{{ path('fos_user_security_check') }}" method="post">
-                            {% include '::flashbag.html.twig' %}
-                            {% if error %}
-                                <div class="alert alert-danger">
-                                    {{ error.message }}
+<div class="wrapper">
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <div class="card card-signup">
+                        <form class="form" action="{{ path('fos_user_security_check') }}" method="post">
+                            <div class="header header-primary text-center">
+                                <h4>{{ 'oauth.login_with'|trans }}</h4>
+                                <div class="social-line">
+                                    {% for owner in hwi_oauth_resource_owners() %}
+                                        <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-info">
+                                                {{ owner|trans }}
+                                        </a>
+                                    {% endfor %}
                                 </div>
-                            {% endif %}
-                            <div class="form-group">
-                                <label for="username">{{ "username.or.email"|trans }}</label>
-                                <input tabindex="1" autofocus="autofocus" autocomplete="off" name="_username"
-                                       value="{{ last_username }}"
-                                       type="text"
-                                       class="form-control" id="username"
-                                       placeholder="{{ "username"|trans }}">
                             </div>
-                            <div class="form-group">
-                                <label for="password">{{ "password"|trans }}
-                                    <a tabindex="3"
-                                       href="{{ url('fos_user_resetting_request') }}">({{ "forgot.password"|trans }})</a></label>
-                                <input tabindex="2" name="_password" type="password" autocomplete="off"
-                                       class="form-control"
-                                       id="password" placeholder="{{ "password"|trans }}">
-                            </div>
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                            <button type="submit" class="btn btn-sm btn-primary">
-                                <i class="fa fa-sign-in"></i> {{ "login"|trans }}
-                            </button>
-                        </form>
-                        <hr>
-                        <h5>{{ 'oauth.login_with'|trans }}</h5>
-                        {% for owner in hwi_oauth_resource_owners() %}
-                            <a href="{{ hwi_oauth_login_url(owner) }}" class="link-unstyled">
-                                <button type="button" class="btn btn-labeled btn-success">
-                                    <span class="btn-label">
-                                        <i class="fa fa-{{ owner }} fa-key"></i>
-                                    </span>
-                                    {{ owner|trans }}
+                            <p class="text-divider"><i class="fa fa-key"></i> {{ "login"|trans }}</p>
+                            <div class="content">
+                                {% include '::flashbag.html.twig' %}
+                                {% if error %}
+                                    <div class="alert alert-danger">
+                                        {{ error.message }}
+                                    </div>
+                                {% endif %}
+                                <div class="form-group">
+                                    <label for="username">{{ "username.or.email"|trans }}</label>
+                                    <input tabindex="1" autofocus="autofocus" autocomplete="off" name="_username"
+                                           value="{{ last_username }}"
+                                           type="text"
+                                           class="form-control" id="username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">{{ "password"|trans }}
+                                        <a tabindex="3"
+                                           href="{{ url('fos_user_resetting_request') }}">({{ "forgot.password"|trans }})</a></label>
+                                    <input tabindex="2" name="_password" type="password" autocomplete="off"
+                                           class="form-control"
+                                           id="password">
+                                </div>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                                <button type="submit" class="btn btn-primary btn-bg">
+                                    <i class="fa fa-sign-in"></i> {{ "login"|trans }}
                                 </button>
-                            </a>
-                        {% endfor %}
-                        <span class="help-block">{{ 'oauth.connect_before'|trans }}</span>
+                                <a href="{{ path('fos_user_registration_register') }}" class="btn btn-success btn-bg pull-right">
+                                    <i class="fa fa-user"></i> {{ "register"|trans }}</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}

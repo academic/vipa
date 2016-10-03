@@ -3676,20 +3676,20 @@ h2.title {
   margin-bottom: 30px;
 }
 
-.signup-page .wrapper > .header {
+.page-signup .wrapper > .header {
   min-height: 100vh;
 }
-.signup-page .wrapper .card-signup {
+.page-signup .wrapper .card-signup {
   margin: 160px 0 40px;
 }
-.signup-page .footer .copyright,
-.signup-page .footer a {
+.page-signup .footer .copyright,
+.page-signup .footer a {
   color: #FFFFFF;
 }
 
 .landing-page .navbar-transparent,
 .page-profile .navbar-transparent,
-.signup-page .navbar-transparent,
+.page-signup .navbar-transparent,
 .index-page .navbar-transparent {
   padding-top: 25px;
 }

@@ -151,7 +151,8 @@ class SecurityController extends BaseSecurityController
         return $this->render('OjsUserBundle:Security:login.html.twig',array(
             'last_username' => $lastUsername,
             'error' => $error,
-            'csrf_token' => $csrfToken
+            'csrf_token' => $csrfToken,
+            'page' => 'signup'
         ));
     }
 
