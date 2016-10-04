@@ -73,7 +73,8 @@ class AdminController extends Controller
             'issueFileDownloads' => $generator->generateIssueFilePieChartData($slicedLastMonth),
             'articleFileDownloads' => $generator->generateArticleFilePieChartData($slicedLastMonth),
             'application' => $generator->generateApplicationBarChartData(),
-            'doi' => $generator->generateDoiBarChartData(),
+            'doiArticle' => $generator->generateDoiArticleBarChartData(),
+            'doiJournal' => $generator->generateDoiJournalBarChartData(),
         ];
 
         $data = [
@@ -85,9 +86,11 @@ class AdminController extends Controller
             'journalsMonthly' => $generator->generateJournalViewsData($slicedLastMonth),
             'articlesMonthly' => $generator->generateArticleViewsData($slicedLastMonth),
             'applicationMonthly' => $generator->generateApplicationMonthlyData(),
-            'doiMonthly' => $generator->generateDoiMonthlyData(),
             'applicationYearly' => $generator->generateApplicationYearlyData(),
-            'doiYearly' => $generator->generateDoiYearlyData(),
+            'doiArticleMonthly' => $generator->generateDoiArticleMonthlyData(),
+            'doiArticleYearly' => $generator->generateDoiArticleYearlyData(),
+            'doiJournalMonthly' => $generator->generateDoiJournalMonthlyData(),
+            'doiJournalYearly' => $generator->generateDoiJournalYearlyData(),
             'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($slicedLastMonth),
             'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
             'exitedJournal' => $generator->generateExitedJournalData(),

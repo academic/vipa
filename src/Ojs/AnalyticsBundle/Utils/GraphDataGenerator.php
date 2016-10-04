@@ -93,7 +93,7 @@ class GraphDataGenerator
     /**
      * @return array
      */
-    public function generateDoiBarChartData()
+    public function generateDoiArticleBarChartData()
     {
 
         $connectionParams = $this->manager->getConnection()->getParams();
@@ -118,6 +118,38 @@ class GraphDataGenerator
         }
         return [$doiDataX,$doiDataCount];
     }
+
+
+    /**
+     * @return array
+     */
+    public function generateDoiJournalBarChartData()
+    {
+
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = "SELECT count(DISTINCT journal_id) as count, strftime(\"%Y-%m\", journal.created) as group_month FROM journal_extra JOIN journal on journal.id = journal_extra.id GROUP BY group_month";
+        }else{
+            $sql = "SELECT count(DISTINCT journal_id) as count, date_trunc('month', journal.created) as group_month FROM journal_extra JOIN journal on journal.id = journal_extra.id GROUP BY group_month ORDER BY group_month DESC";
+        }
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count','count');
+        $rsm->addScalarResult('group_month','month');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        $doiDataX = ['x'];
+        $doiDataCount = ['Doi'];
+
+        foreach($results as $result){
+            $doiDataX[] = substr($result['month'], 0, 10);
+            $doiDataCount[] = $result['count'];
+        }
+        return [$doiDataX,$doiDataCount];
+    }
+
     /**
      * @return array
      */
@@ -384,7 +416,7 @@ class GraphDataGenerator
     /**
      * @return array
      */
-    public function generateDoiMonthlyData()
+    public function generateDoiArticleMonthlyData()
     {
         $connectionParams = $this->manager->getConnection()->getParams();
 
@@ -428,7 +460,7 @@ class GraphDataGenerator
     /**
      * @return array
      */
-    public function generateDoiYearlyData()
+    public function generateDoiArticleYearlyData()
     {
         $connectionParams = $this->manager->getConnection()->getParams();
 
@@ -441,6 +473,50 @@ class GraphDataGenerator
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('count','count');
         $rsm->addScalarResult('year','year');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    /**
+     * @return array
+     */
+    public function generateDoiJournalMonthlyData()
+    {
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = "SELECT count(DISTINCT journal_id) as count, strftime(\"%Y-%m\", journal.created) as group_month FROM journal_extra JOIN journal on journal.id = journal_extra.id GROUP BY group_month";
+        }else{
+            $sql = "SELECT count(DISTINCT journal_id) as count, date_trunc('month', journal.created) as group_month FROM journal_extra JOIN journal on journal.id = journal_extra.id GROUP BY group_month ORDER BY group_month DESC";
+        }
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count','count');
+        $rsm->addScalarResult('group_month','month');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    /**
+     * @return array
+     */
+    public function generateDoiJournalYearlyData()
+    {
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = "SELECT count(DISTINCT journal_id) as count, strftime(\"%Y\", journal.created) as group_year FROM journal_extra JOIN journal on journal.id = journal_extra.id GROUP BY group_year";
+        }else{
+            $sql = "SELECT count(DISTINCT journal_id) as count, date_trunc('year', journal.created) as group_year FROM journal_extra JOIN journal on journal.id = journal_extra.id GROUP BY group_year ORDER BY group_year DESC";
+        }
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count','count');
+        $rsm->addScalarResult('group_year','year');
         $query = $this->manager->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
 

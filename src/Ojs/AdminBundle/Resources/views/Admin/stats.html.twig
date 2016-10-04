@@ -24,7 +24,8 @@
         <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab" data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
         <li role="presentation"><a href="#issueFile" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.issue_files"|trans }}</a></li>
         <li role="presentation"><a href="#applications" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.journal_application"|trans }}</a></li>
-        <li role="presentation"><a href="#doi" aria-controls="messages" role="tab" data-toggle="tab">{{ "stats.doi"|trans }}</a></li>
+        <li role="presentation"><a href="#doiArticle" aria-controls="messages" role="tab" data-toggle="tab">{{ "stats.doi"|trans }} ({{ "article"|trans }})</a></li>
+        <li role="presentation"><a href="#doiJournal" aria-controls="messages" role="tab" data-toggle="tab">{{ "stats.doi"|trans }} ({{ "journal"|trans }})</a></li>
         <li role="presentation"><a href="#other" aria-controls="messages" role="tab" data-toggle="tab">{{ "other.statistics"|trans }}</a></li>
     </ul>
 
@@ -259,15 +260,15 @@
                 </div>
             </div>
         </div>
-        <div role="tabpanel" class="tab-pane fade" id="doi">
-            <div id="doiChart"></div>
-            <h3>{{ "stats.doi"|trans }}</h3>
+        <div role="tabpanel" class="tab-pane fade" id="doiArticle">
+            <div id="doiArticleChart"></div>
+            <h3>{{ "stats.doi"|trans }} ({{ "article"|trans }})</h3>
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#doiMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "monthly"|trans }}</a></li>
-                <li role="presentation"><a href="#doiYearly" aria-controls="profile" role="tab" data-toggle="tab">{{ "yearly"|trans }}</a></li>
+                <li role="presentation" class="active"><a href="#doiArticleMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "monthly"|trans }}</a></li>
+                <li role="presentation"><a href="#doiArticleYearly" aria-controls="profile" role="tab" data-toggle="tab">{{ "yearly"|trans }}</a></li>
             </ul>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="doiMonthly">
+                <div role="tabpanel" class="tab-pane fade in active" id="doiArticleMonthly">
                     <table class="table">
                         <thead>
                         <tr>
@@ -276,7 +277,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for doi in doiMonthly %}
+                        {% for doi in doiArticleMonthly %}
                             <tr>
                                 <td>{{ doi.month|slice(0,7) }}</td>
                                 <td>{{ doi.count }}</td>
@@ -285,7 +286,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="doiYearly">
+                <div role="tabpanel" class="tab-pane fade" id="doiArticleYearly">
                     <table class="table">
                         <thead>
                         <tr>
@@ -294,7 +295,53 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for doi in doiYearly %}
+                        {% for doi in doiArticleYearly %}
+                            <tr>
+                                <td>{{ doi.year|slice(0,4) }}</td>
+                                <td>{{ doi.count }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="doiJournal">
+            <div id="doiJournalChart"></div>
+            <h3>{{ "stats.doi"|trans }} ({{ "journal"|trans }})</h3>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#doiJournalMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "monthly"|trans }}</a></li>
+                <li role="presentation"><a href="#doiJournalYearly" aria-controls="profile" role="tab" data-toggle="tab">{{ "yearly"|trans }}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="doiJournalMonthly">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats.doi.monthly"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for doi in doiJournalMonthly %}
+                            <tr>
+                                <td>{{ doi.month|slice(0,7) }}</td>
+                                <td>{{ doi.count }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="doiJournalYearly">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats.doi.yearly"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for doi in doiJournalYearly %}
                             <tr>
                                 <td>{{ doi.year|slice(0,4) }}</td>
                                 <td>{{ doi.count }}</td>
@@ -344,6 +391,7 @@
         analytics.createChart('#articleFiles', data['articleFileDownloads']);
         analytics.createChart('#issueFiles', data['issueFileDownloads']);
         analytics.createApplicationChart('#application', data['application']);
-        analytics.createApplicationChart('#doiChart', data['doi']);
+        analytics.createApplicationChart('#doiArticleChart', data['doiArticle']);
+        analytics.createApplicationChart('#doiJournalChart', data['doiJournal']);
     </script>
 {% endblock %}
