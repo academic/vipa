@@ -111,6 +111,12 @@ class Journal extends AbstractTranslatable
      * @JMS\Expose
      */
     private $url;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $arrayCatalogs;
     /**
      * @var string
      * @JMS\Expose
@@ -505,6 +511,26 @@ class Journal extends AbstractTranslatable
             $langIds[] = $language->getCode();
         }
         $this->languageCodeSet = implode('-', $langIds);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getArrayCatalogs()
+    {
+        return $this->arrayCatalogs;
+    }
+
+    /**
+     * @param string $arrayCatalogs
+     *
+     * @return $this
+     */
+    public function setArrayCatalogs($arrayCatalogs)
+    {
+        $this->arrayCatalogs = $arrayCatalogs;
 
         return $this;
     }

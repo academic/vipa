@@ -323,6 +323,10 @@ Ojs\JournalBundle\Entity\Journal:
       nullable: true
       gedmo:
         - versioned
+    arrayCatalogs:
+      type: array
+      nullable: true
+      column: 'array_catalogs'
     googleAnalyticsId:
       type: string
       length: 50
