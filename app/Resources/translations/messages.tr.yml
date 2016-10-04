@@ -934,6 +934,9 @@ stats.downloads: İndirilmeler
 stats.application: 'Başvuru'
 stats.this_month: 'Bu Ay'
 stats.all_time: 'Tüm Zamanlar'
+stats.doi: 'Doi İstatistikleri'
+stats.doi.monthly: 'Aylık Doi İstatistikleri'
+stats.doi.yearly: 'Yıllık Doi İstatistikleri'
 status: Durum
 status.early_preview: 'Erken Görünüm'
 status.inreview: İncelemede

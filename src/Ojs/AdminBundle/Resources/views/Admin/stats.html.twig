@@ -24,6 +24,7 @@
         <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab" data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
         <li role="presentation"><a href="#issueFile" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.issue_files"|trans }}</a></li>
         <li role="presentation"><a href="#applications" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.journal_application"|trans }}</a></li>
+        <li role="presentation"><a href="#doi" aria-controls="messages" role="tab" data-toggle="tab">{{ "stats.doi"|trans }}</a></li>
         <li role="presentation"><a href="#other" aria-controls="messages" role="tab" data-toggle="tab">{{ "other.statistics"|trans }}</a></li>
     </ul>
 
@@ -258,6 +259,52 @@
                 </div>
             </div>
         </div>
+        <div role="tabpanel" class="tab-pane fade" id="doi">
+            <div id="doiChart"></div>
+            <h3>{{ "stats.doi"|trans }}</h3>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#doiMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "monthly"|trans }}</a></li>
+                <li role="presentation"><a href="#doiYearly" aria-controls="profile" role="tab" data-toggle="tab">{{ "yearly"|trans }}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="doiMonthly">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats.doi.monthly"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for doi in doiMonthly %}
+                            <tr>
+                                <td>{{ doi.month|slice(0,7) }}</td>
+                                <td>{{ doi.count }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="doiYearly">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats.doi.yearly"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for doi in doiYearly %}
+                            <tr>
+                                <td>{{ doi.year|slice(0,4) }}</td>
+                                <td>{{ doi.count }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div role="tabpanel" class="tab-pane fade" id="other">
             <h3>{{ "other.statistics"|trans }}</h3>
                     <table class="table">
@@ -297,5 +344,6 @@
         analytics.createChart('#articleFiles', data['articleFileDownloads']);
         analytics.createChart('#issueFiles', data['issueFileDownloads']);
         analytics.createApplicationChart('#application', data['application']);
+        analytics.createApplicationChart('#doiChart', data['doi']);
     </script>
 {% endblock %}

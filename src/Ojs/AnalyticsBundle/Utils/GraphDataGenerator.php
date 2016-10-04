@@ -93,6 +93,34 @@ class GraphDataGenerator
     /**
      * @return array
      */
+    public function generateDoiBarChartData()
+    {
+
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = 'SELECT count(id) as count , strftime("%m-%Y", created) as month  FROM article WHERE doi IS NOT NULL GROUP BY month';
+        }else{
+            $sql = 'SELECT count(id) as count , date_trunc(\'month\', created) as month FROM article WHERE doi IS NOT NULL GROUP BY month';
+        }
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count','count');
+        $rsm->addScalarResult('month','month');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        $applicationDataX = ['x'];
+        $applicationDataCount = ['Doi'];
+
+        foreach($results as $result){
+            $applicationDataX[] = substr($result['month'], 0, 10);
+            $applicationDataCount[] = $result['count'];
+        }
+        return [$applicationDataX,$applicationDataCount];
+    }
+    /**
+     * @return array
+     */
     public function generateApplicationBarChartData()
     {
 
@@ -356,6 +384,28 @@ class GraphDataGenerator
     /**
      * @return array
      */
+    public function generateDoiMonthlyData()
+    {
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = 'SELECT count(id) as count , strftime("%Y-%m", created) as month  FROM article WHERE doi IS NOT NULL GROUP BY month ORDER BY month DESC ';
+        }else{
+            $sql = 'SELECT count(id) as count , date_trunc(\'month\', created) as month FROM article WHERE doi IS NOT NULL GROUP BY month ORDER BY month DESC';
+        }
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count','count');
+        $rsm->addScalarResult('month','month');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    /**
+     * @return array
+     */
     public function generateApplicationYearlyData()
     {
         $connectionParams = $this->manager->getConnection()->getParams();
@@ -368,6 +418,28 @@ class GraphDataGenerator
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('result_count','result_count');
+        $rsm->addScalarResult('year','year');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    /**
+     * @return array
+     */
+    public function generateDoiYearlyData()
+    {
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = 'SELECT count(id) as count , strftime("%Y", created) as year FROM article WHERE doi IS NOT NULL GROUP BY year';
+        }else{
+            $sql = 'SELECT count(id) as count , date_trunc(\'year\', created) as year FROM article WHERE doi IS NOT NULL GROUP BY year';
+        }
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count','count');
         $rsm->addScalarResult('year','year');
         $query = $this->manager->createNativeQuery($sql, $rsm);
         $results = $query->getResult();

@@ -72,7 +72,8 @@ class AdminController extends Controller
             'articleViews' => $generator->generateArticleBarChartData($slicedLastMonth),
             'issueFileDownloads' => $generator->generateIssueFilePieChartData($slicedLastMonth),
             'articleFileDownloads' => $generator->generateArticleFilePieChartData($slicedLastMonth),
-            'application' => $generator->generateApplicationBarChartData($slicedLastMonth),
+            'application' => $generator->generateApplicationBarChartData(),
+            'doi' => $generator->generateDoiBarChartData(),
         ];
 
         $data = [
@@ -84,7 +85,9 @@ class AdminController extends Controller
             'journalsMonthly' => $generator->generateJournalViewsData($slicedLastMonth),
             'articlesMonthly' => $generator->generateArticleViewsData($slicedLastMonth),
             'applicationMonthly' => $generator->generateApplicationMonthlyData(),
+            'doiMonthly' => $generator->generateDoiMonthlyData(),
             'applicationYearly' => $generator->generateApplicationYearlyData(),
+            'doiYearly' => $generator->generateDoiYearlyData(),
             'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($slicedLastMonth),
             'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
             'exitedJournal' => $generator->generateExitedJournalData(),

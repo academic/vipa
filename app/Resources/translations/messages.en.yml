@@ -936,6 +936,9 @@ stats.downloads: Downloads
 stats.application: Application
 stats.this_month: 'This Month'
 stats.all_time: 'All Time'
+stats.doi: 'Doi Statistics'
+stats.doi.monthly: 'Monthly Doi Statistics'
+stats.doi.yearly: 'Yearly Doi Statistics'
 status: Status
 status.early_preview: 'Early Preview'
 status.inreview: in-Review
