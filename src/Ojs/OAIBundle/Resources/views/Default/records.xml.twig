@@ -21,22 +21,22 @@
                             xmlns:dc="http://purl.org/dc/elements/1.1/">
                         {% for translation in record.translations %}
                             {% if translation.title is not empty and translation.title != '-' %}
-                                <dc:title xml:lang="en-US"><![CDATA[{{ translation.title }}]]></dc:title>
+                                <dc:title xml:lang="en-US"><![CDATA[{{ translation.title|fixEncoding }}]]></dc:title>
                             {% endif %}
                         {% endfor %}
                         {% for author in record.articleAuthors %}
                             <dc:creator>
-                                <![CDATA[{{ author.author.lastName }}, {{ author.author.firstName }}]]>{% if author.author.institution %}; {{ author.author.institution.name }}{% endif %}
+                                <![CDATA[{{ author.author.lastName|fixEncoding }}, {{ author.author.firstName|fixEncoding }}]]>{% if author.author.institution %}; {{ author.author.institution.name }}{% endif %}
                             </dc:creator>
                         {% endfor %}
                         {% for translation in record.translations %}
                             {% if translation.keywords is not empty and translation.keywords != '-' %}
-                                <dc:subject><![CDATA[{{ record.keywords }}]]></dc:subject>
+                                <dc:subject><![CDATA[{{ record.keywords|fixEncoding }}]]></dc:subject>
                             {% endif %}
                         {% endfor %}
                         {% for translation in record.translations %}
                             {% if translation.abstract is not empty and translation.abstract != '-' %}
-                                <dc:description><![CDATA[{{ translation.abstract|striptags|replace({'': '', '': '','': '','': ''}) }}]]></dc:description>
+                                <dc:description><![CDATA[{{ translation.abstract|striptags|replace({'': '', '': '','': '','': ''})|fixEncoding }}]]></dc:description>
                             {% endif %}
                         {% endfor %}
                         {% for translation in record.journal.publisher.translations %}
@@ -55,16 +55,18 @@
                         <dc:identifier>{{ record.doi }}</dc:identifier>
                         {% if record.issue %}
                             <dc:source xml:lang="en-US">
+                                <![CDATA[
                                 {% if record.issue.displayMode is null or record.issue.displayMode == displayModes.all %}
-                                    {{ record.issue.title }}; Volume: {{ record.issue.volume }}, Issue: {{ record.issue.number }}
+                                    {{ record.issue.title|fixEncoding }}; Volume: {{ record.issue.volume }}, Issue: {{ record.issue.number }}
                                 {% elseif record.issue.displayMode == displayModes.title %}
-                                    {{ record.issue.title }}
+                                    {{ record.issue.title|fixEncoding }}
                                 {% elseif record.issue.displayMode == displayModes.volumeAndNumber %}
                                     Volume: {{ record.issue.volume }}, Issue: {{ record.issue.number }}
                                 {% endif %}
                                 {% if record.firstPage and record.lastPage %}
                                     {{ record.firstPage }}-{{ record.lastPage }}
                                 {% endif %}
+                                ]]>
                             </dc:source>
                         {% endif %}
                         {% if record.journal.issn %}
