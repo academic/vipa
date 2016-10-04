@@ -109,14 +109,14 @@ class GraphDataGenerator
         $query = $this->manager->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
 
-        $applicationDataX = ['x'];
-        $applicationDataCount = ['Doi'];
+        $doiDataX = ['x'];
+        $doiDataCount = ['Doi'];
 
         foreach($results as $result){
-            $applicationDataX[] = substr($result['month'], 0, 10);
-            $applicationDataCount[] = $result['count'];
+            $doiDataX[] = substr($result['month'], 0, 10);
+            $doiDataCount[] = $result['count'];
         }
-        return [$applicationDataX,$applicationDataCount];
+        return [$doiDataX,$doiDataCount];
     }
     /**
      * @return array
