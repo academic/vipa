@@ -15,11 +15,6 @@ Ojs\JournalBundle\Entity\ArticleAuthor:
             nullable: true
             gedmo:
                 - versioned
-        correspondenceAuthor:
-            type: boolean
-            column: correspondence_author
-            options:
-                default: false
         createdBy:
            type: string
            gedmo:
