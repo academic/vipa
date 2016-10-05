@@ -25,6 +25,8 @@
         <li role="presentation"><a href="#issueFile" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.issue_files"|trans }}</a></li>
         <li role="presentation"><a href="#applications" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.journal_application"|trans }}</a></li>
         <li role="presentation"><a href="#other" aria-controls="messages" role="tab" data-toggle="tab">{{ "other.statistics"|trans }}</a></li>
+        {{ twigEventDispatch({'event_name': 'OJS_ADMIN_STATS_DOI_TABS'})|raw }}
+        {{ twigEventDispatch({'event_name': 'OJS_ADMIN_STATS_EXTRA_TABS'})|raw }}
     </ul>
 
     <div id="statistics" class="tab-content">
@@ -272,9 +274,27 @@
                                 <td>{{ "status.exited.count"|trans }}</td>
                                 <td>{{ exitedJournal.count }}</td>
                             </tr>
+
+                            {% for issue in issuePublish %}
+                                <tr>
+                                    <td>{{ "journal.count.which.publish.issue.annually"|trans }} ({{ issue.year|slice(0,4) }})</td>
+                                    <td>{{ issue.count }}</td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
         </div>
+        {{ twigEventDispatch({
+            'event_name': 'OJS_ADMIN_STATS_DOI_CONTENT',
+            'doi_article_monthly': (doiArticleMonthly ? doiArticleMonthly : null) ,
+            'doi_article_yearly': (doiArticleYearly ? doiArticleYearly : null)
+        })|raw }}
+
+        {{ twigEventDispatch({
+            'event_name': 'OJS_ADMIN_STATS_EXTRA_CONTENT',
+            'doi_journal_monthly':(doiJournalMonthly ? doiJournalMonthly : null),
+            'doi_journal_yearly':(doiJournalYearly ? doiJournalYearly : null)
+        })|raw }}
     </div>
 {% endblock %}
 
@@ -290,5 +310,8 @@
         analytics.createChart('#articleFiles', data['articleFileDownloads']);
         analytics.createChart('#issueFiles', data['issueFileDownloads']);
         analytics.createApplicationChart('#application', data['application']);
+
+        {{ twigEventDispatch({'event_name': 'OJS_ADMIN_STATS_DOI_SCRIPT'})|raw }}
+        {{ twigEventDispatch({'event_name': 'OJS_ADMIN_STATS_EXTRA_SCRIPT'})|raw }}
     </script>
 {% endblock %}

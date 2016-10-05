@@ -89,7 +89,6 @@ class GraphDataGenerator
         return $journalViews;
     }
 
-
     /**
      * @return array
      */
@@ -450,6 +449,33 @@ class GraphDataGenerator
         $rsm->addScalarResult('sum_download', 'download');
         $rsm->addScalarResult('id', 'id');
         $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+
+
+    /**
+     *
+     * @return array
+     */
+    public function generateIssuePublishCountData()
+    {
+
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = "SELECT COUNT(DISTINCT journal_id) as count, strftime('%Y', year) as group_year FROM issue GROUP BY group_year";
+        }else{
+            $sql = "SELECT COUNT(DISTINCT journal_id) as count, date_trunc('year', year) as group_year FROM issue GROUP BY group_year ORDER BY group_year DESC";
+        }
+
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count', 'count');
+        $rsm->addScalarResult('group_year', 'year');
+        $query = $this->manager->createNativeQuery($sql,$rsm);
         $results = $query->getResult();
 
         return $results;

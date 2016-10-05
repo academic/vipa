@@ -934,6 +934,9 @@ stats.downloads: İndirilmeler
 stats.application: 'Başvuru'
 stats.this_month: 'Bu Ay'
 stats.all_time: 'Tüm Zamanlar'
+stats.doi: 'Doi İstatistikleri'
+stats.doi.monthly: 'Aylık Doi İstatistikleri'
+stats.doi.yearly: 'Yıllık Doi İstatistikleri'
 status: Durum
 status.early_preview: 'Erken Görünüm'
 status.inreview: İncelemede
@@ -1449,6 +1452,7 @@ suggested.competingFile.can.view: 'Önerilen dosya görüntülenebilir.'
 from.here: Buradan
 submission.whats_missing: 'Eksik Nedir?'
 journal.design.cannot_delete_active: 'Aktif temayı silmeye izniniz yok. Bunu silmeden önce diğerini seçin.'
+journal.count.which.publish.issue.annually: 'Yıllık Sayı Yayınlayan Dergi Sayısı'
 validation:
   submission:
     title: 'Varsayılan dil için başlık alanı zorunludur.'
