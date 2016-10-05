@@ -2,12 +2,15 @@
 
 namespace Ojs\AdminBundle\Controller;
 
+use Ojs\AdminBundle\Events\StatEvent;
+use Ojs\AdminBundle\Events\StatEvents;
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AdminController extends Controller
 {
@@ -61,6 +64,9 @@ class AdminController extends Controller
         $cache = $this->container->get('file_cache');
         $generator = $this->container->get('ojs.graph.data.generator');
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
         $lastMonth = ['x'];
         for($i = 0; $i < 30; $i++) {
             $lastMonth[] = date($generator->getDateFormat(), strtotime('-' . $i . ' days'));
@@ -73,12 +79,9 @@ class AdminController extends Controller
             'issueFileDownloads' => $generator->generateIssueFilePieChartData($slicedLastMonth),
             'articleFileDownloads' => $generator->generateArticleFilePieChartData($slicedLastMonth),
             'application' => $generator->generateApplicationBarChartData(),
-            'doiArticle' => $generator->generateDoiArticleBarChartData(),
-            'doiJournal' => $generator->generateDoiJournalBarChartData(),
         ];
 
         $data = [
-            'stats' => json_encode($json),
             'journals' => $generator->generateJournalViewsData(),
             'articles' => $generator->generateArticleViewsData(),
             'issueFiles' => $generator->generateIssueFileDownloadsData(),
@@ -87,18 +90,21 @@ class AdminController extends Controller
             'articlesMonthly' => $generator->generateArticleViewsData($slicedLastMonth),
             'applicationMonthly' => $generator->generateApplicationMonthlyData(),
             'applicationYearly' => $generator->generateApplicationYearlyData(),
-            'doiArticleMonthly' => $generator->generateDoiArticleMonthlyData(),
-            'doiArticleYearly' => $generator->generateDoiArticleYearlyData(),
-            'doiJournalMonthly' => $generator->generateDoiJournalMonthlyData(),
-            'doiJournalYearly' => $generator->generateDoiJournalYearlyData(),
             'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($slicedLastMonth),
             'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
             'exitedJournal' => $generator->generateExitedJournalData(),
             'issuePublish' => $generator->generateIssuePublishCountData(),
         ];
-
+        
+        $event = new StatEvent($json, $data);
+        $dispatcher->dispatch(StatEvents::OJS_ADMIN_STATS_CACHE, $event);
+        
+        $data = $event->getData();
+        $data['stats'] = json_encode($event->getJson());
+        
+        
         $cache->save('admin_statistics', $data, 1800);
-
+        
         return true;
     }
 }
