@@ -286,14 +286,14 @@
         </div>
         {{ twigEventDispatch({
             'event_name': 'OJS_ADMIN_STATS_DOI_CONTENT',
-            'doi_article_monthly':doiArticleMonthly,
-            'doi_article_yearly':doiArticleYearly
+            'doi_article_monthly': (doiArticleMonthly ? doiArticleMonthly : null) ,
+            'doi_article_yearly': (doiArticleYearly ? doiArticleYearly : null)
         })|raw }}
 
         {{ twigEventDispatch({
             'event_name': 'OJS_ADMIN_STATS_EXTRA_CONTENT',
-            'doi_journal_monthly':doiJournalMonthly,
-            'doi_journal_yearly':doiJournalYearly
+            'doi_journal_monthly':(doiJournalMonthly ? doiJournalMonthly : null),
+            'doi_journal_yearly':(doiJournalYearly ? doiJournalYearly : null)
         })|raw }}
     </div>
 {% endblock %}
@@ -310,7 +310,6 @@
         analytics.createChart('#articleFiles', data['articleFileDownloads']);
         analytics.createChart('#issueFiles', data['issueFileDownloads']);
         analytics.createApplicationChart('#application', data['application']);
-
 
         {{ twigEventDispatch({'event_name': 'OJS_ADMIN_STATS_DOI_SCRIPT'})|raw }}
         {{ twigEventDispatch({'event_name': 'OJS_ADMIN_STATS_EXTRA_SCRIPT'})|raw }}
