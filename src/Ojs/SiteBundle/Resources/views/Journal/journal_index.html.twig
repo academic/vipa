@@ -65,13 +65,7 @@
 
                                 {% if journal.founded is defined %}
                                     <dt>
-
-                                        {% if journal.endingDate is defined and journal.endingDate is not empty %}
-                                            {{ "journal.endingDate"|trans }}
-                                        {% else %}
-                                            {{ "journal.founded"|trans }}
-                                        {% endif %}
-
+                                            {{ "journal.founded"|trans }}:
                                     </dt>
                                     <dd>
                                         {{ journal.founded|date('Y') }}
