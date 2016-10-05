@@ -547,7 +547,7 @@ journal.editor_phone: Telefon
 journal.editor_surname: 'Editör Soyadı'
 journal.eissn: e-ISSN
 journal.email: 'İletişim e-Postası'
-journal.founded: 'Başlangıç Tarihi'
+journal.founded: 'Başlangıç'
 journal.endingDate: 'Bitiş Tarihi (yeni makale kabul edilmeyecektir)'
 journal.file: 'Gerekli Dosyalar'
 journal.google.analytics.id: 'Google Analytics ID'
