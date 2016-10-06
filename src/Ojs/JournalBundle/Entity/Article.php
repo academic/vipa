@@ -252,6 +252,11 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     protected $doiStatus = DoiStatuses::NOT_AVAILABLE;
 
     /**
+     * @var ArrayCollection[Catalog]
+     */
+    private $catalogs;
+
+    /**
      * List of Article Status
      * @var array
      */
@@ -278,6 +283,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
         $this->translations = new ArrayCollection();
         $this->statistics = new ArrayCollection();
         $this->subjects = new ArrayCollection();
+        $this->catalogs = new ArrayCollection();
     }
 
     /**
@@ -1332,4 +1338,39 @@ class Article extends AbstractTranslatable implements JournalItemInterface
 
         return $this;
     }
+
+    /**
+     * Add catalog
+     *
+     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     *
+     * @return Article
+     */
+    public function addCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    {
+        $this->catalogs[] = $catalog;
+
+        return $this;
+    }
+
+    /**
+     * Remove catalog
+     *
+     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     */
+    public function removeCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    {
+        $this->catalogs->removeElement($catalog);
+    }
+
+    /**
+     * Get catalogs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCatalogs()
+    {
+        return $this->catalogs;
+    }
+
 }
