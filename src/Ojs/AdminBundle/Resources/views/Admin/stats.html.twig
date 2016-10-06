@@ -286,14 +286,14 @@
         </div>
         {{ twigEventDispatch({
             'event_name': 'OJS_ADMIN_STATS_DOI_CONTENT',
-            'doi_article_monthly': (doiArticleMonthly ? doiArticleMonthly : null) ,
-            'doi_article_yearly': (doiArticleYearly ? doiArticleYearly : null)
+            'doi_article_monthly': doiArticleMonthly is defined ? doiArticleMonthly : null ,
+            'doi_article_yearly':  doiArticleYearly is defined ? doiArticleYearly : null
         })|raw }}
 
         {{ twigEventDispatch({
             'event_name': 'OJS_ADMIN_STATS_EXTRA_CONTENT',
-            'doi_journal_monthly':(doiJournalMonthly ? doiJournalMonthly : null),
-            'doi_journal_yearly':(doiJournalYearly ? doiJournalYearly : null)
+            'doi_journal_monthly':  doiJournalMonthly is defined ? doiJournalMonthly : null,
+            'doi_journal_yearly':  doiJournalYearly is defined ? doiJournalYearly : null
         })|raw }}
     </div>
 {% endblock %}
