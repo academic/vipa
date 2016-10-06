@@ -130,9 +130,6 @@
                                                 {% set url = resultData.detail.route %}
                                                 {% set journal = journal|merge({'title':resultData.detail.name}) %}
                                                 {% include 'journal.html.twig' %}
-                                            {% elseif key == 'publisher' %}
-                                                <a href="{{ path('ojs_site_explore_index', {
-                                                    publisher_filters: app.request.get('q')}) }}">{{ resultData.detail.name }}</a>
                                             {% else %}
                                                 <a href="{{ resultData.detail.route }}">{{ resultData.detail.name }}</a> ({{ resultData.detail.route }})
                                             {% endif %}
