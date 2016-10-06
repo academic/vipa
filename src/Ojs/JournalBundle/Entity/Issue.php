@@ -185,6 +185,11 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      */
     private $inPress = false;
 
+    /**
+     * @var ArrayCollection[Catalog]
+     */
+    private $catalogs;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -192,6 +197,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
         $this->issueFiles = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->statistics = new ArrayCollection();
+        $this->catalogs = new ArrayCollection();
     }
 
     /**
@@ -850,5 +856,39 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
         $this->totalArticleDownload = $totalArticleDownload;
 
         return $this;
+    }
+
+    /**
+     * Add catalog
+     *
+     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     *
+     * @return Issue
+     */
+    public function addCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    {
+        $this->catalogs[] = $catalog;
+
+        return $this;
+    }
+
+    /**
+     * Remove catalog
+     *
+     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     */
+    public function removeCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    {
+        $this->catalogs->removeElement($catalog);
+    }
+
+    /**
+     * Get catalogs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCatalogs()
+    {
+        return $this->catalogs;
     }
 }

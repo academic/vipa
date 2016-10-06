@@ -325,6 +325,11 @@ class Journal extends AbstractTranslatable
     private $formerlyKnownAsJournal;
 
     /**
+     * @var ArrayCollection[Catalog]
+     */
+    private $catalogs;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -339,6 +344,7 @@ class Journal extends AbstractTranslatable
         $this->translations = new ArrayCollection();
         $this->journalApplicationUploadFiles = new ArrayCollection();
         $this->journalContacts = new ArrayCollection();
+        $this->catalogs = new ArrayCollection();
     }
 
     /**
@@ -1728,5 +1734,39 @@ class Journal extends AbstractTranslatable
             return true;
         }
         return false;
+    }
+
+    /**
+     * Add catalog
+     *
+     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     *
+     * @return Journal
+     */
+    public function addCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    {
+        $this->catalogs[] = $catalog;
+
+        return $this;
+    }
+
+    /**
+     * Remove catalog
+     *
+     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     */
+    public function removeCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    {
+        $this->catalogs->removeElement($catalog);
+    }
+
+    /**
+     * Get catalogs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCatalogs()
+    {
+        return $this->catalogs;
     }
 }
