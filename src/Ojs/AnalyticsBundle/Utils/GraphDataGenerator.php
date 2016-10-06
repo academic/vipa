@@ -100,7 +100,7 @@ class GraphDataGenerator
         if ($connectionParams['driver'] == 'pdo_sqlite') {
             $sql = 'SELECT count(id) as result_count , strftime("%m-%Y", created) as month  FROM journal GROUP BY month';
         }else{
-            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month';
+            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal WHERE created > (CURRENT_DATE - INTERVAL \'3\' month) GROUP BY month ORDER BY month DESC';
         }
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('result_count','result_count');
@@ -340,7 +340,7 @@ class GraphDataGenerator
         if ($connectionParams['driver'] == 'pdo_sqlite') {
             $sql = 'SELECT count(id) as result_count , strftime("%Y-%m", created) as month  FROM journal GROUP BY month ORDER BY month DESC ';
         }else{
-            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month ORDER BY month DESC';
+            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal WHERE created > (CURRENT_DATE - INTERVAL \'3\' month) GROUP BY month ORDER BY month DESC';
         }
 
         $rsm = new ResultSetMapping();
