@@ -403,6 +403,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             analytics.view('article', {{ article.id }}, '{{ token }}');
+            renderMathInElement(document.body);
         });
     </script>
 {% endblock %}
