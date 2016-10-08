@@ -148,7 +148,8 @@ class ArticleType extends AbstractType
                 array(
                     'label' => 'article.type',
                     'class' => 'Ojs\JournalBundle\Entity\ArticleTypes',
-                    'required' => false
+                    'required' => false,
+                    'choices' => $options['journal']->getArticleTypes()
                 )
             )
             ->add(

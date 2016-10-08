@@ -2,9 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Ojs\CoreBundle\Params\PublisherStatuses;
-use Ojs\JournalBundle\Entity\ArticleTypesRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\PublisherRepository;
@@ -67,19 +65,6 @@ class JournalEditType extends AbstractType
                         'class' => 'select2-element ',
                     ]
                 ]
-            )
-            ->add(
-                'articleTypes',
-                'entity',
-                array(
-                    'class' => 'OjsJournalBundle:ArticleTypes',
-                    'multiple' => true,
-                    'required' => true,
-                    'label' => 'article.types',
-                    'attr' => [
-                        'style' => 'height: 200px',
-                    ]
-                )
             )
             ->add(
                 'subjects',
