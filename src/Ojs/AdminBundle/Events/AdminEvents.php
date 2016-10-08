@@ -8,6 +8,7 @@ use Ojs\CoreBundle\Events\MailEventsInterface;
 final class AdminEvents implements MailEventsInterface
 {
     const ADMIN_USER_CHANGE = 'ojs.admin.user.change';
+    const ADMIN_USER_CHANGE_CREATE = 'ojs.admin.user.create';
     const ADMIN_CONTACT_CHANGE = 'ojs.admin.journal.contact.change';
     const JOURNAL_APPLICATION_HAPPEN = 'ojs.admin.journal.application.happen';
     const JOURNAL_APPLICATION_RESPONSE = 'ojs.admin.journal.application.response';
@@ -26,6 +27,9 @@ final class AdminEvents implements MailEventsInterface
         return [
             new EventDetail(self::ADMIN_USER_CHANGE, 'admin', [
                 'user.username', 'eventType', 'user.fullName', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::ADMIN_USER_CHANGE_CREATE.'.created.user', 'admin', [
+                'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::ADMIN_CONTACT_CHANGE, 'admin', [
                 'contact', 'eventType', 'done.by', 'receiver.username', 'receiver.fullName',
