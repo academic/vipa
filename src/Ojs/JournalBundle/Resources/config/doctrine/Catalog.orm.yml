@@ -1,0 +1,17 @@
+Ojs\JournalBundle\Entity\Catalog:
+    type: entity
+    table: catalog
+    repositoryClass: Ojs\JournalBundle\Entity\CatalogRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            nullable: false
+        domain:
+            type: string
+            nullable: false

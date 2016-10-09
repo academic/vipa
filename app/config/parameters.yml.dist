@@ -41,3 +41,4 @@ parameters:
     doi_start_year: 2014
     prevent_mail_merge: false
     elastica_enabled: false
+    catalogs: ['*']

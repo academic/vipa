@@ -111,6 +111,12 @@ class Journal extends AbstractTranslatable
      * @JMS\Expose
      */
     private $url;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $arrayCatalogs;
     /**
      * @var string
      * @JMS\Expose
@@ -210,6 +216,11 @@ class Journal extends AbstractTranslatable
      * @JMS\Expose
      */
     private $periods;
+    /**
+     * @var ArrayCollection|Period[]
+     * @JMS\Expose
+     */
+    private $catalogs;
     /**
      * @var string
      */
@@ -335,6 +346,7 @@ class Journal extends AbstractTranslatable
         $this->languages = new ArrayCollection();
         $this->sections = new ArrayCollection();
         $this->periods = new ArrayCollection();
+        $this->catalogs = new ArrayCollection();
         $this->subjects = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->journalApplicationUploadFiles = new ArrayCollection();
@@ -448,6 +460,37 @@ class Journal extends AbstractTranslatable
     }
 
     /**
+     * @param  Catalog $catalog
+     * @return Journal
+     */
+    public function addCatalog(Catalog $catalog)
+    {
+        if (!$this->catalogs->contains($catalog)) {
+            $this->catalogs->add($catalog);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Catalog $catalog
+     */
+    public function removeCatalog(Catalog $catalog)
+    {
+        if ($this->catalogs->contains($catalog)) {
+            $this->catalogs->removeElement($catalog);
+        }
+    }
+
+    /**
+     * @return ArrayCollection|Period[]
+     */
+    public function getCatalogs()
+    {
+        return $this->catalogs;
+    }
+
+    /**
      * @return string
      */
     public function getLanguageCodeSet()
@@ -468,6 +511,26 @@ class Journal extends AbstractTranslatable
             $langIds[] = $language->getCode();
         }
         $this->languageCodeSet = implode('-', $langIds);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getArrayCatalogs()
+    {
+        return $this->arrayCatalogs;
+    }
+
+    /**
+     * @param string $arrayCatalogs
+     *
+     * @return $this
+     */
+    public function setArrayCatalogs($arrayCatalogs)
+    {
+        $this->arrayCatalogs = $arrayCatalogs;
 
         return $this;
     }
