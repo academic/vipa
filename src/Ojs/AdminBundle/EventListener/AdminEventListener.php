@@ -46,6 +46,7 @@ class AdminEventListener implements EventSubscriberInterface
     {
         return array(
             AdminEvents::ADMIN_USER_CHANGE => 'onUserChange',
+            AdminEvents::ADMIN_USER_CHANGE_CREATE => 'onUserChangeCreate',
             AdminEvents::ADMIN_CONTACT_CHANGE => 'onJournalContactChange',
             AdminEvents::JOURNAL_APPLICATION_HAPPEN => 'onJournalApplicationHappen',
             AdminEvents::ADMIN_JOURNAL_CHANGE => 'onJournalChange',
@@ -83,6 +84,30 @@ class AdminEventListener implements EventSubscriberInterface
                 $template
             );
         }
+    }
+
+    /**
+     * @param AdminEvent $event
+     */
+    public function onUserChangeCreate(AdminEvent $event)
+    {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_USER_CHANGE_CREATE.'.created.user');
+        if(!$getMailEvent){
+            return;
+        }
+        /** @var User $entity */
+        $entity = $event->getEntity();
+        $transformParams = [
+            'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+            'receiver.username' => $entity->getUsername(),
+            'receiver.fullName' => $entity->getFullName(),
+        ];
+        $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+        $this->ojsMailer->sendToUser(
+            $entity,
+            $getMailEvent->getSubject(),
+            $template
+        );
     }
 
     /**

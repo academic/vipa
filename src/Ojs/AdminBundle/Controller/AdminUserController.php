@@ -93,7 +93,7 @@ class AdminUserController extends Controller
                 'eventType' => 'create',
                 'entity'    => $entity,
             ]);
-            $dispatcher->dispatch(AdminEvents::ADMIN_USER_CHANGE, $event);
+            $dispatcher->dispatch(AdminEvents::ADMIN_USER_CHANGE_CREATE, $event);
             return $this->redirectToRoute(
                 'ojs_admin_user_show',
                 [
