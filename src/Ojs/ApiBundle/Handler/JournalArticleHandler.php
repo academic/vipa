@@ -3,6 +3,7 @@
 namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\JournalBundle\Form\Type\ArticleType;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Service\JournalService;
@@ -147,6 +148,7 @@ class JournalArticleHandler
         }
         if ($form->isValid()) {
             $entity->setCurrentLocale('en');
+            $entity->setStatus(ArticleStatuses::STATUS_PUBLISH_READY);
             $entity->setJournal($this->journalService->getSelectedJournal());
             $this->om->persist($entity);
             $this->om->flush();
