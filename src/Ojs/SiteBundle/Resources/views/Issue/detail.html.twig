@@ -29,7 +29,7 @@
             %}
                 <h1>{{ fieldDisplay(issue, 'title') }}</h1>
                 <h4>
-                    {% if issue.volume is not null and issue.volume != 0 %}
+                    {% if issue.volume is not null and issue.volume != 0 and issue.volume != "0"%}
                         {{ "volume"|trans }}: {{ issue.volume }} -
                     {% endif %}
                     {{ "issue"|trans }}: {{ issue.number }}
