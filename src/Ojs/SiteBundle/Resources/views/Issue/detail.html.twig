@@ -154,6 +154,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             analytics.view('issue', {{ issue.id }}, '{{ token }}');
+            renderMathInElement(document.body);
         });
     </script>
 {% endblock %}
