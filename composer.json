@@ -56,9 +56,9 @@
     "symfony/assetic-bundle": "~2.8",
     "symfony/swiftmailer-bundle": "~2.3",
     "symfony/monolog-bundle": "~2.10",
-    "sensio/distribution-bundle": "~3.0",
+    "sensio/distribution-bundle": "~5.0",
     "sensio/framework-extra-bundle": "~3.0",
-    "sensio/generator-bundle": "~2.5",
+    "sensio/generator-bundle": "~3.0",
     "incenteev/composer-parameter-handler": "~2.1",
     "doctrine/doctrine-fixtures-bundle": "~2.3",
     "friendsofsymfony/rest-bundle": "~1.7",
@@ -105,19 +105,19 @@
     "liuggio/fastest": "dev-master"
   },
   "scripts": {
-    "post-install-cmd": [
+    "symfony-scripts": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+    ],
+    "post-install-cmd": [
+      "@symfony-scripts"
     ],
     "post-update-cmd": [
-      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+      "@symfony-scripts"
     ]
   },
   "config": {
