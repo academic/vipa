@@ -19,11 +19,15 @@ services:
 
 sudo: false
 
+before_install:
+  - npm install -g bower
+
 before_script:
   - phpenv config-add travis.php.ini
   - phpenv config-rm xdebug.ini
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - composer install --no-interaction --prefer-dist
+  - bower install --force --silent
   - chmod -R 777 app/cache app/logs
   - php app/console ojs:install --no-interaction --env=test
   - php app/console ojs:install:samples --env=test
