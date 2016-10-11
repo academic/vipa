@@ -47,7 +47,7 @@ assetic:
         - '%kernel.root_dir%/../web/bundles/bazingajstranslation/js/translator.min.js'
         - '%kernel.root_dir%/../web/vendor/formBuilder/dist/form-builder.min.js'
         - '%kernel.root_dir%/../web/vendor/formBuilder/dist/form-render.min.js'
-        - '%kernel.root_dir%/../web/vendor/KaTeX/dist/katex.min.js'
+        - '%kernel.root_dir%/../web/vendor/katex/dist/katex.min.js'
         - '@OjsJournalBundle/Resources/public/js/submission.js'
     admin_main_css:
       inputs:
@@ -63,7 +63,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/fancybox/source/jquery.fancybox.css'
         - '%kernel.root_dir%/../web/vendor/formBuilder/dist/form-builder.min.css'
         - '%kernel.root_dir%/../web/vendor/formBuilder/dist/form-render.min.css'
-        - '%kernel.root_dir%/../web/vendor/KaTeX/dist/katex.min.css'
+        - '%kernel.root_dir%/../web/vendor/katex/dist/katex.min.css'
     advanced_search_js:
       inputs: ['@OjsCoreBundle/Resources/public/js/search.js']
     submission_js:
