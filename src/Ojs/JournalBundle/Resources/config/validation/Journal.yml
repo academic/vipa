@@ -25,4 +25,4 @@ Ojs\JournalBundle\Entity\Journal:
         founded:
             - NotBlank: ~
             - GreaterThan:
-              value: 1900
+              value: -116 years
