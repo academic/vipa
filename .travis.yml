@@ -26,6 +26,7 @@ before_install:
 before_script:
   - export SYMFONY_ENV=test
   - phpenv config-add travis.php.ini
+  - phpenv config-rm xdebug.ini
   - composer install --no-interaction --prefer-dist
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - composer update
