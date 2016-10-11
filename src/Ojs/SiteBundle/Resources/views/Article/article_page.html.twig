@@ -247,9 +247,9 @@
                                     {% endif %}.
                                     ({{ bibtex_data.year }}).
                                     {{ bibtex_data.title }}.
-                                    {{ bibtex_data.journal }}, {% if article.issue %}{{ article.issue.volume }} ( {{ article.issue.number }} )
-                                    {% endif %}, {% if article.firstPage is not null and article.lastPage is not null %}{{ article.firstPage }}-{{ article.lastPage }}{% endif %}.
-                                    {% if article.doi is not empty %}doi:{{ article.doi }}{% else %}Retrieved from {{ app.request.schemeAndHttpHost ~ app.request.requestUri }}{% endif %}
+                                    {{ bibtex_data.journal }}, {% if article.issue %}{{ article.issue.volume }} ({{ article.issue.number }}){% endif %},
+                                    {% if article.firstPage is not null and article.lastPage is not null %}{{ article.firstPage }}-{{ article.lastPage }}{% endif %}.
+                                    {% if article.doi is not empty %}DOI: {{ article.doi }}{% else %}Retrieved from {{ app.request.schemeAndHttpHost ~ app.request.requestUri }}{% endif %}
                                 </td>
                             </tr>
                             <tr>
@@ -263,7 +263,7 @@
                                     {% endif %}.
                                     "{{ bibtex_data.title }}".
                                     {{ bibtex_data.journal }}  {% if article.issue %}{{ article.issue.volume }} {% endif %} ({{ bibtex_data.year }}): {% if article.firstPage is not null and article.lastPage is not null %}{{ article.firstPage }}-{{ article.lastPage }}{% endif %}
-                                    < {{ app.request.schemeAndHttpHost ~ app.request.requestUri }} >
+                                    &lt;{{ app.request.schemeAndHttpHost ~ app.request.requestUri }}&gt;
                                 </td>
                             </tr>
                             <tr>
