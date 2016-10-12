@@ -29,8 +29,6 @@
             %}
                 <h1>{{ fieldDisplay(issue, 'title') }}</h1>
                 <h4>
-                    {{ dump(issue.volume) }}
-
                     {% if issue.volume is not null and issue.volume != "0" %}
                         {{ "volume"|trans }}: {{ issue.volume }} -
                     {% endif %}
