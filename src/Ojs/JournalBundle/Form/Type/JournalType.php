@@ -157,6 +157,7 @@ class JournalType extends AbstractType
                         'todayBtn' => 'true',
                         'todayHighlight' => 'true',
                         'autoclose' => 'true',
+                        'startDate' => date('01/01/1991'),
                     ],
                 )
             )
