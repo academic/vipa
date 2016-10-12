@@ -48,6 +48,7 @@ assetic:
         - 'https://formbuilder.online/assets/js/form-builder.min.js'
         - 'https://formbuilder.online/assets/js/form-render.min.js'
         - '%kernel.root_dir%/../web/vendor/katex/dist/katex.min.js'
+        - '%kernel.root_dir%/../web/vendor/katex/dist/contrib/auto-render.min.js'
         - '@OjsJournalBundle/Resources/public/js/submission.js'
     admin_main_css:
       inputs:
