@@ -24,3 +24,5 @@ Ojs\JournalBundle\Entity\Journal:
             - Issn: ~
         founded:
             - NotBlank: ~
+            - GreaterThan:
+                value: -116 years
