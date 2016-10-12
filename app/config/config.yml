@@ -191,9 +191,9 @@ hwi_oauth:
       type:                oauth2
       client_id:           "%academicid.client_id%"
       client_secret:       "%academicid.client_secret%"
-      access_token_url:    http://id.academic.io/access_token
-      authorization_url:   http://id.academic.io/authorize
-      infos_url:           http://id.academic.io/api/profile
+      access_token_url:    http://id.ulakbim.gov.tr/access_token
+      authorization_url:   http://id.ulakbim.gov.tr/authorize
+      infos_url:           http://id.ulakbim.gov.tr/api/profile
       scope:               "name email"
       user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
       paths:
