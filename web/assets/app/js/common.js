@@ -1,8 +1,18 @@
 $(document).ready(function () {
     moment.locale(current_language);
 
-    renderMathInElement(document.body);
 
+    renderMathInElement(
+        document.body,
+        {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ]
+        }
+    );
 
 
     /**
