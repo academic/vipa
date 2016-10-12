@@ -40,7 +40,6 @@
     "list.js": "*",
     "downloadjs": "*",
     "fancybox": "^2.1.5",
-    "formBuilder": "*",
     "jquery-ui": "*"
   },
   "resolutions": {
