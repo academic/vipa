@@ -1,6 +1,9 @@
 $(document).ready(function () {
     moment.locale(current_language);
 
+    renderMathInElement(document.body);
+
+
 
     /**
      * Usage of abbr ago

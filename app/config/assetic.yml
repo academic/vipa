@@ -48,6 +48,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/formBuilder/dist/form-builder.min.js'
         - '%kernel.root_dir%/../web/vendor/formBuilder/dist/form-render.min.js'
         - '%kernel.root_dir%/../web/vendor/katex/dist/katex.min.js'
+        - '%kernel.root_dir%/../web/vendor/katex/dist/contrib/auto-render.min.js'
         - '@OjsJournalBundle/Resources/public/js/submission.js'
     admin_main_css:
       inputs:
