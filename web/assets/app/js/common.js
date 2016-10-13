@@ -14,6 +14,21 @@ $(document).ready(function () {
     );
 
     /**
+     * Counts shown row number of grid
+     * Too nasty but works
+     */
+
+    if($('.grid_body').size()>0){
+        $('.grid_body').each(function () {
+            var elm = $(this);
+            var elm_size = $('tr.grid-row-cells',elm).not('.hidden').size()
+            elm.append('<p class="label label-info"><i class="fa fa-bars"></i> '+elm_size+'</p>');
+        });
+    }
+
+
+
+    /**
      * Usage of abbr ago
      *<abbr title="{{ post.created|date('Y-m-d H:i:s') }}"  class="ago">{{ post.created|date('Y-m-d H:i:s') }}</abbr>
      **/
