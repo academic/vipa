@@ -216,8 +216,8 @@ fos_elastica:
               properties:
                 period: { type: string, index: not_analyzed}
             image: ~
-            viewCount: {type: integer}
-            downloadCount: {type: integer}
+            totalArticleView: {type: integer}
+            totalArticleDownload: {type: integer}
             journalIndexs:
               type: object
               properties:
