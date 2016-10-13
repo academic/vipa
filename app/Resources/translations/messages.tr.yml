@@ -937,6 +937,7 @@ stats.all_time: 'Tüm Zamanlar'
 stats.doi: 'Doi İstatistikleri'
 stats.doi.monthly: 'Aylık Doi İstatistikleri'
 stats.doi.yearly: 'Yıllık Doi İstatistikleri'
+stats.issue: 'Sayı İstatistikleri'
 status: Durum
 status.early_preview: 'Erken Görünüm'
 status.inreview: İncelemede

@@ -8,6 +8,7 @@ use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -59,6 +60,31 @@ class AdminController extends Controller
         return $this->render('OjsAdminBundle:Admin:stats.html.twig', $cache->fetch('admin_statistics'));
     }
 
+    /**
+     * @param  Request  $request
+     * @return RedirectResponse|Response
+     */
+    public function issueAction(Request $request)
+    {
+
+        $year = (int)$request->query->get('year');
+        
+        if(empty($year)){
+            $time = new \DateTime();
+            $year = $time->format('Y');
+        }
+        
+        $cache = $this->get('file_cache');
+        if(!$cache->contains('issue_statistics_'.$year)){
+            $this->cacheIssueStats($year);
+        }
+        
+        return $this->render('OjsAdminBundle:Admin:stats_issue.html.twig',[
+            "year" => $year,
+            "data" => $cache->fetch('issue_statistics_'.$year)
+        ]);
+    }
+    
     private function cacheAdminStats()
     {
         $cache = $this->container->get('file_cache');
@@ -93,7 +119,6 @@ class AdminController extends Controller
             'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($slicedLastMonth),
             'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
             'exitedJournal' => $generator->generateExitedJournalData(),
-            'issuePublish' => $generator->generateIssuePublishCountData(),
         ];
         
         $event = new StatEvent($json, $data);
@@ -105,6 +130,24 @@ class AdminController extends Controller
         
         $cache->save('admin_statistics', $data, 1800);
         
+        return true;
+    }
+
+    /**
+     * @param integer $year
+     * @return bool
+     */
+    private function cacheIssueStats($year)
+    {
+        $cache = $this->container->get('file_cache');
+        $generator = $this->container->get('ojs.graph.data.generator');
+
+        $data = [
+            'issuePublish' => $generator->generateIssuePublishCountData($year),
+        ];
+
+        $cache->save('issue_statistics_'.$year, $data, 1800);
+
         return true;
     }
 }

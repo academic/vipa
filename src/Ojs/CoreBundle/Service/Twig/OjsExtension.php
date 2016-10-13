@@ -129,6 +129,7 @@ class OjsExtension extends \Twig_Extension
             ),
             new \Twig_SimpleFunction('getTagDefinition', array($this, 'getTagDefinition')),
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
+            new \Twig_SimpleFunction('getJournal', array($this, 'getJournal')),
             new \Twig_SimpleFunction('getAdminPages', array($this, 'getAdminPages')),
             new \Twig_SimpleFunction('isGrantedForPublisher', array($this, 'isGrantedForPublisher')),
             new \Twig_SimpleFunction('twigEventDispatch', array($this, 'twigEventDispatch')),
@@ -459,6 +460,16 @@ class OjsExtension extends \Twig_Extension
         $entityClassName = $this->em->getClassMetadata($entityObjectName)->name;
 
         return new $entityClassName();
+    }
+
+    /**
+     * @param integer $journal_id
+     * @return Journal
+     */
+    public function getJournal($journal_id)
+    {
+        return $this->em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+
     }
 
     /**
