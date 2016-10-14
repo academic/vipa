@@ -262,7 +262,7 @@ class JournalRepository extends EntityRepository
         }
         $cachedOffset = $cache->fetch('home_journal_offset');
         $list = $this->createQueryBuilder('j')
-            ->select('partial j.{id,slug,issn,image,viewCount,downloadCount,founded}, partial i.{id,slug}')
+            ->select('partial j.{id,slug,issn,image,totalArticleView,totalArticleDownload,founded}, partial i.{id,slug}')
             ->join('j.publisher', 'i')
             ->andWhere('j.status = :status')
             ->setParameter('status', JournalStatuses::STATUS_PUBLISHED)
