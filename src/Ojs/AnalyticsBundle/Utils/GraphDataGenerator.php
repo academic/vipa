@@ -89,7 +89,6 @@ class GraphDataGenerator
         return $journalViews;
     }
 
-
     /**
      * @return array
      */
@@ -101,7 +100,7 @@ class GraphDataGenerator
         if ($connectionParams['driver'] == 'pdo_sqlite') {
             $sql = 'SELECT count(id) as result_count , strftime("%m-%Y", created) as month  FROM journal GROUP BY month';
         }else{
-            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month';
+            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal WHERE created > (CURRENT_DATE - INTERVAL \'3\' month) GROUP BY month ORDER BY month DESC';
         }
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('result_count','result_count');
@@ -341,7 +340,7 @@ class GraphDataGenerator
         if ($connectionParams['driver'] == 'pdo_sqlite') {
             $sql = 'SELECT count(id) as result_count , strftime("%Y-%m", created) as month  FROM journal GROUP BY month ORDER BY month DESC ';
         }else{
-            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month ORDER BY month DESC';
+            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal WHERE created > (CURRENT_DATE - INTERVAL \'3\' month) GROUP BY month ORDER BY month DESC';
         }
 
         $rsm = new ResultSetMapping();
@@ -450,6 +449,33 @@ class GraphDataGenerator
         $rsm->addScalarResult('sum_download', 'download');
         $rsm->addScalarResult('id', 'id');
         $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+
+
+    /**
+     *
+     * @return array
+     */
+    public function generateIssuePublishCountData($year)
+    {
+
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = "SELECT COUNT(DISTINCT journal_id) as count, strftime('%Y', year) as group_year FROM issue GROUP BY group_year";
+        }else{
+            $sql = "SELECT count(id) as count, journal_id FROM issue WHERE EXTRACT(YEAR FROM year) = ".$year." GROUP BY journal_id";
+        }
+
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count', 'count');
+        $rsm->addScalarResult('journal_id', 'journal');
+        $query = $this->manager->createNativeQuery($sql,$rsm);
         $results = $query->getResult();
 
         return $results;

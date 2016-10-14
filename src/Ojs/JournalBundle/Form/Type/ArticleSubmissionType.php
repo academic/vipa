@@ -23,7 +23,8 @@ class ArticleSubmissionType extends AbstractType
             ->add('articleType', 'entity', array(
                     'label' => 'article.type',
                     'class' => 'Ojs\JournalBundle\Entity\ArticleTypes',
-                    'required' => false
+                    'required' => false,
+                    'choices' => $options['journal']->getArticleTypes(),
                 )
             )
             ->add('translations', JournalBasedTranslationsType::class,[

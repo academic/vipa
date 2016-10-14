@@ -198,7 +198,8 @@ class SearchManager
                 break;
             case 'publisher':
                 $data['name'] = $source['name'];
-                $data['route'] = $this->router->generate('ojs_publisher_page', ['slug' => $source['slug']], true);
+                $queryParam = $this->requestQuery->get('q');
+                $data['route'] = $this->router->generate('ojs_site_explore_index', ['publisher_filters' => $queryParam], true);
                 break;
             case 'user':
                 $data['name'] = $source['firstName'].' '.$source['lastName'];

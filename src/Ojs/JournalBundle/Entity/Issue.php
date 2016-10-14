@@ -101,7 +101,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @var string
-     * @GRID\Column(title="year")
+     * @GRID\Column(title="year", format="Y")
      * @JMS\Expose
      */
     private $year;

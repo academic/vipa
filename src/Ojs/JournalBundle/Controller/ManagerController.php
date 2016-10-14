@@ -9,6 +9,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Form\Type\JournalType;
+use Ojs\JournalBundle\Form\Type\JournalArticleTypesType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,7 @@ class ManagerController extends Controller
     /**
      * @return Response
      */
-    public function journalSettingsAction()
+    public function journalSettingsAction() 
     {
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal(false);
@@ -43,6 +44,29 @@ class ManagerController extends Controller
         );
     }
 
+    /**
+     * @return Response
+     */
+    public function ArticleTypesSettingsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal(false);
+        $this->throw404IfNotFound($journal);
+        if (!$this->isGranted('EDIT', $journal)) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
+        $form = $this->createArticleTypesEditForm($journal);
+
+        return $this->render(
+            'OjsJournalBundle:Manager:article_types.html.twig',
+            array(
+                'entity' => $journal,
+                'form' => $form->createView(),
+            )
+        );
+    }
+
     private function createJournalEditForm(Journal $journal)
     {
         $form = $this->createForm(
@@ -50,6 +74,22 @@ class ManagerController extends Controller
             $journal,
             array(
                 'action' => $this->generateUrl('ojs_journal_settings_update', ['journalId' => $journal->getId()]),
+                'method' => 'PUT',
+            )
+        );
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+
+
+    private function createArticleTypesEditForm(Journal $journal)
+    {
+        $form = $this->createForm(
+            new JournalArticleTypesType(),
+            $journal,
+            array(
+                'action' => $this->generateUrl('ojs_article_types_settings_update', ['journalId' => $journal->getId()]),
                 'method' => 'PUT',
             )
         );
@@ -102,6 +142,52 @@ class ManagerController extends Controller
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
+            )
+        );
+    }
+
+    /**
+     * @param  Request $request
+     * @return RedirectResponse|Response
+     */
+    public function updateArticleTypesAction(Request $request)
+    {
+        $eventDispatcher = $this->get('event_dispatcher');
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $this->get('ojs.journal_service')->getSelectedJournal(false);
+        $this->throw404IfNotFound($entity);
+
+        if (!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+
+        $form = $this->createArticleTypesEditForm($entity);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+
+            $event = new JournalEvent($entity);
+            $eventDispatcher->dispatch(JournalEvents::PRE_UPDATE, $event);
+
+            $em->persist($event->getJournal());
+            $em->flush();
+
+            $event = new JournalEvent($event->getJournal());
+            $eventDispatcher->dispatch(JournalEvents::POST_UPDATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('ojs_article_types_settings_index', ['journalId' => $entity->getId()]);
+        }
+
+        return $this->render(
+            'OjsJournalBundle:Manager:article_types.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
             )
         );
     }

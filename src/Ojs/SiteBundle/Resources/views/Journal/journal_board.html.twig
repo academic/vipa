@@ -62,6 +62,9 @@
                                     <address>
                                         <h4>
                                             <a href="{{ path('ojs_user_profile', {slug: person.username}) }}">
+                                                {% if person.title is not empty %}
+                                                    {{ person.title }}
+                                                {% endif %}
                                                 {{ person.fullName }}
                                             </a>
                                         </h4>

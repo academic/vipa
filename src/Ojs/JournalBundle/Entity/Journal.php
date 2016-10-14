@@ -219,6 +219,14 @@ class Journal extends AbstractTranslatable
      * @JMS\Expose
      */
     private $subjects;
+
+    /**
+     * @var Collection
+     * @JMS\Expose
+     */
+    private $articleTypes;
+
+
     /**
      * @var Collection
      */
@@ -345,6 +353,7 @@ class Journal extends AbstractTranslatable
         $this->journalApplicationUploadFiles = new ArrayCollection();
         $this->journalContacts = new ArrayCollection();
         $this->catalogs = new ArrayCollection();
+        $this->articleTypes = new ArrayCollection();
     }
 
     /**
@@ -1768,5 +1777,39 @@ class Journal extends AbstractTranslatable
     public function getCatalogs()
     {
         return $this->catalogs;
+    }
+
+    /**
+     * Add articleType
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleTypes $articleType
+     *
+     * @return Journal
+     */
+    public function addArticleType(\Ojs\JournalBundle\Entity\ArticleTypes $articleType)
+    {
+        $this->articleTypes[] = $articleType;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleType
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleTypes $articleType
+     */
+    public function removeArticleType(\Ojs\JournalBundle\Entity\ArticleTypes $articleType)
+    {
+        $this->articleTypes->removeElement($articleType);
+    }
+
+    /**
+     * Get articleTypes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticleTypes()
+    {
+        return $this->articleTypes;
     }
 }

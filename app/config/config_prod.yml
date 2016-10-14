@@ -1,10 +1,12 @@
 imports:
     - { resource: config.yml }
     
-#framework:
-#    validation:
-#        cache: memcache
-    
+framework:
+    validation:
+        cache: validator.mapping.cache.doctrine.apc
+    serializer:
+        cache: serializer.mapping.cache.apc
+
 doctrine:
     orm:
         second_level_cache:
