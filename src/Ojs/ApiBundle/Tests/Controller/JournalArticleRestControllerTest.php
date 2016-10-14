@@ -40,6 +40,7 @@ class JournalArticleRestControllerTest extends ApiBaseTestCase
             'pubdateSeason' => 8,
             'firstPage' => 11,
             'lastPage' => 999,
+            'status' => 1,
             'uri' => 'http://phpunittest.com',
             'abstractTransliterated' => 'PHPUnit Test Abstract Transliterated Field en - POST',
             'articleType' => 10,

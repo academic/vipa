@@ -285,10 +285,10 @@ class JournalIssueRestController extends ApiController
         $this->throw404IfNotFound($article, 'article not found');
 
         $section = $em->getRepository('OjsJournalBundle:Section')->find($sectionId);
-        $this->throw404IfNotFound($section, 'please spesify section');
+        $this->throw404IfNotFound($section, 'please specify section');
 
         $article->setIssue($issue);
-        $article->setStatus(ArticleStatuses::STATUS_PUBLISH_READY);
+        $article->setStatus(ArticleStatuses::STATUS_PUBLISHED);
 
         $sections = $issue->getSections();
         if (!$sections->contains($section)) {
