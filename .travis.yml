@@ -36,6 +36,7 @@ before_script:
   - php app/console ojs:normalize:translatable:objects --env=test
   - php app/console ojs:mail:events:sync --env=test
   - php app/console ojs:mail:events:sync --sync-desc --env=test
+  - php app/console ojs:normalize:journal:article:types --env=test
   - php app/console fos:elastica:populate --env=test
   - composer show
 
