@@ -42,7 +42,7 @@ class JournalArticleRestControllerTest extends ApiBaseTestCase
             'lastPage' => 999,
             'uri' => 'http://phpunittest.com',
             'abstractTransliterated' => 'PHPUnit Test Abstract Transliterated Field en - POST',
-            'articleType' => 10,
+            'articleType' => 4,
             'submissionDate' => '22-10-2015',
         ];
         $this->client->request(
@@ -83,7 +83,7 @@ class JournalArticleRestControllerTest extends ApiBaseTestCase
             'lastPage' => 999,
             'uri' => 'http://phpunittest.com',
             'abstractTransliterated' => 'PHPUnit Test Abstract Transliterated Field en - PUT',
-            'articleType' => 10,
+            'articleType' => 2,
             'submissionDate' => '22-10-2015',
         ];
         $this->client->request(
