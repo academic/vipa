@@ -219,7 +219,7 @@ class Journal extends AbstractTranslatable
      * @JMS\Expose
      */
     private $subjects;
-    
+
     /**
      * @var Collection
      * @JMS\Expose
@@ -333,6 +333,11 @@ class Journal extends AbstractTranslatable
     private $formerlyKnownAsJournal;
 
     /**
+     * @var ArrayCollection[Catalog]
+     */
+    private $catalogs;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -347,6 +352,7 @@ class Journal extends AbstractTranslatable
         $this->translations = new ArrayCollection();
         $this->journalApplicationUploadFiles = new ArrayCollection();
         $this->journalContacts = new ArrayCollection();
+        $this->catalogs = new ArrayCollection();
         $this->articleTypes = new ArrayCollection();
     }
 
@@ -1740,13 +1746,47 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * Add articleType
+     * Add catalog
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleTypes $articleType
+     * @param Catalog $catalog
      *
      * @return Journal
      */
-    public function addArticleType(\Ojs\JournalBundle\Entity\ArticleTypes $articleType)
+    public function addCatalog(Catalog $catalog)
+    {
+        $this->catalogs[] = $catalog;
+
+        return $this;
+    }
+
+    /**
+     * Remove catalog
+     *
+     * @param Catalog $catalog
+     */
+    public function removeCatalog(Catalog $catalog)
+    {
+        $this->catalogs->removeElement($catalog);
+    }
+
+    /**
+     * Get catalogs
+     *
+     * @return Collection
+     */
+    public function getCatalogs()
+    {
+        return $this->catalogs;
+    }
+
+    /**
+     * Add articleType
+     *
+     * @param ArticleTypes $articleType
+     *
+     * @return Journal
+     */
+    public function addArticleType(ArticleTypes $articleType)
     {
         $this->articleTypes[] = $articleType;
 
@@ -1756,9 +1796,9 @@ class Journal extends AbstractTranslatable
     /**
      * Remove articleType
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleTypes $articleType
+     * @param ArticleTypes $articleType
      */
-    public function removeArticleType(\Ojs\JournalBundle\Entity\ArticleTypes $articleType)
+    public function removeArticleType(ArticleTypes $articleType)
     {
         $this->articleTypes->removeElement($articleType);
     }
@@ -1766,7 +1806,7 @@ class Journal extends AbstractTranslatable
     /**
      * Get articleTypes
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getArticleTypes()
     {

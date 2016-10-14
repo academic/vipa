@@ -28,6 +28,17 @@ Ojs\JournalBundle\Entity\Issue:
       mappedBy: issue
       cascade: ["persist", "remove"]
   manyToMany:
+    catalogs:
+      targetEntity: Ojs\JournalBundle\Entity\Catalog
+      cascade: ["persist", "remove"] ## Is cascade.remove only removes reference from pivot table?
+      joinTable:
+          name: issue_catalogs
+          joinColumns:
+              issue_id:
+                  referencedColumnName: id
+          inverseJoinColumns:
+              catalog_id:
+                  referencedColumnName: id
     sections:
       orderBy: { 'sectionOrder': 'ASC' }
       targetEntity: Section
