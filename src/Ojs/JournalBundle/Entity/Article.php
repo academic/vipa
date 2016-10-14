@@ -1342,11 +1342,11 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * Add catalog
      *
-     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     * @param Catalog $catalog
      *
      * @return Article
      */
-    public function addCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    public function addCatalog(Catalog $catalog)
     {
         $this->catalogs[] = $catalog;
 
@@ -1356,9 +1356,9 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * Remove catalog
      *
-     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     * @param Catalog $catalog
      */
-    public function removeCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    public function removeCatalog(Catalog $catalog)
     {
         $this->catalogs->removeElement($catalog);
     }
@@ -1366,7 +1366,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * Get catalogs
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCatalogs()
     {

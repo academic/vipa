@@ -1748,11 +1748,11 @@ class Journal extends AbstractTranslatable
     /**
      * Add catalog
      *
-     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     * @param Catalog $catalog
      *
      * @return Journal
      */
-    public function addCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    public function addCatalog(Catalog $catalog)
     {
         $this->catalogs[] = $catalog;
 
@@ -1762,9 +1762,9 @@ class Journal extends AbstractTranslatable
     /**
      * Remove catalog
      *
-     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     * @param Catalog $catalog
      */
-    public function removeCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    public function removeCatalog(Catalog $catalog)
     {
         $this->catalogs->removeElement($catalog);
     }
@@ -1772,7 +1772,7 @@ class Journal extends AbstractTranslatable
     /**
      * Get catalogs
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCatalogs()
     {
@@ -1782,11 +1782,11 @@ class Journal extends AbstractTranslatable
     /**
      * Add articleType
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleTypes $articleType
+     * @param ArticleTypes $articleType
      *
      * @return Journal
      */
-    public function addArticleType(\Ojs\JournalBundle\Entity\ArticleTypes $articleType)
+    public function addArticleType(ArticleTypes $articleType)
     {
         $this->articleTypes[] = $articleType;
 
@@ -1796,9 +1796,9 @@ class Journal extends AbstractTranslatable
     /**
      * Remove articleType
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleTypes $articleType
+     * @param ArticleTypes $articleType
      */
-    public function removeArticleType(\Ojs\JournalBundle\Entity\ArticleTypes $articleType)
+    public function removeArticleType(ArticleTypes $articleType)
     {
         $this->articleTypes->removeElement($articleType);
     }
@@ -1806,7 +1806,7 @@ class Journal extends AbstractTranslatable
     /**
      * Get articleTypes
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getArticleTypes()
     {

@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\AnalyticsBundle\Entity\IssueStatistic;
 use Ojs\CoreBundle\Annotation\Display;
@@ -861,11 +862,11 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     /**
      * Add catalog
      *
-     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     * @param Catalog $catalog
      *
      * @return Issue
      */
-    public function addCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    public function addCatalog(Catalog $catalog)
     {
         $this->catalogs[] = $catalog;
 
@@ -875,9 +876,9 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     /**
      * Remove catalog
      *
-     * @param \Ojs\JournalBundle\Entity\Catalog $catalog
+     * @param Catalog $catalog
      */
-    public function removeCatalog(\Ojs\JournalBundle\Entity\Catalog $catalog)
+    public function removeCatalog(Catalog $catalog)
     {
         $this->catalogs->removeElement($catalog);
     }
@@ -885,7 +886,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     /**
      * Get catalogs
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCatalogs()
     {
