@@ -21,11 +21,11 @@
             {{ form_widget(form.subjects) }}
             <br>
             {{ form_row(form.translations) }}
-            {{ form_row(form.pubdate) }}
-            {{ form_row(form.firstPage) }}
-            {{ form_row(form.lastPage) }}
-            {{ form_row(form.submissionDate) }}
-            {{ form_row(form.acceptanceDate) }}
+            {{ twigEventDispatch({
+                'event_name': 'OJS_JOURNAL_ARTICLE_EVENT_FORM',
+                'form': form,
+                'dispatch': dispatch is defined ? dispatch : false
+            })|raw }}
             {{ form_row(form._token) }}
         </div>
     </div>
