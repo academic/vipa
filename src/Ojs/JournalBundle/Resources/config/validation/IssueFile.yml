@@ -13,3 +13,5 @@ Ojs\JournalBundle\Entity\IssueFile:
             - NotBlank: ~
         langCode:
             - NotBlank: ~
+        version:
+            - Type: integer
