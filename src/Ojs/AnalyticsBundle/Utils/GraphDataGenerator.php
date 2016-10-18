@@ -460,7 +460,7 @@ class GraphDataGenerator
      *
      * @return array
      */
-    public function generateIssuePublishCountData()
+    public function generateIssuePublishCountData($year)
     {
 
         $connectionParams = $this->manager->getConnection()->getParams();
@@ -468,13 +468,13 @@ class GraphDataGenerator
         if ($connectionParams['driver'] == 'pdo_sqlite') {
             $sql = "SELECT COUNT(DISTINCT journal_id) as count, strftime('%Y', year) as group_year FROM issue GROUP BY group_year";
         }else{
-            $sql = "SELECT COUNT(DISTINCT journal_id) as count, date_trunc('year', year) as group_year FROM issue GROUP BY group_year ORDER BY group_year DESC";
+            $sql = "SELECT count(id) as count, journal_id FROM issue WHERE EXTRACT(YEAR FROM year) = ".$year." GROUP BY journal_id";
         }
 
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('count', 'count');
-        $rsm->addScalarResult('group_year', 'year');
+        $rsm->addScalarResult('journal_id', 'journal');
         $query = $this->manager->createNativeQuery($sql,$rsm);
         $results = $query->getResult();
 

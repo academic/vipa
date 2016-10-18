@@ -129,6 +129,7 @@ class OjsExtension extends \Twig_Extension
             ),
             new \Twig_SimpleFunction('getTagDefinition', array($this, 'getTagDefinition')),
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
+            new \Twig_SimpleFunction('getJournal', array($this, 'getJournal')),
             new \Twig_SimpleFunction('getAdminPages', array($this, 'getAdminPages')),
             new \Twig_SimpleFunction('isGrantedForPublisher', array($this, 'isGrantedForPublisher')),
             new \Twig_SimpleFunction('twigEventDispatch', array($this, 'twigEventDispatch')),
@@ -462,6 +463,16 @@ class OjsExtension extends \Twig_Extension
     }
 
     /**
+     * @param integer $journal_id
+     * @return Journal
+     */
+    public function getJournal($journal_id)
+    {
+        return $this->em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+
+    }
+
+    /**
      * Returns all AdminPage entities
      *
      * @return array
@@ -522,7 +533,9 @@ class OjsExtension extends \Twig_Extension
 
         $institution = (!empty($author->getInstitution())) ? $author->getInstitution() : $author->getInstitutionName();
         $email = (empty($author->getUser())) ? $author->getEmail() : $author->getUser()->getEmail();
-        $fullName = (empty($author->getUser())) ? $author->getFullName() : $author->getUser()->getFullName();
+        $fullName = (empty($author->getUser())) ?
+            $author->getFullName() :
+            $author->getUser()->getTitle() . ' ' . $author->getUser()->getFullName();
 
         $text = '
         <p id="author$' . $author->getId() . '">

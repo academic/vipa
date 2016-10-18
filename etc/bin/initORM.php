@@ -12,6 +12,7 @@ function runInit($env) {
     executing('php app/console --env='. $env .' ojs:install:samples');
     executing('php app/console --env='. $env .' h4cc_alice_fixtures:load:sets');
     executing('php app/console --env='. $env .' ojs:normalize:translatable:objects');
+    executing('php app/console --env='. $env .' ojs:normalize:journal:article:types');
     executing('php app/console --env='. $env .' ojs:mail:events:sync --sync-desc');
 }
 

@@ -6,6 +6,10 @@ ojs_admin_stats:
     path:  stats
     defaults: { _controller: "OjsAdminBundle:Admin:stats" }
 
+ojs_admin_stats_issue:
+    path:  stats/issue
+    defaults: { _controller: "OjsAdminBundle:Admin:issue" }
+
 ojs_admin_user:
     resource: "@OjsAdminBundle/Resources/config/routing/user.yml"
     prefix:   user

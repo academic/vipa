@@ -342,6 +342,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             analytics.view('journal', {{ journal.id }}, '{{ token }}');
+            renderMathInElement(document.body);
         });
     </script>
     {% if journal.googleAnalyticsId is not null %}

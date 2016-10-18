@@ -219,6 +219,14 @@ class Journal extends AbstractTranslatable
      * @JMS\Expose
      */
     private $subjects;
+
+    /**
+     * @var Collection
+     * @JMS\Expose
+     */
+    private $articleTypes;
+
+
     /**
      * @var Collection
      */
@@ -325,6 +333,11 @@ class Journal extends AbstractTranslatable
     private $formerlyKnownAsJournal;
 
     /**
+     * @var ArrayCollection[Catalog]
+     */
+    private $catalogs;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -339,6 +352,8 @@ class Journal extends AbstractTranslatable
         $this->translations = new ArrayCollection();
         $this->journalApplicationUploadFiles = new ArrayCollection();
         $this->journalContacts = new ArrayCollection();
+        $this->catalogs = new ArrayCollection();
+        $this->articleTypes = new ArrayCollection();
     }
 
     /**
@@ -1728,5 +1743,73 @@ class Journal extends AbstractTranslatable
             return true;
         }
         return false;
+    }
+
+    /**
+     * Add catalog
+     *
+     * @param Catalog $catalog
+     *
+     * @return Journal
+     */
+    public function addCatalog(Catalog $catalog)
+    {
+        $this->catalogs[] = $catalog;
+
+        return $this;
+    }
+
+    /**
+     * Remove catalog
+     *
+     * @param Catalog $catalog
+     */
+    public function removeCatalog(Catalog $catalog)
+    {
+        $this->catalogs->removeElement($catalog);
+    }
+
+    /**
+     * Get catalogs
+     *
+     * @return Collection
+     */
+    public function getCatalogs()
+    {
+        return $this->catalogs;
+    }
+
+    /**
+     * Add articleType
+     *
+     * @param ArticleTypes $articleType
+     *
+     * @return Journal
+     */
+    public function addArticleType(ArticleTypes $articleType)
+    {
+        $this->articleTypes[] = $articleType;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleType
+     *
+     * @param ArticleTypes $articleType
+     */
+    public function removeArticleType(ArticleTypes $articleType)
+    {
+        $this->articleTypes->removeElement($articleType);
+    }
+
+    /**
+     * Get articleTypes
+     *
+     * @return Collection
+     */
+    public function getArticleTypes()
+    {
+        return $this->articleTypes;
     }
 }

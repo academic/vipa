@@ -59,10 +59,10 @@
             <span class="field-content">{{ journal.founded|date('Y') }}</span>
         </div>
     {% endif %}
-    {% if journal.viewCount is defined and journal.downloadCount is defined %}
+    {% if journal.totalArticleView is defined and journal.totalArticleDownload is defined %}
         <div class="view-stats">
-            <i class="fa fa-eye"></i> {{ journal.viewCount|number_format(0,'.','.') }}
-            <i class="fa fa-download"></i> {{ journal.downloadCount|number_format(0,'.','.') }}
+            <i class="fa fa-eye"></i> {{ journal.totalArticleView|number_format(0,'.','.') }}
+            <i class="fa fa-download"></i> {{ journal.totalArticleDownload|number_format(0,'.','.') }}
         </div>
     {% endif %}
     {% if journal.accessModal is defined and journal.accessModal==0 %}
