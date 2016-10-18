@@ -23,4 +23,5 @@ class TwigEvents
     const OJS_ADMIN_STATS_EXTRA_TABS = 'ojs.admin.stats.extra.tabs';
     const OJS_ADMIN_STATS_EXTRA_CONTENT = 'ojs.admin.stats.extra.content';
     const OJS_ADMIN_STATS_EXTRA_SCRIPT = 'ojs.admin.stats.extra.script';
+    const OJS_JOURNAL_ARTICLE_EVENT_FORM = 'ojs.journal.article.event.form';
 }
