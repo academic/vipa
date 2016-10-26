@@ -541,13 +541,13 @@ class OjsExtension extends \Twig_Extension
         <p id="author$' . $author->getId() . '">
         <b>' . $this->translator->trans('author') . ': </b>' . $fullName . '</br>';
 
-        if (!empty($this->translator->trans('email'))){
+        if (!empty($email)){
             $text .= '<b>' . $this->translator->trans('email') . ': </b>' . $email . '</br>';
         }
-        if (!empty($this->translator->trans('institution'))){
+        if (!empty($institution)){
             $text .= '<b>' . $this->translator->trans('institution') . ': </b>' . $institution . '</br>';
         }
-        if (!empty($this->translator->trans('country'))){
+        if (!empty($author->getCountry())){
             $text .= '<b>' . $this->translator->trans('country') . ': </b>' . $author->getCountry() . '</p><hr>';
         }
 
