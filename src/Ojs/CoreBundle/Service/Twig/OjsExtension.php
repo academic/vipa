@@ -135,6 +135,7 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('twigEventDispatch', array($this, 'twigEventDispatch')),
             new \Twig_SimpleFunction('issueTextGenerate', array($this, 'issueTextGenerate')),
             new \Twig_SimpleFunction('getAuthorsInfo', array($this, 'getAuthorsInfo'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('getStrToUpper', array($this, 'getStrToUpper'), array('is_safe' => array('html'))),
         );
     }
 
@@ -547,6 +548,17 @@ class OjsExtension extends \Twig_Extension
         return $text;
 
 
+    }
+
+    /**
+     * @param $string
+     * @return string
+     */
+    public function getStrToUpper($string)
+    {
+        $string = str_replace(array('i', 'ı', 'ü', 'ğ', 'ş', 'ö', 'ç'), array('İ', 'I', 'Ü', 'Ğ', 'Ş', 'Ö', 'Ç'), $string);
+        
+        return strtoupper($string);
     }
 
     public function getName()

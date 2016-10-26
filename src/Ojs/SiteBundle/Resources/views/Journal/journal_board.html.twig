@@ -65,7 +65,7 @@
                                                 {% if person.title is not empty %}
                                                     {{ person.title }}
                                                 {% endif %}
-                                                {{ person.fullName }}
+                                                {{ person.firstName }} {{ getStrToUpper(person.lastName) }}
                                             </a>
                                         </h4>
                                         {% if person.country is not empty %}
