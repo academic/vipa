@@ -540,10 +540,18 @@ class OjsExtension extends \Twig_Extension
 
         $text = '
         <p id="author$' . $author->getId() . '">
-        <b>' . $this->translator->trans('author') . ': </b>' . $fullName . '</br>
-        <b>' . $this->translator->trans('email') . ': </b>' . $email . '</br>
-        <b>' . $this->translator->trans('institution') . ': </b>' . $institution . '</br>
-        <b>' . $this->translator->trans('country') . ': </b>' . $author->getCountry() . '</p><hr>';
+        <b>' . $this->translator->trans('author') . ': </b>' . $fullName . '</br>';
+
+        if (!empty($email)){
+            $text .= '<b>' . $this->translator->trans('email') . ': </b>' . $email . '</br>';
+        }
+        if (!empty($institution)){
+            $text .= '<b>' . $this->translator->trans('institution') . ': </b>' . $institution . '</br>';
+        }
+        if (!empty($author->getCountry())){
+            $text .= '<b>' . $this->translator->trans('country') . ': </b>' . $author->getCountry() . '</p><hr>';
+        }
+
 
         return $text;
 
