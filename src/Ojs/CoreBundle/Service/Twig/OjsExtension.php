@@ -135,6 +135,7 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('twigEventDispatch', array($this, 'twigEventDispatch')),
             new \Twig_SimpleFunction('issueTextGenerate', array($this, 'issueTextGenerate')),
             new \Twig_SimpleFunction('getAuthorsInfo', array($this, 'getAuthorsInfo'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('getStrToUpper', array($this, 'getStrToUpper'), array('is_safe' => array('html'))),
         );
     }
 
@@ -539,14 +540,33 @@ class OjsExtension extends \Twig_Extension
 
         $text = '
         <p id="author$' . $author->getId() . '">
-        <b>' . $this->translator->trans('author') . ': </b>' . $fullName . '</br>
-        <b>' . $this->translator->trans('email') . ': </b>' . $email . '</br>
-        <b>' . $this->translator->trans('institution') . ': </b>' . $institution . '</br>
-        <b>' . $this->translator->trans('country') . ': </b>' . $author->getCountry() . '</p><hr>';
+        <b>' . $this->translator->trans('author') . ': </b>' . $fullName . '</br>';
+
+        if (!empty($email)){
+            $text .= '<b>' . $this->translator->trans('email') . ': </b>' . $email . '</br>';
+        }
+        if (!empty($institution)){
+            $text .= '<b>' . $this->translator->trans('institution') . ': </b>' . $institution . '</br>';
+        }
+        if (!empty($author->getCountry())){
+            $text .= '<b>' . $this->translator->trans('country') . ': </b>' . $author->getCountry() . '</p><hr>';
+        }
+
 
         return $text;
 
 
+    }
+
+    /**
+     * @param $string
+     * @return string
+     */
+    public function getStrToUpper($string)
+    {
+        $string = str_replace(array('i', 'ı', 'ü', 'ğ', 'ş', 'ö', 'ç'), array('İ', 'I', 'Ü', 'Ğ', 'Ş', 'Ö', 'Ç'), $string);
+        
+        return strtoupper($string);
     }
 
     public function getName()

@@ -310,20 +310,23 @@ class GraphDataGenerator
         if($journal){
             $journalWhereQuery = 'AND article.journal_id = '.$journal->getId().' ';
         }
-        $sql = "SELECT article_translations.title, SUM(statistic.view) as sum_view FROM statistic "
+        $sql = "SELECT article_translations.title, SUM(statistic.view) as sum_view,journal.slug,statistic.article_id FROM statistic "
             ."join article on statistic.article_id = article.id "
+            ."join journal on article.id = journal.id "
             ."join article_translations on article.id = article_translations.translatable_id "
             ."and article_translations.locale = '".$this->locale."' "
             ."WHERE article_id IS NOT NULL "
             .$whereDate
             .$journalWhereQuery
-            ."group by article_id,article_translations.title "
+            ."group by article_id,article_translations.title,journal.slug "
             ."ORDER BY sum_view DESC "
             ."LIMIT 20; ";
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('title', 'title');
         $rsm->addScalarResult('sum_view', 'view');
+        $rsm->addScalarResult('slug', 'slug');
+        $rsm->addScalarResult('article_id', 'id');
         $query = $this->manager->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
 
