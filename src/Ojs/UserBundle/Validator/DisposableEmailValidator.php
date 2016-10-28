@@ -4,8 +4,7 @@
 namespace Ojs\UserBundle\Validator;
 
 use ContentFarm\DisposableEmail\DisposableEmailService;
-use Ojs\UserBundle\Entity\MultipleMail;
-use Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Validator\Constraints\DisposableEmail;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -32,7 +31,7 @@ class DisposableEmailValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
 
-        $disposableEmailService = new DisposableEmailService;
+        $disposableEmailService = new DisposableEmailService();
         $disposableEmailService->mail = $value;
 
 

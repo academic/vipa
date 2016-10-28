@@ -25,7 +25,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Ojs\UserBundle\Validator\DisposableEmailValidator as DisposableEmail;
 
 /**
  * User
@@ -406,7 +405,6 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      * Add multipleMails
      *
      * @param  MultipleMail $multipleMail
-     * @DisposableEmail\DisposableEmailValidator(message="WTF")
      * @return $this
      */
     public function addMultipleMail(MultipleMail $multipleMail)

@@ -24,3 +24,4 @@ file.field.article.files.not.be.blank: 'File fields of article files can not be 
 user.multiple_mail.invalid: 'This email is already registered'
 user.multiple_mail.error.not_email: 'You must enter a valid email'
 article.status_can_not_be_published_without_author: 'You must to add author before pull article status to published'
+user.invalid.mail.domain: 'Mail have invalid domain address'

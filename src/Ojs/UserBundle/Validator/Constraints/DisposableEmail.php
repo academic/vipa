@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\Email;
  */
 class DisposableEmail extends Email
 {
-    public $message = 'One or more of emails are not available or valid.';
+    public $message = 'One or more of emails are not available or valid domain.';
 
     public function validatedBy()
     {
