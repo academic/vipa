@@ -34,7 +34,7 @@ class JournalIssnValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if ($this->em->getRepository(Journal::class)->findBy(['issn' => $value, 'eissn' => $value])) {
+        if (!empty($value) && $this->em->getRepository(Journal::class)->findBy(['issn' => $value, 'eissn' => $value])) {
             $this->context->addViolation($constraint->message);
         }
     }
