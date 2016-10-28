@@ -12,7 +12,6 @@ use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Event\UserEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use ContentFarm\DisposableEmail\DisposableEmailService;
 
 class RegistrationController extends  BaseController
 {
@@ -37,24 +36,9 @@ class RegistrationController extends  BaseController
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
-        /*
-        $disposableEmailService = new DisposableEmailService;
-        $disposableEmailService->mail = $this->container->getParameter('fos_user.registration.email');;
-        if($disposableEmailService->isDisposableEmail()){
-            return $this->render(
-                'OjsSiteBundle:Site:not_available.html.twig',
-                [
-                    'title' => 'title.register',
-                    'message' => 'message.registration_not_available'
-                ]
-            );
-        }
-        */
-
         /** @var User $user */
         $user = $userManager->createUser();
         $user->setEnabled(true);
-
         //Add default data for oauth login
         $session = $this->get('session');
 
