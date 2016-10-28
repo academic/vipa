@@ -13,16 +13,6 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 class DisposableEmailValidator extends ConstraintValidator
 {
-
-
-    /**
-     * DisposableEmailValidator constructor.
-     */
-    public function __construct()
-    {
-
-    }
-
     /**
      * @param mixed $value
      * @param Constraint|DisposableEmail $constraint
