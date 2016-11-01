@@ -460,7 +460,7 @@ class GraphDataGenerator
 
 
     /**
-     *
+     * @param string
      * @return array
      */
     public function generateIssuePublishCountData($year)
@@ -469,7 +469,7 @@ class GraphDataGenerator
         $connectionParams = $this->manager->getConnection()->getParams();
 
         if ($connectionParams['driver'] == 'pdo_sqlite') {
-            $sql = "SELECT COUNT(DISTINCT journal_id) as count, strftime('%Y', year) as group_year FROM issue GROUP BY group_year";
+            $sql = "SELECT COUNT(id) as count, journal_id FROM issue GROUP BY journal_id";
         }else{
             $sql = "SELECT count(id) as count, journal_id FROM issue WHERE EXTRACT(YEAR FROM year) = ".$year." GROUP BY journal_id";
         }
