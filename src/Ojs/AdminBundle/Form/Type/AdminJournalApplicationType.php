@@ -128,14 +128,6 @@ class AdminJournalApplicationType extends AbstractType
                 'entity',
                 array(
                     'class' => 'OjsJournalBundle:Publisher',
-                    'query_builder' => function(PublisherRepository $er) {
-                        return $er->createQueryBuilder('publisher')
-                            ->andWhere('publisher.status = :status')
-                            ->andWhere('publisher.verified = :verified')
-                            ->setParameter('status', PublisherStatuses::STATUS_COMPLETE)
-                            ->setParameter('verified', true)
-                            ;
-                    },
                     'attr' => ['class' => 'select2-element application-publisher'],
                     'label' => 'journal.publisher',
                     'required' => true,
