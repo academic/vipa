@@ -23,6 +23,12 @@ class Catalog
     private $title;
 
     /**
+     * @var string
+     *
+     */
+    private $alias;
+
+    /**
      * @var boolean
      *
      */
@@ -60,6 +66,26 @@ class Catalog
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
+    }
+
+    /**
+     * @param string $alias
+     *
+     * @return $this
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+
+        return $this;
     }
 
     /**
