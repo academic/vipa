@@ -3,9 +3,11 @@
 namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\JournalBundle\Form\Type\ArticleType;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Service\JournalService;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 use Symfony\Component\Filesystem\Filesystem;
@@ -138,6 +140,8 @@ class JournalArticleHandler
             'csrf_protection' => false,
             'journal' => $journal,
         ]);
+
+        $form->add('status', NumberType::class);
         $form->submit($parameters, 'PATCH' !== $method);
         $formData = $form->getData();
 

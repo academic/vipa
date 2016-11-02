@@ -21,6 +21,11 @@
             {{ form_widget(form.subjects) }}
             <br>
             {{ form_row(form.translations) }}
+            {{ twigEventDispatch({
+                'event_name': 'OJS_JOURNAL_ARTICLE_EVENT_FORM',
+                'form': form,
+                'dispatch': dispatch is defined ? dispatch : false
+            })|raw }}
             {{ form_row(form._token) }}
         </div>
     </div>

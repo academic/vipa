@@ -5,6 +5,7 @@ namespace Ojs\ApiBundle\Controller\Journal;
 use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\Get;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Form\Type\IssueType;
@@ -284,9 +285,10 @@ class JournalIssueRestController extends ApiController
         $this->throw404IfNotFound($article, 'article not found');
 
         $section = $em->getRepository('OjsJournalBundle:Section')->find($sectionId);
-        $this->throw404IfNotFound($section, 'please spesify section');
+        $this->throw404IfNotFound($section, 'please specify section');
 
         $article->setIssue($issue);
+        $article->setStatus(ArticleStatuses::STATUS_PUBLISHED);
 
         $sections = $issue->getSections();
         if (!$sections->contains($section)) {

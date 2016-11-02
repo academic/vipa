@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\AnalyticsBundle\Entity\IssueStatistic;
 use Ojs\CoreBundle\Annotation\Display;
@@ -101,7 +102,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @var string
-     * @GRID\Column(title="year")
+     * @GRID\Column(title="year", format="Y")
      * @JMS\Expose
      */
     private $year;
@@ -185,6 +186,11 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      */
     private $inPress = false;
 
+    /**
+     * @var ArrayCollection[Catalog]
+     */
+    private $catalogs;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -192,6 +198,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
         $this->issueFiles = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->statistics = new ArrayCollection();
+        $this->catalogs = new ArrayCollection();
     }
 
     /**
@@ -850,5 +857,39 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
         $this->totalArticleDownload = $totalArticleDownload;
 
         return $this;
+    }
+
+    /**
+     * Add catalog
+     *
+     * @param Catalog $catalog
+     *
+     * @return Issue
+     */
+    public function addCatalog(Catalog $catalog)
+    {
+        $this->catalogs[] = $catalog;
+
+        return $this;
+    }
+
+    /**
+     * Remove catalog
+     *
+     * @param Catalog $catalog
+     */
+    public function removeCatalog(Catalog $catalog)
+    {
+        $this->catalogs->removeElement($catalog);
+    }
+
+    /**
+     * Get catalogs
+     *
+     * @return Collection
+     */
+    public function getCatalogs()
+    {
+        return $this->catalogs;
     }
 }

@@ -1,6 +1,32 @@
 $(document).ready(function () {
     moment.locale(current_language);
 
+    renderMathInElement(
+        document.body,
+        {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ]
+        }
+    );
+
+    /**
+     * Counts shown row number of grid
+     * Too nasty but works
+     */
+
+    if($('.grid_body').size()>0){
+        $('.grid_body').each(function () {
+            var elm = $(this);
+            var elm_size = $('tr.grid-row-cells',elm).not('.hidden').size()
+            elm.append('<p class="label label-info"><i class="fa fa-bars"></i> '+elm_size+'</p>');
+        });
+    }
+
+
 
     window_width = $(window).width();
 

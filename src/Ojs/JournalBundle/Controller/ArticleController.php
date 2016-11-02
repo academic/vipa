@@ -140,6 +140,7 @@ class ArticleController extends Controller
             'entity' => $entity,
             'form' => $form->createView(),
             'abstractTemplates' => $abstractTemplates,
+            'dispatch' => true
         ];
 
         return $this->render('OjsJournalBundle:Article:new.html.twig', $data);

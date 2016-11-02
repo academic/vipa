@@ -119,6 +119,17 @@ Ojs\JournalBundle\Entity\Journal:
       mappedBy: journal
       cascade: ["remove"]
   manyToMany:
+    catalogs:
+      targetEntity: Ojs\JournalBundle\Entity\Catalog
+      cascade: ["persist", "remove"] ## Is cascade.remove only removes reference from pivot table?
+      joinTable:
+          name: journal_catalogs
+          joinColumns:
+              journal_id:
+                  referencedColumnName: id
+          inverseJoinColumns:
+              catalog_id:
+                  referencedColumnName: id
     languages:
       targetEntity: Ojs\JournalBundle\Entity\Lang
       cascade: ["persist"]
@@ -163,6 +174,23 @@ Ojs\JournalBundle\Entity\Journal:
             onDelete: CASCADE
         inverseJoinColumns:
           subject_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+      cache:
+        usage: NONSTRICT_READ_WRITE
+    articleTypes:
+      targetEntity: Ojs\JournalBundle\Entity\ArticleTypes
+      cascade: ["persist"]
+      mappedBy: null
+      inversedBy: journals
+      joinTable:
+        name: journal_article_types
+        joinColumns:
+          journal_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          article_type_id:
             referencedColumnName: id
             onDelete: CASCADE
       cache:

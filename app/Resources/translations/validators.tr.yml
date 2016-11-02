@@ -16,7 +16,7 @@ keywords.field.for.default.lang.can.not.be.blank: 'Varsayılan dil için anahtar
 abstract.field.for.default.lang.can.not.be.blank: 'Varsayılan dil için öz alanı boş olmamalıdır.'
 must.specify.least.one.article.file: 'En az 1 makale dosyası eklemelisiniz.'
 must.specify.least.one.article.author: 'En az 1 yazar eklemelisiniz.'
-must.specify.least.one.article.citation: 'En az 1 referans eklemelisiniz.'
+must.specify.least.one.article.citation: 'En az 1 kaynakça eklemelisiniz.'
 type.field.article.files.not.be.blank: 'Makale dosyası için tür alanı boş olmamalıdır.'
 language.field.article.files.not.be.blank: 'Makale dosyası için dil alanı boş olmamalıdır.'
 title.field.article.files.not.be.blank: 'Makale dosyası için başlık alanı boş olmamalıdır.'

@@ -15,11 +15,10 @@
         </testsuite>
     </testsuites>
 
-    <!--
     <php>
-        <server name="KERNEL_DIR" value="/path/to/your/app/" />
+        <server name="KERNEL_DIR" value="app/" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
     </php>
-    -->
 
     <filter>
         <whitelist>

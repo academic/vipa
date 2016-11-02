@@ -16,6 +16,7 @@ use Ojs\JournalBundle\Entity\JournalPage;
 use Ojs\JournalBundle\Entity\JournalPost;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\Lang;
+use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\JournalBundle\Entity\Period;
 use Ojs\JournalBundle\Entity\PersonTitle;
 use Ojs\JournalBundle\Entity\Publisher;
@@ -507,4 +508,17 @@ class SampleObjectLoader
 
         return $objects['user']->getId();
     }
+
+    /**
+     * @return int
+     */
+    public function fetchMailTemplate()
+    {
+        $journal = $this->em->getRepository(Journal::class)->find(1);
+        return $this->em->getRepository(MailTemplate::class)->findOneBy([
+            'journal' => $journal,
+        ]);
+    }
+
+
 }
