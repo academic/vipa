@@ -48,7 +48,7 @@
                                                     {% else %}
                                                         {% if type.key in type_filters %}
                                                             {% set parameter = type_filters|pop(type.key) %}
-                                                            {{ type.key|trans }}
+                                                            {{ type.key }}
                                                             <a href="{{ path('ojs_site_explore_publisher', {type_filters: parameter|join(',')}) }}">
                                         <span class="label label-danger">
                                             <i class="glyphicon glyphicon-remove"></i>
