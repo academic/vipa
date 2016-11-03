@@ -42,8 +42,6 @@ class JournalIssnValidator extends ConstraintValidator
             ->getQuery()
             ->getResult();
 
-        dump($query);
-
         if (!empty($value) && $query) {
             $this->context->addViolation($constraint->message);
         }
