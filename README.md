@@ -7,7 +7,7 @@
 
 As a company we, [BulutYazilim](http://www.bulutyazilim.com), analyzed journal management systems and needs of the community and decided to make a harder, better, faster and stronger content management and workflow software using [Symfony 2](http://en.wikipedia.org/wiki/Symfony) and [cloud](http://en.wikipedia.org/wiki/Cloud_computing) in parnership with [TÜBİTAK-ULAKBİM](http://www.ulakbim.gov.tr).
 
-This project adheres to the [Open Code of Conduct](https://github.com/bulutyazilim/ojs/tree/master/code_of_conduct.md). By participating, you are expected to honor this code.
+This project adheres to the [Open Code of Conduct](https://github.com/ojs/ojs/tree/master/code_of_conduct.md). By participating, you are expected to honor this code.
 
 ## Download 
 
