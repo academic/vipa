@@ -179,6 +179,11 @@ class Publisher extends AbstractTranslatable
     private $publisherManagers;
 
     /**
+     * @var string
+     */
+    private $indentedPublisher;
+
+    /**
      * List of Publisher Status
      * @var array
      */
@@ -1028,5 +1033,19 @@ class Publisher extends AbstractTranslatable
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getIndentedPublisher()
+    {
+
+        if ($this->getStatus() !== PublisherStatuses::STATUS_COMPLETE){
+            return "*** ".$this->getName();
+        }else {
+            return $this->getName();
+        }
     }
 }
