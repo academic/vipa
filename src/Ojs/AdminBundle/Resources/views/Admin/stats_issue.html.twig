@@ -31,19 +31,20 @@
                         </tr>
                         </thead>
                         <tbody>
-
-                            {% for issue in data.issuePublish %}
-                                {% set journal = getJournal(issue.journal) %}
-                                <tr>
-                                    <td><a href="{{ generateJournalUrl(journal) }}">{{ journal.title }}</a></td>
-                                    <td>
-                                        {% for period in journal.periods %}
-                                            {{ period }},
-                                        {% endfor %}
-                                    </td>
-                                    <td>{{ issue.count }}</td>
-                                </tr>
-                            {% endfor %}
+                            {% if data.issuePublish|length>0 %}
+                                {% for issue in data.issuePublish %}
+                                    {% set journal = getJournal(issue.journal) %}
+                                    <tr>
+                                        <td><a href="{{ path('ojs_journal_index', {slug: journal.slug}) }}">{{ journal.title }}</a></td>
+                                        <td>
+                                            {% for period in journal.periods %}
+                                                {{ period }},
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{ issue.count }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
                         </tbody>
                     </table>
 {% endblock %}

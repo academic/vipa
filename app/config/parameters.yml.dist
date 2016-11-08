@@ -1,9 +1,9 @@
 parameters:
-    database_driver:   pdo_mysql
+    database_driver:   pdo_pgsql
     database_host:     127.0.0.1
-    database_port:     3306
+    database_port:     54323306
     database_name:     ojs
-    database_user:     root
+    database_user:     ojs
     database_password: ~
 
     system_email:      ojs@localhost
