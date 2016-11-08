@@ -10,6 +10,10 @@ ojs_journal_article_author_new:
     path:     /{journalId}/article/{articleId}/author/new
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:new" }
 
+ojs_journal_article_author_add:
+    path:     /{journalId}/article/{articleId}/author/add
+    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:add" }
+
 ojs_journal_article_author_create:
     path:     /{journalId}/article/{articleId}/author/create/
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:create" }

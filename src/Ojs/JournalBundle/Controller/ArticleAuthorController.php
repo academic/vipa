@@ -5,11 +5,13 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
+use GuzzleHttp\Exception\RequestException;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Form\Type\ArticleAuthorType;
+use Ojs\JournalBundle\Form\Type\ArticleAddAuthorType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -193,6 +195,81 @@ class ArticleAuthorController extends Controller
                 'article' => $article,
             )
         );
+    }
+
+    /**
+     * Displays a form to create a new ArticleAuthor entity.
+     *
+     * @param $articleId
+     * @return Response
+     */
+    public function addAction(Request $request, $articleId)
+    {
+
+        $journalService = $this->get('ojs.journal_service');
+        $journal = $journalService->getSelectedJournal();
+        $em = $this->getDoctrine()->getManager();
+        $article = $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
+        if (!$this->isGranted('EDIT', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
+        $entity = new ArticleAuthor();
+
+        $form = $this->createAddForm($entity, $journal, $article)
+            ->add('create', 'submit', array('label' => 'c'));
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $entity->setArticle($article);
+            $em->persist($entity);
+            $em->flush();
+
+            $this->successFlashBag('successful.create');
+
+            return $this->redirect(
+                $this->generateUrl(
+                    'ojs_journal_article_author_index',
+                    array('articleId' => $article->getId(), 'journalId' => $journal->getId())
+                )
+            );
+        }
+
+        return $this->render(
+            'OjsJournalBundle:ArticleAuthor:add.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+                'article' => $article
+            )
+        );
+    }
+
+
+
+    /**
+     * @param  ArticleAuthor $entity
+     * @param  Journal     $journal
+     * @param  Article     $article
+     * @return Form
+     */
+    private function createAddForm(ArticleAuthor $entity, Journal $journal, Article $article)
+    {
+        $form = $this->createForm(
+            new ArticleAddAuthorType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl(
+                    'ojs_journal_article_author_add',
+                    ['journalId' => $journal->getId(), 'articleId' => $article->getId()]
+                ),
+                'method' => 'POST',
+                'articleId' => $article->getId()
+            )
+        );
+
+        return $form;
     }
 
     /**
