@@ -89,7 +89,6 @@ class GraphDataGenerator
         return $journalViews;
     }
 
-
     /**
      * @return array
      */
@@ -101,7 +100,7 @@ class GraphDataGenerator
         if ($connectionParams['driver'] == 'pdo_sqlite') {
             $sql = 'SELECT count(id) as result_count , strftime("%m-%Y", created) as month  FROM journal GROUP BY month';
         }else{
-            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month';
+            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal WHERE created > (CURRENT_DATE - INTERVAL \'3\' month) GROUP BY month ORDER BY month DESC';
         }
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('result_count','result_count');
@@ -311,20 +310,23 @@ class GraphDataGenerator
         if($journal){
             $journalWhereQuery = 'AND article.journal_id = '.$journal->getId().' ';
         }
-        $sql = "SELECT article_translations.title, SUM(statistic.view) as sum_view FROM statistic "
+        $sql = "SELECT article_translations.title, SUM(statistic.view) as sum_view,journal.slug,statistic.article_id FROM statistic "
             ."join article on statistic.article_id = article.id "
+            ."join journal on article.id = journal.id "
             ."join article_translations on article.id = article_translations.translatable_id "
             ."and article_translations.locale = '".$this->locale."' "
             ."WHERE article_id IS NOT NULL "
             .$whereDate
             .$journalWhereQuery
-            ."group by article_id,article_translations.title "
+            ."group by article_id,article_translations.title,journal.slug "
             ."ORDER BY sum_view DESC "
             ."LIMIT 20; ";
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('title', 'title');
         $rsm->addScalarResult('sum_view', 'view');
+        $rsm->addScalarResult('slug', 'slug');
+        $rsm->addScalarResult('article_id', 'id');
         $query = $this->manager->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
 
@@ -341,7 +343,7 @@ class GraphDataGenerator
         if ($connectionParams['driver'] == 'pdo_sqlite') {
             $sql = 'SELECT count(id) as result_count , strftime("%Y-%m", created) as month  FROM journal GROUP BY month ORDER BY month DESC ';
         }else{
-            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month ORDER BY month DESC';
+            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal WHERE created > (CURRENT_DATE - INTERVAL \'3\' month) GROUP BY month ORDER BY month DESC';
         }
 
         $rsm = new ResultSetMapping();
@@ -450,6 +452,33 @@ class GraphDataGenerator
         $rsm->addScalarResult('sum_download', 'download');
         $rsm->addScalarResult('id', 'id');
         $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+
+
+    /**
+     * @param string
+     * @return array
+     */
+    public function generateIssuePublishCountData($year)
+    {
+
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = "SELECT COUNT(id) as count, journal_id FROM issue GROUP BY journal_id";
+        }else{
+            $sql = "SELECT count(id) as count, journal_id FROM issue WHERE EXTRACT(YEAR FROM year) = ".$year." GROUP BY journal_id";
+        }
+
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count', 'count');
+        $rsm->addScalarResult('journal_id', 'journal');
+        $query = $this->manager->createNativeQuery($sql,$rsm);
         $results = $query->getResult();
 
         return $results;

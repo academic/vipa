@@ -17,4 +17,11 @@ class TwigEvents
     const OJS_SEARCH_PAGE_WARNING = "ojs.search.page.warning";
     const OJS_ARTICLE_SHOW_VIEW = 'ojs.article.show.view';
     const OJS_ARTICLE_EDIT_VIEW = 'ojs.article.edit.view';
+    const OJS_ADMIN_STATS_DOI_TABS = 'ojs.admin.stats.doi.tabs';
+    const OJS_ADMIN_STATS_DOI_CONTENT = 'ojs.admin.stats.doi.content';
+    const OJS_ADMIN_STATS_DOI_SCRIPT = 'ojs.admin.stats.doi.script';
+    const OJS_ADMIN_STATS_EXTRA_TABS = 'ojs.admin.stats.extra.tabs';
+    const OJS_ADMIN_STATS_EXTRA_CONTENT = 'ojs.admin.stats.extra.content';
+    const OJS_ADMIN_STATS_EXTRA_SCRIPT = 'ojs.admin.stats.extra.script';
+    const OJS_JOURNAL_ARTICLE_EVENT_FORM = 'ojs.journal.article.event.form';
 }

@@ -129,11 +129,13 @@ class OjsExtension extends \Twig_Extension
             ),
             new \Twig_SimpleFunction('getTagDefinition', array($this, 'getTagDefinition')),
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
+            new \Twig_SimpleFunction('getJournal', array($this, 'getJournal')),
             new \Twig_SimpleFunction('getAdminPages', array($this, 'getAdminPages')),
             new \Twig_SimpleFunction('isGrantedForPublisher', array($this, 'isGrantedForPublisher')),
             new \Twig_SimpleFunction('twigEventDispatch', array($this, 'twigEventDispatch')),
             new \Twig_SimpleFunction('issueTextGenerate', array($this, 'issueTextGenerate')),
             new \Twig_SimpleFunction('getAuthorsInfo', array($this, 'getAuthorsInfo'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('getStrToUpper', array($this, 'getStrToUpper'), array('is_safe' => array('html'))),
         );
     }
 
@@ -462,6 +464,16 @@ class OjsExtension extends \Twig_Extension
     }
 
     /**
+     * @param integer $journal_id
+     * @return Journal
+     */
+    public function getJournal($journal_id)
+    {
+        return $this->em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+
+    }
+
+    /**
      * Returns all AdminPage entities
      *
      * @return array
@@ -522,18 +534,39 @@ class OjsExtension extends \Twig_Extension
 
         $institution = (!empty($author->getInstitution())) ? $author->getInstitution() : $author->getInstitutionName();
         $email = (empty($author->getUser())) ? $author->getEmail() : $author->getUser()->getEmail();
-        $fullName = (empty($author->getUser())) ? $author->getFullName() : $author->getUser()->getFullName();
+        $fullName = (empty($author->getUser())) ?
+            $author->getFullName() :
+            $author->getUser()->getTitle() . ' ' . $author->getUser()->getFullName();
 
         $text = '
         <p id="author$' . $author->getId() . '">
-        <b>' . $this->translator->trans('author') . ': </b>' . $fullName . '</br>
-        <b>' . $this->translator->trans('email') . ': </b>' . $email . '</br>
-        <b>' . $this->translator->trans('institution') . ': </b>' . $institution . '</br>
-        <b>' . $this->translator->trans('country') . ': </b>' . $author->getCountry() . '</p><hr>';
+        <b>' . $this->translator->trans('author') . ': </b>' . $fullName . '</br>';
+
+        if (!empty($email)){
+            $text .= '<b>' . $this->translator->trans('email') . ': </b>' . $email . '</br>';
+        }
+        if (!empty($institution)){
+            $text .= '<b>' . $this->translator->trans('institution') . ': </b>' . $institution . '</br>';
+        }
+        if (!empty($author->getCountry())){
+            $text .= '<b>' . $this->translator->trans('country') . ': </b>' . $author->getCountry() . '</p><hr>';
+        }
+
 
         return $text;
 
 
+    }
+
+    /**
+     * @param $string
+     * @return string
+     */
+    public function getStrToUpper($string)
+    {
+        $string = str_replace(array('i', 'ı', 'ü', 'ğ', 'ş', 'ö', 'ç'), array('İ', 'I', 'Ü', 'Ğ', 'Ş', 'Ö', 'Ç'), $string);
+        
+        return strtoupper($string);
     }
 
     public function getName()

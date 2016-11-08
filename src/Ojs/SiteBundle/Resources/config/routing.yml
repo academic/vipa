@@ -106,6 +106,8 @@ ojs_journal_subscribe:
 ojs_issue_page:
     path: /{journal_slug}/issue/{id}
     defaults: { _controller: "OjsSiteBundle:Issue:issuePage" }
+    requirements:
+        id: '\d+'
 
 ojs_article_page:
     path:  /{slug}/issue/{issue_id}/{article_id}

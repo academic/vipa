@@ -2,7 +2,6 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Publisher;

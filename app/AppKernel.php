@@ -107,17 +107,4 @@ class AppKernel extends Kernel
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
 
-    protected function initializeContainer()
-    {
-        parent::initializeContainer();
-        /**
-         * look for detail
-         * @link {https://github.com/FriendsOfSymfony/FOSMessageBundle/issues/255}
-         * @link {http://stackoverflow.com/a/37720827/2438520}
-         */
-        if (PHP_SAPI == 'cli' && $this->getEnvironment() != 'test') {
-            $this->getContainer()->enterScope('request');
-            $this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
-        }
-    }
 }

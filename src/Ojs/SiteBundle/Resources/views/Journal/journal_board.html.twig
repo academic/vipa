@@ -62,7 +62,10 @@
                                     <address>
                                         <h4>
                                             <a href="{{ path('ojs_user_profile', {slug: person.username}) }}">
-                                                {{ person.fullName }}
+                                                {% if person.title is not empty %}
+                                                    {{ person.title }}
+                                                {% endif %}
+                                                {{ person.firstName }} {{ getStrToUpper(person.lastName) }}
                                             </a>
                                         </h4>
                                         {% if person.country is not empty %}

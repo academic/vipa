@@ -31,6 +31,9 @@ Ojs\JournalBundle\Entity\IssueFile:
                 - versioned
         version:
             type: integer
+            nullable: true
+            options:
+              default: 0
         keywords:
             type: string
             length: 255

@@ -46,6 +46,7 @@ class MenuBuilder implements ContainerAwareInterface
             ['userRole',            'title.users',                          'ojs_journal_user_index',               'key',          true,   ],
 
             ['submissionSettings',  'title.journal_settings_submission',    'ojs_journal_settings_submission',      'paper-plane',  false,  ],
+            ['submissionSettings',  'article.types',                        'ojs_article_types_settings_index',     'puzzle-piece', false,  ],
             ['checklist',           'title.submission_checklists',          'ojs_journal_checklist_index',          'list',         false,  ],
             ['file',                'title.submission_files',               'ojs_journal_file_index',               'file',         true,   ],
 

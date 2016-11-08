@@ -40,8 +40,8 @@
     "list.js": "*",
     "downloadjs": "*",
     "fancybox": "^2.1.5",
-    "formBuilder": "*",
-    "jquery-ui": "*"
+    "jquery-ui": "*",
+    "katex":"*"
   },
   "resolutions": {
     "font-awesome": "4.4.0",

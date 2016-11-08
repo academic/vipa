@@ -19,7 +19,8 @@ class MailTemplateControllerTest extends BaseTestCase
     {
         $this->logIn();
         $client = $this->client;
-        $client->request('GET', '/journal/1/mail-template/22/show');
+        $entity = $this->sampleObjectLoader->fetchMailTemplate();
+        $client->request('GET', '/journal/1/mail-template/'.$entity->getId().'/show');
 
         $this->assertStatusCode(200, $client);
     }
@@ -28,7 +29,8 @@ class MailTemplateControllerTest extends BaseTestCase
     {
         $this->logIn();
         $client = $this->client;
-        $crawler = $client->request('GET', '/journal/1/mail-template/22/edit');
+        $entity = $this->sampleObjectLoader->fetchMailTemplate();
+        $crawler = $client->request('GET', '/journal/1/mail-template/'.$entity->getId().'/edit');
 
         $this->assertStatusCode(200, $client);
 

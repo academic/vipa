@@ -904,3 +904,7 @@ label.required:before {
     margin-bottom: 5px;
     padding-bottom: 5px;
 }
+
+.note-group-select-from-files{
+    display: none !important;
+}

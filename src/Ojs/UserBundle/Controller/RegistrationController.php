@@ -6,10 +6,13 @@ use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGenerator;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Event\UserEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,19 +29,16 @@ class RegistrationController extends  BaseController
                 ]
             );
         }
-
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
+        /** @var $formFactory FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');
-        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+        /** @var $userManager UserManagerInterface */
         $userManager = $this->get('ojs_user.manager');
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+        /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
         /** @var User $user */
         $user = $userManager->createUser();
         $user->setEnabled(true);
-        //Add default data for oauth login
-        $session = $this->get('session');
 
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
@@ -68,9 +68,7 @@ class RegistrationController extends  BaseController
 
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
-            $session->getFlashBag()->add('success', 'registration.activation');
-
-            $session->save();
+            $this->addFlash('success', 'registration.activation');
 
             $event = new UserEvent($user);
             $dispatcher = $this->get('event_dispatcher');
@@ -79,11 +77,9 @@ class RegistrationController extends  BaseController
             return $response;
         }
 
-        return $this->render(
-            'OjsUserBundle:Registration:register.html.twig',
-            array(
+        return $this->render('OjsUserBundle:Registration:register.html.twig', [
                 'form' => $form->createView(),
-            )
+            ]
         );
     }
 }

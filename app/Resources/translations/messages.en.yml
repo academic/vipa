@@ -935,6 +935,10 @@ stats.downloads: Downloads
 stats.application: Application
 stats.this_month: 'This Month'
 stats.all_time: 'All Time'
+stats.doi: 'Doi Statistics'
+stats.doi.monthly: 'Monthly Doi Statistics'
+stats.doi.yearly: 'Yearly Doi Statistics'
+stats.issue: 'Issue Statistics'
 status: Status
 status.early_preview: 'Early Preview'
 status.inreview: in-Review
@@ -1452,6 +1456,7 @@ suggested.competingFile.can.view: 'Suggested competing file can view.'
 from.here: 'From Here'
 submission.whats_missing: 'What''s Missing?'
 journal.design.cannot_delete_active: 'You are not allowed to delete the active theme. Select another one before deleting this one.'
+journal.count.which.publish.issue.annually: 'Journal Count Which Publish Issue Annually'
 validation:
   submission:
     title: 'Title field for the default language is mandatory'

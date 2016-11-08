@@ -181,8 +181,7 @@
         {{ grid_pagerfanta(grid) }}
     {% else %}
         <div class="pager form-inline">
-            {# disable total count because we hidden some rows for translations #}
-            {# grid_pager_totalcount(grid) #}
+            {{ grid_pager_totalcount(grid) }}
             {{ grid_pager_selectpage(grid) }}
             {{ grid_pager_results_perpage(grid) }}
         </div>

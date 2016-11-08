@@ -1,11 +1,10 @@
 language: php
 
 env:
-  - SYMFONY_VERSION="2.8.*" DB="postgres"
+  - SYMFONY_VERSION="2.8.*" DB="postgres" SYMFONY_ENV="test"
 
 php:
   - 7.0
-  - 5.6
 
 addons:
   apt_packages:
@@ -20,28 +19,25 @@ services:
 sudo: false
 
 before_install:
-  - composer self-update
   - npm install -g bower
 
 before_script:
-  - export SYMFONY_ENV=test
   - phpenv config-add travis.php.ini
-  - composer install --no-interaction --prefer-dist
+  - phpenv config-rm xdebug.ini
   - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - composer update
+  - composer install --no-interaction --prefer-dist
   - bower install --force --silent
-  - bower update --force --silent
+  - php app/console assetic:dump --env=test
   - chmod -R 777 app/cache app/logs
-  - php app/console assets:install web --symlink --env=test
-  - php app/console assetic:dump
-  - rm -f app/cache/test/test.db
   - php app/console ojs:install --no-interaction --env=test
   - php app/console ojs:install:samples --env=test
   - php app/console h4cc_alice_fixtures:load:sets --env=test
   - php app/console ojs:normalize:translatable:objects --env=test
   - php app/console ojs:mail:events:sync --env=test
   - php app/console ojs:mail:events:sync --sync-desc --env=test
-  - php app/console f:e:p --env=test
+  - php app/console ojs:normalize:journal:article:types --env=test
+  - php app/console fos:elastica:populate --env=test
+  - composer show
 
 script:
   - ./etc/bin/parallel_phpunit.sh

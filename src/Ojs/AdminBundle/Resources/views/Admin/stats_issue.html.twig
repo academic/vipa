@@ -1,0 +1,50 @@
+{% extends '::ojsbase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'stats'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+            {'link': path('dashboard'), 'title': 'dashboard'|trans},
+            {'link': path('ojs_admin_stats'),'title': 'stats'|trans},
+            {'title': 'stats.issue'|trans},
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+    {% include '::flashbag.html.twig' %}
+    <h1>{{ "journal.count.which.publish.issue.annually"|trans }}</h1>
+    <select class="form-control" style="width: 200px" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+
+        {% for i in 2016..1997 %}
+            <option value="{{ path('ojs_admin_stats_issue',{year:i}) }}" {% if year == i %} selected {% endif %}>{{ i }}</option>
+        {% endfor %}
+
+    </select>
+
+    <table class="table" style="margin-top:20px;">
+                        <thead>
+                        <tr>
+                            <td><b>{{ "journal"|trans }}</b></td>
+                            <td><b>{{ "period"|trans }}</b></td>
+                            <td><b>{{ "total.issue"|trans }}</b></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% if data.issuePublish|length>0 %}
+                                {% for issue in data.issuePublish %}
+                                    {% set journal = getJournal(issue.journal) %}
+                                    <tr>
+                                        <td><a href="{{ path('ojs_journal_index', {slug: journal.slug}) }}">{{ journal.title }}</a></td>
+                                        <td>
+                                            {% for period in journal.periods %}
+                                                {{ period }},
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{ issue.count }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+{% endblock %}
