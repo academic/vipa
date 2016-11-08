@@ -32,4 +32,13 @@ class AdminControllerTest extends BaseTestCase
 
         $this->assertStatusCode(200, $client);
     }
+
+    public function testIssue()
+    {
+        $this->logIn();
+        $client = $this->client;
+        $client->request('GET', '/admin/stats/issue');
+
+        $this->assertStatusCode(200, $client);
+    }
 }

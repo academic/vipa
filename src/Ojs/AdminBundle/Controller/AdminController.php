@@ -78,10 +78,12 @@ class AdminController extends Controller
         if(!$cache->contains('issue_statistics_'.$year)){
             $this->cacheIssueStats($year);
         }
-        
+
+        $data = $cache->fetch('issue_statistics_'.$year);
+
         return $this->render('OjsAdminBundle:Admin:stats_issue.html.twig',[
             "year" => $year,
-            "data" => $cache->fetch('issue_statistics_'.$year)
+            "data" => $data
         ]);
     }
     

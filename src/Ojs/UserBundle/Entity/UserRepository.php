@@ -12,14 +12,14 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class UserRepository extends EntityRepository implements UserProviderInterface
 {
     /**
-     * @param $query
+     * @param $searchQuery
      * @param Journal $journal
      * @param $limit
      * @param array $roles
      *
      * @return array|User[]
      */
-    public function searchJournalUser($query, Journal $journal, $limit, $roles = [])
+    public function searchJournalUser($searchQuery, Journal $journal, $limit, $roles = [])
     {
         $query = $this->createQueryBuilder('u')
             ->select('PARTIAL u.{id,username,email,firstName,lastName}')
@@ -28,7 +28,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->andWhere('u.username LIKE :query OR u.email LIKE :query')
             ->andWhere('u.enabled = :enabled')
             ->setParameter('journal', $journal)
-            ->setParameter('query', '%'.$query.'%')
+            ->setParameter('query', '%'.$searchQuery.'%')
             ->setParameter('enabled', true)
             ->setMaxResults($limit);
 
@@ -38,9 +38,9 @@ class UserRepository extends EntityRepository implements UserProviderInterface
                 ->andWhere('jur.role IN (:roles)')
                 ->setParameter('roles', $roles);
         }
-
         return $query->getQuery()->getResult();
     }
+
     /**
      * @param  string                      $username
      * @return \Ojs\UserBundle\Entity\User

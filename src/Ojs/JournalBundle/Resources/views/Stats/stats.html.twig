@@ -45,7 +45,7 @@
                         <tbody>
                         {% for article in articlesMonthly %}
                             <tr>
-                                <td>{{ article.title }}</td>
+                                <td><a href="{{ path('ojs_article_withoutIssue_page',{slug: article.slug, article_id: article.id}) }}">{{ article.title }}</a></td>
                                 <td>{{ article.view }}</td>
                             </tr>
                         {% endfor %}
@@ -63,7 +63,7 @@
                         <tbody>
                         {% for article in articles %}
                             <tr>
-                                <td>{{ article.title }}</td>
+                                <td><a href="{{ path('ojs_article_withoutIssue_page',{slug: article.slug, article_id: article.id}) }}">{{ article.title }}</a></td>
                                 <td>{{ article.view }}</td>
                             </tr>
                         {% endfor %}
@@ -91,7 +91,7 @@
                         <tbody>
                         {% for articleFile in articleFilesMonthly %}
                             <tr>
-                                <td>{{ articleFile.title }}</td>
+                                <td><a href="{{ path('ojs_site_download_article', {articleFile: articleFile.id}) }}">{{ articleFile.title }}</a></td>
                                 <td>{{ articleFile.download }}</td>
                             </tr>
                         {% endfor %}
@@ -109,7 +109,7 @@
                         <tbody>
                         {% for articleFile in articleFiles %}
                             <tr>
-                                <td>{{ articleFile.title }}</td>
+                                <td><a href="{{ path('ojs_site_download_article', {articleFile: articleFile.id}) }}">{{ articleFile.title }}</a></td>
                                 <td>{{ articleFile.download }}</td>
                             </tr>
                         {% endfor %}
@@ -137,7 +137,7 @@
                         <tbody>
                         {% for issueFile in issueFilesMonthly %}
                             <tr>
-                                <td>{{ issueFile.title }}</td>
+                                <td><a href="{{ path('ojs_site_download_issue',{issueFile: issueFile.id}) }}"></a>{{ issueFile.title }}</td>
                                 <td>{{ issueFile.download }}</td>
                             </tr>
                         {% endfor %}
@@ -155,7 +155,7 @@
                         <tbody>
                         {% for issueFile in issueFiles %}
                             <tr>
-                                <td>{{ issueFile.title }}</td>
+                                <td><a href="{{ path('ojs_site_download_issue',{issueFile: issueFile.id}) }}"></a>{{ issueFile.title }}</td>
                                 <td>{{ issueFile.download }}</td>
                             </tr>
                         {% endfor %}
