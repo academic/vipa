@@ -205,3 +205,9 @@ services:
 
   ojs_journal.workflow_events:
     class: Ojs\JournalBundle\Event\WorkflowEvents
+
+  ojs.journal.validation.issn:
+    class: Ojs\JournalBundle\Validator\JournalIssnValidator
+    arguments: ["@doctrine.orm.entity_manager"]
+    tags:
+      - { name: validator.constraint_validator, alias: ojs_journal_validation_issn }
