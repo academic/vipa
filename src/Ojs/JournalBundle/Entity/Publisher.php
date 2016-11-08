@@ -1042,7 +1042,7 @@ class Publisher extends AbstractTranslatable
     public function getIndentedPublisher()
     {
 
-        if ($this->getStatus() !== PublisherStatuses::STATUS_COMPLETE){
+        if ($this->getStatus() !== PublisherStatuses::STATUS_COMPLETE && !$this->isVerified()){
             return "*** ".$this->getName();
         }else {
             return $this->getName();
