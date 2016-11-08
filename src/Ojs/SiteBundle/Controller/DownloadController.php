@@ -27,11 +27,6 @@ class DownloadController extends Controller
 
         $path = $rootDir.'/../web'.$fileManager->getUrl($fileHistory);
 
-        $fs = new Filesystem();
-        if (!$fs->exists($path)) {
-            throw $this->createNotFoundException();
-        }
-
         $path = preg_replace('/\?'.$assetHelper->getVersion().'$/', '', $path);
 
         $explode = explode('.', $fileHistory->getOriginalName());
@@ -45,6 +40,11 @@ class DownloadController extends Controller
 
         $fileOriginalName = str_replace('/', '-', $fileOriginalName);
         $fileOriginalName = str_replace('\\', '-', $fileOriginalName);
+
+        $fs = new Filesystem();
+        if (!$fs->exists($path)) {
+            throw $this->createNotFoundException();
+        }
 
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(
@@ -72,17 +72,18 @@ class DownloadController extends Controller
 
         $path = $rootDir.'/../web'.$fileManager->getUrl($fileHistory);
 
-        $fs = new Filesystem();
-        if (!$fs->exists($path)) {
-            throw $this->createNotFoundException();
-        }
-
         $path = preg_replace('/\?'.$assetHelper->getVersion().'$/', '', $path);
         $fileOriginalName = $fileHistory->getOriginalName();
         if(preg_match('/\//', $fileHistory->getOriginalName())){
             $explode = explode('/', $fileHistory->getOriginalName());
             $fileOriginalName = end($explode);
         }
+
+        $fs = new Filesystem();
+        if (!$fs->exists($path)) {
+            throw $this->createNotFoundException();
+        }
+        
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_INLINE,
