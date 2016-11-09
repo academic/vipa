@@ -181,7 +181,7 @@ class Publisher extends AbstractTranslatable
     /**
      * @var string
      */
-    private $indentedPublisher;
+    private $annotatedPublisher;
 
     /**
      * List of Publisher Status
@@ -1039,13 +1039,12 @@ class Publisher extends AbstractTranslatable
     /**
      * @return string
      */
-    public function getIndentedPublisher()
+    public function getAnnotatedPublisher()
     {
-
-        if ($this->getStatus() !== PublisherStatuses::STATUS_COMPLETE && !$this->isVerified()){
-            return "*** ".$this->getName();
-        }else {
+        if ($this->getStatus() == PublisherStatuses::STATUS_COMPLETE && $this->isVerified()){
             return $this->getName();
+        }else {
+            return "*** ".$this->getName();
         }
     }
 }

@@ -129,7 +129,7 @@ class AdminJournalApplicationType extends AbstractType
                 array(
                     'class' => 'OjsJournalBundle:Publisher',
                     'attr' => ['class' => 'select2-element application-publisher'],
-                    'property' => 'indentedPublisher',
+                    'property' => 'annotatedPublisher',
                     'label' => 'journal.publisher',
                     'required' => true,
                     'placeholder' => 'select.publisher',
