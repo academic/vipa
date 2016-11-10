@@ -210,7 +210,6 @@ articles_in_history: 'Submissions in Past'
 author: Author
 author.add: 'Add Author'
 author.creation: 'Author Creation'
-author.correspondence_author: 'Correspondence Author'
 author.details: 'Author Details'
 author.edit: 'Edit Author'
 author.firstname: 'First Name'
