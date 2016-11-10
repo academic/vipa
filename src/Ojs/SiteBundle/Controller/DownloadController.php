@@ -10,6 +10,7 @@ use Ojs\SiteBundle\Event\SiteEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+Use Symfony\Component\Filesystem\Filesystem;
 
 class DownloadController extends Controller
 {
@@ -25,6 +26,7 @@ class DownloadController extends Controller
         $fileHistory = $fileManager->findOneByFileName($articleFile->getFile());
 
         $path = $rootDir.'/../web'.$fileManager->getUrl($fileHistory);
+
         $path = preg_replace('/\?'.$assetHelper->getVersion().'$/', '', $path);
 
         $explode = explode('.', $fileHistory->getOriginalName());
@@ -38,6 +40,11 @@ class DownloadController extends Controller
 
         $fileOriginalName = str_replace('/', '-', $fileOriginalName);
         $fileOriginalName = str_replace('\\', '-', $fileOriginalName);
+
+        $fs = new Filesystem();
+        if (!$fs->exists($path)) {
+            throw $this->createNotFoundException();
+        }
 
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(
@@ -64,12 +71,19 @@ class DownloadController extends Controller
         $fileHistory = $fileManager->findOneByFileName($issueFile->getFile());
 
         $path = $rootDir.'/../web'.$fileManager->getUrl($fileHistory);
+
         $path = preg_replace('/\?'.$assetHelper->getVersion().'$/', '', $path);
         $fileOriginalName = $fileHistory->getOriginalName();
         if(preg_match('/\//', $fileHistory->getOriginalName())){
             $explode = explode('/', $fileHistory->getOriginalName());
             $fileOriginalName = end($explode);
         }
+
+        $fs = new Filesystem();
+        if (!$fs->exists($path)) {
+            throw $this->createNotFoundException();
+        }
+        
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_INLINE,
