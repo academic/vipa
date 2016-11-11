@@ -43,6 +43,6 @@ script:
   - ./etc/bin/parallel_phpunit.sh
 
 notifications:
-  slack: bulutyazilim:8GtvUiq3935dZRc1SObHJVcR#ojs
+  slack: bulutyazilim:8GtvUiq3935dZRc1SObHJVcR#ojs-log
   email:
     - behramcelen+travis@gmail.com
