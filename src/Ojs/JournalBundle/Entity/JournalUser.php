@@ -35,7 +35,7 @@ class JournalUser implements JournalItemInterface
      * @var User
      * @Expose
      * @JMS\Groups({"export"})
-     * @Grid\Column(field="user.email", title="user")
+     * @Grid\Column(field="user.email", title="email")
      * @Grid\Column(field="user.username", title="username")
      * @Grid\Column(field="user.firstName", title="firstname")
      * @Grid\Column(field="user.lastName", title="lastname")
