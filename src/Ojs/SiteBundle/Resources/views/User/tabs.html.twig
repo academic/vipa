@@ -3,6 +3,7 @@
         <li role="presentation" {% if activo == 1 %}class="active"{% endif %}>
             <a href="{{ url('ojs_user_edit_profile') }}">{{ "user.update_profile"|trans }}</a>
         </li>
+        {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_EDIT_TABS', 'active_tab': activo})|raw }}
         <li role="presentation" {% if activo == 2 %}class="active"{% endif %}>
             <a href="{{ url('ojs_user_custom_field') }}">{{ "user.custom_fields"|trans }}</a>
         </li>
@@ -18,6 +19,6 @@
         <li role="presentation" {% if activo == 6 %}class="active"{% endif %}>
             <a href="{{ url('ojs_user_multiple_mail') }}">{{ "user.multiple_mail"|trans }}</a>
         </li>
-        {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_EDIT_TABS', 'active_tab': activo})|raw }}
+
     </ul>
 </section>
