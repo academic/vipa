@@ -20,7 +20,7 @@ Ojs\JournalBundle\Entity\Catalog:
             column: alias
             length: 80
             type: string
-            nullable: false
+            nullable: true
         isActive:
             column: is_active
             type: boolean
