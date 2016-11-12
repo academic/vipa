@@ -322,6 +322,8 @@
                {% endfor %}
            </select>
        </div>
+    {% else %}
+        <label for="{{ grid.hash }}__{{ column.id }}__query__from" >{{ column.title|trans }}</label>
     {% endif %}
 {% endblock grid_column_operator %}
 {# -------------------------------------------- grid_column_filter_type_input --------------------------------------- #}
