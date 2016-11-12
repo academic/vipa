@@ -32,31 +32,21 @@ class AdminJournalController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $cache = $this->get('array_cache');
         $router = $this->get('router');
         $source = new Entity('OjsJournalBundle:Journal');
         $source->manipulateRow(
-            function (Row $row) use ($request, $cache, $router) {
+            function (Row $row) use ($request, $router) {
                 /* @var Journal $entity */
                 $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $journalLinkTemplate = $entity->getTitleTranslations();
-                        if($entity->isIndexable() && $entity->getPublisher() !== null){
-                            $generateJournalLink = $router->generate('ojs_journal_index', [
-                                'slug' => $entity->getSlug(),
-                            ]);
-                            $journalLinkTemplate = '<a target="_blank" href="'.$generateJournalLink.'">'.$entity->getTitleTranslations().'</a>';
-                        }
-                        $row->setField('translations.title', $journalLinkTemplate);
-                        if($entity->getPublisher() !== null){
-                            $row->setField('publisher.translations.name', $entity->getPublisher()->getNameTranslations());
-                        }
+                    $journalLinkTemplate = $entity->getTitleTranslations();
+                    if($entity->isIndexable() && $entity->getPublisher() !== null){
+                        $generateJournalLink = $router->generate('ojs_journal_index', [
+                            'slug' => $entity->getSlug(),
+                        ]);
+                        $journalLinkTemplate = '<a target="_blank" href="'.$generateJournalLink.'">'.$entity->getTitleTranslations().'</a>';
                     }
+                    $row->setField('translations.title:translation_agg', $journalLinkTemplate);
                 }
 
                 return $row;
