@@ -63,7 +63,7 @@ class ArticleController extends Controller
                     $addarray['issn'] = $data['article']->getJournal()->getIssn();
                     $addarray['address'] = $data['article']->getJournal()->getAddress();
                     $addarray['address'] = $data['article']->getJournal()->getPublisher()->getName();
-                    $addarray['year'] = $data['article']->getJournal()->getFounded()->format('Y');
+                    $addarray['year'] = $data['article']->getPubdate()->format('Y');
                     $addarray['pages'] = $data['article']->getFirstPage() . ' - ' . $data['article']->getLastPage();
                     $addarray['doi'] = $data['article']->getDoi();
                     $addarray['title'] = $translation->$createGetterFunction();
@@ -171,7 +171,7 @@ class ArticleController extends Controller
                 $addarray['issn'] = $data['article']->getJournal()->getIssn();
                 $addarray['address'] = $data['article']->getJournal()->getAddress();
                 $addarray['address'] = $data['article']->getJournal()->getPublisher()->getName();
-                $addarray['year'] = $data['article']->getJournal()->getFounded()->format('Y');
+                $addarray['year'] = $data['article']->getPubdate()->format('Y');
                 $addarray['volume'] = $data['article']->getIssue()->getVolume();
                 $addarray['pages'] = $data['article']->getFirstPage() . ' - ' . $data['article']->getLastPage();
                 $addarray['doi'] = $data['article']->getDoi();
