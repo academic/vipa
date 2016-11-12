@@ -13,6 +13,9 @@ doctrine:
         path:     '%kernel.cache_dir%/__DBNAME__.db'
 
     orm:
+        dql:
+            string_functions:
+                translation_agg: Ojs\CoreBundle\Query\PostgreSQL\TranslationAgg
         auto_generate_proxy_classes: false
         auto_mapping: true
         resolve_target_entities:
