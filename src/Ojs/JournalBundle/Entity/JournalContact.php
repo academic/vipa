@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * JournalContact
- * @GRID\Source(columns="id, email, fullName, contactType.translations.name:translation_agg, contactOrder")
+ * @GRID\Source(columns="id, email, fullName, contactType.translations.name:translation_agg, contactOrder", groupBy={"id"})
  * @GRID\Source(columns="id, journal.translations.title:translation_agg, fullName, contactType.translations.name:translation_agg", groups={"admin"}, groupBy={"id"})
  */
 class JournalContact implements JournalItemInterface
