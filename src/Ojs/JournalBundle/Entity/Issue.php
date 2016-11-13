@@ -16,8 +16,8 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Issue
- * @GRID\Source(columns="id,volume,number,translations.title,year,datePublished,lastIssue")
- * @GRID\Source(columns="id, translations.title, number, volume", groups={"export"})
+ * @GRID\Source(columns="id,volume,number,translations.title:translation_agg,year,datePublished,lastIssue", groupBy={"id"})
+ * @GRID\Source(columns="id, translations.title:translation_agg, number, volume", groups={"export"}, groupBy={"id"})
  * @JMS\ExclusionPolicy("all")
  */
 class Issue extends AbstractTranslatable implements JournalItemInterface
@@ -60,7 +60,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @var string
-     * @GRID\Column(title="title", field="translations.title", safe=false)
+     * @GRID\Column(title="title", field="translations.title:translation_agg", safe=false, operatorsVisible=false)
      */
     private $title;
 
