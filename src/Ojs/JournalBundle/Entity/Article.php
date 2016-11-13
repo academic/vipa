@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\CoreBundle\Entity as CommonTraits;
 use Ojs\CoreBundle\Entity\AnalyticsTrait;
@@ -21,9 +20,9 @@ use Ojs\CoreBundle\Params\ArticleStatuses;
 
 /**
  * Article
- * @GRID\Source(columns="id, numerator, translations.title, issue.translations.title, journal.title, pubdate, status, section.title, doiStatus")
- * @GRID\Source(columns="id, numerator, status, translations.title, journal.title", groups={"submission"})
- * @GRID\Source(columns="id, translations.title", groups={"export"})
+ * @GRID\Source(columns="id, numerator, translations.title:translation_agg, issue.translations.title:translation_agg, journal.title:translation_agg, pubdate, status, section.title, doiStatus", groupBy={"id"})
+ * @GRID\Source(columns="id, numerator, status, translations.title:translation_agg, journal.title:translation_agg", groups={"submission"}, groupBy={"id"})
+ * @GRID\Source(columns="id, translations.title:translation_agg", groups={"export"}, groupBy={"id"})
  * @ExclusionPolicy("all")
  */
 class Article extends AbstractTranslatable implements JournalItemInterface
@@ -83,7 +82,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * Original article title
      * @var string
-     * @GRID\Column(title="title", field="translations.title", safe=false)
+     * @GRID\Column(title="title", field="translations.title:translation_agg", safe=false, operatorsVisible=false)
      */
     private $title;
     /**
@@ -165,7 +164,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     private $languages;
     /**
      * @var Issue
-     * @GRID\Column(title="issue Title", field="issue.translations.title", safe=false)
+     * @GRID\Column(title="issue Title", field="issue.translations.title:translation_agg", safe=false, operatorsVisible=false)
      */
     private $issue;
     /**
