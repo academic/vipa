@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\Expose;
 
 /**
  * Board
- * @GRID\Source(columns="id,translations.name,translations.description, boardOrder")
+ * @GRID\Source(columns="id,translations.name:translation_agg,translations.description:translation_agg, boardOrder", groupBy={"id"})
  */
 class Board extends AbstractTranslatable implements JournalItemInterface
 {
@@ -27,7 +27,7 @@ class Board extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @var string
-     * @GRID\Column(title="name", field="translations.name", safe=false)
+     * @GRID\Column(title="name", field="translations.name:translation_agg", safe=false, operatorsVisible=false)
      */
     private $name;
 
@@ -39,7 +39,7 @@ class Board extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @var string
-     * @GRID\Column(title="description", field="translations.description", safe=false)
+     * @GRID\Column(title="description", field="translations.description:translation_agg", safe=false, operatorsVisible=false)
      */
     private $description;
 
