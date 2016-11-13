@@ -11,7 +11,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Period
- * @GRID\Source(columns="id,translations.period")
+ * @GRID\Source(columns="id,translations.period:translation_agg", groupBy={"id"})
  * @JMS\ExclusionPolicy("all")
  */
 class Period extends AbstractTranslatable
@@ -29,7 +29,7 @@ class Period extends AbstractTranslatable
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="period", field="translations.period", safe=false)
+     * @GRID\Column(title="period", field="translations.period:translation_agg", safe=false, operatorsVisible=false)
      */
     private $period;
 
