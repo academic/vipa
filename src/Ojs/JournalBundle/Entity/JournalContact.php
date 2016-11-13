@@ -10,8 +10,8 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * JournalContact
- * @GRID\Source(columns="id, email, fullName, contactType.translations.name, contactOrder")
- * @GRID\Source(columns="id, journal.translations.title, fullName, contactType.translations.name", groups={"admin"})
+ * @GRID\Source(columns="id, email, fullName, contactType.translations.name:translation_agg, contactOrder", groupBy={"id"})
+ * @GRID\Source(columns="id, journal.translations.title:translation_agg, fullName, contactType.translations.name:translation_agg", groups={"admin"}, groupBy={"id"})
  */
 class JournalContact implements JournalItemInterface
 {
@@ -63,7 +63,7 @@ class JournalContact implements JournalItemInterface
 
     /**
      * @var ContactTypes
-     * @GRID\Column(title="contact.type", field="contactType.translations.name", safe=false)
+     * @GRID\Column(title="contact.type", field="contactType.translations.name:translation_agg", safe=false, operatorsVisible=false)
      */
     private $contactType;
 
@@ -79,7 +79,7 @@ class JournalContact implements JournalItemInterface
 
     /**
      * @var Journal
-     * @GRID\Column(title="journal", field="journal.translations.title", safe=false)
+     * @GRID\Column(title="journal", field="journal.translations.title:translation_agg", safe=false, operatorsVisible=false)
      */
     private $journal;
 

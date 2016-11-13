@@ -30,20 +30,6 @@ class AdminPostController extends Controller
     public function indexAction(Request $request)
     {
         $source = new Entity('OjsAdminBundle:AdminPost');
-        $source->manipulateRow(
-            function (Row $row) use ($request) {
-                /* @var AdminPost $entity */
-                $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
-
-                if (!is_null($entity)) {
-                    $row->setField('translations.title', $entity->getTitleTranslations());
-                }
-
-                return $row;
-            }
-        );
-
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 

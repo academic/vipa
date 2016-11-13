@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * JournalPage
- * @GRID\Source(columns="id, translations.title")
+ * @GRID\Source(columns="id, translations.title:translation_agg", groupBy={"id"})
  */
 class JournalPage extends AbstractTranslatable implements JournalItemInterface
 {
@@ -34,7 +34,7 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @var string
-     * @GRID\Column(title="title", field="translations.title", safe=false)
+     * @GRID\Column(title="title", field="translations.title:translation_agg", safe=false, operatorsVisible=false)
      */
     private $title;
 

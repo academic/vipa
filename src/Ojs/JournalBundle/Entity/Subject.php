@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * Subject
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,translations.subject,translations.description")
+ * @GRID\Source(columns="id,translations.subject:translation_agg,translations.description:translation_agg", groupBy={"id"})
  */
 class Subject extends AbstractTranslatable
 {
@@ -48,7 +48,7 @@ class Subject extends AbstractTranslatable
     /**
      * @var string
      * @Expose
-     * @GRID\Column(title="subject", field="translations.subject", safe=false)
+     * @GRID\Column(title="subject", field="translations.subject:translation_agg", safe=false, operatorsVisible=false)
      */
     private $subject;
 
@@ -59,7 +59,7 @@ class Subject extends AbstractTranslatable
     /**
      * @var string
      * @Expose
-     * @GRID\Column(title="description", field="translations.description", safe=false)
+     * @GRID\Column(title="description", field="translations.description:translation_agg", safe=false, operatorsVisible=false)
      */
     private $description;
     /**

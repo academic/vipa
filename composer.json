@@ -45,6 +45,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/ismailbaskin/HWIOAuthBundle.git"
+    },
+    {
+      "type": "git",
+      "url": "git@github.com:bulutyazilim/APYDataGridBundle.git"
     }
   ],
   "require": {

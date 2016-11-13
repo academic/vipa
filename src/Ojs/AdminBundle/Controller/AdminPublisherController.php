@@ -31,33 +31,7 @@ class AdminPublisherController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $cache = $this->get('array_cache');
-        $router = $this->get('router');
         $source = new Entity('OjsJournalBundle:Publisher');
-        $source->manipulateRow(
-            function (Row $row) use ($request, $cache, $router) {
-                /* @var Publisher $entity */
-                $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
-                if (!is_null($entity)) {
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $publisherLinkTemplate = $entity->getNameTranslations();
-                        if($entity->isIndexable()){
-                            $generatePublisherLink = $router->generate('ojs_publisher_page', [
-                                'slug' => $entity->getSlug(),
-                            ]);
-                            $publisherLinkTemplate = '<a target="_blank" href="'.$generatePublisherLink.'">'.$entity->getNameTranslations().'</a>';
-                        }
-                        $row->setField('translations.name', $publisherLinkTemplate);
-                    }
-                }
-
-                return $row;
-            }
-        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 

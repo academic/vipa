@@ -20,7 +20,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Journal
  * @JMS\ExclusionPolicy("all")
- * @GRID\Source(columns="id,translations.title,issn,eissn,status,publisher.translations.name")
+ * @GRID\Source(columns="id,translations.title:translation_agg,issn,eissn,status,publisher.translations.name:translation_agg", groupBy={"id"})
  */
 class Journal extends AbstractTranslatable
 {
@@ -52,13 +52,12 @@ class Journal extends AbstractTranslatable
     protected $id;
     /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalTranslation")
-     * @Grid\Column(field="translations.id")
      */
     protected $translations;
     /**
      * @var string
      * @JMS\Expose
-     * @Grid\Column(title="Title", field="translations.title", safe=false)
+     * @Grid\Column(title="Title", field="translations.title:translation_agg", safe=false, operatorsVisible=false)
      */
     private $title;
     /**
@@ -234,7 +233,7 @@ class Journal extends AbstractTranslatable
     /**
      * @var Publisher
      * @JMS\Expose
-     * @Grid\Column(field="publisher.translations.name", title="publisher", safe=false)
+     * @Grid\Column(field="publisher.translations.name:translation_agg", title="publisher", safe=false, operatorsVisible=false)
      */
     private $publisher;
     /**

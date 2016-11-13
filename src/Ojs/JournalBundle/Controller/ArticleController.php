@@ -38,7 +38,6 @@ class ArticleController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $cache = $this->get('array_cache');
         $eventDispatcher = $this->get('event_dispatcher');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
@@ -49,24 +48,16 @@ class ArticleController extends Controller
 
         $source = new Entity('OjsJournalBundle:Article');
         $source->manipulateRow(
-            function (Row $row) use ($request, $cache) {
+            function (Row $row) use ($request) {
                 /** @var Article $entity */
                 $entity = $row->getEntity();
                 if (!is_null($entity)) {
                     $entity->setDefaultLocale($request->getDefaultLocale());
                     $doi = $entity->getDoi();
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        if ($doi !== null) {
-                            $row->setField('translations.title', $entity->getTitleTranslations().' / '.$doi);
-                        } else {
-                            $row->setField('translations.title', $entity->getTitleTranslations());
-                        }
-                        if (!is_null($entity->getIssue())) {
-                            $row->setField('issue.translations.title', $entity->getIssue()->getTitleTranslations());
-                        }
+                    if ($doi !== null) {
+                        $row->setField('translations.title', $entity->getTitleTranslations().' / '.$doi);
+                    } else {
+                        $row->setField('translations.title', $entity->getTitleTranslations());
                     }
                 }
 
