@@ -26,29 +26,7 @@ class AdminJournalApplicationController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:Journal');
-        $source->manipulateRow(
-            function (Row $row) use ($request, $cache)
-            {
-                /* @var Journal $entity */
-                $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
-                if (!is_null($entity)) {
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $row->setField('translations.title', $entity->getTitleTranslations());
-                        if($entity->getPublisher() !== null){
-                            $row->setField('publisher.translations.name', $entity->getPublisher()->getNameTranslations());
-                        }
-                    }
-                }
-
-                return $row;
-            }
-        );
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($alias) {
