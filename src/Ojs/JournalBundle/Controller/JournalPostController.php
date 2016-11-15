@@ -107,6 +107,7 @@ class JournalPostController extends OjsController
     public function createAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journalMandatoryLocale = $journal->getMandatoryLang()->getCode();
         $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('CREATE', $journal, 'posts')) {
@@ -118,11 +119,11 @@ class JournalPostController extends OjsController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $entity->setCurrentLocale($request->getDefaultLocale());
+            $entity->setCurrentLocale($journalMandatoryLocale);
             $entity->setJournal($journal);
 
             $em = $this->getDoctrine()->getManager();
-            $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
+            $entity->setSlug($entity->getTranslationByLocale($journalMandatoryLocale)->getTitle());
 
             $event = new JournalItemEvent($entity);
             $eventDispatcher->dispatch(JournalPostEvents::PRE_CREATE, $event);

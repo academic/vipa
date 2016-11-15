@@ -84,7 +84,7 @@ class JournalPageMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
-                'page'              => (string)$itemEvent->getItem(),
+                'page'              => $itemEvent->getItem()->getTitleTranslations(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),

@@ -290,20 +290,14 @@ class JournalPageController extends OjsController
     }
 
     /**
-     * @param  Request $request
-     * @param  int $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param Request $request
+     * @param JournalPage $entity
+     * @return Response
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, JournalPage $entity)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $eventDispatcher = $this->get('event_dispatcher');
-
-        $entity = $this
-            ->getDoctrine()
-            ->getRepository('OjsJournalBundle:JournalPage')
-            ->find($id);
-        $this->throw404IfNotFound($entity);
+        $dispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('DELETE', $journal, 'pages')) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -318,13 +312,14 @@ class JournalPageController extends OjsController
         }
 
         $event = new JournalItemEvent($entity);
-        $eventDispatcher->dispatch(JournalPageEvents::PRE_DELETE, $event);
+        $dispatcher->dispatch(JournalPageEvents::PRE_DELETE, $event);
 
+        $this->get('ojs_core.delete.service')->check($entity);
         $em->remove($entity);
         $em->flush();
 
         $event = new JournalEvent($journal);
-        $eventDispatcher->dispatch(JournalPageEvents::POST_DELETE, $event);
+        $dispatcher->dispatch(JournalPageEvents::POST_DELETE, $event);
 
         if ($event->getResponse()) {
             return $event->getResponse();
