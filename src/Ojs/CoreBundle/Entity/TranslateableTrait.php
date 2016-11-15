@@ -140,9 +140,7 @@ trait TranslateableTrait
         }
         foreach($this->translations as $translation){
             $fieldValue = $accessor->getValue($translation, $field);
-            dump($translation->getLocale());
             if(!empty($fieldValue) && $fieldValue !== '-'){
-
                 if($withLocale){
                     return '['.$translation->getLocale().']'.$fieldValue;
                 }else{
