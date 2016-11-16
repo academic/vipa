@@ -267,6 +267,19 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td><abbr tooltip="Last Name, First Name. “Article Title.” Journal Name Volume Number (Year Published): Page Numbers.">Chicago</abbr></td>
+                                <td>
+                                    {% if article.articleAuthors %}
+                                    {% for authorsInfo in article.articleAuthors %}
+                                        {{ authorsInfo.author.lastName }}, {{ authorsInfo.author.firstname|first }}
+                                        {% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                    {% endif %}.
+                                    "{{ bibtex_data.title }}".
+                                    {{ bibtex_data.journal }}  {% if article.issue %}{{ article.issue.volume }} {% endif %} ({{ bibtex_data.year }}): {% if article.firstPage is not null and article.lastPage is not null %}{{ article.firstPage }}-{{ article.lastPage }}{% endif %}
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>RIS</td>
                                 <td>
                                     TY - JOUR
