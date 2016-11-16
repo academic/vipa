@@ -30,11 +30,12 @@ class HostingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $currentHost = $request->getHttpHost();
 
-            $getJournalByDomain = $em->getRepository(Journal::class)->findOneBy(
-                array('domain' => $currentHost)
-            );
-            $this->throw404IfNotFound($getJournalByDomain);
-            return $this->journalIndexAction($getJournalByDomain->getSlug(), true);
+        $getJournalByDomain = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost)
+        );
+        $this->throw404IfNotFound($getJournalByDomain);
+
+        return $this->journalIndexAction($getJournalByDomain->getSlug(), true);
 
     }
 
