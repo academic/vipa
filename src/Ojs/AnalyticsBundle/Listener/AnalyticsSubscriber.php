@@ -15,6 +15,7 @@ use Ojs\SiteBundle\Event\ViewArticleEvent;
 use Ojs\SiteBundle\Event\ViewIssueEvent;
 use Ojs\SiteBundle\Event\ViewJournalEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class AnalyticsSubscriber implements EventSubscriberInterface
 {
@@ -24,12 +25,18 @@ class AnalyticsSubscriber implements EventSubscriberInterface
     private $em;
 
     /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
+    /**
      * AnalyticsSubscriber constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, RequestStack $requestStack)
     {
-        $this->em = $em;
+        $this->em           = $em;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -134,7 +141,15 @@ class AnalyticsSubscriber implements EventSubscriberInterface
 
     public function onArticleFileDownload(DownloadArticleFileEvent $event)
     {
+        $request = $this->requestStack->getMasterRequest();
+        $session = $request->getSession();
         $articleFile = $event->getArticleFile();
+        $sessionKey = 'download_article_file_'.$articleFile->getId();
+        if($session->has($sessionKey)){
+            return;
+        }else{
+            $session->set($sessionKey, 1);
+        }
         $article = $event->getArticleFile()->getArticle();
         $journal = $article->getJournal();
         $stat = $this->em
@@ -161,7 +176,15 @@ class AnalyticsSubscriber implements EventSubscriberInterface
 
     public function onIssueFileDownload(DownloadIssueFileEvent $event)
     {
+        $request = $this->requestStack->getMasterRequest();
+        $session = $request->getSession();
         $issueFile = $event->getIssueFile();
+        $sessionKey = 'download_issue_file_'.$issueFile->getId();
+        if($session->has($sessionKey)){
+            return;
+        }else{
+            $session->set($sessionKey, 1);
+        }
         $issue = $issueFile->getIssue();
         $journal = $issue->getJournal();
         $stat = $this->em
