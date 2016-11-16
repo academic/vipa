@@ -29,30 +29,14 @@ class HostingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $currentHost = $request->getHttpHost();
-        /** @var Publisher $getPublisherByDomain */
-        $getPublisherByDomain = $em->getRepository(Publisher::class)->findOneBy(
+
+        $getJournalByDomain = $em->getRepository(Journal::class)->findOneBy(
             array('domain' => $currentHost)
         );
-        $this->throw404IfNotFound($getPublisherByDomain);
-        if (!$getPublisherByDomain) {
-            /** @var Journal $getJournalByDomain */
-            $getJournalByDomain = $em->getRepository(Journal::class)->findOneBy(
-                array('domain' => $currentHost)
-            );
-            $this->throw404IfNotFound($getJournalByDomain);
-            return $this->journalIndexAction($getJournalByDomain->getSlug(), true);
-        }
-        /** @var Journal $journal */
-        foreach ($getPublisherByDomain->getJournals() as $journal) {
-            $journalPublicURI = $this->generateUrl('publisher_hosting_journal_index', [
-                'slug' => $journal->getSlug()
-            ],true);
-            $journal->setPublicURI($journalPublicURI);
-        }
+        $this->throw404IfNotFound($getJournalByDomain);
 
-        return $this->render('OjsSiteBundle::Publisher/publisher_index.html.twig', [
-            'entity' => $getPublisherByDomain,
-        ]);
+        return $this->journalIndexAction($getJournalByDomain->getSlug(), true);
+
     }
 
     /**
