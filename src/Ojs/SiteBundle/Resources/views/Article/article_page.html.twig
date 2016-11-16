@@ -309,6 +309,26 @@
 
                                 </td>
                             </tr>
+                            <tr>
+                                <td>EndNote</td>
+                                <td>
+                                    %0 {{ article.journal }} {{ article.title }}
+                                    %A {% if article.articleAuthors %}
+                                        {% for authorsInfo in article.articleAuthors %}
+                                            {{ authorsInfo.author.fullName }}
+                                            {% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    %T {{ article.title }}
+                                    %D {{ article.pubDate|date("Y") }}
+                                    %J {{ article.journal }}
+                                    %P {{ article.journal.issn }}-{{ article.journal.eissn }}
+                                    %V {{ article.issue.volume }}
+                                    %N {{ article.issue.number }}
+                                    %R doi: {{ article.doi }}
+                                    %U {{ article.doi }}
+                                </td>
+                            </tr>
                         </table>
                     </div>
 
