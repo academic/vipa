@@ -267,16 +267,33 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><abbr tooltip="Last Name, First Name. “Article Title.” Journal Name Volume Number (Year Published): Page Numbers.">Chicago</abbr></td>
+                                <td>RIS</td>
                                 <td>
-                                    {% if article.articleAuthors %}
-                                    {% for authorsInfo in article.articleAuthors %}
-                                        {{ authorsInfo.author.lastName }}, {{ authorsInfo.author.firstname|first }}
-                                        {% if not loop.last %}, {% endif %}
-                                    {% endfor %}
-                                    {% endif %}.
-                                    "{{ bibtex_data.title }}".
-                                    {{ bibtex_data.journal }}  {% if article.issue %}{{ article.issue.volume }} {% endif %} ({{ bibtex_data.year }}): {% if article.firstPage is not null and article.lastPage is not null %}{{ article.firstPage }}-{{ article.lastPage }}{% endif %}
+                                    TY - JOUR
+                                    T1 - {{ article.title }}
+                                    AU - {% if article.articleAuthors %}
+                                        {% for authorsInfo in article.articleAuthors %}
+                                            {{ authorsInfo.author.fullName }}
+                                            {% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    Y1 - {{ article.pubDate|date("Y") }}
+                                    PY - {{ article.pubDate|date("Y") }}
+                                    N1 - doi: {{ article.doi }}
+                                    DO - {{ article.doi }}
+                                    T2 - {{ article.journal }}
+                                    JF - Journal
+                                    JO - JOR
+                                    SP - {{ article.firstPage }}
+                                    EP - {{ article.lastPage }}
+                                    VL - {{ article.issue.volume }}
+                                    IS - {{ article.issue.number }}
+                                    SN - {{ article.journal.issn }}-{{ article.journal.eissn }}
+                                    M3 - doi: {{ article.doi }}
+                                    UR - http://dx.doi.org/{{ article.doi }}
+                                    Y2 - {{ article.acceptanceDate|date("Y") }}
+                                    ER -
+
                                 </td>
                             </tr>
                         </table>
