@@ -148,6 +148,7 @@ trait TranslateableTrait
                 }
             }
         }
+
         return '';
     }
 }
