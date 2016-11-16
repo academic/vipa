@@ -3,6 +3,7 @@ services:
   analytics.listener:
     arguments:
       - "@doctrine.orm.entity_manager"
+      - "@request_stack"
     class: Ojs\AnalyticsBundle\Listener\AnalyticsSubscriber
     tags:
       -
