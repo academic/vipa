@@ -4,6 +4,7 @@ namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\ArticleStatuses;
+use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\CoreBundle\Params\PublisherStatuses;
 use OpenJournalSoftware\BibtexBundle\Helper\Bibtex;
@@ -63,7 +64,11 @@ class ArticleController extends Controller
                     $addarray['issn'] = $data['article']->getJournal()->getIssn();
                     $addarray['address'] = $data['article']->getJournal()->getAddress();
                     $addarray['address'] = $data['article']->getJournal()->getPublisher()->getName();
-                    $addarray['year'] = $data['article']->getPubdate()->format('Y');
+                    if($data['article']->getPubdate()) {
+                        $addarray['year'] = $data['article']->getPubdate()->format('Y');
+                    }else{
+                        $addarray['year'] = '';
+                    }
                     $addarray['pages'] = $data['article']->getFirstPage() . ' - ' . $data['article']->getLastPage();
                     $addarray['doi'] = $data['article']->getDoi();
                     $addarray['title'] = $translation->$createGetterFunction();
@@ -88,6 +93,7 @@ class ArticleController extends Controller
             $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
             $data['journal'] = $data['article']->getJournal();
             $data['page'] = 'journals';
+            $data['articleFileType'] = ArticleFileParams::$FILE_TYPES;
             $data['blocks'] = $em->getRepository('OjsJournalBundle:Block')->journalBlocks($data['journal']);
             $data['journal']->setPublicURI($journalService->generateUrl($data['journal']));
             $data['archive_uri'] = $this->generateUrl('ojs_archive_index', [
@@ -203,6 +209,7 @@ class ArticleController extends Controller
         $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
         $data['journal'] = $data['article']->getJournal();
         $data['page'] = 'journals';
+        $data['articleFileType'] = ArticleFileParams::$FILE_TYPES;
         $data['blocks'] = $em->getRepository('OjsJournalBundle:Block')->journalBlocks($data['journal']);
         $data['journal']->setPublicURI($journalService->generateUrl($data['journal']));
         $data['archive_uri'] = $this->generateUrl('ojs_archive_index', [

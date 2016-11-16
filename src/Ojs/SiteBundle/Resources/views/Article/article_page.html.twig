@@ -289,7 +289,7 @@
                             {% for file in article.articleFiles %}
                                 <a href="{{ path('ojs_site_download_article', {articleFile: file.id}) }}"
                                    class="btn btn-lg btn-primary" target="_blank"><i
-                                            class="fa fa-download"></i> {{ file.title }}
+                                            class="fa fa-download"></i> {{ articleFileType[file.type]|trans }}
                                     <small>
                                         ( <i class="fa fa-arrow-circle-o-down"></i> {{ file.downloadCount|number_format }}
                                         )
