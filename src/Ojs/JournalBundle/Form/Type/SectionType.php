@@ -24,7 +24,7 @@ class SectionType extends AbstractType
                 'checkbox',
                 array(
                     'required' => false,
-                    'label' => 'section.hide_title'
+                    'label' => 'section.allow_index'
                 )
             )
             ->add(
@@ -32,7 +32,7 @@ class SectionType extends AbstractType
                 'checkbox',
                 array(
                     'required' => false,
-                    'label' => 'section.allow_index'
+                    'label' => 'section.hide_title'
                 )
             )
             ->add('sectionOrder', null, [
