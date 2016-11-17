@@ -397,5 +397,67 @@ class JournalController extends Controller
     }
 
 
+    /**
+     * @param Issue $lastIssue
+     * @param boolean $isJournalHosting
+     * @return Issue mixed
+     */
+    private function legacySetupArticleURIs(Issue $lastIssue, $isJournalHosting)
+    {
+        foreach($lastIssue->getArticles() as $article){
+            if($isJournalHosting){
+                $article->setPublicURI($this->generateUrl('journal_hosting_issue_article',[
+                    'issue_id' => $article->getIssue()->getId(),
+                    'article_id' => $article->getId(),
+                ],true)
+                );
+            }else{
+                $article->setPublicURI($this->generateUrl('publisher_hosting_journal_issue_article', [
+                    'slug' => $article->getIssue()->getJournal()->getSlug(),
+                    'issue_id' => $article->getIssue()->getId(),
+                    'article_id' => $article->getId(),
+                ],true)
+                );
+            }
+        }
 
+        return $lastIssue;
+    }
+
+    /**
+     * @param Issue[][] $years
+     * @param boolean $isJournalHosting
+     * @return Issue[][]
+     */
+    private function legacySetupIssueURIsByYear($years, $isJournalHosting)
+    {
+        foreach ($years as $year) {
+            foreach ($year as $issue) {
+                if ($isJournalHosting) {
+                    $issue->setPublicURI(
+                        $this->generateUrl(
+                            'journal_hosting_issue',
+                            [
+                                'id' => $issue->getId()
+                            ],
+                            true
+                        )
+                    );
+                } else {
+                    $issue->setPublicURI(
+                        $this->generateUrl(
+                            'publisher_hosting_journal_issue',
+                            [
+                                'journal_slug' => $issue->getJournal()->getSlug(),
+                                'id' => $issue->getId()
+                            ],
+                            true
+                        )
+                    );
+                }
+            }
+        }
+
+        return $years;
+    }
 }
