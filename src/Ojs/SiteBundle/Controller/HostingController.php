@@ -35,33 +35,121 @@ class HostingController extends Controller
         );
         $this->throw404IfNotFound($getJournalByDomain);
 
-        return $this->journalIndexAction($getJournalByDomain->getSlug(), true);
+        return $this->journalIndexAction($request,$getJournalByDomain->getSlug(), true);
 
     }
 
     /**
+     * @param Request $request
      * @param string $slug
      * @param bool $isJournalHosting
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function journalIndexAction($slug, $isJournalHosting = false)
+    public function journalIndexAction(Request $request, $slug, $isJournalHosting = false)
     {
-        /** @var EntityManager $em */
+        $session = $this->get('session');
+        $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
         /** @var JournalRepository $journalRepo */
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
+        /** @var \Ojs\JournalBundle\Entity\BlockRepository $blockRepo */
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var IssueRepository $issueRepo */
-        $issueRepo = $em->getRepository(Issue::class);
-        /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository(Block::class);
+        $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
         /** @var Journal $journal */
-        $journal = $journalRepo->findOneBy(['slug' => $slug]);
+        $journal = $journalRepo->findOneBy(['slug' => $slug, 'status' => JournalStatuses::STATUS_PUBLISHED]);
         $this->throw404IfNotFound($journal);
-        $data['last_issue'] = $this->setupArticleURIs($issueRepo->getLastIssueByJournal($journal), $isJournalHosting);
+
+        $journalLocale = $journal->getMandatoryLang()->getCode();
+        //if system supports journal mandatory locale set locale as journal mandatory locale
+        if(in_array($journalLocale,$this->getParameter('locale_support'))){
+            /**
+             * if user is prefered a locale pass this logic then
+             * @look for CommonController change locale function
+             */
+            if(!$session->has('_locale_prefered')){
+                /**
+                 * if session is fresh locale is not exists
+                 * set journal locale and redirect to this action then
+                 */
+                if(!$session->has('_locale')){
+                    $session->set('_locale', $journalLocale);
+
+                    return $this->redirect($request->getRequestUri());
+                }else{
+                    /**
+                     * if session is not fresh but session locale is
+                     * not equal to journal locale set journal locale
+                     * and redirect to this action then
+                     */
+                    if($session->get('_locale') !== $journalLocale){
+                        $session->set('_locale', $journalLocale);
+
+                        return $this->redirect($request->getRequestUri());
+                    }
+                }
+            }
+        }
+
+        //if theme preview is active set given theme
+        if(
+            $request->query->has('themePreview') &&
+            $request->query->has('id') &&
+            is_int((int)$request->query->get('id')) &&
+            $request->query->has('type')
+        ){
+            $previewThemeId = $request->query->get('id');
+            $themeType = $request->query->get('type');
+            if($themeType == 'journal'){
+                $previewTheme = $em->getRepository('OjsJournalBundle:JournalTheme')->find($previewThemeId);
+            }elseif($themeType == 'global'){
+                $previewTheme = $em->getRepository('OjsAdminBundle:AdminJournalTheme')->find($previewThemeId);
+            }
+            $this->throw404IfNotFound($previewTheme);
+            $journal->setTheme($previewTheme);
+        }
+
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('journal_view');
+
+        $data['token'] = $token;
+        $data['page'] = 'journal';
+        $data['journal'] = $journal;
+        $journal->setPublicURI($journalService->generateUrl($journal));
+        $data['design'] = $journal->getDesign();
+        $data['blocks'] = $blockRepo->journalBlocks($journal);
+        $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal), 0, 5, true));
+
+        /** @var Issue $lastIssue */
+        $lastIssue = $issueRepo->findOneBy(['lastIssue' => true, 'journal' => $journal]);
+
+        if ($lastIssue !== null) {
+            $articles = [];
+
+            /** @var Section $section */
+            foreach ($lastIssue->getSections() as $section) {
+                $articles = array_merge($articles, $em
+                    ->getRepository(Article::class)
+                    ->getOrderedArticles($lastIssue, $section)
+                );
+            }
+
+            $data['lastIssueArticles'] = $this->setupArticleURIs($articles,$isJournalHosting);
+            $data['lastIssue'] = $lastIssue;
+        } else {
+            $data['lastIssueArticles'] = [];
+            $data['lastIssue'] = null;
+        }
+
+        $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
+        $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
+
         $data['years'] = $this->setupIssueURIsByYear($issueRepo->getLastIssueByJournal($journal), $isJournalHosting);
         $data['journal'] = $journal;
         $data['page'] = 'journal';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
+
         if($isJournalHosting){
             $journal->setPublicURI($this->generateUrl('journal_publisher_hosting', [], true));
             $data['archive_uri'] = $this->generateUrl('journal_hosting_archive', [], true);
@@ -88,7 +176,7 @@ class HostingController extends Controller
                 $article->setPublicURI($this->generateUrl('journal_hosting_issue_article',[
                     'issue_id' => $article->getIssue()->getId(),
                     'article_id' => $article->getId(),
-                    ],true)
+                ],true)
                 );
             }else{
                 $article->setPublicURI($this->generateUrl('publisher_hosting_journal_issue_article', [
