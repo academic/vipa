@@ -125,10 +125,11 @@ class JournalController extends Controller
     /**
      * @param Request $request
      * @param $slug
+     * @param $isJournalHosting boolean
      *
      * @return Response
      */
-    public function journalIndexAction(Request $request, $slug)
+    public function journalIndexAction(Request $request, $slug, $isJournalHosting=false)
     {
         $session = $this->get('session');
         $journalService = $this->get('ojs.journal_service');
@@ -145,7 +146,8 @@ class JournalController extends Controller
 
         $journalLocale = $journal->getMandatoryLang()->getCode();
         //if system supports journal mandatory locale set locale as journal mandatory locale
-        if(in_array($journalLocale,$this->getParameter('locale_support'))){
+
+        if(0 && in_array($journalLocale,$this->getParameter('locale_support'))){
             /**
              * if user is prefered a locale pass this logic then
              * @look for CommonController change locale function

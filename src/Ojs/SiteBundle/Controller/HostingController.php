@@ -6,12 +6,13 @@ use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Block;
+use Ojs\JournalBundle\Entity\BlockRepository;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\Publisher;
-use Ojs\JournalBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -30,22 +31,28 @@ class HostingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $currentHost = $request->getHttpHost();
 
-        $getJournalByDomain = $em->getRepository(Journal::class)->findOneBy(
-            array('domain' => $currentHost)
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
         );
-        $this->throw404IfNotFound($getJournalByDomain);
+        $this->throw404IfNotFound($journal);
 
-        return $this->journalIndexAction($request,$getJournalByDomain->getSlug(), true);
+        $response = $this->forward('OjsSiteBundle:Journal:journalIndex', array(
+            'slug'  => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+
 
     }
 
     /**
      * @param Request $request
-     * @param string $slug
+     * @param Journal $journal
      * @param bool $isJournalHosting
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function journalIndexAction(Request $request, $slug, $isJournalHosting = false)
+    public function journalIndexAction(Request $request, Journal $journal, $isJournalHosting = true)
     {
         $session = $this->get('session');
         $journalService = $this->get('ojs.journal_service');
@@ -56,9 +63,7 @@ class HostingController extends Controller
         $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var IssueRepository $issueRepo */
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
-        /** @var Journal $journal */
-        $journal = $journalRepo->findOneBy(['slug' => $slug, 'status' => JournalStatuses::STATUS_PUBLISHED]);
-        $this->throw404IfNotFound($journal);
+
 
         $journalLocale = $journal->getMandatoryLang()->getCode();
         //if system supports journal mandatory locale set locale as journal mandatory locale
