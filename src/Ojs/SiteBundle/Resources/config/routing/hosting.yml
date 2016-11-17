@@ -6,6 +6,14 @@ journal_hosting_archive:
     path:  /archive
     defaults: { _controller: "OjsSiteBundle:Hosting:archiveIndex", isJournalHosting: true }
 
+journal_hosting_contacts:
+    path:  /contacts
+    defaults: { _controller: "OjsSiteBundle:Hosting:contacts", isJournalHosting: true }
+
+journal_hosting_board:
+    path:  /board
+    defaults: { _controller: "OjsSiteBundle:Hosting:board", isJournalHosting: true }
+
 journal_hosting_issue:
     path: /issue/{id}
     defaults: { _controller: "OjsSiteBundle:Hosting:issuePage", [id: null, isJournalHosting: true]}
