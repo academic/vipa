@@ -4,8 +4,8 @@ namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Journal;
 use Ojs\CoreBundle\Params\JournalStatuses;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -30,7 +30,7 @@ class HostingController extends Controller
         $this->throw404IfNotFound($journal);
 
         $response = $this->forward('OjsSiteBundle:Journal:journalIndex', array(
-            'slug'  => $journal->getSlug(),
+            'slug' => $journal->getSlug(),
             'isJournalHosting' => true,
         ));
 
@@ -54,7 +54,7 @@ class HostingController extends Controller
         $this->throw404IfNotFound($journal);
 
         $response = $this->forward('OjsSiteBundle:Journal:journalContacts', array(
-            'slug'  => $journal->getSlug(),
+            'slug' => $journal->getSlug(),
             'isJournalHosting' => true,
         ));
 
@@ -79,7 +79,7 @@ class HostingController extends Controller
         $this->throw404IfNotFound($journal);
 
         $response = $this->forward('OjsSiteBundle:Journal:journalBoard', array(
-            'slug'  => $journal->getSlug(),
+            'slug' => $journal->getSlug(),
             'isJournalHosting' => true,
         ));
 
@@ -94,7 +94,7 @@ class HostingController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function issuePageAction(Request $request,$id)
+    public function issuePageAction(Request $request, $id)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -106,7 +106,7 @@ class HostingController extends Controller
         $this->throw404IfNotFound($journal);
 
         $response = $this->forward('OjsSiteBundle:Issue:issuePage', array(
-            'id'  => $id,
+            'id' => $id,
             'isJournalHosting' => true,
         ));
 
@@ -133,8 +133,8 @@ class HostingController extends Controller
 
         $response = $this->forward('OjsSiteBundle:Article:articlePage', array(
             'slug' => $journal->getSlug(),
-            'article_id'  => $article_id,
-            'issue_id'  => $issue_id,
+            'article_id' => $article_id,
+            'issue_id' => $issue_id,
             'isJournalHosting' => true,
         ));
 
@@ -158,7 +158,7 @@ class HostingController extends Controller
         $this->throw404IfNotFound($journal);
 
         $response = $this->forward('OjsSiteBundle:Journal:archiveIndex', array(
-            'slug'  => $journal->getSlug(),
+            'slug' => $journal->getSlug(),
             'isJournalHosting' => true,
         ));
 
