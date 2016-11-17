@@ -14,6 +14,10 @@ journal_hosting_board:
     path:  /board
     defaults: { _controller: "OjsSiteBundle:Hosting:board", isJournalHosting: true }
 
+journal_hosting_announcement:
+    path:  /announcements
+    defaults: { _controller: "OjsSiteBundle:Hosting:announcement", isJournalHosting: true }
+
 journal_hosting_issue:
     path: /issue/{id}
     defaults: { _controller: "OjsSiteBundle:Hosting:issuePage", [id: null, isJournalHosting: true]}

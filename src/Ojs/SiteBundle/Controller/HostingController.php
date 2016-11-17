@@ -164,4 +164,27 @@ class HostingController extends Controller
 
         return $response;
     }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function announcementAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+        $response = $this->forward('OjsSiteBundle:JournalCms:announcementIndex', array(
+            'slug' => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+    }
 }
