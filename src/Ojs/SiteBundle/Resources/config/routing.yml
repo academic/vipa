@@ -131,3 +131,6 @@ ojs_site_download:
 
 ojs_site_cms:
     resource: '@OjsSiteBundle/Resources/config/routing/cms.yml'
+
+ojs_journal_lockss:
+    resource: '@OjsSiteBundle/Resources/config/routing/lockss.yml'
