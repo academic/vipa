@@ -85,8 +85,8 @@
         var current_language = '{{ app.request.locale }}';
     </script>
 </head>
-<body class="page-{{ page }} {% if isJournalHosting %}{% else %}journal_hosting{% endif %}">
-{% if isJournalHosting %}
+<body class="page-{{ page }} {% if isJournalHosting is defined and isJournalHosting == true %}{% else %}journal_hosting{% endif %}">
+{% if isJournalHosting is defined and isJournalHosting == true %}
 {% else %}
 {% block header %}
     {% include '::ojsheader.html.twig' %}
@@ -136,13 +136,13 @@
     {% endif %}
 </div>
 <!-- .container -->
-{% if isJournalHosting %}
+{% if isJournalHosting is defined and isJournalHosting == true %}
 {% else %}
 {% block footer %}
     {% include '::ojsfooter.html.twig' %}
 {% endblock %}
 {% endif %}
-{% if isJournalHosting is defined %}
+{% if isJournalHosting is defined and isJournalHosting == true %}
     <div id="ojs_badge" style="position: fixed;
   top: 20px;
   right: 0;

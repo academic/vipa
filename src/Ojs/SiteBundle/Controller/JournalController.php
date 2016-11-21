@@ -23,12 +23,23 @@ use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
 class JournalController extends Controller
 {
     /**
+     * @param Request $request
      * @param string $slug
      * @param boolean $isJournalHosting
      * @return Response
      */
-    public function archiveIndexAction($slug, $isJournalHosting = false)
+    public function archiveIndexAction(Request $request, $slug, $isJournalHosting = false)
     {
+        /**
+         * @todo we should check if it is base domain initialized
+         */
+        $currentHost = $request->getHttpHost();
+        /*
+        $base_host = $container->getParameter('base_host');
+        if($currentHost == $base_host){
+            $this->throw404IfNotFound(0);
+        }
+        */
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
         $blockRepo = $em->getRepository('OjsJournalBundle:Block');
