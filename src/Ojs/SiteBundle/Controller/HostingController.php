@@ -169,6 +169,29 @@ class HostingController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    public function journalArticlesAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+        $response = $this->forward('OjsSiteBundle:Article:journalArticles', array(
+            'slug' => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function lastAction(Request $request)
     {
 

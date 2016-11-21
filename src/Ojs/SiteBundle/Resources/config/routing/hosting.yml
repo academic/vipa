@@ -6,6 +6,9 @@ journal_hosting_archive:
     path:  /archive
     defaults: { _controller: "OjsSiteBundle:Hosting:archiveIndex", isJournalHosting: true }
 
+journal_hosting_articles:
+    path: /articles
+    defaults: { _controller: "OjsSiteBundle:Hosting:journalArticles", isJournalHosting: true }
 journal_hosting_last:
     path:  /last
     defaults: { _controller: "OjsSiteBundle:Hosting:last", isJournalHosting: true }

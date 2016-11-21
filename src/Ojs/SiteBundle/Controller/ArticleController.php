@@ -232,7 +232,7 @@ class ArticleController extends Controller
         return $this->render('OjsSiteBundle:Article:article_page.html.twig', $data);
     }
 
-    public function journalArticlesAction($slug)
+    public function journalArticlesAction($slug, $isJournalHosting = false)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
@@ -250,6 +250,7 @@ class ArticleController extends Controller
         $articles = $journal->getArticles();
         $data = [
             'journal' => $journal,
+            'isJournalHosting' => $isJournalHosting,
             'articles' => $articles,
             'page' => 'journal',
             'blocks' => $blockRepo->journalBlocks($journal),
