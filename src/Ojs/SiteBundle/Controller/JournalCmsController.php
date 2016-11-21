@@ -43,7 +43,7 @@ class JournalCmsController extends Controller
         return $this->render('OjsSiteBundle::Journal/announcement_index.html.twig', $data);
     }
 
-    public function journalPageDetailAction($slug, $journal_slug)
+    public function journalPageDetailAction($slug, $journal_slug,$isJournalHosting=false)
     {
         $em = $this->getDoctrine()->getManager();
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $journal_slug]);
@@ -57,7 +57,7 @@ class JournalCmsController extends Controller
         $page = $em->getRepository('OjsJournalBundle:JournalPage')->findOneBy(['journal' => $journal, 'slug' => $slug]);
         $this->throw404IfNotFound($page);
 
-        return $this->render('OjsSiteBundle:JournalCms:page.html.twig', ['journalPage' => $page]);
+        return $this->render('OjsSiteBundle:JournalCms:page.html.twig', ['journalPage' => $page,'isJournalHosting' => $isJournalHosting]);
     }
 
     public function journalPostDetailAction($slug, $journal_slug)

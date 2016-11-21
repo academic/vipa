@@ -4,21 +4,36 @@
 
 {% block breadcrumb %}
     {% if article.issue %}
-    {% set list = [
-        {'link': path('ojs_public_index'), 'title': project_name},
-        {'link': journal.publicURI,'title': article.journal.title},
-        {'link': archive_uri, 'title': "archive"|trans},
-        {'link': path('ojs_issue_page',
-        {journal_slug:journal.slug,id: article.issue.id}),
-        'title': "volume"|trans ~ " " ~ article.issue.volume ~ ", " ~ "issue"|trans ~ " " ~ article.issue.number },
-        ] %}
+        {% if isJournalHosting %}
+            {% set list = [
+                {'link': journal.publicURI,'title': article.journal.title},
+                {'link': archive_uri, 'title': "archive"|trans},
+                {'link': path('journal_hosting_issue',{id: article.issue.id}),
+                'title': "volume"|trans ~ " " ~ article.issue.volume ~ ", " ~ "issue"|trans ~ " " ~ article.issue.number },
+                ] %}
+        {% else %}
+            {% set list = [
+            {'link': path('ojs_public_index'), 'title': project_name},
+            {'link': journal.publicURI,'title': article.journal.title},
+            {'link': archive_uri, 'title': "archive"|trans},
+            {'link': path('ojs_issue_page',
+            {journal_slug:journal.slug,id: article.issue.id}),
+            'title': "volume"|trans ~ " " ~ article.issue.volume ~ ", " ~ "issue"|trans ~ " " ~ article.issue.number },
+            ] %}
+        {% endif %}
     {% else %}
-        {% set list = [
-        {'link': path('ojs_public_index'), 'title': project_name},
-        {'link': journal.publicURI,'title': article.journal.title},
-        {'link': archive_uri, 'title': "archive"|trans}
-
-        ] %}
+        {% if isJournalHosting %}
+            {% set list = [
+            {'link': journal.publicURI,'title': article.journal.title},
+            {'link': archive_uri, 'title': "archive"|trans}
+            ] %}
+        {% else %}
+            {% set list = [
+            {'link': path('ojs_public_index'), 'title': project_name},
+            {'link': journal.publicURI,'title': article.journal.title},
+            {'link': archive_uri, 'title': "archive"|trans}
+            ] %}
+        {% endif %}
     {% endif %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -29,9 +44,15 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     {% if article.issue %}
-                    <a href="{{ url('ojs_issue_page', {journal_slug:journal.slug,id: article.issue.id}) }}">
-                        {{ "volume"|trans }} {{ article.issue.volume }}, {{ "issue"|trans }} {{ article.issue.number }},
-                    </a>
+                        {% if isJournalHosting %}
+                            <a href="{{ url('journal_hosting_issue', {id: article.issue.id}) }}">
+                                {{ "volume"|trans }} {{ article.issue.volume }}, {{ "issue"|trans }} {{ article.issue.number }},
+                            </a>
+                        {% else %}
+                            <a href="{{ url('ojs_issue_page', {journal_slug:journal.slug,id: article.issue.id}) }}">
+                                {{ "volume"|trans }} {{ article.issue.volume }}, {{ "issue"|trans }} {{ article.issue.number }},
+                            </a>
+                        {% endif %}
                     {% endif %}
                     {% if article.firstPage is not null and article.lastPage is not null %}
                         {{ "page.plural"|trans }}
@@ -305,71 +326,69 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
             <div class="list-group journal-stats">
-                <div class="list-group-item ">
-                    <form role="search" action="/search" method="get">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="{{ "search.on.journal"|trans }}"
-                                   name="q">
+                {% if isJournalHosting %}
+                    <a href="{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                       class="list-group-item list-group-item-success">
+                        <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+                    </a>
 
-                            <div class="input-group-btn">(
-                                <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                    <a href="{{ archive_uri }}"
+                       class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+                    </a>
+
+                    <a href="{{ url('journal_hosting_board')  }}"
+                       class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "board"|trans }}</h5>
+                    </a>
+
+                    <a href="{{ url('journal_hosting_contacts') }}"
+                       class="list-group-item ">
+                        <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
+                    </a>
+
+                    <a href="{{ url('journal_hosting_announcement') }}"
+                       class="list-group-item ">
+                        <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
+                    </a>
+                {% else %}
+                    <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                       class="list-group-item list-group-item-success">
+                        <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+                    </a>
+
+                    <a href="{{ archive_uri }}"
+                       class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+                    </a>
+
+                    <a href="{{ url('ojs_journal_index_board',{slug: journal.slug})  }}"
+                       class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "board"|trans }}</h5>
+                    </a>
+
+                    <a href="{{ url('ojs_journal_contacts',{slug: journal.slug}) }}"
+                       class="list-group-item ">
+                        <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
+                    </a>
+
+                    <a href="{{ url('ojs_announcement_index',{slug: journal.slug}) }}"
+                       class="list-group-item ">
+                        <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
+                    </a>
+                {% endif %}
+
+                <div class="list-group-item ">
+                    <form role="search"
+                          action="{{ path('ojs_journal_subscribe',{slug: journal.slug}) }}"
+                          method="post">
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                   placeholder="{{ "journal.subscribe"|trans }}" name="mail">
+
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="fa fa-send"></i>
+                                </button>
                             </div>
                         </div>
                     </form>
                 </div>
-
-                <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
-                   class="list-group-item list-group-item-success">
-                    <h5>
-                        <i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}
-                    </h5>
-                </a>
-
-                <a href="{{ archive_uri }}"
-                   class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
-                </a>
-
-                <a href="{{ url('ojs_journal_contacts',{slug: journal.slug}) }}"
-                   class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
-                    </h5>
-                </a>
-                <a href="{{ url('ojs_announcement_index',{slug: journal.slug}) }}"
-                   class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
-                </a>
-
-
-                {% if enable_social is defined %}
-                    <a href="#" class="list-group-item facebook-like">
-                        <h3 class="pull-right">
-                            <i class="fa fa-facebook-square"></i>
-                        </h3>
-                        <h5 class="list-group-item-heading count">
-                            {{ random(10000) }}</h5>
-
-                        <p class="list-group-item-text">
-                            Facebook Likes</p>
-                    </a>
-                    <a href="#" class="list-group-item google-plus">
-                        <h3 class="pull-right">
-                            <i class="fa fa-google-plus-square"></i>
-                        </h3>
-                        <h5 class="list-group-item-heading count">
-                            {{ random(10000) }}</h5>
-
-                        <p class="list-group-item-text">
-                            Google+</p>
-                    </a>
-                    <a href="#" class="list-group-item twitter">
-                        <h3 class="pull-right">
-                            <i class="fa fa-twitter-square"></i>
-                        </h3>
-                        <h5 class="list-group-item-heading count">
-                            1000</h5>
-
-                        <p class="list-group-item-text">
-                            Twitter Followers</p>
-                    </a>
-                {% endif %}
             </div>
             {% if journal.journalIndexs|length>0 %}
                 <div class="list-group">

@@ -5,10 +5,17 @@
 {% block body -%}
 
     <div class="container">
-        {% set list = [
-        {'link': path('ojs_journal_index', {'slug': journalPage.journal.slug}), 'title': journalPage.journal.title},
+        {% if isJournalHosting %}
+            {% set list = [
+            {'link': path('journal_hosting'), 'title': journalPage.journal.title},
             {'title': journalPage.title }
-        ] %}
+            ] %}
+        {% else %}
+            {% set list = [
+            {'link': path('ojs_journal_index', {'slug': journalPage.journal.slug}), 'title': journalPage.journal.title},
+            {'title': journalPage.title }
+            ] %}
+        {% endif %}
         {{ breadcrumb(list) }}
         <div class="panel panel-default">
             <div class="panel-heading">

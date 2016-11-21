@@ -9,18 +9,19 @@
             margin-bottom: 10px;
         }
     </style>
-    {% if journal is defined and journal.theme %}
-        <style>
-            {{ journal.theme.css|raw }}
-        </style>
-    {% endif %}
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
-    {'link': journal.publicURI, 'title': journal.title }
-    ] %}
+    {% if isJournalHosting %}
+        {% set list = [
+        {'link': path('ojs_public_index'),  'title': journal.title }
+        ] %}
+    {% else %}
+        {% set list = [
+        {'link': path('ojs_public_index'), 'title': project_name},
+        {'link': journal.publicURI, 'title': journal.title }
+        ] %}
+    {% endif %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
@@ -123,18 +124,30 @@
                     {% if journal.formerlyKnownAsJournal is not empty %}
                         <b>
                             {{ 'formerly.known.as'|trans }}:
+                            {% if isJournalHosting %}
+                            <a href="{{ path('journal_hosting', {slug: journal.formerlyKnownAsJournal.slug }) }}">
+                                {{ journal.formerlyKnownAsJournal.title }}
+                            </a>
+                            {% else %}
                             <a href="{{ path('ojs_journal_index', {slug: journal.formerlyKnownAsJournal.slug }) }}">
                                 {{ journal.formerlyKnownAsJournal.title }}
                             </a>
+                            {% endif %}
                         </b>
                         <br>
                     {% endif %}
                     {% if journal.continuedAsJournal is not empty %}
                         <b>
                             {{ 'continued.as.journal'|trans }}:
+                            {% if isJournalHosting %}
+                            <a href="{{ path('journal_hosting', {slug: journal.continuedAsJournal.slug }) }}">
+                                {{ journal.continuedAsJournal.title }}
+                            </a>
+                            {% else %}
                             <a href="{{ path('ojs_journal_index', {slug: journal.continuedAsJournal.slug }) }}">
                                 {{ journal.continuedAsJournal.title }}
                             </a>
+                            {% endif %}
                         </b>
                         <br>
                     {% endif %}
@@ -158,36 +171,67 @@
                                 </div>
                             </form>
                         </div>
+                        {% if isJournalHosting %}
+                            <a href="{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                               class="list-group-item list-group-item-success">
+                                <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+                            </a>
 
-                        <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
-                           class="list-group-item list-group-item-success">
-                            <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
-                        </a>
+                            <a href="{{ archive_uri }}"
+                               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+                            </a>
 
-                        <a href="{{ archive_uri }}"
-                           class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
-                        </a>
+                            <a href="{{ url('journal_hosting_board')  }}"
+                               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "board"|trans }}</h5>
+                            </a>
 
-                        <a href="{{ url('ojs_journal_index_board',{slug: journal.slug})  }}"
-                           class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "board"|trans }}</h5>
-                        </a>
+                            <a href="{{ url('journal_hosting_contacts') }}"
+                               class="list-group-item ">
+                                <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
+                            </a>
 
-                        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug}) }}"
-                           class="list-group-item ">
-                            <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
-                        </a>
+                            <a href="{{ url('journal_hosting_announcement') }}"
+                               class="list-group-item ">
+                                <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
+                            </a>
+                        {% else %}
+                            <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                               class="list-group-item list-group-item-success">
+                                <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+                            </a>
 
-                        <a href="{{ url('ojs_announcement_index',{slug: journal.slug}) }}"
-                           class="list-group-item ">
-                            <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
-                        </a>
+                            <a href="{{ archive_uri }}"
+                               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ url('ojs_journal_index_board',{slug: journal.slug})  }}"
+                               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "board"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ url('ojs_journal_contacts',{slug: journal.slug}) }}"
+                               class="list-group-item ">
+                                <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ url('ojs_announcement_index',{slug: journal.slug}) }}"
+                               class="list-group-item ">
+                                <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
+                            </a>
+                        {% endif %}
 
                         {% for journalPage in journalPages %}
                             {% if journalPage.visible == true %}
-                                <a href="{{ url('ojs_site_journal_page', {slug: journalPage.slug, journal_slug: journal.slug}) }}"
-                                   class="list-group-item ">
-                                    <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
-                                </a>
+                                {% if isJournalHosting %}
+                                        <a href="{{ url('journal_hosting_page', {slug: journalPage.slug}) }}"
+                                           class="list-group-item ">
+                                            <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ url('ojs_site_journal_page', {slug: journalPage.slug, journal_slug: journal.slug}) }}"
+                                           class="list-group-item ">
+                                            <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
+                                        </a>
+                                    {% endif %}
                             {% endif %}
                         {% endfor %}
 

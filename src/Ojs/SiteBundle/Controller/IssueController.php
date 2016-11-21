@@ -17,7 +17,7 @@ use Ojs\JournalBundle\Entity\Section;
 
 class IssueController extends Controller
 {
-    public function issuePageAction($id)
+    public function issuePageAction($id, $isJournalHosting=false)
     {
         /**
          * @var BlockRepository $blockRepo
@@ -70,6 +70,7 @@ class IssueController extends Controller
                 'sections' => $sections,
                 'articles' => $articles,
                 'displayModes' => $displayModes,
+                'isJournalHosting' => $isJournalHosting
             ]
         );
     }

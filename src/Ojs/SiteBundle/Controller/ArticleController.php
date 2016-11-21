@@ -120,9 +120,10 @@ class ArticleController extends Controller
      * @param $slug
      * @param $article_id
      * @param null $issue_id
+     * @param $isJournalHosting boolean
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function articlePageAction($slug, $article_id, $issue_id = null)
+    public function articlePageAction($slug, $article_id, $issue_id = null, $isJournalHosting = false)
     {
 
         $journalService = $this->get('ojs.journal_service');
@@ -200,14 +201,29 @@ class ArticleController extends Controller
         $data['schemaMetaTag'] = '<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />';
         $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
         $data['journal'] = $data['article']->getJournal();
+        $data['isJournalHosting'] = $isJournalHosting;
         $data['page'] = 'journals';
         $data['articleFileType'] = ArticleFileParams::$FILE_TYPES;
         $data['blocks'] = $em->getRepository('OjsJournalBundle:Block')->journalBlocks($data['journal']);
         $data['journal']->setPublicURI($journalService->generateUrl($data['journal']));
-        $data['archive_uri'] = $this->generateUrl('ojs_archive_index', [
-            'slug' => $data['journal']->getSlug(),
-            'publisher' => $data['journal']->getPublisher()->getSlug(),
-        ], true);
+
+        if($isJournalHosting){
+            $data['archive_uri'] = $this->generateUrl(
+                'journal_hosting_archive',
+                [
+
+                ],
+                true
+            );
+        }else{
+            $data['archive_uri'] = $this->generateUrl(
+                'ojs_archive_index',
+                [
+                    'slug' => $journal->getSlug()
+                ],
+                true
+            );
+        }
         $data['token'] = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('article_view');
