@@ -12,20 +12,25 @@
     </style>
 {% endblock %}
 
-{% if isPublisherHosting is defined %}
-    {% set journalUrl = url('publisher_hosting_journal_index',{slug:journal.slug}) %}
-{% elseif isJournalHosting is defined %}
-    {% set journalUrl = url('journal_publisher_hosting') %}
+{% if isJournalHosting is defined %}
+    {% set journalUrl = url('journal_hosting') %}
 {% else %}
     {% set journalUrl = generateJournalUrl(journal) %}
 {% endif %}
 
 {% block breadcrumb %}
+    {% if isJournalHosting %}
     {% set list = [
+    {'link': journalUrl, 'title': journal.title},
+    {'title': "archive"|trans}
+    ] %}
+{% else %}
+{% set list = [
     {'link': path('ojs_public_index'), 'title': project_name},
     {'link': journalUrl, 'title': journal.title},
     {'title': "archive"|trans}
     ] %}
+{% endif %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
