@@ -51,9 +51,7 @@
                         <div class="panel-body collapse" id="issue_of_{{ year }}">
                             {% for issue in groupedIssues[year] %}
                                 <div class="thumbnail">
-                                    <a class="btn" href="{% if isPublisherHosting is defined %}
-                                            {{ url('publisher_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
-                                        {% elseif isJournalHosting is defined %}
+                                    <a class="btn" href="{% if isJournalHosting is defined %}
                                             {{ url('journal_hosting_issue',{id: issue.id}) }}
                                         {% else %}
                                             {{ url('ojs_issue_page',{journal_slug:journal.slug,id:issue.id}) }}

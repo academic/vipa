@@ -13,7 +13,7 @@ use Ojs\JournalBundle\Entity\Journal;
 
 class ArticleController extends Controller
 {
-    public function articleWithoutIssuePageAction($slug, $article_id)
+    public function articleWithoutIssuePageAction($slug, $article_id, $isJournalHosting = false)
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
