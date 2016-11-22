@@ -4,18 +4,23 @@ namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\Journal;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class LockssController extends OjsController
 {
     /**
-     * @param Journal $journal
+     * @param $slug
      * @return Response
-     * @ParamConverter("journal", options={"mapping": {"slug": "slug"}})
      */
-    public function indexAction(Journal $journal)
+    public function indexAction($slug)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        $this->throw404IfNotFound($journal);
+
         return $this->render(
             'OjsSiteBundle:Lockss:index.html.twig',
             [
@@ -25,13 +30,18 @@ class LockssController extends OjsController
     }
     
     /**
-     * @param Journal $journal
+     * @param $slug
      * @param integer $year
      * @return Response
-     * @ParamConverter("journal", options={"mapping": {"slug": "slug"}})
      */
-    public function volAction(Journal $journal, $year)
+    public function volAction($slug, $year)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        $this->throw404IfNotFound($journal);
+
         return $this->render(
             'OjsSiteBundle:Lockss:vol.html.twig',
             [
@@ -42,21 +52,67 @@ class LockssController extends OjsController
     }
 
     /**
-     * @param Journal $journal
+     * @param $slug
      * @param integer $year
      * @param string $month
      * @return Response
-     * @ParamConverter("journal", options={"mapping": {"slug": "slug"}})
      */
-    public function monthAction(Journal $journal, $year, $month)
+    public function monthAction($slug, $year, $month)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        $this->throw404IfNotFound($journal);
+
+        $months = $this->getMonths();
+
+        if(!in_array($month, $months)){
+            $this->throw404IfNotFound(null);
+        }
+
+        $monthKey = array_search($month, $months);
+
+        $sql = 'SELECT id,doi FROM article WHERE doi is not null AND EXTRACT(YEAR FROM created) ='.$year;
+        $sql .= 'AND EXTRACT(MONTH FROM created) ='.$monthKey;
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id','id');
+        $rsm->addScalarResult('doi','doi');
+        $rsm->addScalarResult('doi_request_time','time');
+        $query = $em->createNativeQuery($sql, $rsm);
+        $articles = $query->getResult();
+
         return $this->render(
             'OjsSiteBundle:Lockss:month.html.twig',
             [
                 'journal'   => $journal,
                 'year'      => $year,
-                'month'      => $month
+                'month'     => $month,
+                'articles'  => $articles
             ]
         );
+    }
+
+    /**
+     * @return array
+     */
+    private function getMonths()
+    {
+        return
+            [
+                '1' => 'January',
+                '2' => 'February',
+                '3' => 'March',
+                '4' => 'April',
+                '5' => 'May',
+                '6' => 'June',
+                '7' => 'July',
+                '8' => 'August',
+                '9' => 'September',
+                '10' => 'October',
+                '11' => 'November',
+                '12' => 'December',
+            ];
     }
 }
