@@ -335,6 +335,8 @@
                 </div>
             {% endif %}
         {% endif %}
+
+        <p class="locks-link"><a href="{{ path('ojs_journal_lockss',{slug: journal.slug}) }}">LOCKSS</a></p>
     </div>
 
 {% endblock %}
