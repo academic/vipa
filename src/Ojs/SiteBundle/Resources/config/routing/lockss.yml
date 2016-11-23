@@ -1,0 +1,12 @@
+ojs_journal_lockss_index:
+    path: /{slug}/lockss-manifest
+    defaults: { _controller: "OjsSiteBundle:Lockss:index" }
+
+ojs_journal_lockss_vol:
+    path: /{slug}/lockss-manifest/vol_{year}
+    defaults: { _controller: "OjsSiteBundle:Lockss:vol" }
+
+ojs_journal_lockss_vol_month:
+    path: /{slug}/lockss-manifest/vol_{year}/{month}
+    defaults: { _controller: "OjsSiteBundle:Lockss:month" }
+
