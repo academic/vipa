@@ -973,6 +973,7 @@ submission_checklist.show: Show
 submission_checklist.visible: 'Is visible?'
 submission_checklist.required: 'Is this required for submission?'
 submission_checklist.title: 'Checklist Title'
+submission_checklist.order: 'Order'
 submit: Submit
 submitRoles: 'Roles That Can Submit Articles'
 submit_action: 'Submit Action'

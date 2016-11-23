@@ -29,6 +29,12 @@ Ojs\JournalBundle\Entity\SubmissionChecklist:
     deletedAt:
       type: datetime
       nullable: true
+    order:
+      type: integer
+      column: list_order
+      nullable: true
+      gedmo:
+          - versioned
   manyToOne:
     journal:
       targetEntity: Ojs\JournalBundle\Entity\Journal
