@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top navbar-alt navbar-ng" role="navigation">
+<div class="navbar navbar-fixed-top navbar-zero-padding" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -7,8 +7,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('ojs_public_index') }}"><img src="{{ ojs_logo }}"
-                                                                               alt="{{ project_name }}"/></a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -47,7 +45,7 @@
                                    placeholder="{{ "search.on.everywhere" | trans({'%project_name%' : project_name}) }}"
                                    name="q">
                             <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i>
+                                <button class="btn btn-just-icon btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </div>
                             {% if search_section is defined %}
@@ -63,7 +61,7 @@
                     {% include '::language_selector.html.twig' %}
 
                     {% if app.user %}
-                        <li class="navbar-btn"><a href="{{ url('dashboard') }}"
+                        <li class="navbar-btn"><a href="{{ url('dashboard') }}" data-placement="bottom"
                                                   title="{{ "dashboard"|trans }}"><i class="fa fa-cog"></i>
                                 <b>{{ "dashboard"|trans }}</b></a></li>
                         <li>

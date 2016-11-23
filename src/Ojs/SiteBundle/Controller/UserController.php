@@ -36,6 +36,7 @@ class UserController extends Controller
         $this->throw404IfNotFound($user);
 
         $data = [];
+        $data['page'] = 'profile';
         $data['user'] = $user;
         $data['me'] = $this->getUser();
 

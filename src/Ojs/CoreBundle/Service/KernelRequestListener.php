@@ -37,7 +37,7 @@ class KernelRequestListener implements EventSubscriberInterface
                  * @look {https://www.postgresql.org/docs/9.1/static/datatype-numeric.html}
                  */
                 if((int)$param && (int)$param > 2147483647){
-                    //throw new NotFoundHttpException;
+                    throw new NotFoundHttpException;
                 }
             }
         }

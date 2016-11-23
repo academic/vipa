@@ -28,6 +28,9 @@ $(document).ready(function () {
 
 
 
+    window_width = $(window).width();
+
+
     /**
      * Usage of abbr ago
      *<abbr title="{{ post.created|date('Y-m-d H:i:s') }}"  class="ago">{{ post.created|date('Y-m-d H:i:s') }}</abbr>
@@ -47,9 +50,6 @@ $(document).ready(function () {
     });
 
     $('[data-toggle="tooltip"]').tooltip();
-    $('.fab').hover(function () {
-        $(this).toggleClass('active');
-    });
 
     $(".js-scroll-to").click(function (e) {
         var destination = $(this).data('href');

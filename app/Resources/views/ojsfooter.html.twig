@@ -1,31 +1,37 @@
-<hr class="top30">
-<footer class="top60">
+<div class="section section-thin">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <p class="text-center">
-                    {% if ojs_tw is defined %}
-                        <a href="https://twitter.com/{{ ojs_tw }}" target="_blank" title="Twitter"><i
-                                    class="fa fa-3x fa-twitter"></i></a>
-                    {% endif %}
-                    {% if ojs_tw is defined %}
-                        <a href="https://facebook.com/{{ ojs_fb }}" target="_blank" title="Facebook"><i
-                                    class="fa fa-3x fa-facebook"></i></a>
-                    {% endif %}
-                </p>
-            </div>
+        <div class="row social-area text-center">
+            <h3>{{ "ojs"|trans }}</h3>
+            {% if ojs_tw is defined %}
+                <a href="https://twitter.com/{{ ojs_tw }}" class="btn btn-raised btn-twitter" target="_blank"
+                   title="Twitter"><i
+                            class="fa fa-twitter-square"></i></a>
+            {% endif %}
 
-            <div class="col-md-4">
-                <ul class="list-inline text-center">
-                    {% for adminPage in getAdminPages() %}
-                        <li><a href="{{ path('ojs_site_cms_page', {'slug': adminPage.slug}) }}">{{ adminPage.translate(app.request.locale).title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
+            {% if ojs_tw is defined %}
+                <a href="https://facebook.com/{{ ojs_fb }}" class="btn btn-raised btn-facebook" target="_blank"
+                   title="Facebook"><i
+                            class="fa fa-facebook-square"></i></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <nav class="pull-left">
+            <ul>
+                {% for adminPage in getAdminPages() %}
+                    <li>
+                        <a href="{{ path('ojs_site_cms_page', {'slug': adminPage.slug}) }}">{{ adminPage.translate(app.request.locale).title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        <div class="copyright pull-right">
+            &copy;
         </div>
     </div>
 </footer>
-<hr/>
 {% if isPublisherHosting is defined and isJournalHosting is defined %}
     <div id="ojs_badge" style="position: fixed;
   top: 20px;
