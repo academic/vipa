@@ -37,7 +37,11 @@ class SubmissionChecklistType extends AbstractType
             ->add('visible', 'checkbox', [
                 'required' => false,
                 'label' => 'submission_checklist.visible'
-            ]);
+            ])
+            ->add('order', null, [
+                    'label' => 'order'
+                ]
+            );
     }
 
     /**

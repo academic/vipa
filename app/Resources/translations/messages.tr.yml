@@ -971,6 +971,7 @@ submission_checklist.show: Göster
 submission_checklist.visible: 'Görünür mü?'
 submission_checklist.required: 'Makalem için gerekli mi?'
 submission_checklist.title: 'Kontrol Listesi Başlığı'
+submission_checklist.order: 'Sıra'
 submit: Gönder
 submitRoles: 'Makale Gönderebilen Roller'
 submit_action: 'Gönder'
