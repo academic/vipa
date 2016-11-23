@@ -1,4 +1,4 @@
-journal_publisher_hosting:
+journal_hosting:
     path:  /
     defaults: { _controller: "OjsSiteBundle:Hosting:index" }
 
@@ -6,27 +6,38 @@ journal_hosting_archive:
     path:  /archive
     defaults: { _controller: "OjsSiteBundle:Hosting:archiveIndex", isJournalHosting: true }
 
-publisher_hosting_journal_index:
-    path:  /{slug}
-    defaults: { _controller: "OjsSiteBundle:Hosting:journalIndex", slug: null}
+journal_hosting_articles:
+    path: /articles
+    defaults: { _controller: "OjsSiteBundle:Hosting:journalArticles", isJournalHosting: true }
+journal_hosting_last:
+    path:  /last
+    defaults: { _controller: "OjsSiteBundle:Hosting:last", isJournalHosting: true }
 
-publisher_hosting_journal_issue:
-    path: /{journal_slug}/issue/{id}
-    defaults: { _controller: "OjsSiteBundle:Hosting:issuePage"}
+journal_hosting_contacts:
+    path:  /contacts
+    defaults: { _controller: "OjsSiteBundle:Hosting:contacts", isJournalHosting: true }
+
+journal_hosting_board:
+    path:  /board
+    defaults: { _controller: "OjsSiteBundle:Hosting:board", isJournalHosting: true }
+
+journal_hosting_early_preview:
+    path:  /early_preview
+    defaults: { _controller: "OjsSiteBundle:Hosting:earlyPreview", isJournalHosting: true }
+
+journal_hosting_announcement:
+    path:  /announcements
+    defaults: { _controller: "OjsSiteBundle:Hosting:announcement", isJournalHosting: true }
+
+journal_hosting_page:
+    path: /page/{slug}
+    defaults: { _controller: "OjsSiteBundle:Hosting:page", [slug: null ,isJournalHosting: true] }
 
 journal_hosting_issue:
     path: /issue/{id}
-    defaults: { _controller: "OjsSiteBundle:Hosting:issuePage", isJournalHosting: true}
-
-publisher_hosting_journal_issue_article:
-    path:  /{slug}/issue/{issue_id}/{article_id}
-    defaults: { _controller: "OjsSiteBundle:Hosting:articlePage", issue_id: null}
+    defaults: { _controller: "OjsSiteBundle:Hosting:issuePage", [id: null, isJournalHosting: true]}
 
 journal_hosting_issue_article:
     path:  /issue/{issue_id}/{article_id}
     defaults: { _controller: "OjsSiteBundle:Hosting:articlePage", [issue_id: null, isJournalHosting: true]}
-
-publisher_hosting_journal_archive:
-    path:  /{slug}/archive
-    defaults: { _controller: "OjsSiteBundle:Hosting:archiveIndex" }
 
