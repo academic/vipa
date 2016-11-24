@@ -1304,6 +1304,8 @@ title.workflow_review_form_edit: 'Edit Review Form'
 title.workflow_review_form_new: 'New Review Form'
 title.workflow_review_form_show: 'Show Review Form'
 title.search_advanced: "Advanced Search"
+title.page_sort: 'Sort Pages'
+sort.pages: 'Sort Pages'
 titleTransliterated: 'Transliterated Title'
 titleabbr: 'Abbreviated Title'
 titletransliterated: 'Transliterated Title'
