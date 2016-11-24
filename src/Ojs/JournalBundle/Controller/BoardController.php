@@ -15,6 +15,7 @@ use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\BoardMemberType;
 use Ojs\JournalBundle\Form\Type\BoardType;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -468,9 +469,13 @@ class BoardController extends Controller
         $em = $this->getDoctrine()->getManager();
         $translator = $this->get('translator');
 
-        $getEditorUsers = $em->getRepository('OjsUserBundle:User')->findUsersByJournalRole(
-            ['ROLE_EDITOR']
+        $getEditorUsers = $em->getRepository(User::class)->findUsersByJournalRole(
+            ['ROLE_EDITOR', 'ROLE_CO_EDITOR', 'ROLE_SECTION_EDITOR']
         );
+
+        usort($getEditorUsers, function ($a, $b){
+            return strcmp($a->getLastName(), $b->getLastName());
+        });
 
         $board = new Board();
         $board->setJournal($journal);
