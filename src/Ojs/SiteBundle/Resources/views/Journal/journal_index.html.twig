@@ -172,7 +172,7 @@
                             </form>
                         </div>
                         {% if isJournalHosting %}
-                            <a href="{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                            <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
                                class="list-group-item list-group-item-success">
                                 <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                             </a>
