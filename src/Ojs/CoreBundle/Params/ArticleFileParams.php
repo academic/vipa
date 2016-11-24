@@ -23,7 +23,6 @@ class ArticleFileParams
      */
     public static $FILE_TYPES = array(
         -1 => 'submission.file',
-        0 => 'workflow.full_text',
         1 => 'workflow.supp_file',
         2 => 'workflow.research_materials',
         3 => 'workflow.research_results',
