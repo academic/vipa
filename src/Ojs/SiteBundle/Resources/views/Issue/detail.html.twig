@@ -2,14 +2,14 @@
 {% block title %}{{ 'title.issue_detail'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
-{% if isJournalHosting is defined %}
+{% if isJournalHosting is defined and isJournalHosting == true %}
     {% set journalUrl = url('journal_hosting') %}
 {% else %}
     {% set journalUrl = generateJournalUrl(issue.journal) %}
 {% endif %}
 
 {% block breadcrumb %}
-    {% if isJournalHosting %}
+    {% if isJournalHosting is defined and isJournalHosting == true %}
         {% set list = [
         {'link': journalUrl, 'title': issue.journal.title},
         {'title': 'issue'|trans}
@@ -83,7 +83,7 @@
                                     {% for article in articles[section.id] %}
                                         <li class="list-group-item list-group-item-default">
                                             <a href="
-                                                {% if isJournalHosting is defined %}
+                                                {% if isJournalHosting is defined and isJournalHosting == true %}
                                                     {{ url('journal_hosting_issue_article', {
                                                             article_id: article.id,
                                                             issue_id: issue.id}) }}
