@@ -21,6 +21,11 @@ Ojs\JournalBundle\Entity\JournalPage:
         visible:
             type: boolean
             nullable: true
+        pageOrder:
+            type: integer
+            nullable: false
+            options:
+                default: 0
         slug:
             type: string
             length: 255
