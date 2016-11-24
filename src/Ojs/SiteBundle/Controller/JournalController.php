@@ -16,6 +16,7 @@ use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\Section;
+use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
