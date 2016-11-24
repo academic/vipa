@@ -43,7 +43,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'https://bitbucket.org/bulutyazilim/endorsement.git',
+                    'url' => 'https://github.com/ojs/endorsement.git',
                 ),
             ),
             'require' => array(
