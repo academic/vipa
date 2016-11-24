@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:dc="http://purl.org/dc/terms/"
+      xmlns:doi="http://dx.doi.org/"
+      lang="en" xml:lang="en"
+      class="no-js">
+
+<body>
+<h1>vol_{{ year }}</h1>
+<ul>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'January' }) }}"> January </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'February'}) }}"> February </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'March'}) }}"> March </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'April'}) }}"> April </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'May'}) }}"> May </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'June'}) }}"> June </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'July'}) }}"> July </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'August'}) }}"> August </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'September'}) }}"> September </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'October'}) }}"> October </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'November'}) }}"> November </a></li>
+    <li><a href="{{ path('ojs_journal_lockss_vol_month', {slug: journal.slug, year: year, month: 'December'}) }}"> December </a></li>
+</ul>
+<em> LOCKSS system has permission to collect, preserve, and serve this open access Archival Unit. </em>  </body>
+</html>

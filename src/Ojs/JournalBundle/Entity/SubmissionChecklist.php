@@ -7,7 +7,7 @@ use Ojs\CoreBundle\Entity\DisplayTrait;
 
 /**
  * SubmissionChecklist
- * @GRID\Source(columns="id,label,locale,visible")
+ * @GRID\Source(columns="id,label,locale,visible,order")
  */
 class SubmissionChecklist implements JournalItemInterface
 {
@@ -48,6 +48,12 @@ class SubmissionChecklist implements JournalItemInterface
      * @GRID\Column(title="Locale")
      */
     private $locale;
+
+    /**
+     * @var integer
+     * @GRID\Column(title="submission_checklist.order")
+     */
+    private $order;
 
     /**
      * Get id
@@ -193,6 +199,31 @@ class SubmissionChecklist implements JournalItemInterface
     public function setLocale($locale)
     {
         $this->locale = $locale;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Get order
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set order
+     *
+     * @param  integer $order
+     * @return $this
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
 
         return $this;
     }

@@ -1,6 +1,9 @@
 body {
     padding-top: 80px;
 }
+body.journal_hosting_test{
+    padding-top: 0px;
+}
 body div.container { font-size: 0.9em;  }
 .margin-auto{margin-left:auto; margin-right: auto}
 span.mandotary{color: #d45!important; font-family: monospace!important;}

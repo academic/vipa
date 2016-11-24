@@ -12,20 +12,25 @@
     </style>
 {% endblock %}
 
-{% if isPublisherHosting is defined %}
-    {% set journalUrl = url('publisher_hosting_journal_index',{slug:journal.slug}) %}
-{% elseif isJournalHosting is defined %}
-    {% set journalUrl = url('journal_publisher_hosting') %}
+{% if isJournalHosting is defined %}
+    {% set journalUrl = url('journal_hosting') %}
 {% else %}
     {% set journalUrl = generateJournalUrl(journal) %}
 {% endif %}
 
 {% block breadcrumb %}
+    {% if isJournalHosting %}
     {% set list = [
+    {'link': journalUrl, 'title': journal.title},
+    {'title': "archive"|trans}
+    ] %}
+{% else %}
+{% set list = [
     {'link': path('ojs_public_index'), 'title': project_name},
     {'link': journalUrl, 'title': journal.title},
     {'title': "archive"|trans}
     ] %}
+{% endif %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
@@ -51,9 +56,7 @@
                         <div class="panel-body collapse" id="issue_of_{{ year }}">
                             {% for issue in groupedIssues[year] %}
                                 <div class="thumbnail">
-                                    <a class="btn" href="{% if isPublisherHosting is defined %}
-                                            {{ url('publisher_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
-                                        {% elseif isJournalHosting is defined %}
+                                    <a class="btn" href="{% if isJournalHosting is defined %}
                                             {{ url('journal_hosting_issue',{id: issue.id}) }}
                                         {% else %}
                                             {{ url('ojs_issue_page',{journal_slug:journal.slug,id:issue.id}) }}

@@ -4,14 +4,8 @@ namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Block;
-use Ojs\JournalBundle\Entity\Issue;
-use Ojs\JournalBundle\Entity\IssueRepository;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalRepository;
-use Ojs\JournalBundle\Entity\Publisher;
-use Ojs\JournalBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -30,218 +24,260 @@ class HostingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $currentHost = $request->getHttpHost();
 
-        $getJournalByDomain = $em->getRepository(Journal::class)->findOneBy(
-            array('domain' => $currentHost)
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
         );
-        $this->throw404IfNotFound($getJournalByDomain);
-
-        return $this->journalIndexAction($getJournalByDomain->getSlug(), true);
-
-    }
-
-    /**
-     * @param string $slug
-     * @param bool $isJournalHosting
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function journalIndexAction($slug, $isJournalHosting = false)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        /** @var JournalRepository $journalRepo */
-        $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
-        /** @var IssueRepository $issueRepo */
-        $issueRepo = $em->getRepository(Issue::class);
-        /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository(Block::class);
-        /** @var Journal $journal */
-        $journal = $journalRepo->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
-        $data['last_issue'] = $this->setupArticleURIs($issueRepo->getLastIssueByJournal($journal), $isJournalHosting);
-        $data['years'] = $this->setupIssueURIsByYear($issueRepo->getLastIssueByJournal($journal), $isJournalHosting);
-        $data['journal'] = $journal;
-        $data['page'] = 'journal';
-        $data['blocks'] = $blockRepo->journalBlocks($journal);
-        if($isJournalHosting){
-            $journal->setPublicURI($this->generateUrl('journal_publisher_hosting', [], true));
-            $data['archive_uri'] = $this->generateUrl('journal_hosting_archive', [], true);
-        }else{
-            $journal->setPublicURI($this->generateUrl('publisher_hosting_journal_index', [
-                'slug', $journal->getSlug()
-            ], true)
-            );
-            $data['archive_uri'] = $this->generateUrl('publisher_hosting_journal_archive', [], true);
-        }
 
-        return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
-    }
+        $response = $this->forward('OjsSiteBundle:Journal:journalIndex', array(
+            'slug' => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
 
-    /**
-     * @param Issue $lastIssue
-     * @param boolean $isJournalHosting
-     * @return Issue mixed
-     */
-    private function setupArticleURIs(Issue $lastIssue, $isJournalHosting)
-    {
-        foreach($lastIssue->getArticles() as $article){
-            if($isJournalHosting){
-                $article->setPublicURI($this->generateUrl('journal_hosting_issue_article',[
-                    'issue_id' => $article->getIssue()->getId(),
-                    'article_id' => $article->getId(),
-                    ],true)
-                );
-            }else{
-                $article->setPublicURI($this->generateUrl('publisher_hosting_journal_issue_article', [
-                    'slug' => $article->getIssue()->getJournal()->getSlug(),
-                    'issue_id' => $article->getIssue()->getId(),
-                    'article_id' => $article->getId(),
-                ],true)
-                );
-            }
-        }
+        return $response;
 
-        return $lastIssue;
-    }
 
-    /**
-     * @param Issue[][] $years
-     * @param boolean $isJournalHosting
-     * @return Issue[][]
-     */
-    private function setupIssueURIsByYear($years, $isJournalHosting)
-    {
-        foreach ($years as $year) {
-            foreach ($year as $issue) {
-                if ($isJournalHosting) {
-                    $issue->setPublicURI(
-                        $this->generateUrl(
-                            'journal_hosting_issue',
-                            [
-                                'id' => $issue->getId()
-                            ],
-                            true
-                        )
-                    );
-                } else {
-                    $issue->setPublicURI(
-                        $this->generateUrl(
-                            'publisher_hosting_journal_issue',
-                            [
-                                'journal_slug' => $issue->getJournal()->getSlug(),
-                                'id' => $issue->getId()
-                            ],
-                            true
-                        )
-                    );
-                }
-            }
-        }
-
-        return $years;
-    }
-
-    /**
-     * @param $id
-     * @param bool $isJournalHosting
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function issuePageAction($id, $isJournalHosting = false)
-    {
-        $data = [];
-        $em = $this->getDoctrine()->getManager();
-        $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
-        /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
-        /** @var Issue $issue */
-        $issue = $issueRepo->find($id);
-        $this->throw404IfNotFound($issue);
-        $data['issue'] = $issue;
-        $data['blocks'] = $blockRepo->journalBlocks($issue->getJournal());
-        if($isJournalHosting){
-            $data['isJournalHosting'] = true;
-        }else{
-            $data['isPublisherHosting'] = true;
-        }
-
-        return $this->render('OjsSiteBundle:Issue:detail.html.twig', $data);
-    }
-
-    /**
-     * @param null $slug
-     * @param $article_id
-     * @param null $issue_id
-     * @param bool $isJournalHosting
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function articlePageAction($slug = null, $article_id, $issue_id = null, $isJournalHosting = false)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /* @var $entity Article */
-        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
-        $this->throw404IfNotFound($data['article']);
-
-        //log article view event
-        $data['schemaMetaTag'] = '<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />';
-        $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
-        $data['journal'] = $data['article']->getJournal();
-        $data['page'] = 'journals';
-        $data['blocks'] = $em->getRepository('OjsJournalBundle:Block')->journalBlocks($data['journal']);
-        if($isJournalHosting){
-            $data['journal']->setPublicURI($this->generateUrl('publisher_hosting_journal_index', [], true));
-            $data['archive_uri'] = $this->generateUrl('journal_hosting_archive', [], true);
-        }else{
-            $data['journal']->setPublicURI($this->generateUrl('publisher_hosting_journal_index', [
-                'slug' => $data['article']->getJournal()->getSlug()
-            ], true));
-            $data['archive_uri'] = $this->generateUrl('publisher_hosting_journal_archive', [
-                'slug' => $data['journal']->getSlug()
-            ], true);
-        }
-
-        return $this->render('OjsSiteBundle:Article:article_page.html.twig', $data);
     }
 
     /**
      * @param Request $request
-     * @param null $slug
-     * @param bool $isJournalHosting
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function archiveIndexAction(Request $request, $slug = null, $isJournalHosting = false)
+    public function contactsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $currentHost = $request->getHttpHost();
-        /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
-        /** @var Journal $journal */
-        if(is_null($slug)){
-            $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(
-                array('domain' => $currentHost)
-            );
-        }else{
-            $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
-        }
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
         $this->throw404IfNotFound($journal);
 
-        /** @var Issue[] $issues */
-        $issues = $em->getRepository('OjsJournalBundle:Issue')->findBy(
-            array('journal' => $journal)
-        );
-        $groupedIssues = [];
-        foreach ($issues as $issue) {
-            $groupedIssues[$issue->getYear()][] = $issue;
-        }
-        krsort($groupedIssues);
-        $data['groupedIssues'] = $groupedIssues;
-        $data['page'] = 'archive';
-        $data['blocks'] = $blockRepo->journalBlocks($journal);
-        $data['journal'] = $journal;
-        if($isJournalHosting){
-            $data['isJournalHosting'] = true;
-        }else{
-            $data['isPublisherHosting'] = true;
-        }
+        $response = $this->forward('OjsSiteBundle:Journal:journalContacts', array(
+            'slug' => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
 
-        return $this->render('OjsSiteBundle::Journal/archive_index.html.twig', $data);
+        return $response;
+
+
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function boardAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+        $response = $this->forward('OjsSiteBundle:Journal:journalBoard', array(
+            'slug' => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+
+
+    }
+
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function issuePageAction(Request $request, $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+        $response = $this->forward('OjsSiteBundle:Issue:issuePage', array(
+            'id' => $id,
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+
+    }
+
+    /**
+     * @param Request $request
+     * @param $article_id
+     * @param null $issue_id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function articlePageAction(Request $request, $article_id, $issue_id = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+
+        $response = $this->forward('OjsSiteBundle:Article:articlePage', array(
+            'slug' => $journal->getSlug(),
+            'article_id' => $article_id,
+            'issue_id' => $issue_id,
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function archiveIndexAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+        $response = $this->forward('OjsSiteBundle:Journal:archiveIndex', array(
+            'slug' => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function journalArticlesAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+        $response = $this->forward('OjsSiteBundle:Article:journalArticles', array(
+            'slug' => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function lastAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+        $response = $this->forward('OjsSiteBundle:Journal:lastArticlesIndex', array(
+            'slug' => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function announcementAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+        $response = $this->forward('OjsSiteBundle:JournalCms:announcementIndex', array(
+            'slug' => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function earlyPreviewAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+        $response = $this->forward('OjsSiteBundle:Journal:earlyPreviewIndex', array(
+            'slug' => $journal->getSlug(),
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function pageAction(Request $request, $slug)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+
+        $journal = $em->getRepository(Journal::class)->findOneBy(
+            array('domain' => $currentHost, 'status' => JournalStatuses::STATUS_PUBLISHED)
+        );
+        $this->throw404IfNotFound($journal);
+
+        $response = $this->forward('OjsSiteBundle:JournalCms:journalPageDetail', array(
+            'journal_slug' => $journal->getSlug(),
+            'slug' => $slug,
+            'isJournalHosting' => true,
+        ));
+
+        return $response;
     }
 }

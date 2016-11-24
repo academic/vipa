@@ -11,13 +11,19 @@
         }
     </style>
 {% endblock %}
-
 {% block breadcrumb %}
-    {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
-    {'link':generateJournalUrl(journal), 'title': journal.title},
-    {'title': "articles"|trans}
-    ] %}
+    {% if isJournalHosting %}
+        {% set list = [
+        {'link': path('ojs_public_index'), 'title': journal.title},
+        {'title': "articles"|trans}
+        ] %}
+    {% else %}
+        {% set list = [
+        {'link': path('ojs_public_index'), 'title': project_name},
+        {'link':generateJournalUrl(journal), 'title': journal.title},
+        {'title': "articles"|trans}
+        ] %}
+    {% endif %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
