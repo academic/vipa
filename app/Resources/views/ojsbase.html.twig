@@ -85,7 +85,7 @@
         var current_language = '{{ app.request.locale }}';
     </script>
 </head>
-<body class="page-{{ page }} {% if isJournalHosting is defined and isJournalHosting == true %}{% else %}journal_hosting{% endif %}">
+<body class="page-{{ page }} {% if isJournalHosting is defined and isJournalHosting == true %}journal_hosting{% endif %}">
 {% if isJournalHosting is defined and isJournalHosting == true %}
 {% else %}
 {% block header %}
