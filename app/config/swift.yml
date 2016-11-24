@@ -3,7 +3,7 @@ swiftmailer:
     username:             "%mailer_user%"
     password:             "%mailer_password%"
     host:                 "%mailer_host%"
-    port:                 "%mailer_port%"    
+    port:                 "%mailer_port%"
     encryption:           "%mailer_encryption%"
     auth_mode:            "%mailer_auth_mode%"
     spool:
