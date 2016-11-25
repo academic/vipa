@@ -610,6 +610,7 @@ class Journal extends AbstractTranslatable
                 $translation->setSubtitle($defaultTranslation->getSubtitle());
                 $translation->setDescription($defaultTranslation->getDescription());
                 $translation->setTitleAbbr($defaultTranslation->getTitleAbbr());
+                $translation->setFooterText($defaultTranslation->getFooterText());
             }
             $translation->setLocale($locale);
             $this->addTranslation($translation);
