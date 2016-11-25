@@ -1,4 +1,3 @@
----
 services:
   analytics.listener:
     arguments:
@@ -8,20 +7,24 @@ services:
     tags:
       -
         name: kernel.event_subscriber
+
   api_key_user_provider:
     arguments:
       - "@doctrine.orm.default_entity_manager"
     class: Ojs\ApiBundle\Security\ApiKeyUserProvider
+
   apikey_authenticator:
     arguments:
       - "@api_key_user_provider"
     class: Ojs\ApiBundle\Security\ApiKeyAuthenticator
+
   form.type.journal_user:
     class: Ojs\JournalBundle\Form\Type\JournalUserType
     tags:
       -
         alias: ojs_journalbundle_journaluser
         name: form.type
+
   gedmo.listener.softdeleteable:
     calls:
       -
@@ -33,6 +36,7 @@ services:
       -
         connection: default
         name: doctrine.event_subscriber
+
   ojs.twig.common_extension:
     arguments:
       - "@doctrine.orm.entity_manager"
@@ -41,19 +45,23 @@ services:
     tags:
       -
         name: twig.extension
+
   ojs.user_provider.username_email:
     arguments:
       - "@doctrine.orm.entity_manager"
     class: Ojs\UserBundle\Service\EmailUserProvider
+
   twig.extension.intl:
     class: Twig_Extensions_Extension_Intl
     tags:
       -
         name: twig.extension
+
   twig.extension.text:
     class: Twig_Extensions_Extension_Text
     tags:
       -
         name: twig.extension
+
   fos_user.doctrine_registry:
      alias: doctrine
