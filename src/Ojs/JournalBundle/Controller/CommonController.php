@@ -11,6 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CommonController extends Controller
 {
+    /**
+     * @param $code
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function changeLocaleAction($code, Request $request)
     {
         $session = $this->get('session');

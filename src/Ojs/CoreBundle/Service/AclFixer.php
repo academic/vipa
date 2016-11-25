@@ -2,7 +2,6 @@
 
 namespace Ojs\CoreBundle\Service;
 
-
 use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Acl\AclChainManager;
 use Ojs\CoreBundle\Acl\JournalRoleSecurityIdentity;

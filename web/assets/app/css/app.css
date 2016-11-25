@@ -912,6 +912,10 @@ label.required:before {
     display: none !important;
 }
 
+.isJournalHosting .language_selector{
+    list-style:none;
+}
+
 #sortable li{
     cursor: move;
 }
