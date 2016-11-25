@@ -1356,7 +1356,7 @@ class Journal extends AbstractTranslatable
      */
     public function getFooterText()
     {
-        return $this->footerText;
+        return $this->getLogicalFieldTranslation('footerText', false);
     }
 
     /**
@@ -1364,7 +1364,7 @@ class Journal extends AbstractTranslatable
      */
     public function setFooterText($footerText)
     {
-        $this->footerText = $footerText;
+        $this->translate()->setFooterText($footerText);
     }
 
     /**

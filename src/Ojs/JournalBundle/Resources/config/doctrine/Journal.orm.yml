@@ -395,12 +395,6 @@ Ojs\JournalBundle\Entity\Journal:
       type: boolean
       nullable: true
       column: setup_finished
-    footerText:
-      type: text
-      nullable: true
-      column: footer_text
-      gedmo:
-        - versioned
     note:
       type: text
       nullable: true

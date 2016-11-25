@@ -26,3 +26,7 @@ Ojs\JournalBundle\Entity\JournalTranslation:
             length: 255
             column: title_abbr
             nullable: true
+        footerText:
+            type: text
+            nullable: true
+            column: footer_text
