@@ -347,9 +347,17 @@ class SectionController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
-        $this->get('ojs_core.delete.service')->check($entity);
+
         $event = new JournalItemEvent($entity);
         $eventDispatcher->dispatch(SectionEvents::PRE_DELETE, $event);
+
+        foreach ($entity->getArticles() as $article) {
+            $article->setSection(null);
+            $em->persist($article);
+        }
+
+        $em->flush(); // Detach articles first
+        $this->get('ojs_core.delete.service')->check($entity);
 
         $em->remove($entity);
         $em->flush();
