@@ -29,14 +29,15 @@ class ArticleAuthor implements Translatable
     /**
      * @var integer
      * @Expose
+     * @GRID\Column(title="author.order",field="authorOrder")
      */
     private $authorOrder;
 
     /**
      * @var Author
      * @Expose
-     * @GRID\Column(title="firstName",field="author.firstName")
-     * @GRID\Column(title="lastName",field="author.lastName")
+     * @GRID\Column(title="author.firstname",field="author.firstName")
+     * @GRID\Column(title="author.lastname",field="author.lastName")
      * @Expose
      */
     private $author;

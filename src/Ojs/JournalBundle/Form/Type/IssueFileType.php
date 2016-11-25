@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Form\Type;
 
 use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\CoreBundle\Params\ArticleFileParams;
+use Ojs\CoreBundle\Params\IssueFileParams;
 use Ojs\JournalBundle\Entity\IssueFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +28,7 @@ class IssueFileType extends AbstractType
                 'choice',
                 [
                     'label' => 'issuefile.type',
-                    'choices' => ArticleFileParams::$FILE_TYPES,
+                    'choices' => IssueFileParams::$FILE_TYPES,
                 ])
             ->add('version', null, ['label' => 'issuefile.version'])
             ->add('langCode', JournalLangCodeType::class,

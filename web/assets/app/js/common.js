@@ -251,6 +251,20 @@ $(document).ready(function () {
     });
 
     $('.grid-search-reset').parent().remove();
+
+    $( "#sortable" ).sortable({
+        update: function(event, ui) {
+            var item = ui.item;
+            var jsonData = {};
+            $.each(ui.item.parent().find('li'), function(index, value){
+                var id = $(value).data('id');
+                jsonData[id] = index+1;
+            });
+            var jsonDataInput = item.parent().find('input');
+            jsonDataInput.val(JSON.stringify(jsonData));
+        }
+    });
+    $( "#sortable" ).disableSelection();
 });
 // Returns a random integer between min (included) and max (included)
 // Using Math.round() will give you a non-uniform distribution!

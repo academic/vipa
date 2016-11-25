@@ -9,6 +9,7 @@ use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\CoreBundle\Annotation\Display;
 
 /**
  * IssueFile
@@ -22,18 +23,23 @@ class IssueFile extends AbstractTranslatable
     /**
      * @var integer
      * @GRID\Column(title="id")
+     * @JMS\Expose
      */
     protected $id;
     /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\IssueFileTranslation")
+     * @JMS\Expose
      */
     protected $translations;
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $type;
     /**
      * @var string
+     * @JMS\Expose
+     * @Display\File(path="issuefiles")
      */
     private $file;
     /**
@@ -56,6 +62,7 @@ class IssueFile extends AbstractTranslatable
     /**
      * @var string
      * @GRID\Column(title="issuefile.langcode")
+     * @JMS\Expose
      */
     private $langCode;
     /**

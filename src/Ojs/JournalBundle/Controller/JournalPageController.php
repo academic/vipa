@@ -52,6 +52,49 @@ class JournalPageController extends OjsController
     }
 
     /**
+     * @param Request $request
+     * @return Response
+     */
+    public function sortAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $pages = $em->getRepository(JournalPage::class)->findAll();
+        usort($pages, function($a, $b){
+            return $a->getPageOrder() > $b->getPageOrder();
+        });
+
+        $sortData = [];
+        foreach ($pages as $page){
+            $sortData[$page->getId()] = $page->getPageOrder();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $pageId => $order){
+                foreach ($pages as $page){
+                    if($page->getId() == $pageId){
+                        $page->setPageOrder($order);
+                        $em->persist($page);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_journal_page_sort', [
+                'journalId' => $journal->getId(),
+            ]);
+        }
+
+        return $this->render('OjsJournalBundle:JournalPage:sort.html.twig', [
+                'pages' => $pages,
+                'jsonSortData' => json_encode($sortData),
+            ]
+        );
+    }
+
+    /**
      * Displays a form to create a new JournalPage entity.
      */
     public function newAction()

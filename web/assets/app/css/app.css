@@ -915,3 +915,7 @@ label.required:before {
 .isJournalHosting .language_selector{
     list-style:none;
 }
+
+#sortable li{
+    cursor: move;
+}
