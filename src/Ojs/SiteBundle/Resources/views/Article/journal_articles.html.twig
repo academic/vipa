@@ -12,7 +12,7 @@
     </style>
 {% endblock %}
 {% block breadcrumb %}
-    {% if isJournalHosting %}
+    {% if isJournalHosting is defined and isJournalHosting == true %}
         {% set list = [
         {'link': path('ojs_public_index'), 'title': journal.title},
         {'title': "articles"|trans}

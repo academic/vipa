@@ -163,7 +163,9 @@ class JournalController extends Controller
         $journalLocale = $journal->getMandatoryLang()->getCode();
         //if system supports journal mandatory locale set locale as journal mandatory locale
 
-        if(0 && $journalLocale && in_array($journalLocale,$this->getParameter('locale_support'))){
+        # var_dump($session->get('_locale_prefered'),$this->get('router.request_context')->getHost());
+
+        if($journalLocale && in_array($journalLocale,$this->getParameter('locale_support'))){
             /**
              * if user is prefered a locale pass this logic then
              * @look for CommonController change locale function
@@ -176,7 +178,7 @@ class JournalController extends Controller
                 if(!$session->has('_locale')){
                     $session->set('_locale', $journalLocale);
 
-                    return $this->redirect($request->getRequestUri());
+                    //return $this->redirect($request->getRequestUri());
                 }else{
                     /**
                      * if session is not fresh but session locale is
@@ -186,7 +188,7 @@ class JournalController extends Controller
                     if($session->get('_locale') !== $journalLocale){
                         $session->set('_locale', $journalLocale);
 
-                        return $this->redirect($request->getRequestUri());
+                        //return $this->redirect($request->getRequestUri());
                     }
                 }
             }
