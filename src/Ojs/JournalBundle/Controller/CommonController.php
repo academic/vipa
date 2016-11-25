@@ -4,8 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Cookie;
 
 /**
  * Common controller.
@@ -20,11 +18,11 @@ class CommonController extends Controller
      */
     public function changeLocaleAction($code, Request $request)
     {
-        $response = new Response();
         $session = $this->get('session');
         $request->setLocale($code);
         $session->set('_locale', $code);
         $session->set('_locale_prefered', new \DateTime());
+        $referer = $request->headers->get('referer');
 
         return $this->redirect(empty($referer) ? "/" : $referer);
     }
