@@ -76,7 +76,7 @@ class JournalAnnouncement extends AbstractTranslatable implements JournalItemInt
         }
         $defaultTranslation = $this->translations->get($this->getDefaultLocale());
         if (!$translation = $this->translations->get($locale)) {
-            $translation = new BlockTranslation();
+            $translation = new JournalAnnouncementTranslation();
             if (!is_null($defaultTranslation)) {
                 $translation->setTitle($defaultTranslation->getTitle());
                 $translation->setContent($defaultTranslation->getContent());
