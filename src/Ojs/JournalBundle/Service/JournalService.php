@@ -6,9 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\JournalUser;
-use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -71,35 +69,7 @@ class JournalService
     }
 
     /**
-     * @param  Journal $journal
-     * @return bool|Journal
-     */
-    public function setSelectedJournal(Journal $journal = null)
-    {
-        if ($journal) {
-            $this->session->set('selectedJournalId', $journal->getId());
-
-            return $journal;
-        }
-        $token = $this->tokenStorage->getToken();
-        if ($token instanceof AnonymousToken) {
-            return false;
-        }
-        $user = $token->getUser();
-        // set first journal if found
-        /** @var JournalRepository $journalRepo */
-        $journalRepo = $this->em->getRepository('OjsJournalBundle:Journal');
-        $journal = $journalRepo->findOneByUser($user);
-        if (!$journal instanceof Journal) {
-            return false;
-        }
-        $this->session->set('selectedJournalId', $journal->getId());
-
-        return $journal;
-    }
-
-    /**
-     * @return bool|Journal
+     * @return array
      */
     public function getJournalLocales()
     {
@@ -136,29 +106,6 @@ class JournalService
     }
 
     /**
-     * @param string $checkRoles
-     * @param  Journal $journal
-     * @return bool
-     * @deprecated
-     */
-    public function hasJournalRole($checkRoles, Journal $journal = null)
-    {
-        $journalRoles = $this->getSelectedJournalRoles($journal)->toArray();
-
-        if (is_array($checkRoles)) {
-            foreach ($checkRoles as $role) {
-                if (in_array($role, $journalRoles, true)) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        return in_array($checkRoles, $journalRoles, true);
-    }
-
-    /**
      * @param  Journal $journal
      * @return Collection
      */
@@ -181,18 +128,6 @@ class JournalService
         }
 
         return $journalUser->getRoles();
-    }
-
-    /**
-     * get default publisher record
-     * @return Publisher
-     */
-    public function getDefaultPublisher()
-    {
-        $publisher = $this->defaultPublisherSlug ? $this->em->getRepository('OjsJournalBundle:Publisher')
-            ->findOneBy(array('slug' => $this->defaultPublisherSlug)) : null;
-
-        return $publisher;
     }
 
     /**
