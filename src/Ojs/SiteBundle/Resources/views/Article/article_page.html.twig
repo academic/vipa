@@ -4,7 +4,7 @@
 
 {% block breadcrumb %}
     {% if article.issue %}
-        {% if isJournalHosting %}
+        {% if isJournalHosting is defined and isJournalHosting == true %}
             {% set list = [
                 {'link': journal.publicURI,'title': article.journal.title},
                 {'link': archive_uri, 'title': "archive"|trans},
@@ -22,7 +22,7 @@
             ] %}
         {% endif %}
     {% else %}
-        {% if isJournalHosting %}
+        {% if isJournalHosting is defined and isJournalHosting == true %}
             {% set list = [
             {'link': journal.publicURI,'title': article.journal.title},
             {'link': archive_uri, 'title': "archive"|trans}
@@ -44,7 +44,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     {% if article.issue %}
-                        {% if isJournalHosting %}
+                        {% if isJournalHosting is defined and isJournalHosting == true %}
                             <a href="{{ url('journal_hosting_issue', {id: article.issue.id}) }}">
                                 {{ "volume"|trans }} {{ article.issue.volume }}, {{ "issue"|trans }} {{ article.issue.number }},
                             </a>
@@ -376,7 +376,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
             <div class="list-group journal-stats">
-                {% if isJournalHosting %}
+                {% if isJournalHosting is defined and isJournalHosting == true %}
                     <a href="{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
                        class="list-group-item list-group-item-success">
                         <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>

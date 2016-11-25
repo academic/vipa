@@ -5,7 +5,7 @@
 {% block body -%}
 
     <div class="container">
-        {% if isJournalHosting %}
+        {% if isJournalHosting is defined and isJournalHosting == true %}
             {% set list = [
             {'link': path('journal_hosting'), 'title': journalPage.journal.title},
             {'title': journalPage.title }

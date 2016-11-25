@@ -163,7 +163,7 @@ class JournalController extends Controller
         $journalLocale = $journal->getMandatoryLang()->getCode();
         //if system supports journal mandatory locale set locale as journal mandatory locale
 
-        if(0 && $journalLocale && in_array($journalLocale,$this->getParameter('locale_support'))){
+        if($journalLocale && in_array($journalLocale,$this->getParameter('locale_support'))){
             /**
              * if user is prefered a locale pass this logic then
              * @look for CommonController change locale function
