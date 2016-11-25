@@ -369,7 +369,7 @@ class SectionController extends Controller
             return $event->getResponse();
         }
 
-        $this->successFlashBag('successful.remove');
+        $this->successFlashBag('deletion.section');
 
         return $this->redirectToRoute('ojs_journal_section_index', ['journalId' => $journal->getId()]);
     }
