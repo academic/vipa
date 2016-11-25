@@ -21,7 +21,6 @@ class CommonController extends Controller
     public function changeLocaleAction($code, Request $request)
     {
         $response = new Response();
-        $response->headers->setCookie(new Cookie('_locale', $code, $expire = 0, $path = '/', $domain = $this->get('router.request_context')->getHost(), $secure = false, $httpOnly = false));
         $session = $this->get('session');
         $request->setLocale($code);
         $session->set('_locale', $code);
