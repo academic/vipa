@@ -911,3 +911,7 @@ label.required:before {
 .note-group-select-from-files{
     display: none !important;
 }
+
+.isJournalHosting .language_selector{
+    list-style:none;
+}
