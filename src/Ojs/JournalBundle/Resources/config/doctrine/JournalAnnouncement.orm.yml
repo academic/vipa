@@ -15,14 +15,8 @@ Ojs\JournalBundle\Entity\JournalAnnouncement:
             generator:
                 strategy: AUTO
     fields:
-        title:
-            type: string
-            length: 255
         image:
             type: string
             length: 255
-            nullable: true
-        content:
-            type: text
             nullable: true
     lifecycleCallbacks: {  }

@@ -6,14 +6,19 @@ use APY\DataGridBundle\Grid\Mapping\Source;
 use Ojs\CoreBundle\Annotation\Display;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Ojs\CoreBundle\Entity\DisplayTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\CoreBundle\Entity\TranslateableTrait;
+use APY\DataGridBundle\Grid\Mapping as GRID;    
 
 /**
  * JournalAnnouncement
- * @Source(columns="id, title, content")
+ * @Source(columns="id, translations.title")
  */
-class JournalAnnouncement implements JournalItemInterface
+class JournalAnnouncement extends AbstractTranslatable implements JournalItemInterface
 {
     use DisplayTrait;
+    use TranslateableTrait;
 
     /** @var Journal */
     private $journal;
@@ -21,10 +26,11 @@ class JournalAnnouncement implements JournalItemInterface
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
+     * @GRID\Column(field="translations.title", title="title")
      */
     private $title;
 
@@ -38,6 +44,49 @@ class JournalAnnouncement implements JournalItemInterface
      * @Display\Image(filter="announcement_original")
      */
     private $image;
+
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalAnnouncementTranslation")
+     */
+    protected $translations;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
+
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalAnnouncementTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new BlockTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setContent($defaultTranslation->getContent());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+        return $translation;
+    }
 
     /**
      * Get id
@@ -58,7 +107,7 @@ class JournalAnnouncement implements JournalItemInterface
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->translate()->setTitle($title);
 
         return $this;
     }
@@ -70,7 +119,7 @@ class JournalAnnouncement implements JournalItemInterface
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**
@@ -82,7 +131,7 @@ class JournalAnnouncement implements JournalItemInterface
      */
     public function setContent($content)
     {
-        $this->content = $content;
+        $this->translate()->setContent($content);
 
         return $this;
     }
@@ -94,7 +143,7 @@ class JournalAnnouncement implements JournalItemInterface
      */
     public function getContent()
     {
-        return $this->content;
+        return $this->getLogicalFieldTranslation('content', false);
     }
 
     /**
