@@ -2,6 +2,10 @@ ojs_journal_journal_contact_index:
     path:  /{journalId}/contact/
     defaults: { _controller: "OjsJournalBundle:JournalContact:index" }
 
+ojs_journal_journal_contact_sort:
+    path:     /{journalId}/contact/sort
+    defaults: { _controller: "OjsJournalBundle:JournalContact:sort" }
+
 ojs_journal_journal_contact_show:
     path:  /{journalId}/contact/{id}/show
     defaults: { _controller: "OjsJournalBundle:JournalContact:show" }

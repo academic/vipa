@@ -1,0 +1,38 @@
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.page_sort'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id}),'title': 'title.journal_contacts'|trans},
+        {'title': 'title.contact_sort'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'sort.contacts'|trans }}</h1>
+    {{ include('::flashbag.html.twig') }}
+    <div class="row">
+        <form method="post" action="{{ path('ojs_journal_journal_contact_sort', {'journalId': selectedJournal().id}) }}">
+            <div class="col-sm-4 col-sm-push-4 well">
+                <ul id="sortable" class="list-group">
+                    <input type="hidden" value='{{ jsonSortData|raw }}' name="sortData"/>
+                    {% for contact in contacts %}
+                        <li class="list-group-item" data-id="{{ contact.id }}">
+                            <h5>
+                                <i class="fa fa-arrows-v" aria-hidden="true"></i>
+                                {{ contact.fullName }}
+                            </h5>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button class="btn btn-primary pull-right">
+                    {{ 'update'|trans }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {{ actions({'back': {'href': path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id})}}) }}
+{% endblock %}
