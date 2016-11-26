@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Command;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\JournalAnnouncement;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -72,8 +73,14 @@ class JournalAnnouncementNormalizeCommand extends ContainerAwareCommand
         foreach($this->getAnnouncements() as $announcement){
             if(!$this->haveTranslation($announcement['id'])){
                 $this->addTranslation($announcement);
+                $this->io->progressAdvance(1);
+                $counter = $counter+1;
+                if($counter%50 == 0){
+                    $this->em->flush();
+                }
             }
         }
+        $this->em->flush();
         $this->io->success('All process finished');
     }
 
@@ -110,19 +117,14 @@ SQL;
 
     private function addTranslation($announcement)
     {
-        $sql = <<<SQL
-        INSERT INTO journal_announcement_translations
-        (id,translatable_id, title, content, locale)
-        VALUES
-          (DEFAULT,?,?,?,?)
-SQL;
+        $journalAnnouncement = $this->em->getRepository('OjsJournalBundle:JournalAnnouncement')->find($announcement['id']);
 
-        $rsm = new ResultSetMapping();
-        $query = $this->em->createNativeQuery($sql, $rsm);
-        $query->setParameter(1, $announcement['id']);
-        $query->setParameter(2, $announcement['title']);
-        $query->setParameter(3, $announcement['content']);
-        $query->setParameter(4, $announcement['locale']);
-        return $query->getResult();
+        $entity = new JournalAnnouncementTranslation();
+        $entity->setContent($announcement['content']);
+        $entity->setTitle($announcement['title']);
+        $entity->setLocale($announcement['locale']);
+        $entity->setTranslatable($journalAnnouncement);
+
+        $this->em->persist($entity);
     }
 }
