@@ -4,14 +4,11 @@ namespace Ojs\JournalBundle\Command;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
-use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\JournalAnnouncement;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Ojs\JournalBundle\Entity\JournalAnnouncementTranslation;
 
