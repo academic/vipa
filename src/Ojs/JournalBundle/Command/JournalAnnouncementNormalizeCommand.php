@@ -84,16 +84,13 @@ class JournalAnnouncementNormalizeCommand extends ContainerAwareCommand
     private function getAnnouncements()
     {
         $sql = <<<SQL
-          SELECT journal_announcement.id,journal_announcement.title,journal_announcement.content,lang.code FROM journal_announcement
-          JOIN journal ON journal_announcement.journal_id = journal.id
-          JOIN lang ON journal.mandatory_lang_id = lang.id
+          SELECT journal_announcement.id,journal_announcement.title,journal_announcement.content FROM journal_announcement
 SQL;
         
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id','id');
         $rsm->addScalarResult('title','title');
         $rsm->addScalarResult('content','content');
-        $rsm->addScalarResult('code','locale');
         $query = $this->em->createNativeQuery($sql, $rsm);
         return $query->getResult();
     }
@@ -114,13 +111,10 @@ SQL;
 
     private function addTranslation($announcement)
     {
-        $journalAnnouncement = $this->em->getRepository('OjsJournalBundle:JournalAnnouncement')->find($announcement['id']);
-
-        $entity = new JournalAnnouncementTranslation();
+        $entity  = $this->em->getRepository('OjsJournalBundle:JournalAnnouncement')->find($announcement['id']);
+        
         $entity->setContent($announcement['content']);
         $entity->setTitle($announcement['title']);
-        $entity->setLocale($announcement['locale']);
-        $entity->setTranslatable($journalAnnouncement);
 
         $this->em->persist($entity);
     }
