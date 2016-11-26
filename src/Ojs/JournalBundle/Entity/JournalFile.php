@@ -37,7 +37,7 @@ class JournalFile implements JournalItemInterface
 
     /**
      * @var string
-     * @GRID\Column(title="path")
+     * @GRID\Column(title="path", safe=false)
      * @Display\File(path="files")
      */
     private $path;

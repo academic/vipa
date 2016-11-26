@@ -30,7 +30,19 @@ class JournalFileController extends OjsController
             throw new AccessDeniedException("You are not authorized for this file!");
         }
 
+        $router = $this->get('router');
         $source = new Entity('OjsJournalBundle:JournalFile');
+        $source->manipulateRow(
+            function (Row $row) use ($request,$router) {
+
+                /* @var JournalFile $entity */
+                $entity = $row->getEntity();
+                $pathLinkTemplate = '<a target="_blank" href="uploads/files/'.$entity->getPath().'">'.$entity->getPath().'</a>';
+                $row->setField('path', $pathLinkTemplate);
+                
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
