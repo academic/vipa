@@ -2,6 +2,10 @@ ojs_journal_page_index:
     path:     /{journalId}/page
     defaults: { _controller: "OjsJournalBundle:JournalPage:index" }
 
+ojs_journal_page_sort:
+    path:     /{journalId}/page/sort
+    defaults: { _controller: "OjsJournalBundle:JournalPage:sort" }
+
 ojs_journal_page_new:
     path:     /{journalId}/page/new
     defaults: { _controller: "OjsJournalBundle:JournalPage:new" }

@@ -1,4 +1,4 @@
-<li class="dropdown navbar-btn">
+<li class="dropdown navbar-btn language_selector">
     <a href="#" title="{{ app.request.locale }}" class="dropdown-toggle" data-toggle="dropdown" data-placement="bottom">
         <i class="fa fa-globe fa-fw"></i>
         {{ app.request.locale }}
@@ -6,7 +6,7 @@
     <ul class="dropdown-menu" role="menu">
         {% for lang in languages %}
             <li class="{% if app.request.locale == lang.code %}disabled{% endif %}">
-                <a href="{{ url('change_locale', { 'code': lang.code }) }}">{{ lang.name }}</a>
+                <a href="{{ path('change_locale', { 'code': lang.code }) }}">{{ lang.name }}</a>
             </li>
         {% endfor %}
     </ul>

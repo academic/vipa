@@ -18,6 +18,9 @@
     </ul>
 
     <h1>{{ 'title.issue_files'|trans }}</h1>
+    <div class="alert alert-warning">
+        {{ 'upload.full.file.to.issue.fullfile.field'|trans }}
+    </div>
     {% if is_granted('CREATE', selectedJournal(), 'issues') %}
         <a href="{{ path('ojs_journal_issue_file_new', {'issueId': issue.id, 'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "c"|trans }}

@@ -54,6 +54,11 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
     private $visible;
 
     /**
+     * @var int
+     */
+    private $pageOrder = 0;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -222,6 +227,25 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
     public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPageOrder(): int
+    {
+        return $this->pageOrder;
+    }
+
+    /**
+     * @param int $pageOrder
+     * @return $this
+     */
+    public function setPageOrder(int $pageOrder)
+    {
+        $this->pageOrder = $pageOrder;
 
         return $this;
     }

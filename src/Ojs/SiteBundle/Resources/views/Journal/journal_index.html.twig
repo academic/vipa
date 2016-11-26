@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {% if isJournalHosting %}
+    {% if isJournalHosting is defined and isJournalHosting == true %}
         {% set list = [
         {'link': path('ojs_public_index'),  'title': journal.title }
         ] %}
@@ -124,7 +124,7 @@
                     {% if journal.formerlyKnownAsJournal is not empty %}
                         <b>
                             {{ 'formerly.known.as'|trans }}:
-                            {% if isJournalHosting %}
+                            {% if isJournalHosting is defined and isJournalHosting == true %}
                             <a href="{{ path('journal_hosting', {slug: journal.formerlyKnownAsJournal.slug }) }}">
                                 {{ journal.formerlyKnownAsJournal.title }}
                             </a>
@@ -139,7 +139,7 @@
                     {% if journal.continuedAsJournal is not empty %}
                         <b>
                             {{ 'continued.as.journal'|trans }}:
-                            {% if isJournalHosting %}
+                            {% if isJournalHosting is defined and isJournalHosting == true %}
                             <a href="{{ path('journal_hosting', {slug: journal.continuedAsJournal.slug }) }}">
                                 {{ journal.continuedAsJournal.title }}
                             </a>
@@ -171,7 +171,10 @@
                                 </div>
                             </form>
                         </div>
-                        {% if isJournalHosting %}
+                        {% if isJournalHosting is defined and isJournalHosting == true %}
+                            <ul class="list-group-item list-group-item-warning">
+                            {% include '::language_selector.html.twig' %}
+                            </ul>
                             <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
                                class="list-group-item list-group-item-success">
                                 <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
@@ -221,7 +224,7 @@
 
                         {% for journalPage in journalPages %}
                             {% if journalPage.visible == true %}
-                                {% if isJournalHosting %}
+                                {% if isJournalHosting is defined and isJournalHosting == true %}
                                         <a href="{{ url('journal_hosting_page', {slug: journalPage.slug}) }}"
                                            class="list-group-item ">
                                             <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>

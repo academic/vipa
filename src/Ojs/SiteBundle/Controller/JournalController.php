@@ -163,7 +163,7 @@ class JournalController extends Controller
         $journalLocale = $journal->getMandatoryLang()->getCode();
         //if system supports journal mandatory locale set locale as journal mandatory locale
 
-        if(0 && $journalLocale && in_array($journalLocale,$this->getParameter('locale_support'))){
+        if($journalLocale && in_array($journalLocale,$this->getParameter('locale_support'))){
             /**
              * if user is prefered a locale pass this logic then
              * @look for CommonController change locale function
@@ -244,7 +244,9 @@ class JournalController extends Controller
         }
 
         $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
-        $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
+        $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy([
+            'journal' => $journal
+        ], ['pageOrder' => 'ASC']);
 
         if($isJournalHosting){
             $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal), 0, 5, true),true);
