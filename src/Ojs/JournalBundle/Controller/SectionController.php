@@ -7,6 +7,7 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Section;
@@ -15,6 +16,7 @@ use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Event\Section\SectionEvents;
 use Ojs\JournalBundle\Form\Type\SectionType;
+use Ojs\JournalBundle\Validator\Constraints\ArticleStatus;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -347,9 +349,19 @@ class SectionController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
-        $this->get('ojs_core.delete.service')->check($entity);
+
         $event = new JournalItemEvent($entity);
         $eventDispatcher->dispatch(SectionEvents::PRE_DELETE, $event);
+
+        foreach ($entity->getArticles() as $article) {
+            $article->setIssue(null);
+            $article->setSection(null);
+            $article->setStatus(ArticleStatuses::STATUS_PUBLISH_READY);
+            $em->persist($article);
+        }
+
+        $em->flush(); // Detach articles first
+        $this->get('ojs_core.delete.service')->check($entity);
 
         $em->remove($entity);
         $em->flush();
@@ -361,7 +373,7 @@ class SectionController extends Controller
             return $event->getResponse();
         }
 
-        $this->successFlashBag('successful.remove');
+        $this->successFlashBag('deletion.section');
 
         return $this->redirectToRoute('ojs_journal_section_index', ['journalId' => $journal->getId()]);
     }
