@@ -224,7 +224,7 @@ author.middlename: 'İkinci ad'
 author.middlenametransliterated: 'Başka Alfabede İkinci Ad'
 author.new: 'Yeni Yazar'
 author.orcid: ORCID
-author.institution: Enstitü
+author.institution: 'Kurum'
 author.order: Sıra
 author.phone: Telefon
 author.plural: Yazarlar
@@ -233,7 +233,7 @@ author.summary: 'Yazar Hakkında'
 author.title: Ünvan
 author.email: E-Posta
 author.address: Adres
-author.institution_not_listed: Enstitüm listede yok
+author.institution_not_listed: 'Kurum Listede Yok'
 author_id: 'Yazar No'
 author_order: 'Sıra'
 authors: Yazarlar
