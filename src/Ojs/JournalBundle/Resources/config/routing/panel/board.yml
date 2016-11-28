@@ -28,6 +28,10 @@ ojs_journal_board_update:
     defaults: { _controller: "OjsJournalBundle:Board:update" }
     methods: [PUT]
 
+ojs_journal_board_member_sort:
+    path:     /{journalId}/board/{boardId}/member/sort
+    defaults: { _controller: "OjsJournalBundle:Board:memberSort" }
+
 ojs_journal_board_delete:
     path:     /{journalId}/board/{id}/delete
     defaults: { _controller: "OjsJournalBundle:Board:delete" }
