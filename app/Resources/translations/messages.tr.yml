@@ -1207,6 +1207,7 @@ title.page_edit: 'Sayfayı Düzenle'
 title.page_new: 'Yeni Sayfa'
 title.page_show: 'Sayfayı Göster'
 title.pages: Sayfalar
+title.page.go: 'Sayfaya Git'
 title.password_change: 'Şifreyi Değiştir'
 title.password_create: 'Şifre Oluştur'
 title.password_forgot: 'Şifreyi Unuttum'
