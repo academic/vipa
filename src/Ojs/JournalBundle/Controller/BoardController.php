@@ -75,6 +75,49 @@ class BoardController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return Response
+     */
+    public function sortAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $boards = $em->getRepository(Board::class)->findAll();
+        usort($boards, function($a, $b){
+            return $a->getBoardOrder() > $b->getBoardOrder();
+        });
+
+        $sortData = [];
+        foreach ($boards as $board){
+            $sortData[$board->getId()] = $board->getBoardOrder();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $boardId => $order){
+                foreach ($boards as $board){
+                    if($board->getId() == $boardId){
+                        $board->setBoardOrder($order);
+                        $em->persist($board);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_journal_board_sort', [
+                'journalId' => $journal->getId(),
+            ]);
+        }
+
+        return $this->render('OjsJournalBundle:Board:sort.html.twig', [
+                'boards' => $boards,
+                'jsonSortData' => json_encode($sortData),
+            ]
+        );
+    }
+
+    /**
      * Creates a new Board entity.
      *
      * @param  Request $request

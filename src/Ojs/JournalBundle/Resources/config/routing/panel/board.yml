@@ -2,6 +2,10 @@ ojs_journal_board_index:
     path:     /{journalId}/board/
     defaults: { _controller: "OjsJournalBundle:Board:index" }
 
+ojs_journal_board_sort:
+    path:     /{journalId}/board/sort
+    defaults: { _controller: "OjsJournalBundle:Board:sort" }
+
 ojs_journal_board_show:
     path:     /{journalId}/board/{id}/show
     defaults: { _controller: "OjsJournalBundle:Board:show" }
