@@ -105,6 +105,7 @@ SQL;
         $rsm->addScalarResult('id','id');
         $query = $this->em->createNativeQuery($sql, $rsm);
         $query->setParameter(1, $id);
+
         return $query->getResult();
     }
 
@@ -112,7 +113,10 @@ SQL;
     private function addTranslation($announcement)
     {
         $entity  = $this->em->getRepository('OjsJournalBundle:JournalAnnouncement')->find($announcement['id']);
-        
+
+        if(!$entity){
+            return;
+        }
         $entity->setContent($announcement['content']);
         $entity->setTitle($announcement['title']);
 

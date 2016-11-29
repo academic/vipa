@@ -97,6 +97,10 @@ SQL;
     {
         $entity = $this->em->getRepository('OjsJournalBundle:Journal')->find($journal['id']);
 
+        if(!$entity){
+            return;
+        }
+
         $entity->setFooterText($journal['text']);
 
         $this->em->persist($entity);
