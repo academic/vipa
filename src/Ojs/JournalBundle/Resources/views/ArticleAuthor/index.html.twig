@@ -24,6 +24,10 @@
         {{ "c"|trans }}
     </a>
 
+    <a href="{{ path('ojs_journal_article_author_sort', {'journalId': selectedJournal().id,'articleId': article.id}) }}" class="btn btn-primary">
+        {{ "sort.authors"|trans }}
+    </a>
+
     <hr>
     {{ grid(grid) }}
 {% endblock %}

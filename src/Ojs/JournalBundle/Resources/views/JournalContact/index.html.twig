@@ -17,6 +17,9 @@
             {{ "c"|trans }}
         </a>
     {% endif %}
+    <a href="{{ path('ojs_journal_journal_contact_sort', {'journalId': selectedJournal().id}) }}" class="btn btn-primary">
+        {{ "sort.contacts"|trans }}
+    </a>
 
     <hr>
     {{ grid(grid) }}

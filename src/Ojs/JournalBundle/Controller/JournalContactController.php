@@ -71,6 +71,51 @@ class JournalContactController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return Response
+     */
+    public function sortAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $contacts = $em->getRepository(JournalContact::class)->findAll();
+        usort($contacts, function($a, $b){
+            return $a->getContactOrder() > $b->getContactOrder();
+        });
+
+        $sortData = [];
+        foreach ($contacts as $contact){
+            $sortData[$contact->getId()] = $contact->getContactOrder();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $contactId => $order){
+                foreach ($contacts as $contact){
+                    if($contact->getId() == $contactId){
+                        $contact->getContactOrder($order);
+                        $em->persist($contact);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+
+            return $this->redirectToRoute('ojs_journal_journal_contact_sort', [
+                'journalId' => $journal->getId(),
+            ]);
+        }
+
+        dump($contacts);
+        return $this->render('OjsJournalBundle:JournalContact:sort.html.twig', [
+                'contacts' => $contacts,
+                'jsonSortData' => json_encode($sortData),
+            ]
+        );
+    }
+
+    /**
      * Creates a new JournalContact entity.
      *
      * @param  Request                   $request
