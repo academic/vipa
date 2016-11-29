@@ -87,7 +87,7 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
-                'announcement'      => (string)$itemEvent->getItem(),
+                'announcement'      => $itemEvent->getItem()->getTitleTranslations(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),

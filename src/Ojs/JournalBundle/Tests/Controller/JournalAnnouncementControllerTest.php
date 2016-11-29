@@ -25,8 +25,10 @@ class JournalAnnouncementControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $form = $crawler->filter('form[name=journal_announcement]')->form();
-        $form['journal_announcement[title]'] = 'Announcement title - phpunit';
-        $form['journal_announcement[content]'] = 'http://ojs.dev';
+        $form['journal_announcement[translations][en][title]'] = 'Announcement title - phpunit';
+        $form['journal_announcement[translations][tr][title]'] = 'Announcement title - phpunit';
+        $form['journal_announcement[translations][en][content]'] = 'Announcement content en';
+        $form['journal_announcement[translations][tr][content]'] = 'Announcement content tr';
 
         $crawler = $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -55,8 +57,10 @@ class JournalAnnouncementControllerTest extends BaseTestCase
         $this->assertStatusCode(200, $client);
 
         $form = $crawler->filter('form[name=journal_announcement]')->form();
-        $form['journal_announcement[title]'] = 'Announcement Edit title - phpunit';
-        $form['journal_announcement[content]'] = 'http://ojs.dev';
+        $form['journal_announcement[translations][en][title]'] = 'Announcement Edit title - phpunit';
+        $form['journal_announcement[translations][tr][title]'] = 'Announcement Edit title - phpunit';
+        $form['journal_announcement[translations][en][content]'] = 'Announcement edit content en';
+        $form['journal_announcement[translations][tr][content]'] = 'Announcement edit content tr';
 
         $crawler = $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -73,6 +77,7 @@ class JournalAnnouncementControllerTest extends BaseTestCase
         $em = $this->em;
 
         $entity = new JournalAnnouncement();
+        $entity->setCurrentLocale('en');
         $entity->setTitle('Announcement delete title - phpunit');
         $entity->setContent('http://ojs.dev');
 

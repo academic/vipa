@@ -18,7 +18,9 @@
                 $cropFilename = $parentTag.find('.jb_crop_filename'),
                 $previewTag = $parentTag.find('.jb_result_preview'),
                 $loadingTag = $parentTag.find('.jb_loading'),
-                naturalWidth, naturalHeight, currentWidth, currentHeight;
+                naturalWidth, naturalHeight, currentWidth, currentHeight,
+                previewImageHeight = $previewTag.attr('height'),
+                previewImageWidth = $previewTag.attr('width');
 
             /**
             * Translate message
@@ -124,15 +126,58 @@
                     return;
                 }
 
-                // If use crop. Load croping tools
-                if ($(this).data('use-crop')) {
-                    $cropFilename.val(data.result.filename);
-                    loadCropingTool(data.result);
-                    alert(translateMessage('Please crop uploaded image'));
-                    return;
-                }
+                var cleanUploadedImage = new Image();
+                cleanUploadedImage.src=data.result.filepath;
+                var $uploadImage = this;
+                $(cleanUploadedImage).on('load',function(){
+                    var cleanUploadedImageWidth = cleanUploadedImage.width;
+                    var cleanUploadedImageHeight = cleanUploadedImage.height;
+
+                    if(cleanUploadedImageHeight != previewImageHeight || cleanUploadedImageWidth != previewImageWidth){
+                        // If use crop. Load croping tools
+                        if ($($uploadImage).data('use-crop')) {
+                            $cropFilename.val(data.result.filename);
+                            loadCropingTool(data.result);
+
+                            alert(translateMessage('Please crop uploaded image'));
+                            return;
+                        }
+                    }else{
+                        loadFullCroppedImage(cleanUploadedImageWidth, cleanUploadedImageHeight, data.result.filename);
+                    }
+                });
 
                 fillResult(data.result);
+            }
+
+            /**
+             * if uploaded image sizes equal with specified sized then upload image to crop directly
+             * @param width
+             * @param height
+             * @param filename
+             */
+            function loadFullCroppedImage(width, height, filename) {
+
+                var cropData = {
+                    "jb_fileuploader_crop":
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "width": width,
+                        "height": height,
+                        "filename": filename
+                    }
+                };
+
+                $.post($cropImg.data('url'), cropData, function(data) {
+
+                    $resultError.hide();
+                }, 'json').fail(function(data) {
+                    if (typeof data.responseJSON !== "undefined" && typeof data.responseJSON.error !== "undefined") {
+                        $resultError.show();
+                        $resultError.text(translateMessage(data.responseJSON.error));
+                    }
+                });
             }
 
             /**
@@ -184,6 +229,7 @@
             // Confirm field
             $parentTag.find('.jb_crop_confirm').click(function(event){
                 event.preventDefault();
+                console.log($cropTool.find('.jb_crop_field').serialize());
                 $.post($cropImg.data('url'), $cropTool.find('.jb_crop_field').serialize(), function(data) {
                     $resultError.hide();
                     // Fill preview and hidden field

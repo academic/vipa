@@ -610,6 +610,7 @@ class Journal extends AbstractTranslatable
                 $translation->setSubtitle($defaultTranslation->getSubtitle());
                 $translation->setDescription($defaultTranslation->getDescription());
                 $translation->setTitleAbbr($defaultTranslation->getTitleAbbr());
+                $translation->setFooterText($defaultTranslation->getFooterText());
             }
             $translation->setLocale($locale);
             $this->addTranslation($translation);
@@ -1356,7 +1357,7 @@ class Journal extends AbstractTranslatable
      */
     public function getFooterText()
     {
-        return $this->footerText;
+        return $this->getLogicalFieldTranslation('footerText', false);
     }
 
     /**
@@ -1364,7 +1365,7 @@ class Journal extends AbstractTranslatable
      */
     public function setFooterText($footerText)
     {
-        $this->footerText = $footerText;
+        $this->translate()->setFooterText($footerText);
     }
 
     /**

@@ -6,6 +6,7 @@ use Ojs\JournalBundle\Entity\JournalAnnouncement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 
 class JournalAnnouncementType extends AbstractType
 {
@@ -16,12 +17,21 @@ class JournalAnnouncementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text')
-            ->add('content', 'purified_textarea', array(
-                'required' => false,
-                'attr' => array('class' => ' form-control wysihtml5'),
-                'label' => 'content',
-            ))
+            ->add('translations', JournalBasedTranslationsType::class,[
+                'label' => ' ',
+                'fields' => [
+                    'title' => [
+                        'required' => false
+                    ],
+                    'content' => [
+                        'required' => false,
+                        'attr' => [
+                            'class' => 'form-control wysihtml5'
+                        ],
+                        'field_type' => 'purified_textarea'
+                    ]
+                ]
+            ])
             ->add('image', 'jb_image_ajax', array(
                 'endpoint' => 'announcement'
             ))

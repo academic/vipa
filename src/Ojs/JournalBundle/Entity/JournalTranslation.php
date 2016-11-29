@@ -34,6 +34,11 @@ class JournalTranslation extends AbstractTranslation
      * @var string
      */
     private $titleAbbr;
+    
+    /** 
+     * @var  string 
+     */
+    protected $footerText;
 
     /**
      * @return string
@@ -97,5 +102,21 @@ class JournalTranslation extends AbstractTranslation
     public function setTitleAbbr($titleAbbr)
     {
         $this->titleAbbr = $titleAbbr;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFooterText()
+    {
+        return $this->footerText;
+    }
+
+    /**
+     * @param string $footerText
+     */
+    public function setFooterText($footerText)
+    {
+        $this->footerText = $footerText;
     }
 }
