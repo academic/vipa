@@ -53,7 +53,6 @@ class JournalRestControllerTest extends ApiBaseTestCase
             'subjects' => [
                 1,2
             ],
-            'currentLocale' => 'en',
             'domain' => 'domain.com',
             'issn' => '',
             'eissn' => '',
@@ -104,7 +103,6 @@ class JournalRestControllerTest extends ApiBaseTestCase
             'subjects' => [
                 1,2
             ],
-            'currentLocale' => 'en',
             'domain' => 'domain.com',
             'issn' => '',
             'eissn' => '',

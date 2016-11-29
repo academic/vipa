@@ -35,6 +35,12 @@ class JournalType extends AbstractType
                     ],
                     'titleAbbr' => [
                         'required' => false
+                    ],
+                    'footerText' => [
+                        'label' => 'footer_text',
+                        'attr' => array('class' => ' form-control wysihtml5'),
+                        'field_type' => 'purified_textarea',
+                        'required' => false,
                     ]
                 ]
             ])
@@ -213,17 +219,6 @@ class JournalType extends AbstractType
                     'class' => 'BulutYazilim\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => 'select2-element ',
-                    ],
-                ]
-            )
-            ->add(
-                'footer_text',
-                'purified_textarea',
-                [
-                    'label' => 'footer_text',
-                    'required' => false,
-                    'attr' => [
-                        'class' => 'wysihtml5',
                     ],
                 ]
             )
