@@ -259,7 +259,7 @@ class SamplesCommand extends ContainerAwareCommand
 
 
         $journalAnnouncement = new JournalAnnouncement();
-        $journalAnnouncement->setCurrentLocale('en');
+        $journalAnnouncement->setCurrentLocale($journal->getMandatoryLang()->getCode());
         $journalAnnouncement->setTitle('Announcement');
         $journalAnnouncement->setContent('Content');
         $journalAnnouncement->setJournal($journal);
