@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Ojs\JournalBundle\Entity\JournalAnnouncementTranslation;
 
 /**
+ * @deprecated this normalizer for BC concerns. we can remove after a while
  * Class JournalAnnouncementNormalizeCommand
  * @package Ojs\JournalBundle\Command
  */
@@ -92,6 +93,7 @@ SQL;
         $rsm->addScalarResult('title','title');
         $rsm->addScalarResult('content','content');
         $query = $this->em->createNativeQuery($sql, $rsm);
+
         return $query->getResult();
     }
 

@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Ojs\JournalBundle\Entity\JournalAnnouncementTranslation;
 
 /**
+ * @deprecated this normalizer for BC concerns. we can remove after a while
  * Class JournalFooterTextNormalizeCommand
  * @package Ojs\JournalBundle\Command
  */
