@@ -33,7 +33,7 @@ class JournalSubmissionFileMailer extends AbstractJournalItemMailer
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
                 'submission.file'       => (string)$itemEvent->getItem(),
-                'done.by'               => $this->ojsMailer->currentUser()->getUsername(),
+                'done.by'               => $this->ojsMailer->currentUser()->getFullName(),
                 'receiver.username'     => $user->getUsername(),
                 'receiver.fullName'     => $user->getFullName(),
             ];
@@ -59,7 +59,7 @@ class JournalSubmissionFileMailer extends AbstractJournalItemMailer
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
                 'submission.file'       => (string)$itemEvent->getItem(),
-                'done.by'               => $this->ojsMailer->currentUser()->getUsername(),
+                'done.by'               => $this->ojsMailer->currentUser()->getFullName(),
                 'receiver.username'     => $user->getUsername(),
                 'receiver.fullName'     => $user->getFullName(),
             ];
@@ -85,7 +85,7 @@ class JournalSubmissionFileMailer extends AbstractJournalItemMailer
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
                 'submission.file'       => (string)$itemEvent->getItem(),
-                'done.by'               => $this->ojsMailer->currentUser()->getUsername(),
+                'done.by'               => $this->ojsMailer->currentUser()->getFullName(),
                 'receiver.username'     => $user->getUsername(),
                 'receiver.fullName'     => $user->getFullName(),
             ];

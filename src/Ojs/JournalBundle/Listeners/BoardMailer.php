@@ -38,7 +38,7 @@ class BoardMailer extends AbstractJournalItemMailer
             $transformParams = [
                 'journal'           => (string)$item->getJournal(),
                 'board'             => (string)$item,
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'done.by'           => $this->ojsMailer->currentUser()->getFullName(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
             ];
@@ -65,7 +65,7 @@ class BoardMailer extends AbstractJournalItemMailer
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'board'             => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'done.by'           => $this->ojsMailer->currentUser()->getFullName(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
             ];
@@ -92,7 +92,7 @@ class BoardMailer extends AbstractJournalItemMailer
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'board'             => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'done.by'           => $this->ojsMailer->currentUser()->getFullName(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
             ];

@@ -36,7 +36,7 @@ class ArticleMailer extends AbstractJournalItemMailer
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'     => $itemEvent->getItem()->getTitle(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'done.by'           => $this->ojsMailer->currentUser()->getFullName(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
             ];
@@ -63,7 +63,7 @@ class ArticleMailer extends AbstractJournalItemMailer
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'     => $itemEvent->getItem()->getTitle(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'done.by'           => $this->ojsMailer->currentUser()->getFullName(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
             ];
@@ -90,7 +90,7 @@ class ArticleMailer extends AbstractJournalItemMailer
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'     => $itemEvent->getItem()->getTitle(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'done.by'           => $this->ojsMailer->currentUser()->getFullName(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
             ];
