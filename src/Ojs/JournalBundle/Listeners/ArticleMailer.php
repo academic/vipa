@@ -120,7 +120,7 @@ class ArticleMailer extends AbstractJournalItemMailer
             $transformParams = [
                 'journal'               => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'         => $itemEvent->getItem()->getTitle(),
-                'submitter.username'    => $submitterUser->getUsername(),
+                'submitter.fullName'    => $submitterUser->getFullName(),
                 'receiver.username'     => $user->getUsername(),
                 'receiver.fullName'     => $user->getFullName(),
             ];
@@ -136,7 +136,7 @@ class ArticleMailer extends AbstractJournalItemMailer
         $transformParams = [
             'journal'               => (string)$itemEvent->getItem()->getJournal(),
             'article.title'         => $itemEvent->getItem()->getTitle(),
-            'submitter.username'    => $submitterUser->getUsername(),
+            'submitter.fullName'    => $submitterUser->getFullName(),
             'receiver.username'     => $submitterUser->getUsername(),
             'receiver.fullName'     => $submitterUser->getFullName(),
         ];

@@ -40,7 +40,7 @@ final class ArticleEvents implements MailEventsInterface
                 'journal', 'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_SUBMIT, 'journal', [
-                'journal', 'article.title', 'submitter.username', 'receiver.username', 'receiver.fullName',
+                'journal', 'article.title', 'submitter.fullName', 'receiver.username', 'receiver.fullName',
             ]),
         ];
     }
