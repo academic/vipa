@@ -37,7 +37,7 @@ class JournalFileController extends OjsController
 
                 /* @var JournalFile $entity */
                 $entity = $row->getEntity();
-                $pathLinkTemplate = '<a target="_blank" href="uploads/files/'.$entity->getPath().'">'.$entity->getPath().'</a>';
+                $pathLinkTemplate = $this->getParameter('base_host').'/uploads/files/'.$entity->getPath().'</a>';
                 $row->setField('path', $pathLinkTemplate);
                 
                 return $row;
