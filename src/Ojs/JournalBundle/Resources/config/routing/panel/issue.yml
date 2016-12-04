@@ -33,6 +33,10 @@ ojs_journal_issue_arrange:
     path:     /{journalId}/issue/{id}/arrange
     defaults: { _controller: "OjsJournalBundle:Issue:arrange" }
 
+ojs_journal_issue_arrange_sort:
+    path:     /{journalId}/issue/{id}/{sectionId}/sort
+    defaults: { _controller: "OjsJournalBundle:Issue:arrangeSort" }
+
 ojs_journal_issue_article_add:
     path:     /{journalId}/issue/{id}/add-article/{articleId}
     defaults: { _controller: "OjsJournalBundle:Issue:addArticle" }

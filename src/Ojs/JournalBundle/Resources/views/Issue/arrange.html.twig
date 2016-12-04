@@ -75,7 +75,11 @@
     <form method="post">
         {% for s in issue.sections %}
             <fieldset>
-                <legend>{{ s.title }}</legend>
+                <legend>{{ s.title }}
+
+                    <a href="{{ path('ojs_journal_issue_arrange_sort', {'journalId': issue.journal.id,'id': issue.id,'sectionId': s.id}) }}" class="btn btn-link">
+                        {{ "sort.articles"|trans }}
+                    </a></legend>
                 <table class="table">
                     <thead>
                     <tr>
