@@ -660,7 +660,15 @@ class Journal extends AbstractTranslatable
      */
     public function getOriginalTitle()
     {
-        return $this->translate($this->getMandatoryLang()->getCode())->getTitle();
+        $title = '';
+        if($this->getMandatoryLang()){
+            $title = $this->translate($this->getMandatoryLang()->getCode())->getTitle();
+        }
+        if(!empty($title)){
+            return $title;
+        }
+
+        return $this->getTitle();
     }
 
     /**
