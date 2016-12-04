@@ -130,7 +130,7 @@ class JournalAnnouncement extends AbstractTranslatable implements JournalItemInt
     public function getTitleTranslations()
     {
         $titles = [];
-        /** @var JournalPageTranslation $translation */
+        /** @var JournalAnnouncementTranslation $translation */
         foreach($this->translations as $translation){
             $titles[] = $translation->getTitle(). ' ['.$translation->getLocale().']';
         }
