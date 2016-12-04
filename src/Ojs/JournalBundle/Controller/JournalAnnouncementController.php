@@ -122,6 +122,7 @@ class JournalAnnouncementController extends OjsController
 
         if ($form->isValid()) {
             $entity->setJournal($journal);
+            $entity->setCurrentLocale($journal->getMandatoryLang()->getCode());
             $em = $this->getDoctrine()->getManager();
 
             $event = new JournalItemEvent($entity);

@@ -1063,6 +1063,7 @@ title.authors: Authors
 title.block_create: 'Create Block'
 title.block_link_create: 'Create Block Link'
 title.board_edit: 'Edit Board'
+title.board_member_edit: 'Edit Board Member'
 title.board_new: 'New Board'
 title.board_show: 'Show Board'
 title.boards: Boards

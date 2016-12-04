@@ -13,6 +13,7 @@ use Ojs\JournalBundle\Event\Board\BoardEvents;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\ListEvent;
+use Ojs\JournalBundle\Form\Type\BoardMemberEditType;
 use Ojs\JournalBundle\Form\Type\BoardMemberType;
 use Ojs\JournalBundle\Form\Type\BoardType;
 use Ojs\UserBundle\Entity\User;
@@ -302,6 +303,8 @@ class BoardController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
         if ($this->isGranted('EDIT', $journal, 'boards')) {
+
+            $rowAction[] = $gridAction->editAction('ojs_journal_board_member_edit', ['id', 'journalId' => $journal->getId(), 'boardId' => $board->getId()]);
             $rowAction[] = $gridAction->deleteAction(
                 'ojs_journal_board_member_remove',
                 ['id', 'journalId' => $journal->getId(), 'boardId' => $board->getId()]
@@ -347,6 +350,31 @@ class BoardController extends Controller
     }
 
     /**
+     * Creates a form to add Member to Board entity.
+     *
+     * @param BoardMember $entity
+     * @param Board $board
+     * @param Journal $journal
+     * @return Form
+     */
+    private function createEditMemberForm(BoardMember $entity, Board $board, Journal $journal)
+    {
+        $form = $this->createForm(
+            new BoardMemberEditType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl(
+                    'ojs_journal_board_member_update',
+                    array('id' => $entity->getId(),'boardId' => $board->getId(), 'journalId' => $journal->getId())
+                ),
+                'method' => 'PUT',
+            )
+        );
+
+        return $form;
+    }
+
+    /**
      * Displays a form to edit an existing Board entity.
      *
      *
@@ -367,6 +395,33 @@ class BoardController extends Controller
             array(
                 'entity' => $board,
                 'edit_form' => $editForm->createView(),
+            )
+        );
+    }
+
+    /**
+     * @param Board $boardId
+     * @param BoardMember $entity
+     * @return Response
+     */
+    public function editMemberAction(Board $boardId, BoardMember $entity)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('EDIT', $journal, 'boards')) {
+            throw new AccessDeniedException("You not authorized for edit this journal's boards!");
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
+        
+        $editMemberForm = $this->createEditMemberForm($entity, $board, $journal);
+
+        return $this->render(
+            'OjsJournalBundle:Board:edit_member.html.twig',
+            array(
+                'entity' => $entity,
+                'board' => $board,
+                'edit_form' => $editMemberForm->createView(),
             )
         );
     }
@@ -442,6 +497,45 @@ class BoardController extends Controller
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
+            )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param Board $boardId
+     * @param BoardMember $entity
+     * @return RedirectResponse|Response
+     */
+    public function updateMemberAction(Request $request, Board $boardId, BoardMember $entity)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('EDIT', $journal, 'boards')) {
+            throw new AccessDeniedException("You not authorized for edit this journal's board!");
+        }
+        $em = $this->getDoctrine()->getManager();
+        $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
+
+        $editMemberForm = $this->createEditMemberForm($entity, $board, $journal);
+        $editMemberForm->handleRequest($request);
+
+        if ($editMemberForm->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute(
+                'ojs_journal_board_show',
+                ['id' => $board->getId(), 'journalId' => $journal->getId()]
+            );
+        }
+
+        return $this->render(
+            'OjsJournalBundle:Board:edit_member.html.twig',
+            array(
+                'entity' => $entity,
+                'board' => $board,
+                'edit_form' => $editMemberForm->createView(),
             )
         );
     }
