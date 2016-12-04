@@ -654,6 +654,23 @@ class Journal extends AbstractTranslatable
     }
 
     /**
+     * Get originalTitle
+     *
+     * @return string
+     */
+    public function getOriginalTitle()
+    {
+        if($this->getMandatoryLang()){
+            $title = $this->translate($this->getMandatoryLang()->getCode())->getTitle();
+            if(!empty($title) && $title !== '-'){
+                return $title;
+            }
+        }
+
+        return $this->getTitle();
+    }
+
+    /**
      * Set subtitle
      *
      * @param  string $subtitle
