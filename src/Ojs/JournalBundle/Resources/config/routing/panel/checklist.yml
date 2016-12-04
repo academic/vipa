@@ -2,6 +2,10 @@ ojs_journal_checklist_index:
     path:     /{journalId}/checklist/
     defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:index" }
 
+ojs_journal_checklist_sort:
+    path:     /{journalId}/checklist/sort
+    defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:sort" }
+
 ojs_journal_checklist_show:
     path:     /{journalId}/checklist/{id}/show
     defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:show" }

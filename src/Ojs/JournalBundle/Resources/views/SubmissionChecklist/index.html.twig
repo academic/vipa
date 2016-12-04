@@ -17,6 +17,9 @@
             {{ "c"|trans }}
         </a>
     {% endif %}
+    <a href="{{ path('ojs_journal_checklist_sort', {'journalId': selectedJournal().id}) }}" class="btn btn-primary">
+        {{ "sort.checklists"|trans }}
+    </a>
 
     <hr>
     {{ grid(grid) }}
