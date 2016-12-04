@@ -24,6 +24,8 @@ class BoardType extends AbstractType
                         'label' => 'board.name'
                     ],
                     'description' => [
+                        'attr' => array('class' => ' form-control wysihtml5'),
+                        'field_type' => 'purified_textarea',
                         'required' => false
                     ],
                 ]
