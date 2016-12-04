@@ -1061,6 +1061,7 @@ title.authors: Yazarlar
 title.block_create: 'Blok Oluştur'
 title.block_link_create: 'Blok Linki Oluştur'
 title.board_edit: 'Editör Kurulu Düzenle'
+title.board_member_edit: 'Kullanıcı Düzenle'
 title.board_new: 'Yeni Editör Kurul'
 title.board_show: 'Editör Kurulu Göster'
 title.boards: 'Editör Kurulları'
