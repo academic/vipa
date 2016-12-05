@@ -93,15 +93,11 @@ class Mailer
      */
     public function sendToUser(User $user, $subject, $body)
     {
-        if(
-            !empty($subject)
-            && !empty($body)
-            && !empty($user->getEmail())
-            && !empty($user->getUsername())
-        ){
-            if($this->preventMailMerge){
-                $subject = $subject.' rand:'.rand(0,10000);
-            }
+        $mailOk = !empty($subject) && !empty($body);
+        $userOk = !empty($user->getEmail()) && !empty($user->getUsername());
+
+        if ($mailOk && $userOk){
+            $subject = $this->preventMailMerge ? $subject.' rand:'.rand(0, 10000) : $subject;
             $this->send($subject, $body, $user->getEmail(), $user->getUsername());
         }
     }
@@ -143,16 +139,16 @@ class Mailer
      */
     public function getJournalRelatedUsers()
     {
-        return $this->em->getRepository('OjsUserBundle:User')->findUsersByJournalRole(
-            ['ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_CO_EDITOR']
-        );
+        $roles = ['ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_CO_EDITOR'];
+        return $this->em->getRepository('OjsUserBundle:User')->findUsersByJournalRole($roles);
     }
 
-    public function transformTemplate($template, $transformParams = [])
+    public function transformTemplate($template, $parameters = [])
     {
-        foreach($transformParams as $transformKey => $transformParam){
-            $template = str_replace('[['.$transformKey.']]', $transformParam, $template);
+        foreach ($parameters as $key => $value) {
+            $template = str_replace('[['.$key.']]', $value, $template);
         }
+
         return $template;
     }
 
@@ -162,9 +158,11 @@ class Mailer
     public function currentUser()
     {
         $token = $this->tokenStorage->getToken();
-        if(!$token){
-            throw new \LogicException('i can not find current user token :/');
+
+        if (!$token) {
+            throw new \LogicException("Could not find a token for the current user.");
         }
+
         return $token->getUser();
     }
 
