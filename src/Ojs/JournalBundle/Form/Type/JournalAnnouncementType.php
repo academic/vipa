@@ -32,9 +32,6 @@ class JournalAnnouncementType extends AbstractType
                     ]
                 ]
             ])
-            ->add('image', 'jb_image_ajax', array(
-                'endpoint' => 'announcement'
-            ))
         ;
     }
 
