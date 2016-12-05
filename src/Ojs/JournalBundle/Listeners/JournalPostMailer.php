@@ -26,7 +26,7 @@ class JournalPostMailer extends AbstractJournalItemMailer
      */
     public function onJournalPostPostCreate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalPostEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalPostEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }
@@ -52,7 +52,7 @@ class JournalPostMailer extends AbstractJournalItemMailer
      */
     public function onJournalPostPostUpdate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalPostEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalPostEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }
@@ -78,7 +78,7 @@ class JournalPostMailer extends AbstractJournalItemMailer
      */
     public function onJournalPostPreDelete(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalPostEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalPostEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }

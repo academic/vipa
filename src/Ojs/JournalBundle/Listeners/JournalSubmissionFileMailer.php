@@ -25,7 +25,7 @@ class JournalSubmissionFileMailer extends AbstractJournalItemMailer
      */
     public function onJournalSubmissionFilePostCreate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionFileEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalSubmissionFileEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }
@@ -51,7 +51,7 @@ class JournalSubmissionFileMailer extends AbstractJournalItemMailer
      */
     public function onJournalSubmissionFilePostUpdate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionFileEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalSubmissionFileEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }
@@ -77,7 +77,7 @@ class JournalSubmissionFileMailer extends AbstractJournalItemMailer
      */
     public function onJournalSubmissionFilePreDelete(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionFileEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalSubmissionFileEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }

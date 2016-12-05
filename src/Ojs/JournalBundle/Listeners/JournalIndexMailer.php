@@ -25,7 +25,7 @@ class JournalIndexMailer extends AbstractJournalItemMailer
      */
     public function onJournalIndexPostCreate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalIndexEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalIndexEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }
@@ -53,7 +53,7 @@ class JournalIndexMailer extends AbstractJournalItemMailer
      */
     public function onJournalIndexPostUpdate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalIndexEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalIndexEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }
@@ -79,7 +79,7 @@ class JournalIndexMailer extends AbstractJournalItemMailer
      */
     public function onJournalIndexPreDelete(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalIndexEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalIndexEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }

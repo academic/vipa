@@ -52,7 +52,7 @@ class CoreEventListener implements EventSubscriberInterface
      */
     public function onInstall3Party(CoreEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(CoreEvents::OJS_INSTALL_BASE);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(CoreEvents::OJS_INSTALL_BASE);
         if(!$getMailEvent){
             return;
         }

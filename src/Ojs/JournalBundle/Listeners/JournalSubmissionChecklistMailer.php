@@ -25,7 +25,7 @@ class JournalSubmissionChecklistMailer extends AbstractJournalItemMailer
      */
     public function onJournalSubmissionChecklistPostCreate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionChecklistEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalSubmissionChecklistEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }
@@ -51,7 +51,7 @@ class JournalSubmissionChecklistMailer extends AbstractJournalItemMailer
      */
     public function onJournalSubmissionChecklistPostUpdate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionChecklistEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalSubmissionChecklistEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }
@@ -77,7 +77,7 @@ class JournalSubmissionChecklistMailer extends AbstractJournalItemMailer
      */
     public function onJournalSubmissionChecklistPreDelete(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionChecklistEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalSubmissionChecklistEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
         }

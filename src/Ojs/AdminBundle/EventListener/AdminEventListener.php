@@ -62,7 +62,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onUserChange(AdminEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_USER_CHANGE);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(AdminEvents::ADMIN_USER_CHANGE);
         if(!$getMailEvent){
             return;
         }
@@ -91,7 +91,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onUserChangeCreate(AdminEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_USER_CHANGE_CREATE.'.created.user');
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(AdminEvents::ADMIN_USER_CHANGE_CREATE.'.created.user');
         if(!$getMailEvent){
             return;
         }
@@ -115,7 +115,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onJournalContactChange(AdminEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_CONTACT_CHANGE);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(AdminEvents::ADMIN_CONTACT_CHANGE);
         if(!$getMailEvent){
             return;
         }
@@ -143,7 +143,7 @@ class AdminEventListener implements EventSubscriberInterface
     {
         /** @var Journal $journal */
         $journal = $event->getEntity();
-        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::JOURNAL_APPLICATION_HAPPEN);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(AdminEvents::JOURNAL_APPLICATION_HAPPEN);
         if(!$getMailEvent){
             goto lookforapplicationuser;
         }
@@ -164,7 +164,7 @@ class AdminEventListener implements EventSubscriberInterface
         lookforapplicationuser:
 
         //send to applier user
-        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::JOURNAL_APPLICATION_HAPPEN.'.application.user');
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(AdminEvents::JOURNAL_APPLICATION_HAPPEN.'.application.user');
         if(!$getMailEvent){
             return;
         }
@@ -195,7 +195,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onJournalChange(AdminEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_JOURNAL_CHANGE);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(AdminEvents::ADMIN_JOURNAL_CHANGE);
         if(!$getMailEvent){
             return;
         }
@@ -221,7 +221,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onPublisherApplicationHappen(AdminEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::PUBLISHER_APPLICATION_HAPPEN);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(AdminEvents::PUBLISHER_APPLICATION_HAPPEN);
         if(!$getMailEvent){
             return;
         }
@@ -245,7 +245,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onPublisherChange(AdminEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::PUBLISHER_CHANGE);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(AdminEvents::PUBLISHER_CHANGE);
         if(!$getMailEvent){
             return;
         }
@@ -271,7 +271,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onAdminSubjectChange(AdminEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_SUBJECT_CHANGE);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(AdminEvents::ADMIN_SUBJECT_CHANGE);
         if(!$getMailEvent){
             return;
         }
@@ -297,7 +297,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onSettingsChange(AdminEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::SETTINGS_CHANGE);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(AdminEvents::SETTINGS_CHANGE);
         if(!$getMailEvent){
             return;
         }

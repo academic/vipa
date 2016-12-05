@@ -174,34 +174,36 @@ class OjsMailer
      * @param Journal|null $journal
      * @return MailTemplate
      */
-    public function getEventByName($eventName, $lang = null, Journal $journal = null)
+    public function getTemplateByEvent($eventName, $lang = null, Journal $journal = null)
     {
-        if($lang == null){
+        $globalKey = 'Ojs\JournalBundle\Entity\MailTemplate#journalFilter';
+
+        if ($lang == null) {
             $lang = $this->locale;
         }
-        if($journal == null){
-            $GLOBALS['Ojs\JournalBundle\Entity\MailTemplate#journalFilter'] = false;
+
+        if ($journal == null) {
+            $GLOBALS[$globalKey] = false;
         }
-        /** @var MailTemplate $template */
-        $template =  $this->em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
+
+        $criteria = [
             'journal' => $journal,
             'type'    => $eventName,
             'lang'    => $lang,
-        ]);
-        if($template){
-            if($template->isUseJournalDefault()){
-                $GLOBALS['Ojs\JournalBundle\Entity\MailTemplate#journalFilter'] = false;
-                return $this->em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
-                    'journal'           => null,
-                    'type'              => $eventName,
-                    'lang'              => $lang,
-                    'journalDefault'    => true,
-                ]);
-            }
-            if(!$template->isActive()){
-                return false;
-            }
+        ];
+
+        $template = $this->em->getRepository(MailTemplate::class)->findOneBy($criteria);
+
+        if ($template == null) {
+            return null;
+        } elseif ($template->isUseJournalDefault()) {
+            $GLOBALS[$globalKey] = false;
+            array_merge($criteria, ['journal' => null, 'journalDefault' => true]);
+            return $this->em->getRepository(MailTemplate::class)->findOneBy($criteria);
+        } elseif (!$template->isActive()) {
+            return false;
         }
+
         return $template;
     }
 }
