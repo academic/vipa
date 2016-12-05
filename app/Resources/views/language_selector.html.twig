@@ -1,13 +1,23 @@
-<li class="dropdown navbar-btn language_selector">
-    <a href="#" title="{{ app.request.locale }}" class="dropdown-toggle" data-toggle="dropdown" data-placement="bottom">
-        <i class="fa fa-globe fa-fw"></i>
-        {{ app.request.locale }}
-        <span class="caret"></span></a>
-    <ul class="dropdown-menu" role="menu">
+{% if isJournalHosting is defined and isJournalHosting == true %}
+    <span class="language_selector">
         {% for lang in languages %}
-            <li class="{% if app.request.locale == lang.code %}disabled{% endif %}">
-                <a href="{{ path('change_locale', { 'code': lang.code }) }}">{{ lang.name }}</a>
-            </li>
+            <a href="{{ path('change_locale', { 'code': lang.code }) }}"
+               class="btn btn-default {% if app.request.locale == lang.code %}disabled{% endif %}">{% if app.request.locale == lang.code %}<i class="fa fa-check-circle-o"></i>{% endif %} {{ lang.name }}</a>
         {% endfor %}
-    </ul>
-</li> 
+    </span>
+{% else %}
+    <li class="dropdown navbar-btn language_selector">
+        <a href="#" title="{{ app.request.locale }}" class="dropdown-toggle" data-toggle="dropdown"
+           data-placement="bottom">
+            <i class="fa fa-globe fa-fw"></i>
+            {{ app.request.locale }}
+            <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+            {% for lang in languages %}
+                <li class="{% if app.request.locale == lang.code %}disabled{% endif %}">
+                    <a href="{{ path('change_locale', { 'code': lang.code }) }}">{{ lang.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+{% endif %}
