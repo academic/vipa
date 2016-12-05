@@ -19,10 +19,6 @@ Ojs\JournalBundle\Entity\JournalAnnouncement:
             type: string
             length: 255
             nullable: true
-        image:
-            type: string
-            length: 255
-            nullable: true
         content:
             type: text
             nullable: true
