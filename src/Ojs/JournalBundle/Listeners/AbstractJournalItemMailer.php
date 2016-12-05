@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Listeners;
 
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
-use Ojs\CoreBundle\Service\OjsMailer;
+use Ojs\CoreBundle\Service\Mailer;
 use Ojs\JournalBundle\Event\JournalItemEvent;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 abstract class AbstractJournalItemMailer implements EventSubscriberInterface
 {
-    /** @var OjsMailer */
+    /** @var Mailer */
     protected $ojsMailer;
 
     /** @var EntityManager */
@@ -27,13 +27,13 @@ abstract class AbstractJournalItemMailer implements EventSubscriberInterface
 
     /**
      * AbstractJournalItemMailer constructor.
-     * @param OjsMailer $ojsMailer
+     * @param Mailer $ojsMailer
      * @param RegistryInterface $registry
      * @param TokenStorageInterface $tokenStorage
      * @param RouterInterface $router
      */
     public function __construct(
-        OjsMailer $ojsMailer,
+        Mailer $ojsMailer,
         RegistryInterface $registry,
         TokenStorageInterface $tokenStorage,
         RouterInterface $router

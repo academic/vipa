@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 use Ojs\AdminBundle\Events\AdminEvent;
 use Ojs\AdminBundle\Events\AdminEvents;
-use Ojs\CoreBundle\Service\OjsMailer;
+use Ojs\CoreBundle\Service\Mailer;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,19 +20,19 @@ class AdminEventListener implements EventSubscriberInterface
     /** @var EntityManager */
     private $em;
 
-    /** @var OjsMailer */
+    /** @var Mailer */
     private $ojsMailer;
 
     /**
      * @param RouterInterface $router
      * @param EntityManager $em
-     * @param OjsMailer $ojsMailer
-     *
+     * @param Mailer $ojsMailer
+
      */
     public function __construct(
         RouterInterface $router,
         EntityManager $em,
-        OjsMailer $ojsMailer
+        Mailer $ojsMailer
     ) {
         $this->router = $router;
         $this->em = $em;

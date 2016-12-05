@@ -26,7 +26,7 @@ services:
     arguments: ["@security.role_hierarchy", "@security.authentication.trust_resolver", "@ojs.journal_service"]
 
   ojs_mailer:
-    class: Ojs\CoreBundle\Service\OjsMailer
+    class: Ojs\CoreBundle\Service\Mailer
     arguments:
       - "@mailer"
       - "%system_email%"

@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class OjsMailer
+class Mailer
 {
     /**
      * @var \Swift_Mailer
@@ -54,7 +54,7 @@ class OjsMailer
     public $preventMailMerge;
 
     /**
-     * OjsMailer constructor.
+     * Mailer constructor.
      *
      * @param \Swift_Mailer         $mailer
      * @param string                $mailSender
