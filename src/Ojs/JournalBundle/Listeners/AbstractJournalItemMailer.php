@@ -48,7 +48,7 @@ abstract class AbstractJournalItemMailer implements EventSubscriberInterface
     protected function sendMail(JournalItemEvent $itemEvent, $item, $action)
     {
         $journalItem = $itemEvent->getItem();
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $this->ojsMailer->sendToUser(
                 $user,
                 'A '.$item.' '.$action.' -> '.$journalItem->getJournal()->getTitle(),

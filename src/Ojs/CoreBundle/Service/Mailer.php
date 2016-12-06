@@ -120,27 +120,20 @@ class Mailer
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection | User[]
-     * @link http://stackoverflow.com/a/16692911
+     * @return \Doctrine\Common\Collections\Collection|User[]
      */
-    public function getAdminUsers()
+    public function getAdmins()
     {
-        $qb = $this->em->createQueryBuilder();
-        $qb->select('u')
-            ->from('OjsUserBundle:User', 'u')
-            ->where('u.roles LIKE :roles')
-            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
-
-        return $qb->getQuery()->getResult();
+        return $this->em->getRepository(User::class)->findAdmins();
     }
 
     /**
      * @return mixed
      */
-    public function getJournalRelatedUsers()
+    public function getJournalStaff()
     {
         $roles = ['ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_CO_EDITOR'];
-        return $this->em->getRepository('OjsUserBundle:User')->findUsersByJournalRole($roles);
+        return $this->em->getRepository(User::class)->findUsersByJournalRole($roles);
     }
 
     public function transformTemplate($template, $parameters = [])

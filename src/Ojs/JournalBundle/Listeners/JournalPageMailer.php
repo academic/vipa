@@ -30,7 +30,7 @@ class JournalPageMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'page'              => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
@@ -56,7 +56,7 @@ class JournalPageMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'page'              => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
@@ -82,7 +82,7 @@ class JournalPageMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'page'              => $itemEvent->getItem()->getTitleTranslations(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),

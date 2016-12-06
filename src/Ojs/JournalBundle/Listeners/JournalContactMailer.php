@@ -30,7 +30,7 @@ class JournalContactMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'contact'           => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
@@ -56,7 +56,7 @@ class JournalContactMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'contact'           => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
@@ -82,7 +82,7 @@ class JournalContactMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'contact'           => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),

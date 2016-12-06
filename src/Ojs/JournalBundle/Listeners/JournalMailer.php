@@ -28,7 +28,7 @@ class JournalMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'journal'           => (string)$event->getJournal(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),

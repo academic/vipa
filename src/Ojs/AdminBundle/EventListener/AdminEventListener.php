@@ -66,7 +66,7 @@ class AdminEventListener implements EventSubscriberInterface
         if(!$getMailEvent){
             return;
         }
-        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+        foreach ($this->ojsMailer->getAdmins() as $user) {
             /** @var User $entity */
             $entity = $event->getEntity();
             $transformParams = [
@@ -119,7 +119,7 @@ class AdminEventListener implements EventSubscriberInterface
         if(!$getMailEvent){
             return;
         }
-        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+        foreach ($this->ojsMailer->getAdmins() as $user) {
             $transformParams = [
                 'contact'           => (string)$event->getEntity(),
                 'eventType'         => $event->getEventType(),
@@ -148,7 +148,7 @@ class AdminEventListener implements EventSubscriberInterface
             goto lookforapplicationuser;
         }
         //send to admin user group
-        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+        foreach ($this->ojsMailer->getAdmins() as $user) {
             $transformParams = [
                 'journal.title'     => $journal->getTitle(),
                 'receiver.username' => $user->getUsername(),
@@ -199,7 +199,7 @@ class AdminEventListener implements EventSubscriberInterface
         if(!$getMailEvent){
             return;
         }
-        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+        foreach ($this->ojsMailer->getAdmins() as $user) {
             $transformParams = [
                 'journal.title'     => $event->getEntity()->getTitle(),
                 'eventType'         => $event->getEventType(),
@@ -225,7 +225,7 @@ class AdminEventListener implements EventSubscriberInterface
         if(!$getMailEvent){
             return;
         }
-        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+        foreach ($this->ojsMailer->getAdmins() as $user) {
             $transformParams = [
                 'publisher.name'   => $event->getEntity()->getName(),
                 'receiver.username' => $user->getUsername(),
@@ -249,7 +249,7 @@ class AdminEventListener implements EventSubscriberInterface
         if(!$getMailEvent){
             return;
         }
-        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+        foreach ($this->ojsMailer->getAdmins() as $user) {
             $transformParams = [
                 'publisher.name'   => $event->getEntity()->getName(),
                 'eventType'         => $event->getEventType(),
@@ -275,7 +275,7 @@ class AdminEventListener implements EventSubscriberInterface
         if(!$getMailEvent){
             return;
         }
-        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+        foreach ($this->ojsMailer->getAdmins() as $user) {
             $transformParams = [
                 'subject.subject'   => $event->getEntity()->getSubject(),
                 'eventType'         => $event->getEventType(),
@@ -301,7 +301,7 @@ class AdminEventListener implements EventSubscriberInterface
         if(!$getMailEvent){
             return;
         }
-        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+        foreach ($this->ojsMailer->getAdmins() as $user) {
             $transformParams = [
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),

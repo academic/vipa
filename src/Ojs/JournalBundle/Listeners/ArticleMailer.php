@@ -32,7 +32,7 @@ class ArticleMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'     => $itemEvent->getItem()->getTitle(),
@@ -59,7 +59,7 @@ class ArticleMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'     => $itemEvent->getItem()->getTitle(),
@@ -86,7 +86,7 @@ class ArticleMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'     => $itemEvent->getItem()->getTitle(),
@@ -116,7 +116,7 @@ class ArticleMailer extends AbstractJournalItemMailer
         if(!$getMailEvent){
             return;
         }
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'journal'               => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'         => $itemEvent->getItem()->getTitle(),

@@ -34,7 +34,7 @@ class BoardMailer extends AbstractJournalItemMailer
         }
         $item->setCurrentLocale($this->ojsMailer->locale);
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'journal'           => (string)$item->getJournal(),
                 'board'             => (string)$item,
@@ -61,7 +61,7 @@ class BoardMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'board'             => (string)$itemEvent->getItem(),
@@ -88,7 +88,7 @@ class BoardMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'board'             => (string)$itemEvent->getItem(),

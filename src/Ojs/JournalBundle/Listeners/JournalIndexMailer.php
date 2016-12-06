@@ -29,7 +29,7 @@ class JournalIndexMailer extends AbstractJournalItemMailer
         if(!$getMailEvent){
             return;
         }
-        $mailUsers = array_merge($this->ojsMailer->getJournalRelatedUsers(), $this->ojsMailer->getAdminUsers());
+        $mailUsers = array_merge($this->ojsMailer->getJournalStaff(), $this->ojsMailer->getAdmins());
         /** @var User $user */
         foreach ($mailUsers as $user) {
             $transformParams = [
@@ -58,7 +58,7 @@ class JournalIndexMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'index'             => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
@@ -84,7 +84,7 @@ class JournalIndexMailer extends AbstractJournalItemMailer
             return;
         }
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($this->ojsMailer->getJournalStaff() as $user) {
             $transformParams = [
                 'index'             => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),

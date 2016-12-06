@@ -56,7 +56,7 @@ class CoreEventListener implements EventSubscriberInterface
         if(!$getMailEvent){
             return;
         }
-        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+        foreach ($this->ojsMailer->getAdmins() as $user) {
             $transformParams = [
                 'bundleName'        => $event->getBundleName(),
                 'receiver.username' => $user->getUsername(),
