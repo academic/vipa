@@ -9,6 +9,7 @@ use GuzzleHttp\Exception\RequestException;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
+use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Form\Type\ArticleAuthorType;
 use Ojs\JournalBundle\Form\Type\ArticleAddAuthorType;
@@ -215,6 +216,7 @@ class ArticleAuthorController extends Controller
         }
 
         $entity = new ArticleAuthor();
+        $author = new Author();
 
         $form = $this->createAddForm($entity, $journal, $article)
             ->add('create', 'submit', array('label' => 'c'));
@@ -222,7 +224,15 @@ class ArticleAuthorController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $author->setFirstName($entity->getAuthor()->getFirstName());
+            $author->setLastName($entity->getAuthor()->getLastName());
+            $author->setEmail($entity->getAuthor()->getEmail());
+            $author->setTitle($entity->getAuthor()->getTitle());
+            $author->setUser($entity->getAuthor()->getUser());
+            
+            $entity->setAuthor($author);
             $entity->setArticle($article);
+            $em->persist($author);
             $em->persist($entity);
             $em->flush();
 
@@ -245,8 +255,6 @@ class ArticleAuthorController extends Controller
             )
         );
     }
-
-
 
     /**
      * @param  ArticleAuthor $entity

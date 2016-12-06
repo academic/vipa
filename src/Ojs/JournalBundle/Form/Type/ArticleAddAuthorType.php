@@ -22,17 +22,10 @@ class ArticleAddAuthorType extends AbstractType
                 [
                     'label' => 'author',
                     'class' => 'Ojs\JournalBundle\Entity\Author',
-                    'attr' => array("class" => "select2-element"),
-                    'query_builder' => function (EntityRepository $er) use ($options) {
-                        return $er->createQueryBuilder('a')
-                            ->leftJoin('OjsJournalBundle:ArticleAuthor', 'articleA', 'WITH', 'articleA.author = a.id')
-                            ->where('articleA.article != :articleId')
-                            ->having('COUNT(articleA.id) < 1')
-                            ->groupBy('a.id')
-                            ->setParameter('articleId', $options['articleId']);
-                    }
+                    'attr' => array("class" => "select2-element")
                 ]
-            );
+            )
+            ->add('authorOrder', null, ['label' => 'author.order']);
     }
 
     /**
