@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Listeners;
 
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
-use Ojs\UserBundle\Entity\User;
 
 class JournalMailer extends AbstractJournalItemMailer
 {
@@ -13,9 +12,7 @@ class JournalMailer extends AbstractJournalItemMailer
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            JournalEvents::POST_UPDATE => 'onJournalPostUpdate'
-        );
+        return [JournalEvents::POST_UPDATE => 'onJournalPostUpdate'];
     }
 
     /**
@@ -23,24 +20,11 @@ class JournalMailer extends AbstractJournalItemMailer
      */
     public function onJournalPostUpdate(JournalEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getTemplateByEvent(JournalEvents::POST_UPDATE);
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalStaff() as $user) {
-            $transformParams = [
-                'journal'           => (string)$event->getJournal(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->ojsMailer->sendEventMail(
+            JournalEvents::POST_UPDATE,
+            $this->ojsMailer->getJournalStaff(),
+            ['journal' => (string) $event->getJournal()],
+            $event->getJournal()
+        );
     }
 }
