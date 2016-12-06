@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Listeners;
 use Ojs\JournalBundle\Entity\Board;
 use Ojs\JournalBundle\Event\Board\BoardEvents;
 use Ojs\JournalBundle\Event\JournalItemEvent;
-use Ojs\UserBundle\Entity\User;
 
 class BoardMailer extends AbstractJournalItemMailer
 {
@@ -17,91 +16,50 @@ class BoardMailer extends AbstractJournalItemMailer
         return array(
             BoardEvents::POST_CREATE => 'onBoardPostCreate',
             BoardEvents::POST_UPDATE => 'onBoardPostUpdate',
-            BoardEvents::PRE_DELETE => 'onBoardPreDelete',
+            BoardEvents::PRE_DELETE  => 'onBoardPreDelete',
         );
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onBoardPostCreate(JournalItemEvent $itemEvent)
+    public function onBoardPostCreate(JournalItemEvent $event)
     {
-        /** @var Board $item */
-        $item = $itemEvent->getItem();
-        $getMailEvent = $this->ojsMailer->getTemplateByEvent(BoardEvents::POST_CREATE, null, $item->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        $item->setCurrentLocale($this->ojsMailer->locale);
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalStaff() as $user) {
-            $transformParams = [
-                'journal'           => (string)$item->getJournal(),
-                'board'             => (string)$item,
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendBoardMail($event, BoardEvents::POST_CREATE);
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onBoardPostUpdate(JournalItemEvent $itemEvent)
+    public function onBoardPostUpdate(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getTemplateByEvent(BoardEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalStaff() as $user) {
-            $transformParams = [
-                'journal'           => (string)$itemEvent->getItem()->getJournal(),
-                'board'             => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendBoardMail($event, BoardEvents::POST_UPDATE);
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onBoardPreDelete(JournalItemEvent $itemEvent)
+    public function onBoardPreDelete(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getTemplateByEvent(BoardEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalStaff() as $user) {
-            $transformParams = [
-                'journal'           => (string)$itemEvent->getItem()->getJournal(),
-                'board'             => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendBoardMail($event, BoardEvents::PRE_DELETE);
+    }
+
+    /**
+     * @param JournalItemEvent $event
+     * @param string $name
+     */
+    private function sendBoardMail(JournalItemEvent $event, string $name)
+    {
+        /** @var Board $board */
+        $board = $event->getItem();
+        $journal = $board->getJournal();
+        $staff = $this->ojsMailer->getJournalStaff();
+
+        $params = [
+            'journal' => (string) $journal,
+            'board'   => (string) $board,
+        ];
+
+        $this->ojsMailer->sendEventMail($name, $staff, $params, $journal);
     }
 }
