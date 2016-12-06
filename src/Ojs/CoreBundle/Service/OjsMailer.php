@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\MailTemplate;
+use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -146,6 +147,15 @@ class OjsMailer
         return $this->em->getRepository('OjsUserBundle:User')->findUsersByJournalRole(
             ['ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_CO_EDITOR']
         );
+    }
+
+    /**
+     * @param Journal $journal
+     * @return SubscribeMailList[]
+     */
+    public function getJournalRelatedMails(Journal $journal)
+    {
+        return $journal->getSubscribeMailLists();
     }
 
     public function transformTemplate($template, $transformParams = [])

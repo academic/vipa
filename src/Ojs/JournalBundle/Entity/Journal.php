@@ -230,6 +230,12 @@ class Journal extends AbstractTranslatable
      * @var Collection
      */
     private $sections;
+
+    /**
+     * @var Collection
+     */
+    private $subscribeMailLists;
+
     /**
      * @var Publisher
      * @JMS\Expose
@@ -353,6 +359,7 @@ class Journal extends AbstractTranslatable
         $this->journalContacts = new ArrayCollection();
         $this->catalogs = new ArrayCollection();
         $this->articleTypes = new ArrayCollection();
+        $this->subscribeMailLists = new ArrayCollection();
     }
 
     /**
@@ -517,6 +524,14 @@ class Journal extends AbstractTranslatable
     public function getSubjects()
     {
         return $this->subjects;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSubscribeMailLists()
+    {
+        return $this->subscribeMailLists;
     }
 
     /**

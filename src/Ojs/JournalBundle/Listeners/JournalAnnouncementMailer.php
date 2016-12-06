@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Listeners;
 
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Event\JournalAnnouncement\JournalAnnouncementEvents;
 use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\UserBundle\Entity\User;
@@ -24,7 +25,9 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
      * @param JournalItemEvent $itemEvent
      */
     public function onJournalAnnouncementPostCreate(JournalItemEvent $itemEvent)
-    {
+    {   
+        /** @var Journal $journal */
+        $journal = $itemEvent->getItem()->getJournal();
         $getMailEvent = $this->ojsMailer->getEventByName(JournalAnnouncementEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
         if(!$getMailEvent){
             return;
@@ -43,6 +46,23 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
                 $user,
                 $getMailEvent->getSubject(),
                 $template
+            );
+        }
+        
+        foreach ($this->ojsMailer->getJournalRelatedMails($journal) as $mail) {
+            $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
+                'announcement'      => $itemEvent->getItem()->getTitleTranslations(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $mail->getMail(),
+                'receiver.fullName' => $mail->getMail(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+            $this->ojsMailer->send(
+                $getMailEvent->getSubject(),
+                $template,
+                $mail->getMail(),
+                $mail->getMail()
             );
         }
     }
