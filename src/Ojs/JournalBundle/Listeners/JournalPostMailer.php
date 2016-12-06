@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Listeners;
 
+use Ojs\JournalBundle\Entity\JournalPost;
 use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\JournalPost\JournalPostEvents;
 use Ojs\UserBundle\Entity\User;
@@ -84,7 +85,7 @@ class JournalPostMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
-                'post'              => (string)$itemEvent->getItem(),
+                'post'              => $itemEvent->getItem()->getTitleTranslations(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),

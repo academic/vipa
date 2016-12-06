@@ -37,6 +37,7 @@ class JournalIndexMailer extends AbstractJournalItemMailer
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
             ];
             $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(

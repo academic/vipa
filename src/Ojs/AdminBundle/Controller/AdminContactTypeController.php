@@ -29,28 +29,7 @@ class AdminContactTypeController extends Controller
      */
     public function indexAction(Request $request)
     {
-
-        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:ContactTypes');
-        $source->manipulateRow(
-            function (Row $row) use ($request,$cache) {
-
-                /* @var ContactTypes $entity */
-                $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
-                if (!is_null($entity)) {
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $row->setField('translations.name', $entity->getNameTranslations());
-                        $row->setField('translations.description', $entity->getDescriptionTranslations());
-                    }
-                }
-
-                return $row;
-            }
-        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 

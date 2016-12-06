@@ -211,3 +211,6 @@ services:
 
   ojs_core.twig_events:
     class: Ojs\CoreBundle\Events\TwigEvents
+
+  ojs.session.storage.dynamic_domain:
+      class: Ojs\CoreBundle\Service\DynamicDomainSessionStorage

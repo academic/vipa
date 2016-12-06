@@ -11,7 +11,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * ContactTypes
- * @GRID\Source(columns="id,translations.name,translations.description")
+ * @GRID\Source(columns="id,translations.name:translation_agg,translations.description:translation_agg", groupBy={"id"})
  */
 class ContactTypes extends AbstractTranslatable implements ContactTypesInterface
 {
@@ -28,12 +28,12 @@ class ContactTypes extends AbstractTranslatable implements ContactTypesInterface
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="name", field="translations.name", safe=false)
+     * @GRID\Column(title="name", field="translations.name:translation_agg", safe=false, operatorsVisible=false)
      */
     private $name;
     /**
      * @var string
-     * @GRID\Column(title="description", field="translations.description", safe=false)
+     * @GRID\Column(title="description", field="translations.description:translation_agg", safe=false, operatorsVisible=false)
      */
     private $description;
 

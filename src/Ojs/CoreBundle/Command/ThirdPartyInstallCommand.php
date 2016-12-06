@@ -27,14 +27,14 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'https://bitbucket.org/bulutyazilim/workflowbundle.git',
+                    'url' => 'git@github.com:ojs/WorkflowBundle.git',
                 ),
             ),
             'require' => array(
-                "bulutyazilim/workflow-bundle" => "dev-master",
+                "ojs/workflow-bundle" => "dev-master",
             ),
             'extra' => array(
-                'bundle-class' => 'BulutYazilim\\WorkflowBundle\\WorkflowBundle',
+                'bundle-class' => 'Ojs\\WorkflowBundle\\OjsWorkflowBundle',
             ),
         ),
         'endorsement' => array(
@@ -43,14 +43,14 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'https://bitbucket.org/bulutyazilim/endorsement.git',
+                    'url' => 'git@github.com:ojs/EndorsementBundle.git',
                 ),
             ),
             'require' => array(
-                "bulutyazilim/endorsement-bundle" => "dev-master",
+                "ojs/endorsement-bundle" => "dev-master",
             ),
             'extra' => array(
-                'bundle-class' => 'BulutYazilim\\EndorsementBundle\\EndorsementBundle',
+                'bundle-class' => 'Ojs\\EndorsementBundle\\OjsEndorsementBundle',
             ),
         ),
         'doi' => array(

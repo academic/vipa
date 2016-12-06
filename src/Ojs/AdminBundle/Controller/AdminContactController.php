@@ -31,29 +31,7 @@ class AdminContactController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:JournalContact', 'admin');
-        $source->manipulateRow(
-            function (Row $row) use ($request, $cache)
-            {
-                /* @var JournalContact $entity */
-                $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
-
-                if (!is_null($entity)){
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $row->setField('journal.translations.title', $entity->getJournal()->getTitleTranslations());
-                        $row->setField('contactType', $entity->getContactType()->getNameTranslations());
-                    }
-                }
-
-                return $row;
-            }
-        );
-
         $grid = $this->get('grid');
         $grid->setSource($source);
         $gridAction = $this->get('grid_action');

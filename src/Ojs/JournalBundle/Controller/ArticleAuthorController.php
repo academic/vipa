@@ -96,6 +96,52 @@ class ArticleAuthorController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param  $articleId
+     * @return Response
+     */
+    public function authorSortAction(Request $request, $articleId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $authors = $em->getRepository(ArticleAuthor::class)->findBy(['article' => $articleId]);
+        usort($authors, function($a, $b){
+            return $a->getAuthorOrder() > $b->getAuthorOrder();
+        });
+
+        $sortData = [];
+        foreach ($authors as $author){
+            $sortData[$author->getId()] = $author->getAuthorOrder();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $authorId => $order){
+                foreach ($authors as $author){
+                    if($author->getId() == $authorId){
+                        $author->setAuthorOrder($order);
+                        $em->persist($author);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_journal_article_author_sort', [
+                'journalId' => $journal->getId(),
+                'articleId' => $articleId
+            ]);
+        }
+
+        return $this->render('OjsJournalBundle:ArticleAuthor:author_sort.html.twig', [
+                'authors' => $authors,
+                'jsonSortData' => json_encode($sortData),
+                'articleId' => $articleId
+            ]
+        );
+    }
+
+    /**
      * Creates a new ArticleAuthor entity.
      *
      * @param  Request                   $request

@@ -66,6 +66,11 @@
         {% if form is defined %}
             {{ form_stylesheet(form) }}
         {% endif %}
+        {% if journal is defined and journal.theme %}
+            <style>
+                {{ journal.theme.css|raw }}
+            </style>
+        {% endif %}
     {% endblock %}
 
 
@@ -80,10 +85,13 @@
         var current_language = '{{ app.request.locale }}';
     </script>
 </head>
-<body class="page-{{ page }}">
+<body class="page-{{ page }} {% if isJournalHosting is defined and isJournalHosting == true %}journal_hosting{% endif %}">
+{% if isJournalHosting is defined and isJournalHosting == true %}
+{% else %}
 {% block header %}
     {% include '::ojsheader.html.twig' %}
 {% endblock %}
+{% endif %}
 <div class="container ">
     {% if app.user and hideleft is not defined %}
     <div class="row">
@@ -128,10 +136,27 @@
     {% endif %}
 </div>
 <!-- .container -->
+{% if isJournalHosting is defined and isJournalHosting == true %}
+{% else %}
 {% block footer %}
     {% include '::ojsfooter.html.twig' %}
 {% endblock %}
-
+{% endif %}
+{% if isJournalHosting is defined and isJournalHosting == true %}
+    <div id="ojs_badge" style="position: fixed;
+  top: 20px;
+  right: 0;
+  z-index: 50;
+  border: none;
+  padding: 0;
+  width: auto;
+  height: auto;
+  text-align: right;">
+        <a href="{{ base_host }}?source=badge" target="_blank" data-placement="left" title="Hosted By {{ base_host }}">
+            <img src="{{ ojs_logo }}" height="20"/>
+        </a>
+    </div>
+{% endif %}
 {% block javascripts %}
 
     {% javascripts '@main_js'%}

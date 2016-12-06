@@ -2,6 +2,10 @@ ojs_journal_article_author_index:
     path:     /{journalId}/article/{articleId}/author
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:index" }
 
+ojs_journal_article_author_sort:
+    path:     /{journalId}/article/{articleId}/author/sort
+    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:authorSort" }
+
 ojs_journal_article_author_show:
     path:     /{journalId}/article/{articleId}/author/{id}/show
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:show" }

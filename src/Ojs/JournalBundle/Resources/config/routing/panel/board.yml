@@ -2,6 +2,10 @@ ojs_journal_board_index:
     path:     /{journalId}/board/
     defaults: { _controller: "OjsJournalBundle:Board:index" }
 
+ojs_journal_board_sort:
+    path:     /{journalId}/board/sort
+    defaults: { _controller: "OjsJournalBundle:Board:sort" }
+
 ojs_journal_board_show:
     path:     /{journalId}/board/{id}/show
     defaults: { _controller: "OjsJournalBundle:Board:show" }
@@ -24,6 +28,10 @@ ojs_journal_board_update:
     defaults: { _controller: "OjsJournalBundle:Board:update" }
     methods: [PUT]
 
+ojs_journal_board_member_sort:
+    path:     /{journalId}/board/{boardId}/member/sort
+    defaults: { _controller: "OjsJournalBundle:Board:memberSort" }
+
 ojs_journal_board_delete:
     path:     /{journalId}/board/{id}/delete
     defaults: { _controller: "OjsJournalBundle:Board:delete" }
@@ -33,6 +41,15 @@ ojs_journal_board_member_add:
     path:  /{journalId}/board/{boardId}/member/add
     defaults: { _controller: "OjsJournalBundle:Board:addMember" }
     methods:  [POST, PUT]
+
+ojs_journal_board_member_edit:
+    path:     /{journalId}/board/{boardId}/member/{id}/edit
+    defaults: { _controller: "OjsJournalBundle:Board:editMember" }
+
+ojs_journal_board_member_update:
+    path:     /{journalId}/board/{boardId}/member/{id}/update
+    defaults: { _controller: "OjsJournalBundle:Board:updateMember" }
+    methods: [PUT]
 
 ojs_journal_board_member_remove:
     path:  /{journalId}/board/{boardId}/member/{id}/remove

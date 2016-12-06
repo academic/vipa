@@ -60,6 +60,49 @@ class SubmissionChecklistController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return Response
+     */
+    public function sortAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $checklists = $em->getRepository(SubmissionChecklist::class)->findAll();
+        usort($checklists, function($a, $b){
+            return $a->getOrder() > $b->getOrder();
+        });
+
+        $sortData = [];
+        foreach ($checklists as $checklist){
+            $sortData[$checklist->getId()] = $checklist->getOrder();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $checklistId => $order){
+                foreach ($checklists as $checklist){
+                    if($checklist->getId() == $checklistId){
+                        $checklist->setOrder($order);
+                        $em->persist($checklist);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_journal_checklist_sort', [
+                'journalId' => $journal->getId(),
+            ]);
+        }
+
+        return $this->render('OjsJournalBundle:SubmissionChecklist:sort.html.twig', [
+                'checklists' => $checklists,
+                'jsonSortData' => json_encode($sortData),
+            ]
+        );
+    }
+
+    /**
      * Creates a new SubmissionChecklist entity.
      *
      * @param  Request                   $request

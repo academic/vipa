@@ -2,34 +2,45 @@
 
 namespace Ojs\SiteBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\ArticleStatuses;
+use Ojs\CoreBundle\Params\IssueDisplayModes;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\CoreBundle\Params\PublisherStatuses;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalRepository;
-use Ojs\JournalBundle\Entity\Block;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\BlockRepository;
+use Ojs\JournalBundle\Entity\BoardMember;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;
-use Ojs\CoreBundle\Params\IssueDisplayModes;
-use Doctrine\ORM\EntityManager;
-use Ojs\JournalBundle\Entity\BoardMember;
-use Ojs\JournalBundle\Entity\JournalContact;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalRepository;
+use Ojs\JournalBundle\Entity\Section;
+use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Ojs\JournalBundle\Entity\Section;
-use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
 
 class JournalController extends Controller
 {
     /**
+     * @param Request $request
      * @param string $slug
+     * @param boolean $isJournalHosting
      * @return Response
      */
-    public function archiveIndexAction($slug)
+    public function archiveIndexAction(Request $request, $slug, $isJournalHosting = false)
     {
+        /**
+         * @todo we should check if it is base domain initialized
+         */
+        $currentHost = $request->getHttpHost();
+        /*
+        $base_host = $container->getParameter('base_host');
+        if($currentHost == $base_host){
+            $this->throw404IfNotFound(0);
+        }
+        */
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
         $blockRepo = $em->getRepository('OjsJournalBundle:Block');
@@ -46,6 +57,7 @@ class JournalController extends Controller
         $data['page'] = 'archive';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         $data['journal'] = $journal;
+        $data['isJournalHosting'] = $isJournalHosting;
         $data['displayModes'] = [
             'all' => IssueDisplayModes::SHOW_ALL,
             'title' => IssueDisplayModes::SHOW_TITLE,
@@ -57,9 +69,10 @@ class JournalController extends Controller
 
     /**
      * @param string $slug
+     * @param boolean $isJournalHosting
      * @return Response
      */
-    public function journalBoardAction($slug)
+    public function journalBoardAction($slug, $isJournalHosting = false)
     {
         /**
          * @var Journal $journal
@@ -89,6 +102,7 @@ class JournalController extends Controller
 
         $data = [
             'journal'       => $journal,
+            'isJournalHosting' => $isJournalHosting,
             'page'          => 'journal',
             'board'         => $boards,
             'board_members' => $boardMembers,
@@ -100,9 +114,10 @@ class JournalController extends Controller
 
     /**
      * @param $slug
+     * @param boolean $isJournalHosting
      * @return Response
      */
-    public function journalContactsAction($slug)
+    public function journalContactsAction($slug, $isJournalHosting = false)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -119,16 +134,18 @@ class JournalController extends Controller
             'contacts' => $em->getRepository("OjsJournalBundle:JournalContact")->findBy(['journal' => $journal], ['contactOrder' => 'ASC']),
             'blocks' => $em->getRepository('OjsJournalBundle:Block')->journalBlocks($journal),
             'journal' => $journal,
+            'isJournalHosting' => $isJournalHosting
         ]);
     }
 
     /**
      * @param Request $request
      * @param $slug
+     * @param $isJournalHosting boolean
      *
      * @return Response
      */
-    public function journalIndexAction(Request $request, $slug)
+    public function journalIndexAction(Request $request, $slug, $isJournalHosting=false)
     {
         $session = $this->get('session');
         $journalService = $this->get('ojs.journal_service');
@@ -145,7 +162,8 @@ class JournalController extends Controller
 
         $journalLocale = $journal->getMandatoryLang()->getCode();
         //if system supports journal mandatory locale set locale as journal mandatory locale
-        if(in_array($journalLocale,$this->getParameter('locale_support'))){
+
+        if($journalLocale && in_array($journalLocale,$this->getParameter('locale_support'))){
             /**
              * if user is prefered a locale pass this logic then
              * @look for CommonController change locale function
@@ -197,12 +215,12 @@ class JournalController extends Controller
             ->refreshToken('journal_view');
 
         $data['token'] = $token;
+        $data['isJournalHosting'] = $isJournalHosting;
         $data['page'] = 'journal';
         $data['journal'] = $journal;
         $journal->setPublicURI($journalService->generateUrl($journal));
         $data['design'] = $journal->getDesign();
         $data['blocks'] = $blockRepo->journalBlocks($journal);
-        $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal), 0, 5, true));
 
         /** @var Issue $lastIssue */
         $lastIssue = $issueRepo->findOneBy(['lastIssue' => true, 'journal' => $journal]);
@@ -226,15 +244,30 @@ class JournalController extends Controller
         }
 
         $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
-        $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
+        $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy([
+            'journal' => $journal
+        ], ['pageOrder' => 'ASC']);
 
-        $data['archive_uri'] = $this->generateUrl(
-            'ojs_archive_index',
-            [
-                'slug' => $journal->getSlug()
-            ],
-            true
-        );
+        if($isJournalHosting){
+            $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal), 0, 5, true),true);
+            $data['archive_uri'] = $this->generateUrl(
+                'journal_hosting_archive',
+                [
+
+                ],
+                true
+            );
+        }else{
+            $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal), 0, 5, true));
+            $data['archive_uri'] = $this->generateUrl(
+                'ojs_archive_index',
+                [
+                    'slug' => $journal->getSlug()
+                ],
+                true
+            );
+        }
+
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }
@@ -243,23 +276,37 @@ class JournalController extends Controller
 
     /**
      * @param $years
+     * @param boolean $isJournalHosting
      * @return mixed
      */
-    private function setupIssuesURIsByYear($years)
+    private function setupIssuesURIsByYear($years, $isJournalHosting = false)
     {
         foreach ($years as $year) {
+
             /** @var Issue $issue */
             foreach ($year as $issue) {
-                $issue->setPublicURI(
-                    $this->generateUrl(
-                        'ojs_issue_page',
-                        [
-                            'journal_slug' => $issue->getJournal()->getSlug(),
-                            'id' => $issue->getId(),
-                        ],
-                        true
-                    )
-                );
+                if ($isJournalHosting) {
+                    $issue->setPublicURI(
+                        $this->generateUrl(
+                            'journal_hosting_issue',
+                            [
+                                'id' => $issue->getId()
+                            ],
+                            true
+                        )
+                    );
+                } else {
+                    $issue->setPublicURI(
+                        $this->generateUrl(
+                            'ojs_issue_page',
+                            [
+                                'journal_slug' => $issue->getJournal()->getSlug(),
+                                'id' => $issue->getId()
+                            ],
+                            true
+                        )
+                    );
+                }
             }
         }
 
@@ -268,22 +315,31 @@ class JournalController extends Controller
 
     /**
      * @param array $articles
+     * @param boolean $isJournalHosting
      * @return mixed
      */
-    private function setupArticleURIs($articles = null)
+    private function setupArticleURIs($articles = null, $isJournalHosting = false)
     {
         /** @var Article $article */
         foreach ($articles as $article) {
-            $article->setPublicURI(
-                $this->generateUrl(
-                    'ojs_article_page',
-                    [
-                        'slug'       => $article->getIssue()->getJournal()->getSlug(),
-                        'issue_id'   => $article->getIssue()->getId(),
-                        'article_id' => $article->getId(),
-                    ]
-                )
-            );
+            if ($isJournalHosting) {
+                $article->setPublicURI($this->generateUrl('journal_hosting_issue_article', [
+                    'issue_id' => $article->getIssue()->getId(),
+                    'article_id' => $article->getId(),
+                ], true)
+                );
+            } else {
+                $article->setPublicURI(
+                    $this->generateUrl(
+                        'ojs_article_page',
+                        [
+                            'slug' => $article->getIssue()->getJournal()->getSlug(),
+                            'issue_id' => $article->getIssue()->getId(),
+                            'article_id' => $article->getId(),
+                        ]
+                    )
+                );
+            }
         }
 
         return $articles;
@@ -293,9 +349,10 @@ class JournalController extends Controller
      * Also means last issue's articles
      *
      * @param $slug
+     * @param boolean $isJournalHosting
      * @return Response
      */
-    public function lastArticlesIndexAction($slug)
+    public function lastArticlesIndexAction($slug, $isJournalHosting = false)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
@@ -315,6 +372,7 @@ class JournalController extends Controller
         $data['page'] = 'articles';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         $data['journal'] = $journal;
+        $data['isJournalHosting'] = $isJournalHosting;
 
         return $this->render('OjsSiteBundle::Journal/last_articles_index.html.twig', $data);
     }
@@ -322,9 +380,10 @@ class JournalController extends Controller
     /**
      * @param Request $request
      * @param $slug
+     * @param boolean $isJournalHosting
      * @return Response
      */
-    public function subscribeAction(Request $request, $slug)
+    public function subscribeAction(Request $request, $slug, $isJournalHosting = false)
     {
         $referer = $request->headers->get('referer');
         /** @var EntityManager $em */
@@ -365,9 +424,10 @@ class JournalController extends Controller
 
     /**
      * @param string $slug
+     * @param boolean $isJournalHosting
      * @return Response
      */
-    public function earlyPreviewIndexAction($slug)
+    public function earlyPreviewIndexAction($slug, $isJournalHosting = false)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
@@ -385,6 +445,7 @@ class JournalController extends Controller
 
         $data = [
             'journal' => $journal,
+            'isJournalHosting' => $isJournalHosting,
             'articles' => $articles,
             'page' => 'journal',
             'blocks' => $blockRepo->journalBlocks($journal),
@@ -393,7 +454,5 @@ class JournalController extends Controller
         return $this->render('OjsSiteBundle::Article/journal_articles.html.twig', $data);
 
     }
-
-
 
 }

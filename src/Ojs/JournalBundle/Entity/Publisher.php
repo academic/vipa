@@ -17,8 +17,8 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Publisher
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,translations.name,email,verified,status")
- * @GRID\Source(columns="id,translations.name,status", groups={"application"})
+ * @GRID\Source(columns="id,translations.name:translation_agg,email,verified,status", groupBy={"id"})
+ * @GRID\Source(columns="id,translations.name:translation_agg,status", groups={"application"}, groupBy={"id"})
  */
 class Publisher extends AbstractTranslatable
 {
@@ -52,7 +52,7 @@ class Publisher extends AbstractTranslatable
     /**
      * @var string
      * @Expose
-     * @Grid\Column(title="Name", field="translations.name", safe=false)
+     * @Grid\Column(title="Name", field="translations.name:translation_agg", safe=false, operatorsVisible=false)
      */
     private $name;
     /**
@@ -177,6 +177,11 @@ class Publisher extends AbstractTranslatable
      * @var ArrayCollection|User[]
      */
     private $publisherManagers;
+
+    /**
+     * @var string
+     */
+    private $annotatedPublisher;
 
     /**
      * List of Publisher Status
@@ -1028,5 +1033,18 @@ class Publisher extends AbstractTranslatable
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getAnnotatedPublisher()
+    {
+        if ($this->getStatus() == PublisherStatuses::STATUS_COMPLETE && $this->isVerified()){
+            return $this->getName();
+        }else {
+            return "*** ".$this->getName();
+        }
     }
 }

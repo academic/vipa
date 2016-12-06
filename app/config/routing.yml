@@ -77,7 +77,6 @@ _liip_imagine:
 
 change_locale:
   path: '/locale/{code}'
-  host: "%base_host%"
   defaults:
     _controller: 'OjsJournalBundle:Common:changeLocale'
 

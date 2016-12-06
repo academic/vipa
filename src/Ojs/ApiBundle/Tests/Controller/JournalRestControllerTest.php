@@ -38,7 +38,8 @@ class JournalRestControllerTest extends ApiBaseTestCase
                     'title' => 'PHPUnit Test Title Field - POST',
                     'subtitle' => 'PHPUnit Test Subtitle Field - POST',
                     'description' => 'PHPUnit Test Description Field - POST',
-                    'titleAbbr' => 'PHPUnit Test Title Abbr Field - POST'
+                    'titleAbbr' => 'PHPUnit Test Title Abbr Field - POST',
+                    'footerText' => 'footer text'
                 ]
             ],
             'publisher' => 1,
@@ -58,7 +59,6 @@ class JournalRestControllerTest extends ApiBaseTestCase
             'founded' => 2016,
             'googleAnalyticsId' => 'Google Ana. ID',
             'country' => 2,
-            'footer_text' => 'footer_text',
             'slug' => 'phpunit-test',
             'tags' => ['phpunit']
         ];
@@ -81,13 +81,15 @@ class JournalRestControllerTest extends ApiBaseTestCase
                     'title' => 'PHPUnit Test Title Field - PUT',
                     'subtitle' => 'PHPUnit Test Subtitle Field - PUT',
                     'description' => 'PHPUnit Test Description Field - PUT',
-                    'titleAbbr' => 'PHPUnit Test Title Abbr Field - PUT'
+                    'titleAbbr' => 'PHPUnit Test Title Abbr Field - PUT',
+                    'footerText' => 'footer text'
                 ],
                 $this->secondLocale => [
                     'title' => 'PHPUnit Test Title Field '.$this->secondLocale.' - PUT',
                     'subtitle' => 'PHPUnit Test Subtitle Field '.$this->secondLocale.' - PUT',
                     'description' => 'PHPUnit Test Description Field '.$this->secondLocale.' - PUT',
-                    'titleAbbr' => 'PHPUnit Test Title Abbr Field '.$this->secondLocale.' - PUT'
+                    'titleAbbr' => 'PHPUnit Test Title Abbr Field '.$this->secondLocale.' - PUT',
+                    'footerText' => 'footer text '.$this->secondLocale.' - PUT',
                 ]
             ],
             'publisher' => 1,
@@ -107,7 +109,6 @@ class JournalRestControllerTest extends ApiBaseTestCase
             'founded' => 2016,
             'googleAnalyticsId' => 'Google Ana. ID',
             'country' => 2,
-            'footer_text' => 'footer_text',
             'slug' => 'phpunit-test',
             'tags' => ['phpunit']
         ];

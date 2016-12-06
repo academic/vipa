@@ -25,6 +25,10 @@
             <h4>{{ 'board.members'|trans }}</h4>
         </div>
         <div class="panel-body">
+            <a href="{{ path('ojs_journal_board_member_sort', {'journalId': selectedJournal().id, 'boardId': entity.id}) }}" class="btn btn-primary">
+                {{ "sort.members"|trans }}
+            </a>
+            <hr/>
             {{ grid(membersGrid) }}
         </div>
     </div>

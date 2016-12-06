@@ -184,7 +184,7 @@ class SearchManager
                 $data['route'] = $this->generateIssueUrl($object);
                 break;
             case 'journal':
-                $data['name'] = $source['title'];
+                $data['name'] = $source['originalTitle'];
                 $data['route'] = $this->generateJournalUrl($object);
                 break;
             case 'articles':

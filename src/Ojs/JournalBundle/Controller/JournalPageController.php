@@ -28,31 +28,11 @@ class JournalPageController extends OjsController
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
-        $cache = $this->get('array_cache');
-
         if (!$this->isGranted('VIEW', $journal, 'pages')) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
         $source = new Entity('OjsJournalBundle:JournalPage');
-        $source->manipulateRow(
-            function (Row $row) use ($request, $cache) {
-                /* @var JournalPage $entity */
-                $entity = $row->getEntity();
-                if (!is_null($entity)) {
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $entity->setDefaultLocale($request->getDefaultLocale());
-                        $row->setField('translations.title', $entity->getTitleTranslations());
-                    }
-                }
-
-                return $row;
-            }
-        );
-
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -69,6 +49,49 @@ class JournalPageController extends OjsController
         $grid = $listEvent->getGrid();
 
         return $grid->getGridResponse('OjsJournalBundle:JournalPage:index.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function sortAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $pages = $em->getRepository(JournalPage::class)->findAll();
+        usort($pages, function($a, $b){
+            return $a->getPageOrder() > $b->getPageOrder();
+        });
+
+        $sortData = [];
+        foreach ($pages as $page){
+            $sortData[$page->getId()] = $page->getPageOrder();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $pageId => $order){
+                foreach ($pages as $page){
+                    if($page->getId() == $pageId){
+                        $page->setPageOrder($order);
+                        $em->persist($page);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_journal_page_sort', [
+                'journalId' => $journal->getId(),
+            ]);
+        }
+
+        return $this->render('OjsJournalBundle:JournalPage:sort.html.twig', [
+                'pages' => $pages,
+                'jsonSortData' => json_encode($sortData),
+            ]
+        );
     }
 
     /**
@@ -310,20 +333,14 @@ class JournalPageController extends OjsController
     }
 
     /**
-     * @param  Request $request
-     * @param  int $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param Request $request
+     * @param JournalPage $entity
+     * @return Response
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, JournalPage $entity)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $eventDispatcher = $this->get('event_dispatcher');
-
-        $entity = $this
-            ->getDoctrine()
-            ->getRepository('OjsJournalBundle:JournalPage')
-            ->find($id);
-        $this->throw404IfNotFound($entity);
+        $dispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('DELETE', $journal, 'pages')) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -338,13 +355,14 @@ class JournalPageController extends OjsController
         }
 
         $event = new JournalItemEvent($entity);
-        $eventDispatcher->dispatch(JournalPageEvents::PRE_DELETE, $event);
+        $dispatcher->dispatch(JournalPageEvents::PRE_DELETE, $event);
 
+        $this->get('ojs_core.delete.service')->check($entity);
         $em->remove($entity);
         $em->flush();
 
         $event = new JournalEvent($journal);
-        $eventDispatcher->dispatch(JournalPageEvents::POST_DELETE, $event);
+        $dispatcher->dispatch(JournalPageEvents::POST_DELETE, $event);
 
         if ($event->getResponse()) {
             return $event->getResponse();

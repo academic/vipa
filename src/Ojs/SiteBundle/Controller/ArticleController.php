@@ -4,6 +4,7 @@ namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\ArticleStatuses;
+use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\CoreBundle\Params\PublisherStatuses;
 use OpenJournalSoftware\BibtexBundle\Helper\Bibtex;
@@ -12,7 +13,7 @@ use Ojs\JournalBundle\Entity\Journal;
 
 class ArticleController extends Controller
 {
-    public function articleWithoutIssuePageAction($slug, $article_id)
+    public function articleWithoutIssuePageAction($slug, $article_id, $isJournalHosting = false)
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
@@ -63,7 +64,11 @@ class ArticleController extends Controller
                     $addarray['issn'] = $data['article']->getJournal()->getIssn();
                     $addarray['address'] = $data['article']->getJournal()->getAddress();
                     $addarray['address'] = $data['article']->getJournal()->getPublisher()->getName();
-                    $addarray['year'] = $data['article']->getJournal()->getFounded()->format('Y');
+                    if($data['article']->getPubdate()) {
+                        $addarray['year'] = $data['article']->getPubdate()->format('Y');
+                    }else{
+                        $addarray['year'] = '';
+                    }
                     $addarray['pages'] = $data['article']->getFirstPage() . ' - ' . $data['article']->getLastPage();
                     $addarray['doi'] = $data['article']->getDoi();
                     $addarray['title'] = $translation->$createGetterFunction();
@@ -88,6 +93,7 @@ class ArticleController extends Controller
             $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
             $data['journal'] = $data['article']->getJournal();
             $data['page'] = 'journals';
+            $data['articleFileType'] = ArticleFileParams::$FILE_TYPES;
             $data['blocks'] = $em->getRepository('OjsJournalBundle:Block')->journalBlocks($data['journal']);
             $data['journal']->setPublicURI($journalService->generateUrl($data['journal']));
             $data['archive_uri'] = $this->generateUrl('ojs_archive_index', [
@@ -118,9 +124,10 @@ class ArticleController extends Controller
      * @param $slug
      * @param $article_id
      * @param null $issue_id
+     * @param $isJournalHosting boolean
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function articlePageAction($slug, $article_id, $issue_id = null)
+    public function articlePageAction($slug, $article_id, $issue_id = null, $isJournalHosting = false)
     {
 
         $journalService = $this->get('ojs.journal_service');
@@ -171,7 +178,11 @@ class ArticleController extends Controller
                 $addarray['issn'] = $data['article']->getJournal()->getIssn();
                 $addarray['address'] = $data['article']->getJournal()->getAddress();
                 $addarray['address'] = $data['article']->getJournal()->getPublisher()->getName();
-                $addarray['year'] = $data['article']->getJournal()->getFounded()->format('Y');
+                if($data['article']->getPubdate()) {
+                    $addarray['year'] = $data['article']->getPubdate()->format('Y');
+                }else{
+                    $addarray['year'] = '';
+                }
                 $addarray['volume'] = $data['article']->getIssue()->getVolume();
                 $addarray['pages'] = $data['article']->getFirstPage() . ' - ' . $data['article']->getLastPage();
                 $addarray['doi'] = $data['article']->getDoi();
@@ -198,13 +209,29 @@ class ArticleController extends Controller
         $data['schemaMetaTag'] = '<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />';
         $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
         $data['journal'] = $data['article']->getJournal();
+        $data['isJournalHosting'] = $isJournalHosting;
         $data['page'] = 'journals';
+        $data['articleFileType'] = ArticleFileParams::$FILE_TYPES;
         $data['blocks'] = $em->getRepository('OjsJournalBundle:Block')->journalBlocks($data['journal']);
         $data['journal']->setPublicURI($journalService->generateUrl($data['journal']));
-        $data['archive_uri'] = $this->generateUrl('ojs_archive_index', [
-            'slug' => $data['journal']->getSlug(),
-            'publisher' => $data['journal']->getPublisher()->getSlug(),
-        ], true);
+
+        if($isJournalHosting){
+            $data['archive_uri'] = $this->generateUrl(
+                'journal_hosting_archive',
+                [
+
+                ],
+                true
+            );
+        }else{
+            $data['archive_uri'] = $this->generateUrl(
+                'ojs_archive_index',
+                [
+                    'slug' => $journal->getSlug()
+                ],
+                true
+            );
+        }
         $data['token'] = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('article_view');
@@ -213,7 +240,7 @@ class ArticleController extends Controller
         return $this->render('OjsSiteBundle:Article:article_page.html.twig', $data);
     }
 
-    public function journalArticlesAction($slug)
+    public function journalArticlesAction($slug, $isJournalHosting = false)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
@@ -231,6 +258,7 @@ class ArticleController extends Controller
         $articles = $journal->getArticles();
         $data = [
             'journal' => $journal,
+            'isJournalHosting' => $isJournalHosting,
             'articles' => $articles,
             'page' => 'journal',
             'blocks' => $blockRepo->journalBlocks($journal),

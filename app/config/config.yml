@@ -33,6 +33,7 @@ framework:
   trusted_hosts:   ~
   trusted_proxies: ~
   session:
+    storage_id: "ojs.session.storage.dynamic_domain"
     handler_id:  ~
     cookie_domain: ".%base_host%"
     name: "%session_name%"

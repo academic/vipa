@@ -18,6 +18,9 @@
             {{ "create"|trans }}
         </a>
     {% endif %}
+    <a href="{{ path('ojs_journal_page_sort', {'journalId': selectedJournal().id}) }}" class="btn btn-primary">
+        {{ "sort.pages"|trans }}
+    </a>
 
     <hr>
     {{ grid(grid) }}

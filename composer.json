@@ -3,7 +3,7 @@
   "license": "MIT",
   "type": "project",
   "description": "Open Journal Software",
-  "version": "1.6.0-dev",
+  "version": "2.4.0-dev",
   "keywords": [
     "ojs",
     "journal software",
@@ -45,10 +45,14 @@
     {
       "type": "vcs",
       "url": "https://github.com/ismailbaskin/HWIOAuthBundle.git"
+    },
+    {
+      "type": "git",
+      "url": "git@github.com:bulutyazilim/APYDataGridBundle.git"
     }
   ],
   "require": {
-    "php": ">=5.5.9",
+    "php": ">=7.0.0",
     "symfony/symfony": "~2.8",
     "doctrine/orm": "~2.5",
     "doctrine/doctrine-bundle": "~1.6",
@@ -132,7 +136,7 @@
       "file": "app/config/parameters.yml"
     },
     "branch-alias": {
-      "dev-master": "1.2.0-dev"
+      "dev-master": "2.3.0-dev"
     },
     "merge-plugin": {
       "include": [

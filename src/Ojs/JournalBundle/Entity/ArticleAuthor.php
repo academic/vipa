@@ -29,14 +29,15 @@ class ArticleAuthor implements Translatable
     /**
      * @var integer
      * @Expose
+     * @GRID\Column(title="author.order",field="authorOrder")
      */
     private $authorOrder;
 
     /**
      * @var Author
      * @Expose
-     * @GRID\Column(title="firstName",field="author.firstName")
-     * @GRID\Column(title="lastName",field="author.lastName")
+     * @GRID\Column(title="author.firstname",field="author.firstName")
+     * @GRID\Column(title="author.lastname",field="author.lastName")
      * @Expose
      */
     private $author;
@@ -46,11 +47,6 @@ class ArticleAuthor implements Translatable
      * @GRID\Column(title="article")
      */
     private $article;
-
-    /**
-     * @var bool
-     */
-    private $correspondenceAuthor;
 
     /**
      * Get id
@@ -134,25 +130,6 @@ class ArticleAuthor implements Translatable
     public function setAuthor(Author $author)
     {
         $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isCorrespondenceAuthor()
-    {
-        return $this->correspondenceAuthor;
-    }
-
-    /**
-     * @param boolean $correspondenceAuthor
-     * @return ArticleAuthor
-     */
-    public function setCorrespondenceAuthor($correspondenceAuthor)
-    {
-        $this->correspondenceAuthor = $correspondenceAuthor;
 
         return $this;
     }

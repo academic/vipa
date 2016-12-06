@@ -396,7 +396,12 @@ class ArticleSubmissionController extends Controller
         );
         $this->throw404IfNotFound($article);
 
+        $originalAuthors = new ArrayCollection();
         $originalFiles = new ArrayCollection();
+
+        foreach ($article->getArticleAuthors() as $author) {
+            $originalAuthors->add($author);
+        }
 
         foreach ($article->getArticleFiles() as $file) {
             $originalFiles->add($file);
@@ -416,6 +421,12 @@ class ArticleSubmissionController extends Controller
             foreach ($article->getCitations() as $f_citations) {
                 $f_citations->setOrderNum($i);
                 $i++;
+            }
+
+            foreach ($originalAuthors as $author) {
+                if ($article->getArticleAuthors()->contains($author) === false) {
+                    $em->remove($author);
+                }
             }
 
             foreach ($originalFiles as $file) {

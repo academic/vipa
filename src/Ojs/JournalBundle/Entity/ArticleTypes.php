@@ -13,7 +13,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * ArticleTypes
- * @GRID\Source(columns="id,translations.name,translations.description")
+ * @GRID\Source(columns="id,translations.name:translation_agg,translations.description:translation_agg", groupBy={"id"})
  * @ExclusionPolicy("all")
  */
 class ArticleTypes extends AbstractTranslatable
@@ -33,13 +33,13 @@ class ArticleTypes extends AbstractTranslatable
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="name", field="translations.name", safe=false)
+     * @GRID\Column(title="name", field="translations.name:translation_agg", safe=false, operatorsVisible=false)
      * @Expose
      */
     private $name;
     /**
      * @var string
-     * @GRID\Column(title="description", field="translations.description", safe=false)
+     * @GRID\Column(title="description", field="translations.description:translation_agg", safe=false, operatorsVisible=false)
      * @Expose
      */
     private $description;

@@ -36,31 +36,10 @@ class JournalContactController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
-        $cache = $this->get('array_cache');
-
         if (!$this->isGranted('VIEW', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:JournalContact');
-
-        $source->manipulateRow(
-            function (Row $row) use ($request, $cache) {
-                /* @var JournalContact $entity */
-                $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
-                if (!is_null($entity)) {
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $row->setField('title', $entity->getTitle());
-                        $row->setField('contactType.translations.name', $entity->getContactType()->getNameTranslations());
-                    }
-                }
-
-                return $row;
-            }
-        );
         $grid = $this->get('grid');
         $grid->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -89,6 +68,50 @@ class JournalContactController extends Controller
         $grid = $listEvent->getGrid();
 
         return $grid->getGridResponse('OjsJournalBundle:JournalContact:index.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function sortAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $contacts = $em->getRepository(JournalContact::class)->findAll();
+        usort($contacts, function($a, $b){
+            return $a->getContactOrder() > $b->getContactOrder();
+        });
+
+        $sortData = [];
+        foreach ($contacts as $contact){
+            $sortData[$contact->getId()] = $contact->getContactOrder();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $contactId => $order){
+                foreach ($contacts as $contact){
+                    if($contact->getId() == $contactId){
+                        $contact->getContactOrder($order);
+                        $em->persist($contact);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+
+            return $this->redirectToRoute('ojs_journal_journal_contact_sort', [
+                'journalId' => $journal->getId(),
+            ]);
+        }
+
+        return $this->render('OjsJournalBundle:JournalContact:sort.html.twig', [
+                'contacts' => $contacts,
+                'jsonSortData' => json_encode($sortData),
+            ]
+        );
     }
 
     /**

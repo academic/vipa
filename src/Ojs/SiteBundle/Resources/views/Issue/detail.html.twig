@@ -2,20 +2,25 @@
 {% block title %}{{ 'title.issue_detail'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
-{% if isPublisherHosting is defined %}
-    {% set journalUrl = url('publisher_hosting_journal_index',{slug:issue.journal.slug}) %}
-{% elseif isJournalHosting is defined %}
-    {% set journalUrl = url('publisher_hosting_journal_index') %}
+{% if isJournalHosting is defined and isJournalHosting == true %}
+    {% set journalUrl = url('journal_hosting') %}
 {% else %}
     {% set journalUrl = generateJournalUrl(issue.journal) %}
 {% endif %}
 
 {% block breadcrumb %}
-    {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
-    {'link': journalUrl, 'title': issue.journal.title},
-    {'title': 'issue'|trans}
-    ] %}
+    {% if isJournalHosting is defined and isJournalHosting == true %}
+        {% set list = [
+        {'link': journalUrl, 'title': issue.journal.title},
+        {'title': 'issue'|trans}
+        ] %}
+    {% else %}
+        {% set list = [
+        {'link': path('ojs_public_index'), 'title': project_name},
+        {'link': journalUrl, 'title': issue.journal.title},
+        {'title': 'issue'|trans}
+        ] %}
+    {% endif %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
@@ -78,10 +83,9 @@
                                     {% for article in articles[section.id] %}
                                         <li class="list-group-item list-group-item-default">
                                             <a href="
-                                                {% if isPublisherHosting is defined %}
-                                                    {{ url('publisher_hosting_journal_issue_article', {
+                                                {% if isJournalHosting is defined and isJournalHosting == true %}
+                                                    {{ url('journal_hosting_issue_article', {
                                                             article_id: article.id,
-                                                            slug: issue.journal.slug,
                                                             issue_id: issue.id}) }}
                                                 {% else %}
                                                     {{ url('ojs_article_page', {article_id: article.id,

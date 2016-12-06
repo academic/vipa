@@ -31,19 +31,6 @@ class AdminPeriodController extends Controller
     public function indexAction(Request $request)
     {
         $source = new Entity('OjsJournalBundle:Period');
-        $source->manipulateRow(
-            function (Row $row) use ($request) {
-                /* @var Period $entity */
-                $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
-                if (!is_null($entity)) {
-                    $row->setField('translations.period', $entity->getPeriodTranslations());
-                }
-
-                return $row;
-            }
-        );
-
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 

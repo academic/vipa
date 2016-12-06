@@ -20,8 +20,10 @@ Ojs\JournalBundle\Entity\Journal:
             - NotBlank: {groups: [adminJournalEdit]}
         issn:
             - Issn: ~
+            - Ojs\JournalBundle\Validator\Constraints\JournalIssn: { message: 'issn.in.use' }
         eissn:
             - Issn: ~
+            - Ojs\JournalBundle\Validator\Constraints\JournalIssn: { message: 'eissn.in.use' }
         founded:
             - NotBlank: ~
             - GreaterThan:

@@ -13,8 +13,10 @@ use Ojs\JournalBundle\Event\Board\BoardEvents;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\ListEvent;
+use Ojs\JournalBundle\Form\Type\BoardMemberEditType;
 use Ojs\JournalBundle\Form\Type\BoardMemberType;
 use Ojs\JournalBundle\Form\Type\BoardType;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,27 +43,7 @@ class BoardController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for view this journal's boards!");
         }
-        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:Board');
-        $source->manipulateRow(
-            function (Row $row) use ($request, $cache)
-            {
-                /* @var Board $entity */
-                $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
-                if(!is_null($entity)){
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $row->setField('translations.name', $entity->getNameTranslations());
-                        $row->setField('translations.description', $entity->getDescriptionTranslations());
-                    }
-                }
-                return $row;
-            }
-        );
-
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -91,6 +73,95 @@ class BoardController extends Controller
         $grid = $listEvent->getGrid();
 
         return $grid->getGridResponse('OjsJournalBundle:Board:index.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function sortAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $boards = $em->getRepository(Board::class)->findAll();
+        usort($boards, function($a, $b){
+            return $a->getBoardOrder() > $b->getBoardOrder();
+        });
+
+        $sortData = [];
+        foreach ($boards as $board){
+            $sortData[$board->getId()] = $board->getBoardOrder();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $boardId => $order){
+                foreach ($boards as $board){
+                    if($board->getId() == $boardId){
+                        $board->setBoardOrder($order);
+                        $em->persist($board);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_journal_board_sort', [
+                'journalId' => $journal->getId(),
+            ]);
+        }
+
+        return $this->render('OjsJournalBundle:Board:sort.html.twig', [
+                'boards' => $boards,
+                'jsonSortData' => json_encode($sortData),
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param  $boardId
+     * @return Response
+     */
+    public function memberSortAction(Request $request, $boardId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $members = $em->getRepository(BoardMember::class)->findBy(['board' => $boardId]);
+        usort($members, function($a, $b){
+            return $a->getSeq() > $b->getSeq();
+        });
+
+        $sortData = [];
+        foreach ($members as $member){
+            $sortData[$member->getId()] = $member->getSeq();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $memberId => $order){
+                foreach ($members as $member){
+                    if($member->getId() == $memberId){
+                        $member->setSeq($order);
+                        $em->persist($member);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_journal_board_member_sort', [
+                'journalId' => $journal->getId(),
+                'boardId' => $boardId
+            ]);
+        }
+
+        return $this->render('OjsJournalBundle:Board:member_sort.html.twig', [
+                'members' => $members,
+                'jsonSortData' => json_encode($sortData),
+                'boardId' => $boardId
+            ]
+        );
     }
 
     /**
@@ -232,6 +303,8 @@ class BoardController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
         if ($this->isGranted('EDIT', $journal, 'boards')) {
+
+            $rowAction[] = $gridAction->editAction('ojs_journal_board_member_edit', ['id', 'journalId' => $journal->getId(), 'boardId' => $board->getId()]);
             $rowAction[] = $gridAction->deleteAction(
                 'ojs_journal_board_member_remove',
                 ['id', 'journalId' => $journal->getId(), 'boardId' => $board->getId()]
@@ -277,6 +350,31 @@ class BoardController extends Controller
     }
 
     /**
+     * Creates a form to add Member to Board entity.
+     *
+     * @param BoardMember $entity
+     * @param Board $board
+     * @param Journal $journal
+     * @return Form
+     */
+    private function createEditMemberForm(BoardMember $entity, Board $board, Journal $journal)
+    {
+        $form = $this->createForm(
+            new BoardMemberEditType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl(
+                    'ojs_journal_board_member_update',
+                    array('id' => $entity->getId(),'boardId' => $board->getId(), 'journalId' => $journal->getId())
+                ),
+                'method' => 'PUT',
+            )
+        );
+
+        return $form;
+    }
+
+    /**
      * Displays a form to edit an existing Board entity.
      *
      *
@@ -297,6 +395,33 @@ class BoardController extends Controller
             array(
                 'entity' => $board,
                 'edit_form' => $editForm->createView(),
+            )
+        );
+    }
+
+    /**
+     * @param Board $boardId
+     * @param BoardMember $entity
+     * @return Response
+     */
+    public function editMemberAction(Board $boardId, BoardMember $entity)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('EDIT', $journal, 'boards')) {
+            throw new AccessDeniedException("You not authorized for edit this journal's boards!");
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
+        
+        $editMemberForm = $this->createEditMemberForm($entity, $board, $journal);
+
+        return $this->render(
+            'OjsJournalBundle:Board:edit_member.html.twig',
+            array(
+                'entity' => $entity,
+                'board' => $board,
+                'edit_form' => $editMemberForm->createView(),
             )
         );
     }
@@ -372,6 +497,45 @@ class BoardController extends Controller
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
+            )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param Board $boardId
+     * @param BoardMember $entity
+     * @return RedirectResponse|Response
+     */
+    public function updateMemberAction(Request $request, Board $boardId, BoardMember $entity)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('EDIT', $journal, 'boards')) {
+            throw new AccessDeniedException("You not authorized for edit this journal's board!");
+        }
+        $em = $this->getDoctrine()->getManager();
+        $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
+
+        $editMemberForm = $this->createEditMemberForm($entity, $board, $journal);
+        $editMemberForm->handleRequest($request);
+
+        if ($editMemberForm->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute(
+                'ojs_journal_board_show',
+                ['id' => $board->getId(), 'journalId' => $journal->getId()]
+            );
+        }
+
+        return $this->render(
+            'OjsJournalBundle:Board:edit_member.html.twig',
+            array(
+                'entity' => $entity,
+                'board' => $board,
+                'edit_form' => $editMemberForm->createView(),
             )
         );
     }
@@ -488,9 +652,13 @@ class BoardController extends Controller
         $em = $this->getDoctrine()->getManager();
         $translator = $this->get('translator');
 
-        $getEditorUsers = $em->getRepository('OjsUserBundle:User')->findUsersByJournalRole(
-            ['ROLE_EDITOR']
+        $getEditorUsers = $em->getRepository(User::class)->findUsersByJournalRole(
+            ['ROLE_EDITOR', 'ROLE_CO_EDITOR', 'ROLE_SECTION_EDITOR']
         );
+
+        usort($getEditorUsers, function ($a, $b){
+            return strcmp($a->getLastName(), $b->getLastName());
+        });
 
         $board = new Board();
         $board->setJournal($journal);

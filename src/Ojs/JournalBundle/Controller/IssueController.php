@@ -45,26 +45,7 @@ class IssueController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
-        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:Issue');
-        $source->manipulateRow(
-            function (Row $row) use ($request, $cache) {
-                /** @var Issue $entity */
-                $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
-                if (!is_null($entity)) {
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $row->setField('translations.title', $entity->getTitleTranslations());
-                    }
-                }
-
-                return $row;
-            }
-        );
-
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -504,6 +485,56 @@ class IssueController extends Controller
         ];
 
         return $this->render('OjsJournalBundle:Issue:arrange.html.twig', $data);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @param int $sectionId
+     * @return Response
+     */
+    public function arrangeSortAction(Request $request,$id,$sectionId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $section = $em->getRepository(Section::class)->find($sectionId);
+        $articles = $em->getRepository(Article::class)->findBy(['issue' => $id, 'section' => $sectionId, 'status' => ArticleStatuses::STATUS_PUBLISHED]);
+        usort($articles, function($a, $b){
+            return $a->getOrderNum() > $b->getOrderNum();
+        });
+
+        $sortData = [];
+        foreach ($articles as $article){
+            $sortData[$article->getId()] = $article->getOrderNum();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $articleId => $order){
+                foreach ($articles as $article){
+                    if($article->getId() == $articleId){
+                        $article->setOrderNum($order);
+                        $em->persist($article);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_journal_issue_arrange_sort', [
+                'journalId' => $journal->getId(),
+                'id' => $id,
+                'sectionId' => $sectionId
+            ]);
+        }
+
+        return $this->render('OjsJournalBundle:Issue:sort.html.twig', [
+                'articles' => $articles,
+                'section' => $section,
+                'issueId' => $id,
+                'jsonSortData' => json_encode($sortData)
+            ]
+        );
     }
 
     /**

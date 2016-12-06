@@ -28,24 +28,7 @@ class AdminPersonTitleController extends OjsController
      */
     public function indexAction(Request $request)
     {
-        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:PersonTitle');
-        $source->manipulateRow(
-            function (Row $row) use ($request, $cache) {
-                /* @var PersonTitle $entity */
-                $entity = $row->getEntity();
-                if (!is_null($entity)) {
-                    if($cache->contains('grid_row_id_'.$entity->getId())){
-                        $row->setClass('hidden');
-                    }else{
-                        $entity->setDefaultLocale($request->getDefaultLocale());
-                        $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $row->setField('translations.title', $entity->getTitleTranslations());
-                    }
-                }
-                return $row;
-            }
-        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 

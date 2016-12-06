@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * JournalPage
- * @GRID\Source(columns="id, translations.title")
+ * @GRID\Source(columns="id, translations.title:translation_agg", groupBy={"id"})
  */
 class JournalPage extends AbstractTranslatable implements JournalItemInterface
 {
@@ -34,7 +34,7 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @var string
-     * @GRID\Column(title="title", field="translations.title", safe=false)
+     * @GRID\Column(title="title", field="translations.title:translation_agg", safe=false, operatorsVisible=false)
      */
     private $title;
 
@@ -52,6 +52,11 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
      * @var boolean
      */
     private $visible;
+
+    /**
+     * @var int
+     */
+    private $pageOrder = 0;
 
     /**
      * Constructor
@@ -222,6 +227,25 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
     public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPageOrder(): int
+    {
+        return $this->pageOrder;
+    }
+
+    /**
+     * @param int $pageOrder
+     * @return $this
+     */
+    public function setPageOrder(int $pageOrder)
+    {
+        $this->pageOrder = $pageOrder;
 
         return $this;
     }
