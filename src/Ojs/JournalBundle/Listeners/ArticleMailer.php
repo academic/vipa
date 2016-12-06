@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Listeners;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Event\Article\ArticleEvents;
 use Ojs\JournalBundle\Event\JournalItemEvent;
-use Ojs\UserBundle\Entity\User;
 
 class ArticleMailer extends AbstractJournalItemMailer
 {
@@ -14,137 +13,71 @@ class ArticleMailer extends AbstractJournalItemMailer
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             ArticleEvents::POST_CREATE => 'onArticlePostCreate',
             ArticleEvents::POST_UPDATE => 'onArticlePostUpdate',
-            ArticleEvents::PRE_DELETE => 'onArticlePreDelete',
             ArticleEvents::POST_SUBMIT => 'onArticlePostSubmit',
-        );
-    }
-
-    /**
-     * @param JournalItemEvent $itemEvent
-     */
-    public function onArticlePostCreate(JournalItemEvent $itemEvent)
-    {
-        $getMailEvent = $this->ojsMailer->getTemplateByEvent(ArticleEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalStaff() as $user) {
-            $transformParams = [
-                'journal'           => (string)$itemEvent->getItem()->getJournal(),
-                'article.title'     => $itemEvent->getItem()->getTitle(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
-    }
-
-    /**
-     * @param JournalItemEvent $itemEvent
-     */
-    public function onArticlePostUpdate(JournalItemEvent $itemEvent)
-    {
-        $getMailEvent = $this->ojsMailer->getTemplateByEvent(ArticleEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalStaff() as $user) {
-            $transformParams = [
-                'journal'           => (string)$itemEvent->getItem()->getJournal(),
-                'article.title'     => $itemEvent->getItem()->getTitle(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
-    }
-
-    /**
-     * @param JournalItemEvent $itemEvent
-     */
-    public function onArticlePreDelete(JournalItemEvent $itemEvent)
-    {
-        $getMailEvent = $this->ojsMailer->getTemplateByEvent(ArticleEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalStaff() as $user) {
-            $transformParams = [
-                'journal'           => (string)$itemEvent->getItem()->getJournal(),
-                'article.title'     => $itemEvent->getItem()->getTitle(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
-    }
-
-    /**
-     * @param JournalItemEvent $itemEvent
-     */
-    public function onArticlePostSubmit(JournalItemEvent $itemEvent)
-    {
-        /** @var Article $article */
-        $article = $itemEvent->getItem();
-        $submitterUser = $article->getSubmitterUser();
-
-        $getMailEvent = $this->ojsMailer->getTemplateByEvent(ArticleEvents::POST_SUBMIT, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        foreach ($this->ojsMailer->getJournalStaff() as $user) {
-            $transformParams = [
-                'journal'               => (string)$itemEvent->getItem()->getJournal(),
-                'article.title'         => $itemEvent->getItem()->getTitle(),
-                'submitter.username'    => $submitterUser->getUsername(),
-                'receiver.username'     => $user->getUsername(),
-                'receiver.fullName'     => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
-
-        //send mail to submitter user
-        $transformParams = [
-            'journal'               => (string)$itemEvent->getItem()->getJournal(),
-            'article.title'         => $itemEvent->getItem()->getTitle(),
-            'submitter.username'    => $submitterUser->getUsername(),
-            'receiver.username'     => $submitterUser->getUsername(),
-            'receiver.fullName'     => $submitterUser->getFullName(),
+            ArticleEvents::PRE_DELETE  => 'onArticlePreDelete',
         ];
-        $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-        $this->ojsMailer->sendToUser(
-            $submitterUser,
-            $getMailEvent->getSubject(),
-            $template
-        );
+    }
+
+    /**
+     * @param JournalItemEvent $event
+     */
+    public function onArticlePostCreate(JournalItemEvent $event)
+    {
+        $this->sendArticleMail($event, ArticleEvents::POST_CREATE);
+    }
+
+    /**
+     * @param JournalItemEvent $event
+     */
+    public function onArticlePostUpdate(JournalItemEvent $event)
+    {
+        $this->sendArticleMail($event, ArticleEvents::POST_UPDATE);
+    }
+
+    /**
+     * @param JournalItemEvent $event
+     */
+    public function onArticlePreDelete(JournalItemEvent $event)
+    {
+        $this->sendArticleMail($event, ArticleEvents::PRE_DELETE);
+    }
+
+    /**
+     * @param JournalItemEvent $event
+     */
+    public function onArticlePostSubmit(JournalItemEvent $event)
+    {
+        $article = $event->getItem();
+
+        if (!$article instanceof Article) {
+            return;
+        }
+
+        $submitterUser = $article->getSubmitterUser();
+        $params = ['submitter.username' => $submitterUser->getUsername()];
+        $this->sendArticleMail($event, ArticleEvents::POST_SUBMIT, [$submitterUser], $params);
+    }
+
+    /**
+     * @param JournalItemEvent $event
+     * @param string $name
+     * @param array $extraUsers
+     * @param array $extraParams
+     */
+    private function sendArticleMail(
+        JournalItemEvent $event,
+        string $name,
+        array $extraUsers = [],
+        array $extraParams = []
+    ) {
+        /** @var Article $article */
+        $article = $event->getItem();
+        $journal = $article->getJournal();
+        $users = array_merge($this->ojsMailer->getJournalStaff(), $extraUsers);
+        $params = array_merge(['journal' => (string) $journal, 'article.title' => $article->getTitle()], $extraParams);
+        $this->ojsMailer->sendEventMail($name, $users, $params, $journal);
     }
 }
