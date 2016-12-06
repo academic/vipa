@@ -101,16 +101,15 @@ class Mailer
             return;
         }
 
-        $body = $this->transformTemplate($template->getTemplate(), $templateParams);
-
         /** @var User $user */
         foreach ($users as $user) {
-            array_merge($templateParams, [
+            $templateParams = array_merge([
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
                 'done.by' => $this->currentUser()->getUsername(),
-            ]);
+            ], $templateParams);
 
+            $body = $this->transformTemplate($template->getTemplate(), $templateParams);
             $this->sendToUser($user, $template->getSubject(), $body);
         }
     }
