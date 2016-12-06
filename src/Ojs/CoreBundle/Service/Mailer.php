@@ -87,6 +87,35 @@ class Mailer
     }
 
     /**
+     * @param string $event
+     * @param array $users
+     * @param array $templateParams
+     * @param Journal|null $journal
+     */
+    public function sendEventMail(string $event, array $users, array $templateParams, Journal $journal = null)
+    {
+        $lang = $journal === null ?: $journal->getMandatoryLang()->getCode();
+        $template = $this->getTemplateByEvent($event, $lang, $journal);
+
+        if ($template === null) {
+            return;
+        }
+
+        $body = $this->transformTemplate($template->getTemplate(), $templateParams);
+
+        /** @var User $user */
+        foreach ($users as $user) {
+            array_merge($templateParams, [
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+                'done.by' => $this->currentUser()->getUsername(),
+            ]);
+
+            $this->sendToUser($user, $template->getSubject(), $body);
+        }
+    }
+
+    /**
      * @param UserInterface|User $user
      * @param string $subject
      * @param string $body
