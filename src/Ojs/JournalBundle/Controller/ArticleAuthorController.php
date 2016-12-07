@@ -247,6 +247,7 @@ class ArticleAuthorController extends Controller
     /**
      * Displays a form to create a new ArticleAuthor entity.
      *
+     * @param Request $request
      * @param $articleId
      * @return Response
      */
@@ -284,11 +285,9 @@ class ArticleAuthorController extends Controller
 
             $this->successFlashBag('successful.create');
 
-            return $this->redirect(
-                $this->generateUrl(
-                    'ojs_journal_article_author_index',
-                    array('articleId' => $article->getId(), 'journalId' => $journal->getId())
-                )
+            return $this->redirectToRoute(
+                    'ojs_journal_article_author_edit',
+                    array('articleId' => $article->getId(), 'journalId' => $journal->getId(), 'id' => $author->getId())
             );
         }
 
