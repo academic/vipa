@@ -49,8 +49,8 @@ class JournalContactMailer extends AbstractJournalItemMailer
         /** @var JournalContact */
         $contact = $event->getItem();
         $journal = $contact->getJournal();
-        $staff = $this->ojsMailer->getJournalStaff();
+        $staff = $this->mailer->getJournalStaff();
         $params = ['contact' => (string) $contact];
-        $this->ojsMailer->sendEventMail($name, $staff, $params, $journal);
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }

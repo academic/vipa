@@ -53,13 +53,13 @@ class JournalIndexMailer extends AbstractJournalItemMailer
         /** @var JournalIndex $index */
         $index = $event->getItem();
         $journal = $index->getJournal();
-        $staff = $this->ojsMailer->getJournalStaff();
+        $staff = $this->mailer->getJournalStaff();
 
         $params = [
             'journal' => (string) $journal,
             'index'   => (string) $index,
         ];
 
-        $this->ojsMailer->sendEventMail($name, $staff, $params, $journal);
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }

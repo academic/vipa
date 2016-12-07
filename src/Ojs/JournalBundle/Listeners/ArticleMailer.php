@@ -76,8 +76,8 @@ class ArticleMailer extends AbstractJournalItemMailer
         /** @var Article $article */
         $article = $event->getItem();
         $journal = $article->getJournal();
-        $users = array_merge($this->ojsMailer->getJournalStaff(), $extraUsers);
+        $users = array_merge($this->mailer->getJournalStaff(), $extraUsers);
         $params = array_merge(['journal' => (string) $journal, 'article.title' => $article->getTitle()], $extraParams);
-        $this->ojsMailer->sendEventMail($name, $users, $params, $journal);
+        $this->mailer->sendEventMail($name, $users, $params, $journal);
     }
 }

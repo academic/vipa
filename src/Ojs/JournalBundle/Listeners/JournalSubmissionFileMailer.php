@@ -49,8 +49,8 @@ class JournalSubmissionFileMailer extends AbstractJournalItemMailer
         /** @var JournalSubmissionFile $file */
         $file = $event->getItem();
         $journal = $file->getJournal();
-        $staff = $this->ojsMailer->getJournalStaff();
+        $staff = $this->mailer->getJournalStaff();
         $params = ['submission.file' => (string) $file];
-        $this->ojsMailer->sendEventMail($name, $staff, $params, $journal);
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }

@@ -21,21 +21,21 @@ class AdminEventListener implements EventSubscriberInterface
     private $em;
 
     /** @var Mailer */
-    private $ojsMailer;
+    private $mailer;
 
     /**
      * @param RouterInterface $router
      * @param EntityManager $em
-     * @param Mailer $ojsMailer
+     * @param Mailer $mailer
      */
     public function __construct(
         RouterInterface $router,
         EntityManager $em,
-        Mailer $ojsMailer
+        Mailer $mailer
     ) {
         $this->router = $router;
         $this->em = $em;
-        $this->ojsMailer = $ojsMailer;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -78,7 +78,7 @@ class AdminEventListener implements EventSubscriberInterface
     public function onUserChangeCreate(AdminEvent $event)
     {
         $name = AdminEvents::ADMIN_USER_CHANGE_CREATE.'.created.user';
-        $this->ojsMailer->sendEventMail($name, [$event->getEntity()], []);
+        $this->mailer->sendEventMail($name, [$event->getEntity()], []);
     }
 
     /**
@@ -105,11 +105,11 @@ class AdminEventListener implements EventSubscriberInterface
         $this->sendAdminMail(AdminEvents::JOURNAL_APPLICATION_HAPPEN, [], ['journal.title' => $journal->getTitle()]);
 
         // ... and then the applicant user.
-        if ($this->ojsMailer->currentUser() instanceof UserInterface){
-            $user = $this->ojsMailer->currentUser();
+        if ($this->mailer->currentUser() instanceof UserInterface){
+            $user = $this->mailer->currentUser();
         } else {
             $user = new User();
-            $username = $this->ojsMailer->translator->trans('journal.manager');
+            $username = $this->mailer->translator->trans('journal.manager');
             $user->setEmail($journal->getEmail())->setUsername($username);
         }
 
@@ -119,7 +119,7 @@ class AdminEventListener implements EventSubscriberInterface
             'journal.address' => $journal->getAddress(),
         ];
 
-        $this->ojsMailer->sendEventMail(AdminEvents::JOURNAL_APPLICATION_HAPPEN.'.application.user', [$user], $params, null);
+        $this->mailer->sendEventMail(AdminEvents::JOURNAL_APPLICATION_HAPPEN.'.application.user', [$user], $params, null);
     }
 
     /**
@@ -188,7 +188,7 @@ class AdminEventListener implements EventSubscriberInterface
         array $extraUsers = [],
         array $extraParams = []
     ) {
-        $users = array_merge($this->ojsMailer->getAdmins(), $extraUsers);
-        $this->ojsMailer->sendEventMail($name, $users, $extraParams, null);
+        $users = array_merge($this->mailer->getAdmins(), $extraUsers);
+        $this->mailer->sendEventMail($name, $users, $extraParams, null);
     }
 }

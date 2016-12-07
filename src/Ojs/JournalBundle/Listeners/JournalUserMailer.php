@@ -62,13 +62,13 @@ class JournalUserMailer extends AbstractJournalItemMailer
         /** @var JournalUser $user */
         $user = $event->getItem();
         $journal = $user->getJournal();
-        $staff = $this->ojsMailer->getJournalStaff();
+        $staff = $this->mailer->getJournalStaff();
 
         $params = [
             'journal'      => (string) $journal,
             'journal.user' => (string) $user,
         ];
 
-        $this->ojsMailer->sendEventMail($name, $staff, $params, $journal);
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }

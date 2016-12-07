@@ -49,8 +49,8 @@ class JournalSubmissionChecklistMailer extends AbstractJournalItemMailer
         /** @var SubmissionChecklist $checklist */
         $checklist = $event->getItem();
         $journal = $checklist->getJournal();
-        $staff = $this->ojsMailer->getJournalStaff();
+        $staff = $this->mailer->getJournalStaff();
         $params = ['submission.checklist' => (string) $checklist];
-        $this->ojsMailer->sendEventMail($name, $staff, $params, $journal);
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }

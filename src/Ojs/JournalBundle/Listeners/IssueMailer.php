@@ -56,13 +56,13 @@ class IssueMailer extends AbstractJournalItemMailer
         /** @var Issue $issue */
         $issue = $event->getItem();
         $journal = $issue->getJournal();
-        $staff = $this->ojsMailer->getJournalStaff();
+        $staff = $this->mailer->getJournalStaff();
 
         $params = [
             'journal' => (string) $journal,
             'issue'   => (string) $issue,
         ];
 
-        $this->ojsMailer->sendEventMail($name, $staff, $params, $journal);
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }

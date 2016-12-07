@@ -53,13 +53,13 @@ class BoardMailer extends AbstractJournalItemMailer
         /** @var Board $board */
         $board = $event->getItem();
         $journal = $board->getJournal();
-        $staff = $this->ojsMailer->getJournalStaff();
+        $staff = $this->mailer->getJournalStaff();
 
         $params = [
             'journal' => (string) $journal,
             'board'   => (string) $board,
         ];
 
-        $this->ojsMailer->sendEventMail($name, $staff, $params, $journal);
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }

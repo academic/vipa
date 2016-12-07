@@ -20,9 +20,9 @@ class JournalMailer extends AbstractJournalItemMailer
      */
     public function onJournalPostUpdate(JournalEvent $event)
     {
-        $this->ojsMailer->sendEventMail(
+        $this->mailer->sendEventMail(
             JournalEvents::POST_UPDATE,
-            $this->ojsMailer->getJournalStaff(),
+            $this->mailer->getJournalStaff(),
             ['journal' => (string) $event->getJournal()],
             $event->getJournal()
         );

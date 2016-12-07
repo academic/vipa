@@ -53,13 +53,13 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
         /** @var JournalAnnouncement $announcement */
         $announcement = $event->getItem();
         $journal = $announcement->getJournal();
-        $staff = $this->ojsMailer->getJournalStaff();
+        $staff = $this->mailer->getJournalStaff();
 
         $params = [
             'journal'      => (string) $journal,
             'announcement' => (string) $announcement,
         ];
 
-        $this->ojsMailer->sendEventMail($name, $staff, $params, $journal);
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }

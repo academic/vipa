@@ -14,7 +14,7 @@ use Symfony\Component\Routing\RouterInterface;
 abstract class AbstractJournalItemMailer implements EventSubscriberInterface
 {
     /** @var Mailer */
-    protected $ojsMailer;
+    protected $mailer;
 
     /** @var EntityManager */
     protected $em;
@@ -27,19 +27,19 @@ abstract class AbstractJournalItemMailer implements EventSubscriberInterface
 
     /**
      * AbstractJournalItemMailer constructor.
-     * @param Mailer $ojsMailer
+     * @param Mailer $mailer
      * @param RegistryInterface $registry
      * @param TokenStorageInterface $tokenStorage
      * @param RouterInterface $router
      */
     public function __construct(
-        Mailer $ojsMailer,
+        Mailer $mailer,
         RegistryInterface $registry,
         TokenStorageInterface $tokenStorage,
         RouterInterface $router
     )
     {
-        $this->ojsMailer = $ojsMailer;
+        $this->mailer = $mailer;
         $this->em = $registry->getManager();
         $this->user = $tokenStorage->getToken() ? $tokenStorage->getToken()->getUser(): null;
         $this->router = $router;
@@ -48,8 +48,8 @@ abstract class AbstractJournalItemMailer implements EventSubscriberInterface
     protected function sendMail(JournalItemEvent $itemEvent, $item, $action)
     {
         $journalItem = $itemEvent->getItem();
-        foreach ($this->ojsMailer->getJournalStaff() as $user) {
-            $this->ojsMailer->sendToUser(
+        foreach ($this->mailer->getJournalStaff() as $user) {
+            $this->mailer->sendToUser(
                 $user,
                 'A '.$item.' '.$action.' -> '.$journalItem->getJournal()->getTitle(),
                 'A '.$item.' '.$action.' -> '.$journalItem->getJournal()->getTitle()

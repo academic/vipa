@@ -49,7 +49,7 @@ class SectionMailer extends AbstractJournalItemMailer
         /** @var Section $section */
         $section = $event->getItem();
         $journal = $section->getJournal();
-        $staff = $this->ojsMailer->getJournalStaff();
-        $this->ojsMailer->sendEventMail($name, $staff, ['section' => $section], $journal);
+        $staff = $this->mailer->getJournalStaff();
+        $this->mailer->sendEventMail($name, $staff, ['section' => $section], $journal);
     }
 }

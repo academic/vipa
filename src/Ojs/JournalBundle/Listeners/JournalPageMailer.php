@@ -49,8 +49,8 @@ class JournalPageMailer extends AbstractJournalItemMailer
         /** @var JournalPage $page */
         $page = $event->getItem();
         $journal = $page->getJournal();
-        $staff = $this->ojsMailer->getJournalStaff();
+        $staff = $this->mailer->getJournalStaff();
         $params = ['page' => $page->getTitleTranslations()];
-        $this->ojsMailer->sendEventMail($name, $staff, $params, $journal);
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }
