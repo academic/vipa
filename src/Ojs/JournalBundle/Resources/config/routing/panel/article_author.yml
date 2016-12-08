@@ -36,3 +36,7 @@ ojs_journal_article_author_delete:
     path:     /{journalId}/article/{articleId}/author/{id}/delete
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:delete" }
     methods:  [DELETE]
+
+ojs_journal_article_author_search:
+    path: /{journalId}/author/search
+    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:getAuthorBasedJournal" }

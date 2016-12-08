@@ -5,10 +5,10 @@ namespace Ojs\JournalBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Doctrine\ORM\EntityRepository;
 
 class ArticleAddAuthorType extends AbstractType
 {
+    
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -18,14 +18,16 @@ class ArticleAddAuthorType extends AbstractType
         $builder
             ->add(
                 'author',
-                'entity',
+                'tetranz_select2entity',
                 [
-                    'label' => 'author',
+                    'required' => true,
+                    'label' => 'authors',
+                    'placeholder' => 'authors',
                     'class' => 'Ojs\JournalBundle\Entity\Author',
-                    'attr' => array("class" => "select2-element")
+                    'remote_route' => 'ojs_journal_article_author_search',
+                    'remote_params' => array('journalId' => $options['journalId'])
                 ]
-            )
-            ->add('authorOrder', null, ['label' => 'author.order']);
+            )->add('authorOrder', null, ['label' => 'author.order']);
     }
 
     /**
@@ -36,7 +38,7 @@ class ArticleAddAuthorType extends AbstractType
         $resolver->setDefaults(
             array(
                 'validation_groups' => array('create'),
-                'articleId' => null
+                'journalId' => null
             )
         );
     }

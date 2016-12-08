@@ -14,6 +14,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Form\Type\ArticleAuthorType;
 use Ojs\JournalBundle\Form\Type\ArticleAddAuthorType;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -318,7 +319,7 @@ class ArticleAuthorController extends Controller
                     ['journalId' => $journal->getId(), 'articleId' => $article->getId()]
                 ),
                 'method' => 'POST',
-                'articleId' => $article->getId()
+                'journalId' => $journal->getId()
             )
         );
 
@@ -514,6 +515,46 @@ class ArticleAuthorController extends Controller
             'ojs_journal_article_author_index',
             ['articleId' => $article->getId(), 'journalId' => $journal->getId()]
         );
+    }
+
+
+
+    /**
+     * Search journal based users
+     *
+     * @param Request $request
+     * @return Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException|static
+     */
+    public function getAuthorBasedJournalAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$journal) {
+            return $this->createNotFoundException();
+        }
+
+        $defaultLimit = 20;
+        $limit = ($request->get('page_limit') && $defaultLimit >= $request->get('page_limit')) ?
+            $request->get('page_limit') :
+            $defaultLimit;
+
+        $journalAuthors = $em->getRepository('OjsJournalBundle:Author')->searchJournalAuthor(
+            $request->get('q'),
+            $journal,
+            $limit
+        );
+        $data = [];
+        if (count($journalAuthors) > 0) {
+            foreach ($journalAuthors as $journalAuthor) {
+                $data[] = [
+                    'id' => $journalAuthor->getId(),
+                    'text' => (string) $journalAuthor->getFullName().' ('.$journalAuthor->getEmail().')',
+                ];
+            }
+        }
+
+        return JsonResponse::create($data);
     }
 
 }
