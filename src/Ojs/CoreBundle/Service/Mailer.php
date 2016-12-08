@@ -213,7 +213,15 @@ class Mailer
 
         $template = $this->em->getRepository(MailTemplate::class)->findOneBy($criteria);
 
-        if ($template == null) {
+        if ($template === null) {
+            if ($journal !== null) {
+                return $this->getTemplateByEvent($eventName, $lang);
+            }
+
+            if ($lang !== null) {
+                return $this->getTemplateByEvent($eventName);
+            }
+
             return null;
         } elseif ($template->isUseJournalDefault()) {
             $GLOBALS[$globalKey] = false;
