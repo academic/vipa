@@ -225,7 +225,7 @@ class Mailer
             return null;
         } elseif ($template->isUseJournalDefault()) {
             $GLOBALS[$globalKey] = false;
-            array_merge($criteria, ['journal' => null, 'journalDefault' => true]);
+            $criteria = array_merge($criteria, ['journal' => null, 'journalDefault' => true]);
             return $this->em->getRepository(MailTemplate::class)->findOneBy($criteria);
         } elseif (!$template->isActive()) {
             return false;
