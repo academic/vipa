@@ -25,8 +25,8 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
      */
     public function onJournalAnnouncementPostCreate(JournalItemEvent $event)
     {
-        $this->sendAnnouncementMail($event, JournalAnnouncementEvents::POST_CREATE);
-        $this->sendAnnouncementMailToSubscribers($event, JournalAnnouncementEvents::POST_CREATE);
+        $subscribers = $this->mailer->getSubscribers($event->getItem()->getJournal());
+        $this->sendAnnouncementMail($event, JournalAnnouncementEvents::POST_CREATE, $subscribers);
     }
 
     /**
@@ -48,38 +48,20 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
     /**
      * @param JournalItemEvent $event
      * @param string $name
+     * @param array $users
      */
-    private function sendAnnouncementMail(JournalItemEvent $event, string $name)
+    private function sendAnnouncementMail(JournalItemEvent $event, string $name, array $users = [])
     {
         /** @var JournalAnnouncement $announcement */
         $announcement = $event->getItem();
         $journal = $announcement->getJournal();
-        $staff = $this->mailer->getJournalStaff();
+        $users = array_merge($this->mailer->getJournalStaff(), $users);
 
         $params = [
             'journal'      => (string) $journal,
             'announcement' => (string) $announcement,
         ];
 
-        $this->mailer->sendEventMail($name, $staff, $params, $journal);
-    }
-
-    /**
-     * @param JournalItemEvent $event
-     * @param string $name
-     */
-    private function sendAnnouncementMailToSubscribers(JournalItemEvent $event, string $name)
-    {
-        /** @var JournalAnnouncement $announcement */
-        $announcement = $event->getItem();
-        $journal = $announcement->getJournal();
-        $subscribers = $this->mailer->getSubscribers($journal);
-
-        $params = [
-            'journal'      => (string) $journal,
-            'announcement' => (string) $announcement,
-        ];
-
-        $this->mailer->sendEventMailToSubscribers($name, $subscribers, $params, $journal);
+        $this->mailer->sendEventMail($name, $users, $params, $journal);
     }
 }
