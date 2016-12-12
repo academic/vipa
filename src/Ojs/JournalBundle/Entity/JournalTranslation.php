@@ -41,6 +41,11 @@ class JournalTranslation extends AbstractTranslation
     protected $footerText;
 
     /**
+     * @var  string
+     */
+    protected $mailSignature;
+
+    /**
      * @return string
      */
     public function getTitle()
@@ -118,5 +123,23 @@ class JournalTranslation extends AbstractTranslation
     public function setFooterText($footerText)
     {
         $this->footerText = $footerText;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMailSignature()
+    {
+        return $this->mailSignature;
+    }
+
+    /**
+     * @param string $mailSignature
+     * @return JournalTranslation
+     */
+    public function setMailSignature($mailSignature)
+    {
+        $this->mailSignature = $mailSignature;
+        return $this;
     }
 }

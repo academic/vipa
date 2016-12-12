@@ -611,6 +611,7 @@ class Journal extends AbstractTranslatable
                 $translation->setDescription($defaultTranslation->getDescription());
                 $translation->setTitleAbbr($defaultTranslation->getTitleAbbr());
                 $translation->setFooterText($defaultTranslation->getFooterText());
+                $translation->setMailSignature($defaultTranslation->getMailSignature());
             }
             $translation->setLocale($locale);
             $this->addTranslation($translation);
@@ -1383,6 +1384,22 @@ class Journal extends AbstractTranslatable
     public function setFooterText($footerText)
     {
         $this->translate()->setFooterText($footerText);
+    }
+
+    /**
+     * @return string
+     */
+    public function getMailSignature()
+    {
+        return $this->getLogicalFieldTranslation('mailSignature', false);
+    }
+
+    /**
+     * @param string $mailSignature
+     */
+    public function setMailSignature($mailSignature)
+    {
+        $this->translate()->setMailSignature($mailSignature);
     }
 
     /**

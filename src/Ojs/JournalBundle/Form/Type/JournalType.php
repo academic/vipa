@@ -44,6 +44,11 @@ class JournalType extends AbstractType
                         'attr' => array('class' => ' form-control wysihtml5'),
                         'field_type' => 'purified_textarea',
                         'required' => false,
+                    ],
+                    'mailSignature' => [
+                        'label' => 'journal.settings.mail.signature',
+                        'field_type' => 'text',
+                        'required' => false,
                     ]
                 ]
             ])

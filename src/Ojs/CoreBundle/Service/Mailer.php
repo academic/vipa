@@ -94,6 +94,7 @@ class Mailer
      */
     public function sendEventMail(string $event, array $users, array $templateParams, Journal $journal = null)
     {
+        $signature = $journal === null ? "" : PHP_EOL.$journal->getMailSignature();
         $lang = $journal === null ?: $journal->getMandatoryLang()->getCode();
         $template = $this->getTemplateByEvent($event, $lang, $journal);
 
@@ -110,7 +111,7 @@ class Mailer
             ], $templateParams);
 
             $body = $this->transformTemplate($template->getTemplate(), $templateParams);
-            $this->sendToUser($user, $template->getSubject(), $body);
+            $this->sendToUser($user, $template->getSubject(), $body.$signature);
         }
     }
 
