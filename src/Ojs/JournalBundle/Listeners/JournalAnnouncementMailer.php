@@ -80,6 +80,6 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
             'announcement' => (string) $announcement,
         ];
 
-        $this->mailer->sendEventMail($name, $subscribers, $params, $journal);
+        $this->mailer->sendEventMailToSubscribers($name, $subscribers, $params, $journal);
     }
 }
