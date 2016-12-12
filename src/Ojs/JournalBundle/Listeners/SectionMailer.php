@@ -2,9 +2,9 @@
 
 namespace Ojs\JournalBundle\Listeners;
 
-use Ojs\JournalBundle\Event\Section\SectionEvents;
+use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Event\JournalItemEvent;
-use Ojs\UserBundle\Entity\User;
+use Ojs\JournalBundle\Event\Section\SectionEvents;
 
 class SectionMailer extends AbstractJournalItemMailer
 {
@@ -13,88 +13,43 @@ class SectionMailer extends AbstractJournalItemMailer
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             SectionEvents::POST_CREATE => 'onSectionPostCreate',
             SectionEvents::POST_UPDATE => 'onSectionPostUpdate',
-            SectionEvents::PRE_DELETE => 'onSectionPreDelete',
-        );
+            SectionEvents::PRE_DELETE  => 'onSectionPreDelete',
+        ];
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onSectionPostCreate(JournalItemEvent $itemEvent)
+    public function onSectionPostCreate(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(SectionEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
-            $transformParams = [
-                'section'           => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendSectionMail($event, SectionEvents::POST_CREATE);
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onSectionPostUpdate(JournalItemEvent $itemEvent)
+    public function onSectionPostUpdate(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(SectionEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
-            $transformParams = [
-                'section'           => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendSectionMail($event, SectionEvents::POST_UPDATE);
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onSectionPreDelete(JournalItemEvent $itemEvent)
+    public function onSectionPreDelete(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(SectionEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
-            $transformParams = [
-                'section'           => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendSectionMail($event, SectionEvents::PRE_DELETE);
+    }
+
+    private function sendSectionMail(JournalItemEvent $event, string $name)
+    {
+        /** @var Section $section */
+        $section = $event->getItem();
+        $journal = $section->getJournal();
+        $staff = $this->mailer->getJournalStaff();
+        $this->mailer->sendEventMail($name, $staff, ['section' => $section], $journal);
     }
 }

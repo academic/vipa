@@ -488,6 +488,56 @@ class IssueController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param int $id
+     * @param int $sectionId
+     * @return Response
+     */
+    public function arrangeSortAction(Request $request,$id,$sectionId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $section = $em->getRepository(Section::class)->find($sectionId);
+        $articles = $em->getRepository(Article::class)->findBy(['issue' => $id, 'section' => $sectionId, 'status' => ArticleStatuses::STATUS_PUBLISHED]);
+        usort($articles, function($a, $b){
+            return $a->getOrderNum() > $b->getOrderNum();
+        });
+
+        $sortData = [];
+        foreach ($articles as $article){
+            $sortData[$article->getId()] = $article->getOrderNum();
+        }
+
+        if($request->getMethod() == 'POST' && $request->request->has('sortData')){
+            $sortData = json_decode($request->request->get('sortData'));
+            foreach ($sortData as $articleId => $order){
+                foreach ($articles as $article){
+                    if($article->getId() == $articleId){
+                        $article->setOrderNum($order);
+                        $em->persist($article);
+                    }
+                }
+            }
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_journal_issue_arrange_sort', [
+                'journalId' => $journal->getId(),
+                'id' => $id,
+                'sectionId' => $sectionId
+            ]);
+        }
+
+        return $this->render('OjsJournalBundle:Issue:sort.html.twig', [
+                'articles' => $articles,
+                'section' => $section,
+                'issueId' => $id,
+                'jsonSortData' => json_encode($sortData)
+            ]
+        );
+    }
+
+    /**
      * add article to this issue
      * @param   Request $request
      * @param   integer $id

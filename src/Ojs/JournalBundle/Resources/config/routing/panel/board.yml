@@ -42,6 +42,15 @@ ojs_journal_board_member_add:
     defaults: { _controller: "OjsJournalBundle:Board:addMember" }
     methods:  [POST, PUT]
 
+ojs_journal_board_member_edit:
+    path:     /{journalId}/board/{boardId}/member/{id}/edit
+    defaults: { _controller: "OjsJournalBundle:Board:editMember" }
+
+ojs_journal_board_member_update:
+    path:     /{journalId}/board/{boardId}/member/{id}/update
+    defaults: { _controller: "OjsJournalBundle:Board:updateMember" }
+    methods: [PUT]
+
 ojs_journal_board_member_remove:
     path:  /{journalId}/board/{boardId}/member/{id}/remove
     defaults: { _controller: "OjsJournalBundle:Board:removeMember" }

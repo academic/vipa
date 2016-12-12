@@ -2,9 +2,9 @@
 
 namespace Ojs\JournalBundle\Listeners;
 
+use Ojs\JournalBundle\Entity\JournalSubmissionFile;
 use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\JournalSubmissionFile\JournalSubmissionFileEvents;
-use Ojs\UserBundle\Entity\User;
 
 class JournalSubmissionFileMailer extends AbstractJournalItemMailer
 {
@@ -13,88 +13,44 @@ class JournalSubmissionFileMailer extends AbstractJournalItemMailer
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             JournalSubmissionFileEvents::POST_CREATE => 'onJournalSubmissionFilePostCreate',
             JournalSubmissionFileEvents::POST_UPDATE => 'onJournalSubmissionFilePostUpdate',
-            JournalSubmissionFileEvents::PRE_DELETE => 'onJournalSubmissionFilePreDelete',
-        );
+            JournalSubmissionFileEvents::PRE_DELETE  => 'onJournalSubmissionFilePreDelete',
+        ];
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onJournalSubmissionFilePostCreate(JournalItemEvent $itemEvent)
+    public function onJournalSubmissionFilePostCreate(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionFileEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
-            $transformParams = [
-                'submission.file'       => (string)$itemEvent->getItem(),
-                'done.by'               => $this->ojsMailer->currentUser()->getFullName(),
-                'receiver.username'     => $user->getUsername(),
-                'receiver.fullName'     => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendFileMail($event, JournalSubmissionFileEvents::POST_CREATE);
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onJournalSubmissionFilePostUpdate(JournalItemEvent $itemEvent)
+    public function onJournalSubmissionFilePostUpdate(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionFileEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
-            $transformParams = [
-                'submission.file'       => (string)$itemEvent->getItem(),
-                'done.by'               => $this->ojsMailer->currentUser()->getFullName(),
-                'receiver.username'     => $user->getUsername(),
-                'receiver.fullName'     => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendFileMail($event, JournalSubmissionFileEvents::POST_UPDATE);
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onJournalSubmissionFilePreDelete(JournalItemEvent $itemEvent)
+    public function onJournalSubmissionFilePreDelete(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionFileEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
-            $transformParams = [
-                'submission.file'       => (string)$itemEvent->getItem(),
-                'done.by'               => $this->ojsMailer->currentUser()->getFullName(),
-                'receiver.username'     => $user->getUsername(),
-                'receiver.fullName'     => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendFileMail($event, JournalSubmissionFileEvents::PRE_DELETE);
+    }
+
+    private function sendFileMail(JournalItemEvent $event, string $name)
+    {
+        /** @var JournalSubmissionFile $file */
+        $file = $event->getItem();
+        $journal = $file->getJournal();
+        $staff = $this->mailer->getJournalStaff();
+        $params = ['submission.file' => (string) $file];
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }

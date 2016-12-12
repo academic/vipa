@@ -107,7 +107,6 @@ class JournalContactController extends Controller
             ]);
         }
 
-        dump($contacts);
         return $this->render('OjsJournalBundle:JournalContact:sort.html.twig', [
                 'contacts' => $contacts,
                 'jsonSortData' => json_encode($sortData),

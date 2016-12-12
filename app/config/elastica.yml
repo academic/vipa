@@ -187,6 +187,12 @@ fos_elastica:
                 raw:
                   type: string
                   index: not_analyzed
+            originalTitle:
+              type: string
+              fields:
+                raw:
+                  type: string
+                  index: not_analyzed
             slug: { type: string }
             subtitle: { type: string }
             description: { type: string }

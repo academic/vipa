@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Query\ResultSetMapping;
@@ -73,8 +74,8 @@ class LockssController extends OjsController
 
         $monthKey = array_search($month, $months);
 
-        $sql = 'SELECT id,doi FROM article WHERE doi is not null AND EXTRACT(YEAR FROM created) ='.$year;
-        $sql .= 'AND EXTRACT(MONTH FROM created) ='.$monthKey;
+        $sql = 'SELECT id,doi FROM article WHERE doi is not null AND journal_id = '.$journal->getId().' AND status = '.ArticleStatuses::STATUS_PUBLISHED.' AND EXTRACT(YEAR FROM pubdate) ='.$year;
+        $sql .= 'AND EXTRACT(MONTH FROM pubdate) ='.$monthKey;
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id','id');

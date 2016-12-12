@@ -40,12 +40,6 @@ class JournalAnnouncement extends AbstractTranslatable implements JournalItemInt
     private $content;
 
     /**
-     * @var string
-     * @Display\Image(filter="announcement_original")
-     */
-    private $image;
-
-    /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalAnnouncementTranslation")
      */
     protected $translations;
@@ -130,7 +124,7 @@ class JournalAnnouncement extends AbstractTranslatable implements JournalItemInt
     public function getTitleTranslations()
     {
         $titles = [];
-        /** @var JournalPageTranslation $translation */
+        /** @var JournalAnnouncementTranslation $translation */
         foreach($this->translations as $translation){
             $titles[] = $translation->getTitle(). ' ['.$translation->getLocale().']';
         }
@@ -159,22 +153,6 @@ class JournalAnnouncement extends AbstractTranslatable implements JournalItemInt
     public function getContent()
     {
         return $this->getLogicalFieldTranslation('content', false);
-    }
-
-    /**
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param string $image
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
     }
 
     /**
