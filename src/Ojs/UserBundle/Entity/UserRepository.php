@@ -155,4 +155,18 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 
         return $query->execute();
     }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection|User[]
+     * @link http://stackoverflow.com/a/16692911
+     */
+    public function findAdmins()
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb
+            ->select('u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
+        return $qb->getQuery()->getResult();
+    }
 }

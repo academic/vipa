@@ -22,7 +22,7 @@ class ShortLinkController extends Controller
     public function articleDoiAction($doi)
     {
         $repo = $this->getDoctrine()->getRepository('OjsJournalBundle:Article');
-        $articles = $repo->findBy(['doi' => $doi]);
+        $articles = $repo->findByDoi($doi);
         $article = null;
 
         if (count($articles) > 0) {

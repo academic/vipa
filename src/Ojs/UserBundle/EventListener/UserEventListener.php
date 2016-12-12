@@ -5,7 +5,7 @@ namespace Ojs\UserBundle\EventListener;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
-use Ojs\CoreBundle\Service\OjsMailer;
+use Ojs\CoreBundle\Service\Mailer;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -15,16 +15,16 @@ class UserEventListener implements EventSubscriberInterface
     /** @var RouterInterface */
     private $router;
 
-    /** @var OjsMailer */
+    /** @var Mailer */
     private $ojsMailer;
 
     /**
      * @param RouterInterface $router
-     * @param OjsMailer $ojsMailer
+     * @param Mailer $ojsMailer
      */
     public function __construct(
         RouterInterface $router,
-        OjsMailer $ojsMailer
+        Mailer $ojsMailer
     ) {
         $this->router = $router;
         $this->ojsMailer = $ojsMailer;
@@ -47,7 +47,7 @@ class UserEventListener implements EventSubscriberInterface
      */
     public function onRegistrationCompleted(FilterUserResponseEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(FOSUserEvents::REGISTRATION_COMPLETED);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(FOSUserEvents::REGISTRATION_COMPLETED);
         if(!$getMailEvent){
             return;
         }
@@ -71,7 +71,7 @@ class UserEventListener implements EventSubscriberInterface
      */
     public function onChangePasswordCompleted(GetResponseUserEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(FOSUserEvents::CHANGE_PASSWORD_COMPLETED);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(FOSUserEvents::CHANGE_PASSWORD_COMPLETED);
         if(!$getMailEvent){
             return;
         }
@@ -95,7 +95,7 @@ class UserEventListener implements EventSubscriberInterface
      */
     public function onProfileEditCompleted(GetResponseUserEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(FOSUserEvents::PROFILE_EDIT_COMPLETED);
+        $getMailEvent = $this->ojsMailer->getTemplateByEvent(FOSUserEvents::PROFILE_EDIT_COMPLETED);
         if(!$getMailEvent){
             return;
         }
