@@ -195,11 +195,11 @@ class Mailer
 
     /**
      * @param Journal $journal
-     * @return SubscribeMailList[]
+     * @return array
      */
-    public function getJournalRelatedMails(Journal $journal)
+    public function getSubscribers(Journal $journal)
     {
-        return $journal->getSubscribeMailLists();
+        return $journal->getSubscribeMailLists()->toArray();
     }
 
     public function transformTemplate($template, $parameters = [])

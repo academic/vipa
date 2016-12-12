@@ -73,7 +73,7 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
         /** @var JournalAnnouncement $announcement */
         $announcement = $event->getItem();
         $journal = $announcement->getJournal();
-        $subscribers = $this->mailer->getJournalRelatedMails($journal);
+        $subscribers = $this->mailer->getSubscribers($journal);
 
         $params = [
             'journal'      => (string) $journal,
