@@ -26,6 +26,7 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
     public function onJournalAnnouncementPostCreate(JournalItemEvent $event)
     {
         $this->sendAnnouncementMail($event, JournalAnnouncementEvents::POST_CREATE);
+        $this->sendAnnouncementMailToSubscribers($event, JournalAnnouncementEvents::POST_CREATE);
     }
 
     /**
@@ -61,5 +62,24 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
         ];
 
         $this->mailer->sendEventMail($name, $staff, $params, $journal);
+    }
+
+    /**
+     * @param JournalItemEvent $event
+     * @param string $name
+     */
+    private function sendAnnouncementMailToSubscribers(JournalItemEvent $event, string $name)
+    {
+        /** @var JournalAnnouncement $announcement */
+        $announcement = $event->getItem();
+        $journal = $announcement->getJournal();
+        $subscribers = $this->mailer->getJournalRelatedMails($journal);
+
+        $params = [
+            'journal'      => (string) $journal,
+            'announcement' => (string) $announcement,
+        ];
+
+        $this->mailer->sendEventMail($name, $subscribers, $params, $journal);
     }
 }

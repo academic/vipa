@@ -116,6 +116,34 @@ class Mailer
     }
 
     /**
+     * @param string $event
+     * @param array $subscribers
+     * @param array $templateParams
+     * @param Journal|null $journal
+     */
+    public function sendEventMailToSubscribers(string $event, array $subscribers, array $templateParams, Journal $journal = null)
+    {
+        $lang = $journal === null ?: $journal->getMandatoryLang()->getCode();
+        $template = $this->getTemplateByEvent($event, $lang, $journal);
+
+        if ($template === null) {
+            return;
+        }
+
+        /** @var SubscribeMailList $subscriber */
+        foreach ($subscribers as $subscriber) {
+            $templateParams = array_merge([
+                'receiver.username' => $subscriber->getMail(),
+                'receiver.fullName' => $subscriber->getMail(),
+                'done.by' => $this->currentUser()->getFullName(),
+            ], $templateParams);
+
+            $body = $this->transformTemplate($template->getTemplate(), $templateParams);
+            $this->send($template->getSubject(), $body, $subscriber->getMail(), $subscriber->getMail());
+        }
+    }
+
+    /**
      * @param UserInterface|User $user
      * @param string $subject
      * @param string $body
@@ -174,7 +202,7 @@ class Mailer
         return $journal->getSubscribeMailLists();
     }
 
-    public function transformTemplate($template, $transformParams = [])
+    public function transformTemplate($template, $parameters = [])
     {
         foreach ($parameters as $key => $value) {
             $template = str_replace('[['.$key.']]', $value, $template);
