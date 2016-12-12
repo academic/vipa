@@ -106,7 +106,7 @@ class Mailer
             $templateParams = array_merge([
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
-                'done.by' => $this->currentUser()->getUsername(),
+                'done.by' => $this->currentUser()->getFullName(),
             ], $templateParams);
 
             $body = $this->transformTemplate($template->getTemplate(), $templateParams);
