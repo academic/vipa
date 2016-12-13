@@ -61,7 +61,9 @@ class JournalIndexMailer extends AbstractJournalItemMailer
             'index'   => (string) $index,
         ];
 
-        $this->mailer->sendEventMail($name.'.to.users', $staff, $params, $journal);
+        $rename = $toAdmin ? $name.'.to.users' : $name;
+        
+        $this->mailer->sendEventMail($rename, $staff, $params, $journal);
 
         if (!$toAdmin) {
             return;
