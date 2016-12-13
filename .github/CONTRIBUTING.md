@@ -16,3 +16,5 @@ We will review  your request. We may suggest some changes before merging pull-re
 You can contribute the project with reporting bug or suggesting features on [Issues](https://github.com/ojs/ojs/issues) page.
 
 If you are new on github please read about [pull-requests](https://help.github.com/articles/using-pull-requests) 
+
+`./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix`

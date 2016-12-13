@@ -108,7 +108,8 @@
     "h4cc/alice-fixtures-bundle": "~0.5",
     "liip/functional-test-bundle": "^1.6",
     "liuggio/fastest": "dev-master",
-    "symfony/phpunit-bridge": "~2.7"
+    "symfony/phpunit-bridge": "~2.7",
+    "friendsofphp/php-cs-fixer": "1.11.*"
   },
   "scripts": {
     "symfony-scripts": [
