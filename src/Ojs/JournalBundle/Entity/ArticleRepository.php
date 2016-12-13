@@ -100,6 +100,20 @@ class ArticleRepository extends EntityRepository
     }
 
     /**
+     * @param string $doi
+     * @return array
+     */
+    public function findByDoi(string $doi)
+    {
+        $builder = $this
+            ->createQueryBuilder("a")
+            ->where("a.issue IS NOT NULL")
+            ->andWhere("a.doi = :doi")
+            ->setParameter("doi", $doi);
+        return $builder->getQuery()->getResult();
+    }
+
+    /**
      * Return article count by condition
      * @param $field
      * @param $value

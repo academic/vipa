@@ -118,6 +118,10 @@ Ojs\JournalBundle\Entity\Journal:
       targetEntity: Ojs\JournalBundle\Entity\JournalApplicationUploadFile
       mappedBy: journal
       cascade: ["remove"]
+    subscribeMailLists:
+      targetEntity: Ojs\JournalBundle\Entity\SubscribeMailList
+      mappedBy: journal
+      cascade: ["remove"]
   manyToMany:
     catalogs:
       targetEntity: Ojs\JournalBundle\Entity\Catalog
@@ -267,10 +271,14 @@ Ojs\JournalBundle\Entity\Journal:
       type: datetime
       column: founded
       nullable: true
+      gedmo:
+        - versioned
     endingDate:
       type: datetime
       column: ending_date
       nullable: true
+      gedmo:
+        - versioned
     url:
       type: string
       length: 255
@@ -320,6 +328,13 @@ Ojs\JournalBundle\Entity\Journal:
       nullable: true
       gedmo:
         - versioned
+    journalPeriodsBag:
+      type: string
+      length: 255
+      column: journal_periods_bag
+      nullable: true
+      gedmo:
+        - versioned
     header:
       type: string
       length: 255
@@ -344,6 +359,8 @@ Ojs\JournalBundle\Entity\Journal:
       length: 50
       nullable: true
       column: google_analytics_id
+      gedmo:
+        - versioned
     slug:
       type: string
       length: 255

@@ -3,7 +3,7 @@
 namespace Ojs\JournalBundle\Listeners;
 
 use Doctrine\ORM\EntityManager;
-use Ojs\CoreBundle\Service\OjsMailer;
+use Ojs\CoreBundle\Service\Mailer;
 use Ojs\JournalBundle\Entity\JournalAnnouncement;
 use Ojs\JournalBundle\Event\JournalAnnouncement\JournalAnnouncementEvents;
 use Ojs\JournalBundle\Event\JournalItemEvent;
@@ -14,14 +14,14 @@ class SubscriptionSubscriber implements EventSubscriberInterface
     /** @var EntityManager */
     private $em;
 
-    /** @var OjsMailer */
+    /** @var Mailer */
     private $ojsMailer;
 
     /**
      * @param EntityManager $em
-     * @param OjsMailer $ojsMailer
+     * @param Mailer $ojsMailer
      */
-    public function __construct(EntityManager $em, OjsMailer $ojsMailer)
+    public function __construct(EntityManager $em, Mailer $ojsMailer)
     {
         $this->em = $em;
         $this->ojsMailer = $ojsMailer;

@@ -214,6 +214,10 @@ class Journal extends AbstractTranslatable
      */
     private $languageCodeSet;
     /**
+     * @var string
+     */
+    private $journalPeriodsBag;
+    /**
      * @var Collection
      * @JMS\Expose
      */
@@ -230,6 +234,12 @@ class Journal extends AbstractTranslatable
      * @var Collection
      */
     private $sections;
+
+    /**
+     * @var Collection
+     */
+    private $subscribeMailLists;
+
     /**
      * @var Publisher
      * @JMS\Expose
@@ -353,6 +363,7 @@ class Journal extends AbstractTranslatable
         $this->journalContacts = new ArrayCollection();
         $this->catalogs = new ArrayCollection();
         $this->articleTypes = new ArrayCollection();
+        $this->subscribeMailLists = new ArrayCollection();
     }
 
     /**
@@ -517,6 +528,14 @@ class Journal extends AbstractTranslatable
     public function getSubjects()
     {
         return $this->subjects;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSubscribeMailLists()
+    {
+        return $this->subscribeMailLists;
     }
 
     /**
@@ -1631,6 +1650,31 @@ class Journal extends AbstractTranslatable
     public function setJournalIndexesBag($journalIndexesBag)
     {
         $this->journalIndexesBag = $journalIndexesBag;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJournalPeriodsBag()
+    {
+        return $this->journalPeriodsBag;
+    }
+
+    /**
+     * @param ArrayCollection|Period[] $periods
+     * @param $periods
+     * @return $this
+     */
+    public function setJournalPeriodsBag($periods)
+    {
+        $periodIds = [];
+        /** @var Period $period */
+        foreach ($periods as $period) {
+            $periodIds[] = $period->getPeriod();
+        }
+        $this->journalPeriodsBag = implode('-', $periodIds);
 
         return $this;
     }

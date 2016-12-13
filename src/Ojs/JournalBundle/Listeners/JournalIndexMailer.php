@@ -2,9 +2,9 @@
 
 namespace Ojs\JournalBundle\Listeners;
 
-use Ojs\JournalBundle\Event\JournalItemEvent;
+use Ojs\JournalBundle\Entity\JournalIndex;
 use Ojs\JournalBundle\Event\JournalIndex\JournalIndexEvents;
-use Ojs\UserBundle\Entity\User;
+use Ojs\JournalBundle\Event\JournalItemEvent;
 
 class JournalIndexMailer extends AbstractJournalItemMailer
 {
@@ -13,117 +13,53 @@ class JournalIndexMailer extends AbstractJournalItemMailer
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             JournalIndexEvents::POST_CREATE => 'onJournalIndexPostCreate',
             JournalIndexEvents::POST_UPDATE => 'onJournalIndexPostUpdate',
-            JournalIndexEvents::PRE_DELETE => 'onJournalIndexPreDelete',
-        );
+            JournalIndexEvents::PRE_DELETE  => 'onJournalIndexPreDelete',
+        ];
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onJournalIndexPostCreate(JournalItemEvent $itemEvent)
+    public function onJournalIndexPostCreate(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalIndexEvents::POST_CREATE.'.to.users', null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            goto sendmailtoadmins;
-        }
-        $mailUsers = $this->ojsMailer->getJournalRelatedUsers();
-        /** @var User $user */
-        foreach ($mailUsers as $user) {
-            $transformParams = [
-                'index'             => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-                'journal'           => (string)$itemEvent->getItem()->getJournal(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
-
-
-
-        sendmailtoadmins:
-        
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalIndexEvents::POST_CREATE.'.to.admins', null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        $mailUsers =  $this->ojsMailer->getAdminUsers();
-        /** @var User $user */
-        foreach ($mailUsers as $user) {
-            $transformParams = [
-                'index'             => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-                'journal'           => (string)$itemEvent->getItem()->getJournal(),
-                'journal.edit'      => $this->router->generate('ojs_admin_journal_edit', ['id' => $itemEvent->getItem()->getJournal()->getId()])
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendIndexMail($event, JournalIndexEvents::POST_CREATE);
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onJournalIndexPostUpdate(JournalItemEvent $itemEvent)
+    public function onJournalIndexPostUpdate(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalIndexEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
-            $transformParams = [
-                'index'             => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendIndexMail($event, JournalIndexEvents::POST_UPDATE);
     }
 
     /**
-     * @param JournalItemEvent $itemEvent
+     * @param JournalItemEvent $event
      */
-    public function onJournalIndexPreDelete(JournalItemEvent $itemEvent)
+    public function onJournalIndexPreDelete(JournalItemEvent $event)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalIndexEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
-        if(!$getMailEvent){
-            return;
-        }
-        /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
-            $transformParams = [
-                'index'             => (string)$itemEvent->getItem(),
-                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
+        $this->sendIndexMail($event, JournalIndexEvents::PRE_DELETE);
+    }
+
+    /**
+     * @param JournalItemEvent $event
+     * @param string $name
+     */
+    private function sendIndexMail(JournalItemEvent $event, string $name)
+    {
+        /** @var JournalIndex $index */
+        $index = $event->getItem();
+        $journal = $index->getJournal();
+        $staff = $this->mailer->getJournalStaff();
+
+        $params = [
+            'journal' => (string) $journal,
+            'index'   => (string) $index,
+        ];
+
+        $this->mailer->sendEventMail($name, $staff, $params, $journal);
     }
 }

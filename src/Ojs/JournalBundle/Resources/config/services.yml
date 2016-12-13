@@ -91,6 +91,8 @@ services:
   ojs.mail_listener.journal_contact:
     class: Ojs\JournalBundle\Listeners\JournalContactMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.journal_index:
     class: Ojs\JournalBundle\Listeners\JournalIndexMailer

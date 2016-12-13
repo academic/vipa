@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Listeners;
 
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
-use Ojs\CoreBundle\Service\OjsMailer;
+use Ojs\CoreBundle\Service\Mailer;
 use Ojs\JournalBundle\Event\JournalItemEvent;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -13,8 +13,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 abstract class AbstractJournalItemMailer implements EventSubscriberInterface
 {
-    /** @var OjsMailer */
-    protected $ojsMailer;
+    /** @var Mailer */
+    protected $mailer;
 
     /** @var EntityManager */
     protected $em;
@@ -27,19 +27,19 @@ abstract class AbstractJournalItemMailer implements EventSubscriberInterface
 
     /**
      * AbstractJournalItemMailer constructor.
-     * @param OjsMailer $ojsMailer
+     * @param Mailer $mailer
      * @param RegistryInterface $registry
      * @param TokenStorageInterface $tokenStorage
      * @param RouterInterface $router
      */
     public function __construct(
-        OjsMailer $ojsMailer,
+        Mailer $mailer,
         RegistryInterface $registry,
         TokenStorageInterface $tokenStorage,
         RouterInterface $router
     )
     {
-        $this->ojsMailer = $ojsMailer;
+        $this->mailer = $mailer;
         $this->em = $registry->getManager();
         $this->user = $tokenStorage->getToken() ? $tokenStorage->getToken()->getUser(): null;
         $this->router = $router;
@@ -48,8 +48,8 @@ abstract class AbstractJournalItemMailer implements EventSubscriberInterface
     protected function sendMail(JournalItemEvent $itemEvent, $item, $action)
     {
         $journalItem = $itemEvent->getItem();
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
-            $this->ojsMailer->sendToUser(
+        foreach ($this->mailer->getJournalStaff() as $user) {
+            $this->mailer->sendToUser(
                 $user,
                 'A '.$item.' '.$action.' -> '.$journalItem->getJournal()->getTitle(),
                 'A '.$item.' '.$action.' -> '.$journalItem->getJournal()->getTitle()
