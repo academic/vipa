@@ -118,6 +118,10 @@ Ojs\JournalBundle\Entity\Journal:
       targetEntity: Ojs\JournalBundle\Entity\JournalApplicationUploadFile
       mappedBy: journal
       cascade: ["remove"]
+    subscribeMailLists:
+      targetEntity: Ojs\JournalBundle\Entity\SubscribeMailList
+      mappedBy: journal
+      cascade: ["remove"]
   manyToMany:
     catalogs:
       targetEntity: Ojs\JournalBundle\Entity\Catalog

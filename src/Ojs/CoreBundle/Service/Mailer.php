@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\MailTemplate;
+use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -101,16 +102,31 @@ class Mailer
             return;
         }
 
-        /** @var User $user */
+        /** @var User|SubscribeMailList $user */
         foreach ($users as $user) {
-            $templateParams = array_merge([
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-                'done.by' => $this->currentUser()->getFullName(),
-            ], $templateParams);
+            if ($user instanceof SubscribeMailList) {
+                $recipientName = $user->getMail();
+                $recipientMail = $user->getMail();
 
+                $defaultParams = [
+                    'receiver.username' => $user->getMail(),
+                    'receiver.fullName' => $user->getMail(),
+                    'done.by' => $this->currentUser()->getFullName(),
+                ];
+            } else {
+                $recipientName = $user->getFullName();
+                $recipientMail = $user->getEmail();
+
+                $defaultParams = [
+                    'receiver.username' => $user->getUsername(),
+                    'receiver.fullName' => $user->getFullName(),
+                    'done.by' => $this->currentUser()->getFullName(),
+                ];
+            }
+
+            $templateParams = array_merge($defaultParams, $templateParams);
             $body = $this->transformTemplate($template->getTemplate(), $templateParams);
-            $this->sendToUser($user, $template->getSubject(), $body);
+            $this->send($template->getSubject(), $body, $recipientMail, $recipientName);
         }
     }
 
@@ -121,13 +137,7 @@ class Mailer
      */
     public function sendToUser(User $user, $subject, $body)
     {
-        $mailOk = !empty($subject) && !empty($body);
-        $userOk = !empty($user->getEmail()) && !empty($user->getUsername());
-
-        if ($mailOk && $userOk){
-            $subject = $this->preventMailMerge ? $subject.' rand:'.rand(0, 10000) : $subject;
-            $this->send($subject, $body, $user->getEmail(), $user->getUsername());
-        }
+        $this->send($subject, $body, $user->getEmail(), $user->getUsername());
     }
 
     /**
@@ -138,6 +148,15 @@ class Mailer
      */
     public function send($subject, $body, $toMail, $toName)
     {
+        $mailOk = !empty($subject) && !empty($body);
+        $userOk = !empty($toMail) && !empty($toName);
+
+        if (!$mailOk || !$userOk) {
+            return;
+        }
+
+        $subject = $this->preventMailMerge ? $subject.' rand:'.rand(0, 10000) : $subject;
+
         $message = $this->mailer->createMessage();
         $message = $message
             ->setSubject($subject)
@@ -162,6 +181,15 @@ class Mailer
     {
         $roles = ['ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_CO_EDITOR'];
         return $this->em->getRepository(User::class)->findUsersByJournalRole($roles);
+    }
+
+    /**
+     * @param Journal $journal
+     * @return array
+     */
+    public function getSubscribers(Journal $journal)
+    {
+        return $journal->getSubscribeMailLists()->toArray();
     }
 
     public function transformTemplate($template, $parameters = [])
