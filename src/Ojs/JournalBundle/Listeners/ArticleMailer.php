@@ -57,7 +57,7 @@ class ArticleMailer extends AbstractJournalItemMailer
         }
 
         $submitterUser = $article->getSubmitterUser();
-        $params = ['submitter.username' => $submitterUser->getUsername()];
+        $params = ['submitter.fullName' => $submitterUser->getFullName()];
         $this->sendArticleMail($event, ArticleEvents::POST_SUBMIT, [$submitterUser], $params);
     }
 
