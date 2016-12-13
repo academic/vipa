@@ -94,8 +94,15 @@ class Mailer
      */
     public function sendEventMail(string $event, array $users, array $templateParams, Journal $journal = null)
     {
-        $signature = $journal === null ? "" : PHP_EOL.$journal->getMailSignature();
-        $lang = $journal === null ?: $journal->getMandatoryLang()->getCode();
+        if ($journal !== null) {
+            $lang = $journal->getMandatoryLang()->getCode();
+            $journal->setCurrentLocale($lang); // Use mandatory lang for translation.
+            $signature = PHP_EOL.$journal->getMailSignature();
+        } else {
+            $lang = null;
+            $signature = "";
+        }
+
         $template = $this->getTemplateByEvent($event, $lang, $journal);
 
         if ($template === null) {
