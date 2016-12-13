@@ -63,13 +63,12 @@ class JournalIndexMailer extends AbstractJournalItemMailer
 
         $this->mailer->sendEventMail($name.'to.users', $staff, $params, $journal);
 
-        if (!$toAdmin) {
-            return;
+        if ($toAdmin) {
+
+            $link = $this->router->generate('ojs_admin_journal_edit', ['id' => $journal->getId()]);
+            $params = array_merge($params, ['journal.edit' => $link]);
+
+            $this->mailer->sendEventMail($name.'to.admins', $this->mailer->getAdmins(), $params, $journal);
         }
-
-        $link = $this->router->generate('ojs_admin_journal_edit', ['id' => $journal->getId()]);
-        $params = array_merge($params, ['journal.edit' => $link]);
-
-        $this->mailer->sendEventMail($name.'to.admins', $this->mailer->getAdmins(), $params, $journal);
     }
 }
