@@ -25,7 +25,7 @@ class JournalIndexMailer extends AbstractJournalItemMailer
      */
     public function onJournalIndexPostCreate(JournalItemEvent $event)
     {
-        $this->sendIndexMail($event, JournalIndexEvents::POST_CREATE);
+        $this->sendIndexMail($event, JournalIndexEvents::POST_CREATE, true);
     }
 
     /**
@@ -47,8 +47,9 @@ class JournalIndexMailer extends AbstractJournalItemMailer
     /**
      * @param JournalItemEvent $event
      * @param string $name
+     * @param bool $toAdmin
      */
-    private function sendIndexMail(JournalItemEvent $event, string $name)
+    private function sendIndexMail(JournalItemEvent $event, string $name, $toAdmin = false)
     {
         /** @var JournalIndex $index */
         $index = $event->getItem();
@@ -60,6 +61,17 @@ class JournalIndexMailer extends AbstractJournalItemMailer
             'index'   => (string) $index,
         ];
 
-        $this->mailer->sendEventMail($name, $staff, $params, $journal);
+        $rename = $toAdmin ? $name.'.to.users' : $name;
+        
+        $this->mailer->sendEventMail($rename, $staff, $params, $journal);
+
+        if (!$toAdmin) {
+            return;
+        }
+
+        $link = $this->router->generate('ojs_admin_journal_edit', ['id' => $journal->getId()]);
+        $params = array_merge($params, ['journal.edit' => $link]);
+
+        $this->mailer->sendEventMail($name.'.to.admins', $this->mailer->getAdmins(), $params, $journal);
     }
 }

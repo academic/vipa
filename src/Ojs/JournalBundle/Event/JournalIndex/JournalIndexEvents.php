@@ -24,8 +24,11 @@ final class JournalIndexEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail(self::POST_CREATE, 'journal', [
+            new EventDetail(self::POST_CREATE.'.to.users', 'journal', [
                 'index', 'done.by', 'receiver.username', 'receiver.fullName', 'journal',
+            ]),
+            new EventDetail(self::POST_CREATE.'.to.admins', 'journal', [
+                'index', 'done.by', 'receiver.username', 'receiver.fullName', 'journal', 'journal.edit',
             ]),
             new EventDetail(self::POST_UPDATE, 'journal', [
                 'index', 'done.by', 'receiver.username', 'receiver.fullName',
