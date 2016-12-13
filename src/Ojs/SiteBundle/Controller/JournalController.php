@@ -401,7 +401,7 @@ class JournalController extends Controller
         $email = $request->get('mail');
 
         $emailConstraint = new EmailConstraint();
-        $errors = $this->get('validator')->validateValue(
+        $errors = $this->get('validator')->validate(
             $email,
             $emailConstraint
         );

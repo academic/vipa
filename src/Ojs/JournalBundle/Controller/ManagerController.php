@@ -118,6 +118,7 @@ class ManagerController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $entity->setLanguageCodeSet($entity->getLanguages());
+            $entity->setJournalPeriodsBag($entity->getPeriods());
             $entity->addLanguage($entity->getMandatoryLang());
 
             $event = new JournalEvent($entity);
