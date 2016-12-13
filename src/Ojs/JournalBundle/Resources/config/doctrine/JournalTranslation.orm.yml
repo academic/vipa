@@ -30,3 +30,8 @@ Ojs\JournalBundle\Entity\JournalTranslation:
             type: text
             nullable: true
             column: footer_text
+        mailSignature:
+            type: string
+            length: 255
+            nullable: true
+            column: mail_signature
