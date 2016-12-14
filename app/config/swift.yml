@@ -4,8 +4,8 @@ swiftmailer:
     password:             "%mailer_password%"
     host:                 "%mailer_host%"
     port:                 "%mailer_port%"
-    #encryption: ssl #ssl or tsl
-    #auth_mode:  login #(plain, login, or cram-md5)
+    encryption:           "%mailer_encryption%" #ssl or tsl
+    auth_mode:            "%mailer_authmode%" #(plain, login, or cram-md5)
     spool:
         type: "file"
         #type: (file or mail / how to queue the messages)

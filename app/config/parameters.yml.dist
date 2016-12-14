@@ -14,6 +14,8 @@ parameters:
     mailer_name:       OJS
     mailer_password:   ~
     mailer_port: 587
+    mailer_encryption: tls
+    mailer_authmode: login
 
     locale:            tr
     locale_support: [tr,en]
