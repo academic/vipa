@@ -5,12 +5,16 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
+use GuzzleHttp\Exception\RequestException;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
+use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Form\Type\ArticleAuthorType;
+use Ojs\JournalBundle\Form\Type\ArticleAddAuthorType;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -242,6 +246,87 @@ class ArticleAuthorController extends Controller
     }
 
     /**
+     * Displays a form to create a new ArticleAuthor entity.
+     *
+     * @param Request $request
+     * @param $articleId
+     * @return Response
+     */
+    public function addAction(Request $request, $articleId)
+    {
+
+        $journalService = $this->get('ojs.journal_service');
+        $journal = $journalService->getSelectedJournal();
+        $em = $this->getDoctrine()->getManager();
+        $article = $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
+        if (!$this->isGranted('EDIT', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
+        $entity = new ArticleAuthor();
+        $author = new Author();
+
+        $form = $this->createAddForm($entity, $journal, $article)
+            ->add('create', 'submit', array('label' => 'c'));
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $author->setFirstName($entity->getAuthor()->getFirstName());
+            $author->setLastName($entity->getAuthor()->getLastName());
+            $author->setEmail($entity->getAuthor()->getEmail());
+            $author->setTitle($entity->getAuthor()->getTitle());
+            $author->setUser($entity->getAuthor()->getUser());
+            
+            $entity->setAuthor($author);
+            $entity->setArticle($article);
+            $em->persist($author);
+            $em->persist($entity);
+            $em->flush();
+
+            $this->successFlashBag('successful.create');
+
+            return $this->redirectToRoute(
+                    'ojs_journal_article_author_edit',
+                    array('articleId' => $article->getId(), 'journalId' => $journal->getId(), 'id' => $author->getId())
+            );
+        }
+
+        return $this->render(
+            'OjsJournalBundle:ArticleAuthor:add.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+                'article' => $article
+            )
+        );
+    }
+
+    /**
+     * @param  ArticleAuthor $entity
+     * @param  Journal     $journal
+     * @param  Article     $article
+     * @return Form
+     */
+    private function createAddForm(ArticleAuthor $entity, Journal $journal, Article $article)
+    {
+        $form = $this->createForm(
+            new ArticleAddAuthorType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl(
+                    'ojs_journal_article_author_add',
+                    ['journalId' => $journal->getId(), 'articleId' => $article->getId()]
+                ),
+                'method' => 'POST',
+                'journalId' => $journal->getId()
+            )
+        );
+
+        return $form;
+    }
+
+    /**
      * Finds and displays a ArticleAuthor entity.
      *
      * @param  $id
@@ -430,6 +515,46 @@ class ArticleAuthorController extends Controller
             'ojs_journal_article_author_index',
             ['articleId' => $article->getId(), 'journalId' => $journal->getId()]
         );
+    }
+
+
+
+    /**
+     * Search journal based users
+     *
+     * @param Request $request
+     * @return Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException|static
+     */
+    public function getAuthorBasedJournalAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$journal) {
+            return $this->createNotFoundException();
+        }
+
+        $defaultLimit = 20;
+        $limit = ($request->get('page_limit') && $defaultLimit >= $request->get('page_limit')) ?
+            $request->get('page_limit') :
+            $defaultLimit;
+
+        $journalAuthors = $em->getRepository('OjsJournalBundle:Author')->searchJournalAuthor(
+            $request->get('q'),
+            $journal,
+            $limit
+        );
+        $data = [];
+        if (count($journalAuthors) > 0) {
+            foreach ($journalAuthors as $journalAuthor) {
+                $data[] = [
+                    'id' => $journalAuthor->getId(),
+                    'text' => (string) $journalAuthor->getFullName().' ('.$journalAuthor->getEmail().')',
+                ];
+            }
+        }
+
+        return JsonResponse::create($data);
     }
 
 }

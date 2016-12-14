@@ -1033,7 +1033,7 @@ title.archives: Archives
 title.article: Submission
 title.article_authors: 'Authors of the Submission'
 title.article_authors_edit: 'Edit the Authors'
-title.article_authors_new: 'Add a New Author'
+title.article_authors_add: 'Add Author From System'
 title.article_authors_show: 'Show Authors of the Submission'
 title.article_edit: 'Edit Submission'
 title.article_files: 'Submission Files'

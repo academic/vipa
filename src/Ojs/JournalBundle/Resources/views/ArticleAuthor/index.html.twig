@@ -23,6 +23,10 @@
     <a href="{{ url('ojs_journal_article_author_new', {'articleId': article.id, 'journalId': selectedJournal().id}) }}" class="btn btn-success">
         {{ "c"|trans }}
     </a>
+    <a href="{{ path('ojs_journal_article_author_add', {'articleId': article.id, 'journalId': selectedJournal().id}) }}" class="btn btn-info">
+        {{ 'title.article_authors_add'|trans }}
+    </a>
+
 
     <a href="{{ path('ojs_journal_article_author_sort', {'journalId': selectedJournal().id,'articleId': article.id}) }}" class="btn btn-primary">
         {{ "sort.authors"|trans }}

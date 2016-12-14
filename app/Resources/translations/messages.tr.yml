@@ -1031,7 +1031,7 @@ title.archives: Arşivler
 title.article: Makale
 title.article_authors: 'Makale Yazarları'
 title.article_authors_edit: 'Makale Yazarlarını Düzenle'
-title.article_authors_new: 'Yeni Bir Yazar Ekle'
+title.article_authors_add: 'Sistemden Yazar Ekle'
 title.article_authors_show: 'Makale Yazarlarını Göster'
 title.article_edit: 'Makale Düzenle'
 title.article_files: 'Makale Dosyaları'

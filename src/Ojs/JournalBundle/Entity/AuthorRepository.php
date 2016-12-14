@@ -26,4 +26,26 @@ class AuthorRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param $searchQuery
+     * @param Journal $journal
+     * @param $limit
+     *
+     * @return array|Author[]
+     */
+    public function searchJournalAuthor($searchQuery, Journal $journal, $limit)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('PARTIAL a.{id,email,firstName,lastName}')
+            ->join('a.articleAuthors', 'au')
+            ->join('au.article', 'article')
+            ->andWhere('article.journal = :journal')
+            ->andWhere('a.firstName LIKE :query OR a.email LIKE :query OR a.lastName LIKE :query')
+            ->setParameter('journal', $journal)
+            ->setParameter('query', '%'.$searchQuery.'%')
+            ->setMaxResults($limit);
+
+        return $query->getQuery()->getResult();
+    }
 }
