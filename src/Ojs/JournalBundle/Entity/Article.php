@@ -20,9 +20,9 @@ use Ojs\CoreBundle\Params\ArticleStatuses;
 
 /**
  * Article
- * @GRID\Source(columns="id, numerator, translations.title:translation_agg, issue.translations.title:translation_agg, journal.title:translation_agg, pubdate, status, section.title, doiStatus", groupBy={"id"})
+ * @GRID\Source(columns="id, numerator, translations.title:translation_agg, issue.translations.title:translation_agg, journal.title:translation_agg, pubdate, status, section.title, doiStatus,issue.number", groupBy={"id"})
  * @GRID\Source(columns="id, numerator, status, translations.title:translation_agg, journal.title:translation_agg", groups={"submission"}, groupBy={"id"})
- * @GRID\Source(columns="id, translations.title:translation_agg", groups={"export"}, groupBy={"id"})
+ * @GRID\Source(columns="id, translations.title:translation_agg,issue.number, issue.volume", groups={"export"}, groupBy={"id","issue.number","issue.volume"})
  * @ExclusionPolicy("all")
  */
 class Article extends AbstractTranslatable implements JournalItemInterface
@@ -165,6 +165,8 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @var Issue
      * @GRID\Column(title="issue Title", field="issue.translations.title:translation_agg", safe=false, operatorsVisible=false)
+     * @GRID\Column(title="number", field="issue.number")
+     * @GRID\Column(title="volume", field="issue.volume")
      */
     private $issue;
     /**
@@ -438,7 +440,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @return Issue
      */
-    public function getIssue()
+        public function getIssue()
     {
         return $this->issue;
     }
