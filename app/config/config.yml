@@ -156,6 +156,9 @@ fos_user:
   service:
     mailer: fos_user.mailer.twig_swift
     user_manager: ojs_user.manager
+  from_email:
+    address: "%system_email%"
+    sender_name: "%mailer_name%"
 
 knp_menu:
     twig:
