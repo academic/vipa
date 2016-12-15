@@ -264,7 +264,7 @@ class Mailer
             $criteria = array_merge($criteria, ['journal' => null, 'journalDefault' => true]);
             return $this->em->getRepository(MailTemplate::class)->findOneBy($criteria);
         } elseif (!$template->isActive()) {
-            return false;
+            return null;
         }
 
         return $template;
