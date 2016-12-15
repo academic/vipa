@@ -16,6 +16,7 @@ doctrine:
         dql:
             string_functions:
                 translation_agg: Ojs\CoreBundle\Query\PostgreSQL\TranslationAgg
+                journal_role_agg: Ojs\CoreBundle\Query\PostgreSQL\JournalRoleAgg
         auto_generate_proxy_classes: false
         auto_mapping: true
         resolve_target_entities:
