@@ -333,7 +333,6 @@
                                             -
                                         {% endif %}
                                         {{ "issue"|trans }} {{ lastIssue.number }}
-                                        - {{ lastIssue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
                                     </div>
                                     <div class="panel-body">
                                         <ul class="list-unstyled">
@@ -342,6 +341,9 @@
                                                     <p>
                                                         <i class="fa fa-caret-right"></i>
                                                         <a href="{{ article.publicURI }}">{{ article.title }}</a>
+
+                                                        <br>
+                                                            {{ "first_page"|trans }} {{ article.firstPage }} - {{ "last_page"|trans }} {{ article.lastPage }}
 
                                                         <span class="clearfix">
                                                             <i class="fa fa-pencil"></i>
