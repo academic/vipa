@@ -4,9 +4,8 @@
         <ul class="a2lix_translationsLocales nav nav-tabs">
             {% for translationsFields in form %}
                 {% set locale = translationsFields.vars.name %}
-
                 <li {% if form.vars.default_locale == locale %}class="active"{% endif %}>
-                    <a href="#" data-toggle="tab" data-target=".a2lix_translationsFields-{{ locale }}">
+                    <a href="#" data-toggle="tab" data-target=".a2lix_translationsFields-{{ locale }}" {% if translationsFields.vars.valid == false %}style="color:red"{% endif %} >
                         {{ locale|capitalize }}
                         {% if form.vars.default_locale != locale
                             or translationsFields.vars.required != true %}[{{ 'optional'|trans }}]{% endif %}
