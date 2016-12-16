@@ -75,7 +75,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'https://bitbucket.org/bulutyazilim/advancedcitationbundle.git',
+                    'url' => 'git@github.com:ojs/advancedcitationbundle.git',
                 ),
             ),
             'require' => array(
