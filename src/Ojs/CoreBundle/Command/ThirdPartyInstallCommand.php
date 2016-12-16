@@ -59,7 +59,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'https://bitbucket.org/bulutyazilim/ojsdoibundle.git',
+                    'url' => 'https://github.com/ojs/ojsdoibundle.git',
                 ),
             ),
             'require' => array(
