@@ -344,11 +344,8 @@
                                                         <a href="{{ article.publicURI }}">{{ article.title }}</a>
 
                                                         <br>
-                                                        {% if article.firstPage is not null %}
-                                                        {{ "first_page"|trans }} {{ article.firstPage }}
-                                                        {% endif %}
-                                                        {% if article.lastPage is not null %}
-                                                        - {{ "last_page"|trans }} {{ article.lastPage }}
+                                                        {% if article.firstPage is not null and article.lastPage is not null  %}
+                                                        {{ "first_page"|trans }} {{ article.firstPage }} - {{ "last_page"|trans }} {{ article.lastPage }}
                                                         {% endif %}
 
                                                         <span class="clearfix">
