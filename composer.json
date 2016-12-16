@@ -45,10 +45,6 @@
     {
       "type": "vcs",
       "url": "https://github.com/ismailbaskin/HWIOAuthBundle.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:bulutyazilim/APYDataGridBundle.git"
     }
   ],
   "require": {
@@ -76,7 +72,7 @@
     "ircmaxell/password-compat": "~1.0",
     "pagerfanta/pagerfanta": "1.0.3",
     "white-october/pagerfanta-bundle": "~1.0",
-    "apy/datagrid-bundle": "~2.2",
+    "apy/datagrid-bundle": "dev-symfony3",
     "ojs/import-bundle": "~1.0",
     "jms/di-extra-bundle": "~1.7",
     "stephanecollot/datetimepicker-bundle": "~1.0",
