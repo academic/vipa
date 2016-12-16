@@ -333,6 +333,7 @@
                                             -
                                         {% endif %}
                                         {{ "issue"|trans }} {{ lastIssue.number }}
+                                        - {{ lastIssue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
                                     </div>
                                     <div class="panel-body">
                                         <ul class="list-unstyled">
