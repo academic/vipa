@@ -5,7 +5,7 @@ This guide will explain how you can install OJS on an Ubuntu server.
 
 Required Software
 -----------------
-Ubuntu/Debian, to install and run these services and extensions before attempting to install OJS.
+Install and run these services and extensions before attempting to install OJS.
 
 * Nginx
 * PostgreSQL
@@ -33,7 +33,7 @@ $ sudo apt-get -y install elasticsearch
 $ sudo update-rc.d elasticsearch defaults 95 10
 # sudo service elasticsearch restart
 
-# Postgresql
+# PostgreSQL
 $ sudo apt-get postgresql git
 
 # Add php7 repo and update
@@ -41,24 +41,23 @@ $ sudo apt-get postgresql git
 $ apt-add-repository ppa:ondrej/php -y
 $ apt-get update
 
-# Install PHP Stuffs
+# Install PHP and its extensions
 
 $ apt-get install -y --force-yes php7.0-cli php7.0-dev \
-php-pgsql php-sqlite3 php-gd php-apcu \
-php-curl php7.0-mcrypt \
-php-imap php7.0-gd php-memcached php7.0-pgsql php7.0-readline php-xdebug \
-php-mbstring php-xml php7.0-zip php7.0-intl php7.0-bcmath
+php-pgsql php-sqlite3 php-gd php-apcu php-curl php7.0-mcrypt \
+php-imap php7.0-gd php-memcached php7.0-pgsql php7.0-readline \
+php-xdebug php-mbstring php-xml php7.0-zip php7.0-intl php7.0-bcmath
 
 # Install Composer
 
 $ curl -sS https://getcomposer.org/installer | php
 $ mv composer.phar /usr/local/bin/composer
 
-# Add Composer Global Bin To Path
+# Add Composer executable to PATH
 
 $ printf "\nPATH=\"$(composer config -g home 2>/dev/null)/vendor/bin:\$PATH\"\n" | tee -a /home/vagrant/.profile
 
-# Set Some PHP CLI Settings
+# Configure PHP CLI
 
 $ sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/cli/php.ini
 $ sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/cli/php.ini
@@ -73,7 +72,7 @@ $ rm /etc/nginx/sites-enabled/default
 $ rm /etc/nginx/sites-available/default
 $ service nginx restart
 
-# Setup Some PHP-FPM Options
+# Configure PHP-FPM
 
 $ sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/fpm/php.ini
 $ sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/fpm/php.ini
@@ -86,7 +85,7 @@ $ sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.0/fpm/php.ini
 $ service nginx restart
 $ service php7.0-fpm restart
 
-# PostgreSQL db and user setup
+# PostgreSQL database and user setup
 $ su - postgres
 $ psql -d template1 -U postgres
 
@@ -102,20 +101,20 @@ $ sudo npm install -g bower
 
 ```
 
-Getting the latest document
+Getting most recent version
 -----------------------
 
 ```
-# create the directory and set permission
+# Create the directory and set permissions
 $ sudo mkdir -p /var/www
 $ sudo chown -R www-data:www-data /var/www
 
-# switch www-data
+# Switch to www-data user
 
 $ sudo su -s /bin/bash www-data
 $ cd /var/www
 
-# get latest code
+# Obtain the latest code
 
 $ git clone https://github.com/ojs/ojs.git
 $ cd ojs
@@ -144,7 +143,7 @@ $ composer update -vvv -o && bower update && php app/console assets:install web 
 
 ```
 
-After the wizard is done, install tne initial data if you would like: `$ php app/console ojs:install:initial-data`
+After the wizard is done, install the initial data if you would like: `$ php app/console ojs:install:initial-data`
 
 
 Web Server Configuration Examples
@@ -207,7 +206,7 @@ Install Bundles
 ----------------
 
 ```
-# citation bundle
+# Citation bundle
 
 $ app/console ojs:install:package citation
 
