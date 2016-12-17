@@ -5,46 +5,152 @@ This guide will explain how you can install OJS on an Ubuntu server.
 
 Required Software
 -----------------
-Install and run these services and extensions before attempting to install OJS.
+Ubuntu/Debian, to install and run these services and extensions before attempting to install OJS.
 
-* Apache or nginx (`# apt-get install apache2` or `# apt-get install nginx`)
-* MySQL, PostgreSQL or any other RDBMS that Doctrine supports (`# apt-get install mysql-server` or `# apt-get install postgresql postgresql-contrib`)
-* Memcached (`# apt-get install memcached`)
-* PHP (`# apt-get install php5 php5-mysql php5-mcrypt php5-memcached php5-curl`)
-* Elasticsearch (download it from [here](https://www.elastic.co/downloads/elasticsearch))
+* Nginx
+* PostgreSQL
+* Memcached
+* PHP7
+* Elasticsearch
+* Node
+* Bower
 
-You can also use nginx as your HTTP server and PostgreSQL as your RDBMS server.
+```
+# Java
+
+$ sudo add-apt-repository -y ppa:webupd8team/java
+$ sudo apt-get update 
+$ sudo apt-get -y install oracle-java8-installer
+
+
+# Elastic
+
+$ wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+$ echo "deb http://packages.elastic.co/elasticsearch/1.7/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-1.7.list
+$ sudo apt-get update
+$ sudo apt-get -y install elasticsearch
+
+$ sudo update-rc.d elasticsearch defaults 95 10
+# sudo service elasticsearch restart
+
+# Postgresql
+$ sudo apt-get postgresql git
+
+# Add php7 repo and update
+
+$ apt-add-repository ppa:ondrej/php -y
+$ apt-get update
+
+# Install PHP Stuffs
+
+$ apt-get install -y --force-yes php7.0-cli php7.0-dev \
+php-pgsql php-sqlite3 php-gd php-apcu \
+php-curl php7.0-mcrypt \
+php-imap php7.0-gd php-memcached php7.0-pgsql php7.0-readline php-xdebug \
+php-mbstring php-xml php7.0-zip php7.0-intl php7.0-bcmath
+
+# Install Composer
+
+$ curl -sS https://getcomposer.org/installer | php
+$ mv composer.phar /usr/local/bin/composer
+
+# Add Composer Global Bin To Path
+
+$ printf "\nPATH=\"$(composer config -g home 2>/dev/null)/vendor/bin:\$PATH\"\n" | tee -a /home/vagrant/.profile
+
+# Set Some PHP CLI Settings
+
+$ sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/cli/php.ini
+$ sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/cli/php.ini
+$ sudo sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.0/cli/php.ini
+$ sudo sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.0/cli/php.ini
+
+# Install Nginx & PHP-FPM
+
+$ apt-get install -y --force-yes nginx php7.0-fpm
+
+$ rm /etc/nginx/sites-enabled/default
+$ rm /etc/nginx/sites-available/default
+$ service nginx restart
+
+# Setup Some PHP-FPM Options
+
+$ sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/fpm/php.ini
+$ sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/fpm/php.ini
+$ sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.0/fpm/php.ini
+$ sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.0/fpm/php.ini
+$ sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.0/fpm/php.ini
+$ sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.0/fpm/php.ini
+$ sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.0/fpm/php.ini
+
+$ service nginx restart
+$ service php7.0-fpm restart
+
+# PostgreSQL db and user setup
+$ su - postgres
+$ psql -d template1 -U postgres
+
+CREATE USER ojs WITH PASSWORD 'ojs';
+CREATE DATABASE ojs;
+GRANT ALL PRIVILEGES ON DATABASE ojs to ojs;
+\q
+
+# Node & Bower
+$ sudo apt-get install nodejs nodejs-legacy
+$ sudo apt-get install npm
+$ sudo npm install -g bower
+
+```
+
+Getting the latest document
+-----------------------
+
+```
+# create the directory and set permission
+$ sudo mkdir -p /var/www
+$ sudo chown -R www-data:www-data /var/www
+
+# switch www-data
+
+$ sudo su -s /bin/bash www-data
+$ cd /var/www
+
+# get latest code
+
+$ git clone https://github.com/ojs/ojs.git
+$ cd ojs
+
+```
 
 Installing Dependencies
 -----------------------
-Right before installing dependencies, create a database for OJS because OJS's installation wizard will ask for a database name after dependencies are installed.
 
-To install dependencies you will need Composer and bower. If you don't have those installed, refer to [Composer's own installation guide](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx) and [Bower's own installation guide](http://bower.io/#install-bower).
-
-You might want to move Composer to a directory in PATH, so you can access Composer from anywhere. Run `# mv composer.phar /usr/local/bin/composer` to do that.
-
-Bower needs `npm` for installation. To install it on Ubuntu, use`# apt-get install npm`. Since Bower will use `node` command, you will need to create a symlink to nodejs using `# ln -s /usr/bin/nodejs /usr/bin/node`.
-
-After installing both Composer and Bower, run `$ composer install`. It will download and install any dependency that OJS requires. While installing some depenencies, Composer will ask for a GitHub access token. You don't have to proivde one, as it will try to download from the source but you will need to press `ENTER` each time it tries. If you want to provide, see [GitHub's help article](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
+While installing some depenencies, Composer will ask for a GitHub access token. You don't have to proivde one, as it will try to download from the source but you will need to press `ENTER` each time it tries. If you want to provide, see [GitHub's help article](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
 
 When installation is complete, you will need to provide some parameters to OJS. Some of those are:
 
 * *Database parameters*: Use the one you have created before installing dependencies. Type them carefully as you might have to re-run this wizard if anything goes wrong.
- * `database_driver` (`pdo_mysql` by default)
+ * `database_driver` (`pdo_pgsql` by default)
  * `database_host` (`127.0.0.1` by default)
- * `database_port` (`3306` by default)
+ * `database_port` (`5432` by default)
  * `database_name` (`ojs` by default)
- * `database_user` (`root` by default)
- * `database_password` (`null` by default)
+ * `database_user` (`ojs` by default)
+ * `database_password` (`ojs` by default)
 * `base_host`: Treat this as your domain name. If you want to use a virtualhost, make sure you pass its name here.
+
+
+```
+$ composer update -vvv -o && bower update && php app/console assets:install web --symlink && php app/console assetic:dump && php app/console doctrine:schema:drop --force && php app/console doctrine:schema:create && php app/console ojs:install && php app/console ojs:install:samples
+
+```
 
 After the wizard is done, install tne initial data if you would like: `$ php app/console ojs:install:initial-data`
 
-You need to run `$ bower install` to get external JavaScript and CSS libraries. After Bower is done  run `$ php app/console assets:install web --symlink` to install assets using symlinks and run `$ php app/console assetic:dump`to dump them.
 
 Web Server Configuration Examples
 -------------------------
-### nginx
+### /etc/nginx/sites-available/ojs
+
 ```
 server {
     listen 80;
@@ -97,14 +203,19 @@ server {
     }
 }
 ```
+Install Bundles
+----------------
+
+```
+# citation bundle
+
+$ app/console ojs:install:package citation
+
+```
+
+
 Troubleshooting
 ----------------
 If anything goes wrong (ie. you get a blank page instead of OJS home) check logs under app/log directory and Apache's own log file.
 
-Magic Install Command
-----------------
 
-```bash
-composer update -o -vvv && bower update && php app/console assets:install web --symlink && php app/console assetic:dump && mysql -u root -p -e "DROP DATABASE IF EXISTS ojs;create database ojs;" && php app/console ojs:install
-
-```
