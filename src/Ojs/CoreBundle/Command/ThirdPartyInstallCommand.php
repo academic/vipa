@@ -53,22 +53,12 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
                 'bundle-class' => 'Ojs\\EndorsementBundle\\OjsEndorsementBundle',
             ),
         ),
-        'doi' => array(
-            'name' => 'Doi',
-            'description' => 'Ojs Doi Plugin',
-            'repositories' => array(
-                array(
-                    'type' => 'vcs',
-                    'url' => 'https://github.com/ojs/ojsdoibundle.git',
-                ),
-            ),
-            'require' => array(
-                "bulutyazilim/ojs-doi-bundle" => "dev-master",
-            ),
-            'extra' => array(
-                'bundle-class' => 'BulutYazilim\\OjsDoiBundle\\OjsDoiBundle',
-            ),
-        ),
+        'doi' => [
+            'name'        => 'DoiBundle',
+            'description' => 'OJS DOI Bundle',
+            'require'     => ["ojs/doi-bundle" => "dev-master"],
+            'extra'       => ['bundle-class' => 'Ojs\\DoiBundle\\OjsDoiBundle'],
+        ],
         'citation' =>[
             'name'         => 'CitationBundle',
             'description'  => 'OJS Citation Bundle',
