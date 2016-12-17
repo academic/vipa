@@ -2,19 +2,19 @@
 
 namespace Ojs\CoreBundle\Command;
 
+use Ojs\CoreBundle\Events\CoreEvent;
+use Ojs\CoreBundle\Events\CoreEvents;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\CoreBundle\Events\CoreEvents;
-use Ojs\CoreBundle\Events\CoreEvent;
-use Symfony\Component\Console\Helper\Table;
 
 class ThirdPartyInstallCommand extends ContainerAwareCommand
 {
@@ -69,22 +69,12 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
                 'bundle-class' => 'BulutYazilim\\OjsDoiBundle\\OjsDoiBundle',
             ),
         ),
-        'advanced-citation' => array(
-            'name' => 'AdvancedCitationBundle',
-            'description' => 'OJS Advanced Citation Bundle',
-            'repositories' => array(
-                array(
-                    'type' => 'vcs',
-                    'url' => 'git@github.com:ojs/advancedcitationbundle.git',
-                ),
-            ),
-            'require' => array(
-                "bulutyazilim/advanced-citation-bundle" => "dev-master",
-            ),
-            'extra' => array(
-                'bundle-class' => 'BulutYazilim\\AdvancedCitationBundle\\AdvancedCitationBundle',
-            ),
-        ),
+        'citation' =>[
+            'name'         => 'CitationBundle',
+            'description'  => 'OJS Citation Bundle',
+            'require'      => ["ojs/citation-bundle" => "dev-master"],
+            'extra'        => ['bundle-class' => 'Ojs\\CitationBundle\\OjsCitationBundle'],
+        ],
         'market' => array(
             'name' => 'MarketBundle',
             'description' => 'Market bundle for OJS',
