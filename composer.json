@@ -48,7 +48,7 @@
     },
     {
       "type": "git",
-      "url": "git@github.com:bulutyazilim/APYDataGridBundle.git"
+      "url": "https://github.com/bulutyazilim/APYDataGridBundle.git"
     }
   ],
   "require": {
