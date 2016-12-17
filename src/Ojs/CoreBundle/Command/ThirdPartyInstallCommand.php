@@ -175,7 +175,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             str_replace('    ', '  ', json_encode($this->packageData[$this->packageName], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))."\n"
         );
 
-        $install = new Process('php composer.phar update', $kernel->getRootDir().'/..', null, null, 600);
+        $install = new Process('composer update', $kernel->getRootDir().'/..', null, null, 600);
         $install->setPty(true);
         try {
             $install->mustRun();
