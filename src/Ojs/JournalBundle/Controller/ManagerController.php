@@ -127,11 +127,8 @@ class ManagerController extends Controller
             $em->persist($event->getJournal());
             $em->flush();
 
-            /*
             $event = new JournalEvent($event->getJournal());
             $eventDispatcher->dispatch(JournalEvents::POST_UPDATE, $event);
-
-            */
 
             if ($event->getResponse()) {
                 return $event->getResponse();
