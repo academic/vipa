@@ -254,10 +254,6 @@ class Mailer
                 return $this->getTemplateByEvent($eventName, $lang);
             }
 
-            if ($lang !== null) {
-                return $this->getTemplateByEvent($eventName);
-            }
-
             return null;
         } elseif ($template->isUseJournalDefault()) {
             $GLOBALS[$globalKey] = false;
