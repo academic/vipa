@@ -18,11 +18,6 @@ This project adheres to the [Open Code of Conduct](https://github.com/ojs/ojs/tr
 Read [the installation document](https://github.com/ojs/ojs/tree/master/docs/INSTALL.md).<br>
 Read [API v1 documents](https://github.com/ojs/ojs/tree/master/src/Ojs/ApiBundle/Resources/doc).
 
-**Quick install command (WARNING: this command will empty the database which you specify during installation)**
-
-```
-composer update -vvv -o && bower update && php app/console assets:install web --symlink && php app/console assetic:dump && php app/console doctrine:schema:drop --force && php app/console doctrine:schema:create && php app/console ojs:install && php app/console ojs:install:samples
-```
 
 ## Donate
 You may [donate](https://www.paypal.me/OkulBilisim) to us.

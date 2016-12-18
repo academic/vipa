@@ -1,10 +1,10 @@
 parameters:
     database_driver:   pdo_pgsql
     database_host:     127.0.0.1
-    database_port:     54323306
+    database_port:     5432
     database_name:     ojs
     database_user:     ojs
-    database_password: ~
+    database_password: ojs
 
     system_email:      ojs@localhost
     feedback_email:    feedback@localhost

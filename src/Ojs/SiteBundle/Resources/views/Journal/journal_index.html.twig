@@ -343,6 +343,11 @@
                                                         <i class="fa fa-caret-right"></i>
                                                         <a href="{{ article.publicURI }}">{{ article.title }}</a>
 
+                                                        <br>
+                                                        {% if article.firstPage is not null and article.lastPage is not null  %}
+                                                        {{ "first_page"|trans }} {{ article.firstPage }} - {{ "last_page"|trans }} {{ article.lastPage }}
+                                                        {% endif %}
+
                                                         <span class="clearfix">
                                                             <i class="fa fa-pencil"></i>
                                                             {% for articleAuthor in article.articleAuthors %}
