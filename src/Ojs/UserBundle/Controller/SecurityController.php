@@ -178,10 +178,13 @@ class SecurityController extends BaseSecurityController
 
     public function redirectAction()
     {
+        if(!$this->getUser()){
+            return $this->redirectToRoute('login');
+        }
         if ($this->getUser()->isAdmin()) {
-            return new RedirectResponse($this->get('router')->generate('dashboard'));
+            return $this->redirectToRoute('dashboard');
         }
 
-        return new RedirectResponse($this->get('router')->generate('ojs_user_index'));
+        return $this->redirectToRoute('ojs_user_index');
     }
 }
