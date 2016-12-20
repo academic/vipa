@@ -132,8 +132,8 @@ class Mailer
                 ];
             }
 
-            $templateParams = array_merge($defaultParams, $templateParams);
-            $body = $this->transformTemplate($template->getTemplate(), $templateParams);
+            $params = array_merge($defaultParams, $templateParams);
+            $body = $this->transformTemplate($template->getTemplate(), $params);
             $this->send($template->getSubject(), $body.$signature, $recipientMail, $recipientName);
         }
     }
