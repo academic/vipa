@@ -440,7 +440,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @return Issue
      */
-        public function getIssue()
+    public function getIssue()
     {
         return $this->issue;
     }
