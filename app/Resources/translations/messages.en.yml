@@ -259,6 +259,7 @@ board.manager: 'Board Manager'
 board.members: Members
 board.name: 'Position Title'
 board.order: 'Position Order Number'
+board.people: 'People'
 boards: Editorial Board
 book: Book
 booklet: Booklet
