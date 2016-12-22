@@ -20,7 +20,7 @@ use Ojs\CoreBundle\Params\ArticleStatuses;
 
 /**
  * Article
- * @GRID\Source(columns="id, numerator, translations.title:translation_agg, issue.translations.title:translation_agg, journal.title:translation_agg, pubdate, status, section.title, doiStatus,issue.number", groupBy={"id"})
+ * @GRID\Source(columns="id, numerator, translations.title:translation_agg, issue.translations.title:translation_agg, journal.title:translation_agg, pubdate, status, section.title, doiStatus", groupBy={"id"})
  * @GRID\Source(columns="id, numerator, status, translations.title:translation_agg, journal.title:translation_agg", groups={"submission"}, groupBy={"id"})
  * @GRID\Source(columns="id, translations.title:translation_agg,issue.number, issue.volume", groups={"export"}, groupBy={"id","issue.number","issue.volume"})
  * @ExclusionPolicy("all")
@@ -440,7 +440,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @return Issue
      */
-        public function getIssue()
+    public function getIssue()
     {
         return $this->issue;
     }
