@@ -45,6 +45,8 @@ class JournalArticleRestControllerTest extends ApiBaseTestCase
             'abstractTransliterated' => 'PHPUnit Test Abstract Transliterated Field en - POST',
             'articleType' => 4,
             'submissionDate' => '22-10-2015',
+            'viewCount' => 4,
+            'downloadCount' => 5,
         ];
         $this->client->request(
             'POST',
@@ -86,6 +88,8 @@ class JournalArticleRestControllerTest extends ApiBaseTestCase
             'abstractTransliterated' => 'PHPUnit Test Abstract Transliterated Field en - PUT',
             'articleType' => 2,
             'submissionDate' => '22-10-2015',
+            'viewCount' => 4,
+            'downloadCount' => 5,
         ];
         $this->client->request(
             'PUT',

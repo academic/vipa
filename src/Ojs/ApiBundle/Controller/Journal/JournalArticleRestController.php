@@ -15,6 +15,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 use Ojs\ApiBundle\Controller\ApiController;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class JournalArticleRestController extends ApiController
 {
@@ -102,11 +103,16 @@ class JournalArticleRestController extends ApiController
         if (!$this->isGranted('CREATE', $journal, 'articles')) {
             throw new AccessDeniedException;
         }
-        return $this->createForm(new ArticleType(), null, [
-            'csrf_protection' => false,
-            'journal' => $journal,
+        
+        $form = $this->createForm(new ArticleType(), null, [
+                'csrf_protection' => false,
+                'journal' => $journal,
             ]
         );
+        $form->add('viewCount', NumberType::class, ['label' => 'articles.total.view']);
+        $form->add('downloadCount', NumberType::class, ['label' => 'articles.total.download']);
+
+        return $form;
     }
 
     /**
