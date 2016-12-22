@@ -57,7 +57,7 @@ class BoardMailer extends AbstractJournalItemMailer
 
         $params = [
             'journal' => (string) $journal,
-            'board'   => (string) $board,
+            'board'   => (string) $board->translate($journal->getMandatoryLang()->getCode())->getName(),
         ];
 
         $this->mailer->sendEventMail($name, $staff, $params, $journal);
