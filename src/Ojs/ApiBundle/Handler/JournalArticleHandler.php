@@ -142,6 +142,8 @@ class JournalArticleHandler
         ]);
 
         $form->add('status', NumberType::class);
+        $form->add('viewCount', NumberType::class);
+        $form->add('downloadCount', NumberType::class);
         $form->submit($parameters, 'PATCH' !== $method);
         $formData = $form->getData();
 
