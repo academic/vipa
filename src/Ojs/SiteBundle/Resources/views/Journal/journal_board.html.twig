@@ -50,8 +50,11 @@
                 <div class="panel-heading text-center">
                     <h4>
                         {{ board_item.name }}
-                        <small>{{ board_item.description|raw }}</small>
                     </h4>
+                </div>
+
+                <div class="panel-body row">
+                    {{ board_item.description|raw }}
                 </div>
                 <div class="panel-body row">
                     {% if board_members[board_item.id] is defined and board_members[board_item.id]|length>0 %}

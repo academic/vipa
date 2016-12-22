@@ -258,6 +258,7 @@ board.manager: 'Kurul yöneticisi'
 board.members: 'Pozisyon üyeleri'
 board.name: 'Pozisyon Başlığı'
 board.order: 'Pozisyonda Sıralaması'
+board.people: 'Kişiler'
 boards: Editor Kurulu
 book: Kitap
 booklet: Broşür
