@@ -93,7 +93,7 @@ class JournalContactController extends Controller
             foreach ($sortData as $contactId => $order){
                 foreach ($contacts as $contact){
                     if($contact->getId() == $contactId){
-                        $contact->getContactOrder($order);
+                        $contact->setContactOrder($order);
                         $em->persist($contact);
                     }
                 }
