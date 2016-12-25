@@ -733,6 +733,7 @@ notification.subject: 'Bildirimin Konusu'
 notification.test: 'Bildirim Testi'
 notification.verb: Fiil
 number: Sayı
+crossref: Crossref
 'of %count%': '- %count%'
 off: Kapalı
 on: Açık
