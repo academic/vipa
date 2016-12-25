@@ -25,7 +25,7 @@ parameters:
                     - year
                 should :
                     - editor
-                    - volufme
+                    - volume
                     - number
                     - series
                     - address
