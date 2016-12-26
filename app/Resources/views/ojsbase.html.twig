@@ -88,7 +88,7 @@
 <body class="page-{{ page }} {% if isJournalHosting is defined and isJournalHosting == true %}journal_hosting{% endif %}">
 {% block header %}
     {% if isJournalHosting is defined and isJournalHosting == true %}
-        {% include '::ojsheader.html.twig' %}
+        {% include '::ojsheader_hosting.html.twig' %}
     {% else %}
         {% include '::ojsheader.html.twig' %}
     {% endif %}
