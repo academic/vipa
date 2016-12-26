@@ -86,12 +86,13 @@
     </script>
 </head>
 <body class="page-{{ page }} {% if isJournalHosting is defined and isJournalHosting == true %}journal_hosting{% endif %}">
-{% if isJournalHosting is defined and isJournalHosting == true %}
-{% else %}
 {% block header %}
-    {% include '::ojsheader.html.twig' %}
+    {% if isJournalHosting is defined and isJournalHosting == true %}
+        {% include '::ojsheader.html.twig' %}
+    {% else %}
+        {% include '::ojsheader.html.twig' %}
+    {% endif %}
 {% endblock %}
-{% endif %}
 <div class="container ">
     {% if app.user and hideleft is not defined %}
     <div class="row">
