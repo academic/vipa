@@ -735,6 +735,7 @@ notification.subject: Subject
 notification.test: 'Notification Test'
 notification.verb: Verb
 number: Number
+crossref: Crossref
 'of %count%': 'of %count%'
 off: Off
 on: On

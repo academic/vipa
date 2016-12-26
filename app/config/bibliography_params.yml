@@ -15,6 +15,7 @@ parameters:
                     - month
                     - note
                     - key
+                    - crossref
             book:
                 name : book
                 must :
