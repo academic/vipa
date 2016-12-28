@@ -35,12 +35,14 @@ fos_elastica:
                   type: string
             username:
               type: string
+              analyzer: classic_analyser
             firstName:
               type: string
             lastName:
               type: string
             fullName:
               type: string
+              analyzer: classic_analyser
               fields:
                 raw:
                   type: string
