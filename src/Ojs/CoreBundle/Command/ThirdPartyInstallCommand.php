@@ -87,7 +87,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'https://bitbucket.org/bulutyazilim/ojsdergiparkbundle.git',
+                    'url' => 'https://bitbucket.org/ulakbim/ojsdergiparkbundle.git',
                 ),
             ),
             'require' => array(
