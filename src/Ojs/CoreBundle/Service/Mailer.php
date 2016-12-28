@@ -128,7 +128,7 @@ class Mailer
                 $defaultParams = [
                     'receiver.username' => $user->getUsername(),
                     'receiver.fullName' => $user->getFullName(),
-                    'done.by' => $this->currentUser()->getFullName(),
+                    'done.by' => $this->currentUser() != 'anon.' ? $this->currentUser()->getFullName() : '' ,
                 ];
             }
 
