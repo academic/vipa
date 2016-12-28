@@ -234,7 +234,7 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
     /**
      * @return int
      */
-    public function getPageOrder(): int
+    public function getPageOrder()
     {
         return $this->pageOrder;
     }
