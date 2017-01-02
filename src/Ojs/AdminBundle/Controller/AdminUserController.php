@@ -220,7 +220,7 @@ class AdminUserController extends Controller
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity)
-                        ->add('save','submit');
+            ->add('save','submit');
 
         return $this->render(
             'OjsAdminBundle:AdminUser:edit.html.twig',
@@ -383,7 +383,7 @@ class AdminUserController extends Controller
         }
 
         return $this->render('OjsAdminBundle:AdminUser:password.html.twig', [
-            'form' => $form->createView()
+                'form' => $form->createView()
             ]
         );
     }
@@ -425,9 +425,9 @@ class AdminUserController extends Controller
 
             foreach ($slaveUsers as $slaveUser) {
 
-                foreach ($entities as $name => $entity)
+                foreach ($entities as $name => $class)
                 {
-                    if(!$this->migrateUser($entity, $primaryUser, $slaveUser)){
+                    if(!$this->migrateUser($class, $name, $primaryUser, $slaveUser)){
                         exit('asd');
                     }
                 }
@@ -450,22 +450,55 @@ class AdminUserController extends Controller
     }
 
     /**
-     * @param $entity
+     * @param string $class
+     * @param string $entityName
      * @param User $primary
      * @param User $slave
      * @return bool
      */
-    private function migrateUser($entity, User $primary,User $slave)
+    private function migrateUser($class, $entityName, User $primary,User $slave)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $results = $em->getRepository($entity)->findBy(['user' => $slave]);
-
-        foreach ($results as $result)
+        switch ($entityName)
         {
-            $result->setUser($primary);
-            $em->persist($result);
+            case 'journal.user':
+
+                /**
+                 * @var JournalUser $result
+                 */
+                $result = $em->getRepository($class)->findOneBy(['user' => $slave]);
+
+                foreach ($result->getRoles() as $role)
+                {
+                    if(!in_array($role, $primary->getJournalRoles($result->getJournal())))
+                    {
+                        $journalUser = new JournalUser();
+                        $journalUser->setUser($primary);
+                        $journalUser->addRole($role);
+
+                        $em->persist($journalUser);
+                    }
+
+                }
+
+            break;
+
+            case 'journal':
+
+            break;
+
+            default:
+                $results = $em->getRepository($class)->findBy(['user' => $slave]);
+                foreach ($results as $result)
+                {
+                    $result->setUser($primary);
+                    $em->persist($result);
+                }
+                break;
         }
+
+
 
         try {
             $em->flush();
@@ -480,13 +513,14 @@ class AdminUserController extends Controller
      */
     private function migrateEntities()
     {
-        return 
-        [
-            'board' => BoardMember::class,
-            'journal.setup.progress' => JournalSetupProgress::class,
-            'author' => Author::class,
-            'subject' => Subject::class,
-            'journal.user' => JournalUser::class
-        ];
+        return
+            [
+                'board' => BoardMember::class,
+                'journal.setup.progress' => JournalSetupProgress::class,
+                'author' => Author::class,
+                'subject' => Subject::class,
+                'journal.user' => JournalUser::class,
+                'journal' => Journal::class
+            ];
     }
 }
