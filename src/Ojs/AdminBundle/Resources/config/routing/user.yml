@@ -34,3 +34,7 @@ ojs_admin_user_unblock:
 ojs_admin_user_password:
     path:  /{id}/password
     defaults: { _controller: "OjsAdminBundle:AdminUser:changePassword" }
+
+ojs_admin_user_merge:
+    path:  /merge
+    defaults: { _controller: "OjsAdminBundle:AdminUser:merge" }

@@ -11,8 +11,15 @@ use Ojs\AdminBundle\Form\Type\ChangePasswordType;
 use Ojs\AdminBundle\Form\Type\UpdateUserType;
 use Ojs\AdminBundle\Form\Type\UserType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\BoardMember;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalSetupProgress;
+use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Entity\Subject;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
+use Presta\SitemapBundle\Exception\Exception;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +31,7 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ojs\AdminBundle\Events\AdminEvent;
+use Ojs\AdminBundle\Form\Type\UserMergeType;
 
 /**
  * User administration controller
@@ -378,5 +386,107 @@ class AdminUserController extends Controller
             'form' => $form->createView()
             ]
         );
+    }
+
+    /**
+     * Creates a form to create a User entity.
+     * @return Form The form
+     */
+    private function createMergeForm()
+    {
+        $form = $this->createForm(
+            new UserMergeType(),
+            null,
+            array(
+                'action' => $this->generateUrl('ojs_admin_user_merge'),
+                'method' => 'POST'
+            )
+        );
+
+        return $form;
+    }
+
+    public function mergeAction(Request $request)
+    {
+        $form = $this->createMergeForm()
+            ->add('create', 'submit', array('label' => 'c'));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+
+            /** @var User $primaryUser */
+            $primaryUser = $data['primaryUser'];
+
+            /** @var User[] $slaveUsers */
+            $slaveUsers = $data['slaveUsers'];
+
+            $entities = $this->migrateEntities();
+
+            foreach ($slaveUsers as $slaveUser) {
+
+                foreach ($entities as $name => $entity)
+                {
+                    if(!$this->migrateUser($entity, $primaryUser, $slaveUser)){
+                        exit('asd');
+                    }
+                }
+            }
+
+            $this->successFlashBag('successful.create');
+
+            return $this->redirectToRoute(
+                'ojs_admin_user_merge'
+            );
+        }
+
+        return $this->render(
+            'OjsAdminBundle:AdminUser:merge.html.twig',
+            array(
+                'form' => $form->createView(),
+            )
+        );
+
+    }
+
+    /**
+     * @param $entity
+     * @param User $primary
+     * @param User $slave
+     * @return bool
+     */
+    private function migrateUser($entity, User $primary,User $slave)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $results = $em->getRepository($entity)->findBy(['user' => $slave]);
+
+        foreach ($results as $result)
+        {
+            $result->setUser($primary);
+            $em->persist($result);
+        }
+
+        try {
+            $em->flush();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function migrateEntities()
+    {
+        return 
+        [
+            'board' => BoardMember::class,
+            'journal.setup.progress' => JournalSetupProgress::class,
+            'author' => Author::class,
+            'subject' => Subject::class,
+            'journal.user' => JournalUser::class
+        ];
     }
 }
