@@ -164,6 +164,12 @@ Ojs\UserBundle\Entity\User:
       joinColumn:
         name: institution_id
         referencedColumnName: id
+    merged:
+      targetEntity: Ojs\UserBundle\Entity\User
+      joinColumn:
+        name: merged_id
+        referencedColumnName: id
+      inversedBy: mergeUsers
   manyToMany:
     subjects:
       targetEntity: Ojs\JournalBundle\Entity\Subject

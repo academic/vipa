@@ -221,6 +221,16 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     /** @var Collection */
     private $journalRoles;
 
+    /**
+     * @var ArrayCollection|User[]
+     */
+    private $mergeUsers;
+
+    /**
+     * @var User
+     */
+    private $merged;
+
     public function __construct()
     {
         parent::__construct();
@@ -229,6 +239,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
         $this->authorDetails = new ArrayCollection();
         $this->multipleMails = new ArrayCollection();
         $this->journalUsers = new ArrayCollection();
+        $this->mergeUsers = new ArrayCollection();
         $this->salt = null;
     }
 
@@ -293,7 +304,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
 
     /**
      *
-     * @return Collection
+     * @return Subject[]
      */
     public function getSubjects()
     {
@@ -1071,5 +1082,61 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
             return true;
         }
         return false;
+    }
+
+    /**
+     * Add mergeUsers
+     *
+     * @param User $mergeUsers
+     * @return User
+     */
+    public function addMergeUser(User $mergeUsers)
+    {
+        $this->mergeUsers[] = $mergeUsers;
+
+        return $this;
+    }
+
+    /**
+     * Remove mergeUsers
+     *
+     * @param User $mergeUsers
+     */
+    public function removeMergeUser(User $mergeUsers)
+    {
+        $this->mergeUsers->removeElement($mergeUsers);
+    }
+
+    /**
+     * Get mergeUsers
+     *
+     * @return ArrayCollection|User[]
+     */
+    public function getMergeUsers()
+    {
+        return $this->mergeUsers;
+    }
+    
+    /**
+     * Set merged
+     *
+     * @param User $merged
+     * @return User
+     */
+    public function setMergedUser(User $merged = null)
+    {
+        $this->merged = $merged;
+
+        return $this;
+    }
+
+    /**
+     * Get merged
+     *
+     * @return User
+     */
+    public function getMerged()
+    {
+        return $this->merged;
     }
 }
