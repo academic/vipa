@@ -11,12 +11,14 @@ use Ojs\AdminBundle\Form\Type\ChangePasswordType;
 use Ojs\AdminBundle\Form\Type\UpdateUserType;
 use Ojs\AdminBundle\Form\Type\UserType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\BoardMember;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetupProgress;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\Subject;
+use Ojs\UserBundle\Entity\MultipleMail;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
 use Presta\SitemapBundle\Exception\Exception;
@@ -421,17 +423,26 @@ class AdminUserController extends Controller
             /** @var User[] $slaveUsers */
             $slaveUsers = $data['slaveUsers'];
 
-            $entities = $this->migrateEntities();
-
             foreach ($slaveUsers as $slaveUser) {
 
-                foreach ($entities as $name => $class)
-                {
-                    if(!$this->migrateUser($class, $name, $primaryUser, $slaveUser)){
-                        exit('asd');
-                    }
+                if($primaryUser->getId() == $slaveUser->getId()){
+                    continue;
                 }
+                
+                foreach ($this->migrateEntities() as $name => $class)
+                {
+                    $this->migrateUser($class, $name, $primaryUser, $slaveUser);
+                }
+
+                $this->migrateMails($primaryUser, $slaveUser);
+
+                $primaryUser->addMergeUser($slaveUser);
+                $slaveUser->setMergedUser($primaryUser);
+                $em->persist($primaryUser);
+                $em->persist($slaveUser);
             }
+
+            $em->flush();
 
             $this->successFlashBag('successful.create');
 
@@ -450,13 +461,12 @@ class AdminUserController extends Controller
     }
 
     /**
-     * @param string $class
-     * @param string $entityName
+     * @param $class
+     * @param $entityName
      * @param User $primary
      * @param User $slave
-     * @return bool
      */
-    private function migrateUser($class, $entityName, User $primary,User $slave)
+    private function migrateUser($class, $entityName, User $primary, User $slave)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -464,27 +474,29 @@ class AdminUserController extends Controller
         {
             case 'journal.user':
 
-                /**
-                 * @var JournalUser $result
-                 */
-                $result = $em->getRepository($class)->findOneBy(['user' => $slave]);
-
-                foreach ($result->getRoles() as $role)
-                {
-                    if(!in_array($role, $primary->getJournalRoles($result->getJournal())))
-                    {
-                        $journalUser = new JournalUser();
-                        $journalUser->setUser($primary);
-                        $journalUser->addRole($role);
-
-                        $em->persist($journalUser);
-                    }
-
-                }
-
             break;
 
-            case 'journal':
+            case 'subject':
+
+                foreach ($slave->getSubjects() as $subject)
+                {
+                    if(!in_array($subject, (array)$primary->getSubjects()))
+                    {
+                        $primary->addSubject($subject);
+                        $em->persist($primary);
+                    }
+                }
+                
+            break;
+
+            case 'article':
+                $results = $em->getRepository(Article::class)->findBy(['submitterUser' => $slave->getId()]);
+
+                foreach ($results as $article)
+                {
+                    $article->setSubmitterUser($primary);
+                    $em->persist($article);
+                }
 
             break;
 
@@ -495,16 +507,35 @@ class AdminUserController extends Controller
                     $result->setUser($primary);
                     $em->persist($result);
                 }
-                break;
+            break;
+
         }
+    }
 
+    /**
+     * @param User $primaryUser
+     * @param User $slaveUser
+     */
+    private function migrateMails(User $primaryUser, User $slaveUser)
+    {
+        $em = $this->getDoctrine()->getManager();
 
+        $multipleMail = new MultipleMail();
+        $multipleMail->setUser($primaryUser);
+        $multipleMail->setIsConfirmed(true);
+        $multipleMail->setMail($slaveUser->getEmail());
 
-        try {
+        $em->persist($multipleMail);
+
+        foreach ($slaveUser->getMultipleMails() as $multipleMail)
+        {
+            $em->remove($multipleMail);
             $em->flush();
-            return true;
-        } catch (Exception $e) {
-            return false;
+            $mail = new MultipleMail();
+            $mail->setUser($primaryUser);
+            $mail->setIsConfirmed(true);
+            $mail->setMail($multipleMail->getMail());
+            $em->persist($mail);
         }
     }
 
@@ -520,7 +551,6 @@ class AdminUserController extends Controller
                 'author' => Author::class,
                 'subject' => Subject::class,
                 'journal.user' => JournalUser::class,
-                'journal' => Journal::class
             ];
     }
 }
