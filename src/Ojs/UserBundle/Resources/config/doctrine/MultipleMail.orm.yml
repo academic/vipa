@@ -26,9 +26,6 @@ Ojs\UserBundle\Entity\MultipleMail:
         isConfirmed:
           type: boolean
           nullable: true
-        user_id:
-          type: integer
-          length: 11
     manyToOne:
         user:
           targetEntity: Ojs\UserBundle\Entity\User

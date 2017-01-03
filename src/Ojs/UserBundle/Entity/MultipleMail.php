@@ -28,11 +28,6 @@ class MultipleMail
     private $isConfirmed;
 
     /**
-     * @var integer
-     */
-    private $user_id;
-
-    /**
      * @var User
      */
     private $user;
@@ -117,30 +112,6 @@ class MultipleMail
     public function getIsConfirmed()
     {
         return $this->isConfirmed;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     *
-     * @return $this
-     */
-    public function setUserId($userId)
-    {
-        $this->user_id = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
     }
 
     /**
