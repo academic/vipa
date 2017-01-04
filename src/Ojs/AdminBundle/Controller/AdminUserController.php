@@ -425,7 +425,7 @@ class AdminUserController extends Controller
 
             foreach ($slaveUsers as $slaveUser) {
 
-                if($primaryUser->getId() == $slaveUser->getId()){
+                if($primaryUser->getId() == $slaveUser->getId() || $slaveUser->getMerged() !== null){
                     continue;
                 }
                 
@@ -473,6 +473,28 @@ class AdminUserController extends Controller
         switch ($entityName)
         {
             case 'journal.user':
+
+                /**
+                 * @var JournalUser $result
+                 */
+                $result = $em->getRepository($class)->findOneBy(['user' => $slave]);
+
+                if(!$result){
+                    continue;
+                }
+
+                foreach ($result->getRoles() as $role)
+                {
+                    if(!in_array($role, $primary->getJournalRoles($result->getJournal())))
+                    {
+                        $journalUser = new JournalUser();
+                        $journalUser->setUser($primary);
+                        $journalUser->addRole($role);
+
+                        $em->persist($journalUser);
+                    }
+
+                }
 
             break;
 
@@ -522,7 +544,7 @@ class AdminUserController extends Controller
 
         $multipleMail = new MultipleMail();
         $multipleMail->setUser($primaryUser);
-        $multipleMail->setIsConfirmed(true);
+        $multipleMail->setIsConfirmed(1);
         $multipleMail->setMail($slaveUser->getEmail());
 
         $em->persist($multipleMail);
@@ -533,7 +555,7 @@ class AdminUserController extends Controller
             $em->flush();
             $mail = new MultipleMail();
             $mail->setUser($primaryUser);
-            $mail->setIsConfirmed(true);
+            $mail->setIsConfirmed(1);
             $mail->setMail($multipleMail->getMail());
             $em->persist($mail);
         }
