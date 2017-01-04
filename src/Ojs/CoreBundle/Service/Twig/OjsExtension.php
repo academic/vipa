@@ -534,9 +534,7 @@ class OjsExtension extends \Twig_Extension
 
         $institution = (!empty($author->getInstitution())) ? $author->getInstitution() : $author->getInstitutionName();
         $email = (empty($author->getUser())) ? $author->getEmail() : $author->getUser()->getEmail();
-        $fullName = (empty($author->getUser())) ?
-            $author->getFullName() :
-            $author->getUser()->getTitle() . ' ' . $author->getUser()->getFullName();
+        $fullName = $author->getFullName();
 
         $text = '
         <p id="author$' . $author->getId() . '">
