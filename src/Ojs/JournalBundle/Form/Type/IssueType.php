@@ -57,6 +57,7 @@ class IssueType extends AbstractType
                         'issue.visibility.not_published' => IssueVisibilityStatuses::NOT_PUBLISHED,
                         'issue.visibility.published'     => IssueVisibilityStatuses::PUBLISHED,
                         'issue.visibility.in_press'      => IssueVisibilityStatuses::IN_PRESS,
+                        'issue.visibility.early_pub'     => IssueVisibilityStatuses::EARLY_PUB,
                     ],
                     'choices_as_values' => true,
                     'label'             => 'published',
@@ -174,6 +175,8 @@ class IssueType extends AbstractType
 
                 if ($issue->getInPress() && $issue->isPublished()) {
                     $visibility = IssueVisibilityStatuses::IN_PRESS;
+                } else if ($issue->getEarlyPub() && $issue->isPublished()) {
+                    $visibility = IssueVisibilityStatuses::EARLY_PUB;
                 } else if ($issue->isPublished()) {
                     $visibility = IssueVisibilityStatuses::PUBLISHED;
                 }
@@ -220,9 +223,11 @@ class IssueType extends AbstractType
                 $visibility = $form->get('visibility')->getData();
 
                 $issue->setInPress($visibility == IssueVisibilityStatuses::IN_PRESS);
+                $issue->setEarlyPub($visibility == IssueVisibilityStatuses::EARLY_PUB);
                 $issue->setPublished(
                     $visibility == IssueVisibilityStatuses::IN_PRESS ||
-                    $visibility == IssueVisibilityStatuses::PUBLISHED
+                    $visibility == IssueVisibilityStatuses::PUBLISHED||
+                    $visibility == IssueVisibilityStatuses::EARLY_PUB
                 );
 
                 $event->setData($issue);

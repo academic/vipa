@@ -303,6 +303,16 @@
                                                             <i class="fa fa-star" title="{{ "special.issue"|trans }}"></i>
                                                                 {{ "special.issue"|trans }}
                                                             </span>
+                                                            {% elseif issue.inPress %}
+                                                            <span class="label label-primary">
+                                                            <i class="fa fa-star" title="{{ "issue.in_press"|trans }}"></i>
+                                                                {{ "issue.in_press"|trans }}
+                                                            </span>
+                                                            {% elseif issue.earlyPub %}
+                                                            <span class="label label-primary">
+                                                            <i class="fa fa-star" title="{{ "issue.early_pub"|trans }}"></i>
+                                                                {{ "issue.early_pub"|trans }}
+                                                            </span>
                                                             {% endif %}
                                                         </a>
                                                     </li>
