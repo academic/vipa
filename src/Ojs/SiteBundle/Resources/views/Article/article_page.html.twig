@@ -157,7 +157,7 @@
 
                     <hr/>
 
-                    {% if article.doi is not empty %}
+                    {% if article.doi is not empty and article.isDoiValid  %}
                         <div id="doiInfo">
                             <p class="text-success">
                                 <a href="http://dx.doi.org/{{ article.doi }}">{{ 'doi'|trans }}: {{ article.doi }}</a>
@@ -270,7 +270,7 @@
                                     {{ bibtex_data.title }}.
                                     {{ bibtex_data.journal }}, {% if article.issue %}{{ article.issue.volume }} ({{ article.issue.number }}){% endif %},
                                     {% if article.firstPage is not null and article.lastPage is not null %}{{ article.firstPage }}-{{ article.lastPage }}{% endif %}.
-                                    {% if article.doi is not empty %}DOI: {{ article.doi }}{% else %}Retrieved from {{ app.request.schemeAndHttpHost ~ app.request.requestUri }}{% endif %}
+                                    {% if article.doi is not empty and article.isDoiValid %}DOI: {{ article.doi }}{% else %}Retrieved from {{ app.request.schemeAndHttpHost ~ app.request.requestUri }}{% endif %}
                                 </td>
                             </tr>
                             <tr>
@@ -313,8 +313,8 @@
                                     {% endif %}
                                     Y1 - {{ article.pubDate|date("Y") }}
                                     PY - {{ article.pubDate|date("Y") }}
-                                    N1 - doi: {{ article.doi }}
-                                    DO - {{ article.doi }}
+                                    N1 - {% if article.doi is not empty and article.isDoiValid %} doi: {{ article.doi }} {% endif %}
+                                    DO - {% if article.doi is not empty and article.isDoiValid %} {{ article.doi }} {% endif %}
                                     T2 - {{ article.journal }}
                                     JF - Journal
                                     JO - JOR
@@ -323,8 +323,8 @@
                                     VL - {{ article.issue.volume }}
                                     IS - {{ article.issue.number }}
                                     SN - {{ article.journal.issn }}-{{ article.journal.eissn }}
-                                    M3 - doi: {{ article.doi }}
-                                    UR - http://dx.doi.org/{{ article.doi }}
+                                    M3 - {% if article.doi is not empty and article.isDoiValid %} doi: {{ article.doi }} {% endif %}
+                                    UR - {% if article.doi is not empty and article.isDoiValid %} http://dx.doi.org/{{ article.doi }} {% endif %}
                                     Y2 - {{ article.acceptanceDate|date("Y") }}
                                     ER -
 
@@ -346,8 +346,8 @@
                                     %P {{ article.journal.issn }}-{{ article.journal.eissn }}
                                     %V {{ article.issue.volume }}
                                     %N {{ article.issue.number }}
-                                    %R doi: {{ article.doi }}
-                                    %U {{ article.doi }}
+                                    %R {% if article.doi is not empty and article.isDoiValid %} doi: {{ article.doi }} {% endif %}
+                                    %U {% if article.doi is not empty and article.isDoiValid %} {{ article.doi }} {% endif %}
                                 </td>
                             </tr>
                         </table>
