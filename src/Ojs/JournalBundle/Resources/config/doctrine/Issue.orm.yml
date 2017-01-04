@@ -196,6 +196,12 @@ Ojs\JournalBundle\Entity\Issue:
       column: in_press
       options:
         default: false
+    earlyPub:
+      type: boolean
+      nullable: true
+      column: early_pub
+      options:
+        default: false
   gedmo:
     soft_deleteable:
       field_name: deletedAt

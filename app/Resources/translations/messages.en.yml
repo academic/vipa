@@ -504,11 +504,13 @@ issue.cover: Issue Cover Picture
 issue.plural: Issues
 issue.publishdate: Issue Published Date
 issue.supplement: 'Supplement'
-issue.in_press: 'Future Issue'
+issue.in_press: 'Furthcoming'
 issue.in_press_desc: 'Will be displayed as ''future issue - in press'', visible only in archive page'
+issue.early_pub: 'Early Pub'
 issue.visibility.not_published: 'Not Published'
 issue.visibility.published: 'Published'
 issue.visibility.in_press: 'In Press'
+issue.visibility.early_pub: 'Early Pub'
 issuefile.edit: 'Edit Issue File'
 issuefile.file: File
 issuefile.type: Type

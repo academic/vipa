@@ -505,9 +505,11 @@ issue.publishdate: Yayınlanma Tarihi
 issue.supplement: 'Ek Sayı'
 issue.in_press: 'Gelecek Sayı'
 issue.in_press_desc: 'Gelecek sayı olarak arşivde göster'
+issue.early_pub: 'Erken Görünüm'
 issue.visibility.not_published: 'Yayında Değil'
 issue.visibility.published: 'Yayında'
 issue.visibility.in_press: 'Gelecek Sayı Olarak Arşivde Göster'
+issue.visibility.early_pub: 'Erken Görünüm'
 issuefile.edit: 'Sayı Dosyasını Düzenle'
 issuefile.file: Dosya
 issuefile.type: Dosya Tipi

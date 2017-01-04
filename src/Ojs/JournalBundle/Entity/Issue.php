@@ -185,6 +185,11 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @var integer
      */
     private $inPress = false;
+    
+    /**
+     * @var integer
+     */
+    private $earlyPub = false;
 
     /**
      * @var ArrayCollection[Catalog]
@@ -815,6 +820,25 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     public function setInPress($inPress)
     {
         $this->inPress = $inPress;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEarlyPub()
+    {
+        return $this->earlyPub;
+    }
+
+    /**
+     * @param int $earlyPub
+     * @return Issue
+     */
+    public function setEarlyPub($earlyPub)
+    {
+        $this->earlyPub = $earlyPub;
 
         return $this;
     }

@@ -53,7 +53,7 @@ class JournalController extends Controller
             $this->throw404IfNotFound($journal);
         }
 
-        $data['groupedIssues'] = $em->getRepository(Issue::class)->getByYear($journal, true);
+        $data['groupedIssues'] = $em->getRepository(Issue::class)->getByYear($journal);
         $data['page'] = 'archive';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         $data['journal'] = $journal;
@@ -249,7 +249,7 @@ class JournalController extends Controller
         ], ['pageOrder' => 'ASC']);
 
         if($isJournalHosting){
-            $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal), 0, 5, true),true);
+            $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal,true,true), 0, 5, true),true);
             $data['archive_uri'] = $this->generateUrl(
                 'journal_hosting_archive',
                 [
@@ -258,7 +258,7 @@ class JournalController extends Controller
                 true
             );
         }else{
-            $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal), 0, 5, true));
+            $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal,true,true), 0, 5, true));
             $data['archive_uri'] = $this->generateUrl(
                 'ojs_archive_index',
                 [
