@@ -3,6 +3,7 @@
 namespace Ojs\CoreBundle\Service\Twig;
 
 use Doctrine\ORM\EntityManager;
+use GuzzleHttp\Client;
 use Ojs\CoreBundle\Events\TwigEvent;
 use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\CoreBundle\Params\IssueDisplayModes;
@@ -136,6 +137,7 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('issueTextGenerate', array($this, 'issueTextGenerate')),
             new \Twig_SimpleFunction('getAuthorsInfo', array($this, 'getAuthorsInfo'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('getStrToUpper', array($this, 'getStrToUpper'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('isDoiValid', array($this, 'isDoiValid')),
         );
     }
 
@@ -570,5 +572,26 @@ class OjsExtension extends \Twig_Extension
     public function getName()
     {
         return 'ojs_extension';
+    }
+
+    /**
+     * @param $doi
+     * @return bool
+     */
+    public function isDoiValid($doi)
+    {
+        try {
+            $client = new Client();
+            $doi = $client->get('http://doi.org/api/handles/'.$doi);
+            $doi = json_decode($doi);
+
+            if($doi['responseCode'] == 1){
+                return true;
+            }
+            return false;
+
+        } catch(\Exception $e) {
+            return false;
+        }
     }
 }

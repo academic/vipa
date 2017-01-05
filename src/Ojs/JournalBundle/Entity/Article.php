@@ -1311,6 +1311,19 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isDoiValid()
+    {
+        if ($this->getDoiStatus() == DoiStatuses::VALID)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @param int $doiStatus
      * @return Article
      */
