@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.article'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
-{% set isDoiValid = isDoiValid(article.doi) %}
+{% set isDoiValid = article.isDoiValid %}
 
 {% block breadcrumb %}
     {% if article.issue %}
