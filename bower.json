@@ -41,7 +41,7 @@
     "downloadjs": "*",
     "fancybox": "^2.1.5",
     "jquery-ui": "*",
-    "katex":"*"
+    "katex":"0.6.0"
   },
   "resolutions": {
     "font-awesome": "4.4.0",
