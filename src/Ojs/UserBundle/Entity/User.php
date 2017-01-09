@@ -168,7 +168,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     private $institutionName;
 
     /**
-     * @var Collection
+     * @var ArrayCollection|Subject[]
      * @Expose
      * @JMS\Groups({"export"})
      */

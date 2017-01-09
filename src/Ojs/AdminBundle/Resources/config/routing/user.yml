@@ -37,4 +37,8 @@ ojs_admin_user_password:
 
 ojs_admin_user_merge:
     path:  /merge
+    defaults: { _controller: "OjsAdminBundle:AdminUser:merge", user: null }
+
+ojs_admin_user_primary_merge:
+    path:  /{id}/merge
     defaults: { _controller: "OjsAdminBundle:AdminUser:merge" }

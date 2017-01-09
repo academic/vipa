@@ -62,10 +62,21 @@ class AdminUserController extends Controller
             ]
         );
 
+        $mergeAction = new RowAction('<i class="fa fa-compress"></i>', 'ojs_admin_user_primary_merge');
+        $mergeAction->setRouteParameters('id');
+        $mergeAction->setAttributes(
+            [
+                'class' => 'btn btn-primary btn-xs',
+                'data-toggle' => 'tooltip',
+                'title' => $this->get('translator')->trans('title.user_merge'),
+            ]
+        );
+
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->showAction('ojs_admin_user_show', 'id');
         $rowAction[] = $gridAction->editAction('ojs_admin_user_edit', 'id');
         $rowAction[] = $passwordAction;
+        $rowAction[] = $mergeAction;
         $rowAction[] = $gridAction->userBanAction();
 
         $actionColumn->setRowActions($rowAction);
@@ -390,41 +401,49 @@ class AdminUserController extends Controller
         );
     }
 
+
     /**
-     * Creates a form to create a User entity.
-     * @return Form The form
+     * @param User|null $primaryUser
+     * @return Form
      */
-    private function createMergeForm()
+    private function createMergeForm(User $primaryUser = null)
     {
         $form = $this->createForm(
             new UserMergeType(),
             null,
             array(
-                'action' => $this->generateUrl('ojs_admin_user_merge'),
-                'method' => 'POST'
+                'action' => $primaryUser == null ? $this->generateUrl('ojs_admin_user_merge') : $this->generateUrl('ojs_admin_user_primary_merge', ['id' => $primaryUser->getId()]),
+                'method' => 'POST',
+                'primaryUser' => $primaryUser
             )
         );
 
         return $form;
     }
 
-    public function mergeAction(Request $request)
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
+     */
+    public function mergeAction(Request $request, $id)
     {
-        $form = $this->createMergeForm()
+        /** @var User $user */
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->find('OjsUserBundle:User', $id);
+        $form = $this->createMergeForm($user)
             ->add('create', 'submit', array('label' => 'c'));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $em = $this->getDoctrine()->getManager();
 
             /** @var User $primaryUser */
-            $primaryUser = $data['primaryUser'];
+            $primaryUser = $user == null ? $data['primaryUser'] : $user;
 
             /** @var User[] $slaveUsers */
             $slaveUsers = $data['slaveUsers'];
 
             foreach ($slaveUsers as $slaveUser) {
-
                 if($primaryUser->getId() == $slaveUser->getId() || $slaveUser->getMerged() !== null){
                     continue;
                 }
@@ -447,7 +466,7 @@ class AdminUserController extends Controller
             $this->successFlashBag('successful.create');
 
             return $this->redirectToRoute(
-                'ojs_admin_user_merge'
+                'ojs_admin_user_index'
             );
         }
 
