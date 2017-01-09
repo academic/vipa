@@ -7,6 +7,8 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\ORMException;
 use Ojs\AdminBundle\Events\AdminEvents;
+use Ojs\AdminBundle\Events\MergeEvent;
+use Ojs\AdminBundle\Events\MergeEvents;
 use Ojs\AdminBundle\Form\Type\ChangePasswordType;
 use Ojs\AdminBundle\Form\Type\UpdateUserType;
 use Ojs\AdminBundle\Form\Type\UserType;
@@ -426,11 +428,18 @@ class AdminUserController extends Controller
      * @param $id
      * @return RedirectResponse|Response
      */
-    public function mergeAction(Request $request, $id)
+    public function mergeAction(Request $request, $id = null)
     {
         /** @var User $user */
         $em = $this->getDoctrine()->getManager();
-        $user = $em->find('OjsUserBundle:User', $id);
+
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
+        $user = null;
+        if($id !== null) {
+            $user = $em->find('OjsUserBundle:User', $id);
+        }
         $form = $this->createMergeForm($user)
             ->add('create', 'submit', array('label' => 'c'));
         $form->handleRequest($request);
@@ -460,6 +469,10 @@ class AdminUserController extends Controller
                 $em->persist($primaryUser);
                 $em->persist($slaveUser);
             }
+
+            $event = new MergeEvent($primaryUser, $slaveUsers);
+            $dispatcher->dispatch(MergeEvents::OJS_ADMIN_USER_MERGE, $event);
+
 
             $em->flush();
 
