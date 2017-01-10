@@ -92,7 +92,16 @@ $(document).ready(function () {
                 ['table', ['table']],
                 ['insert', ['link', 'picture', 'hr']],
                 ['view', ['codeview']]
-            ]
+            ],
+            popover: {
+                image: [
+                    ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']],
+                    ['custom', ['imageAttributes']]
+                ]
+            }
+
         });
 
         $('form').on('submit', function () {

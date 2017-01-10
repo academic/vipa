@@ -41,7 +41,8 @@
     "downloadjs": "*",
     "fancybox": "^2.1.5",
     "jquery-ui": "*",
-    "katex":"0.6.0"
+    "katex": "0.6.0",
+    "summernote-image-attributes": "^0.1.2"
   },
   "resolutions": {
     "font-awesome": "4.4.0",
