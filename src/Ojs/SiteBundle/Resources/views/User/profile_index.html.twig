@@ -128,8 +128,7 @@
 
                 {% if articles is defined %}
                     {% for article in articles %}
-
-                        <article class="timeline-entry {{ random(['left-aligned', '']) }}">
+                        <article class="timeline-entry {{ random(['left-aligned', 'right-aligned']) }} {% if loop.index > 5 %}hidden{% endif %}">
 
                             <div class="timeline-entry-inner">
                                 <time class="timeline-time" datetime="{{ article.pubdate|date('Y-m-d H:i:s') }}">
@@ -169,10 +168,20 @@
 
                         </article>
                     {% endfor %}
+
+                {% if articles|length>5 %}
+                    <div class="row">
+                        <br>
+                        <div class="col-lg-12">
+                            <button class="btn btn-primary center-block" id="loadMore">
+                                {{ 'show.more'|trans }}
+                            </button>
+                        </div>
+                        <br>
+                    </div>
                 {% endif %}
 
-
-                <article class="timeline-entry begin">
+                <article class="timeline-entry begin {% if articles|length > 5 %}hidden{% endif %}" id="timelineEnd">
 
                     <div class="timeline-entry-inner">
 
@@ -184,6 +193,8 @@
                     </div>
                 </article>
 
+                {% endif %}
+
             </div>
         </div>
     </div>
@@ -194,6 +205,34 @@
     {{ parent() }}
     {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_PUBLIC_VIEW_SCRIPT', 'user': user})|raw }}
     <script type="text/javascript">
-        analytics.increase('user', {{ user.id }})
+        analytics.increase('user', {{ user.id }});
+
+        // cache params
+        var parent = document.querySelector('.timeline-centered'),
+                items  = parent.querySelectorAll('.timeline-entry'),
+                loadMoreBtn =  document.querySelector('#loadMore'),
+                timelineEnd =  document.querySelector('#timelineEnd'),
+                maxItems = 5,
+                hiddenClass = "hidden";
+
+        [].forEach.call(items, function(item, idx){
+            if (idx > maxItems ) {
+                item.classList.add(hiddenClass);
+            }
+        });
+
+        // on button click load related data
+        loadMoreBtn.addEventListener('click', function(){
+            [].forEach.call(document.querySelectorAll('.' + hiddenClass), function(item, idx){
+                if (idx < maxItems) {
+                    item.classList.remove(hiddenClass);
+                }
+                if ( document.querySelectorAll('.' + hiddenClass).length === 0) {
+                    //if all items exposed hide load more button button
+                    loadMoreBtn.style.display = 'none';
+                    timelineEnd.classList.remove(hiddenClass);
+                }
+            });
+        });
     </script>
 {% endblock %}
