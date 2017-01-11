@@ -29,6 +29,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/livestamp/livestamp.min.js'
         - '%kernel.root_dir%/../web/assets/app/js/plugins/analytics/analytics.js'
         - '%kernel.root_dir%/../web/vendor/summernote/dist/summernote.min.js'
+        - '%kernel.root_dir%/../web/vendor/summernote-image-attributes/summernote-image-attributes.js'
         - '%kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/languages/jquery.validationEngine-en.js'
         - '%kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/jquery.validationEngine.js'
         - '%kernel.root_dir%/../web/assets/app/js/plugins/inputmask/jquery.inputmask.bundle.js'
