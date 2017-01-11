@@ -164,6 +164,7 @@ class ApplicationController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
+                $application->setCurrentLocale($request->getDefaultLocale());
                 $em->persist($application);
                 $em->flush();
 
