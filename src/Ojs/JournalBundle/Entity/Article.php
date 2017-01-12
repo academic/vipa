@@ -113,7 +113,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     private $acceptanceDate;
     /**
      * @var \DateTime
-     * @GRID\Column(title="pubdate")
+     * @GRID\Column(title="pubdate", format="F Y")
      * @Expose
      */
     private $pubdate;
