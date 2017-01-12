@@ -509,7 +509,7 @@ issue.in_press_desc: 'Will be displayed as ''future issue - in press'', visible 
 issue.early_pub: 'Early Pub'
 issue.visibility.not_published: 'Not Published'
 issue.visibility.published: 'Published'
-issue.visibility.in_press: 'In Press'
+issue.visibility.in_press: 'Furthcoming Issue'
 issue.visibility.early_pub: 'Early Pub'
 issuefile.edit: 'Edit Issue File'
 issuefile.file: File
