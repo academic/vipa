@@ -504,26 +504,37 @@ class JournalUserController extends Controller
      * Search users by username
      *
      * @param  Request $request
-     * @return array
+     * @return Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException|static
      */
     public function getUserByUsernameAction(Request $request)
     {
-        $q = $request->get('q');
-        $queryArray['from'] = 0;
-        $queryArray['size'] = 20;
-        $userSearchService = $this->container->get('fos_elastica.index.search.user');
-        $queryArray['query']['bool']['should'][] = [
-            'query_string' => [
-                'query' => 'user.username:'.$q.' OR '.'user.email:'.$q.' OR '.'user.fullName:'.$q
-            ]
-        ];
-        $resultData = $userSearchService->search($queryArray);
+        $em = $this->getDoctrine()->getManager();
+
+        $defaultLimit = 20;
+        $limit = ($request->get('page_limit') && $defaultLimit >= $request->get('page_limit')) ?
+            $request->get('page_limit') :
+            $defaultLimit;
+
+        $roles = [];
+        if($request->query->has('roles')){
+            if(!empty($request->get('roles'))){
+                $roles = explode(',', $request->get('roles'));
+            }
+        }
+        $users = $em->getRepository('OjsUserBundle:User')->searchUser(
+            $request->get('q'),
+            null,
+            $limit,
+            $roles
+        );
         $data = [];
-        foreach ($resultData as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => $result->getData()['username']." - ".$result->getData()['email'],
-            ];
+        if (count($users) > 0) {
+            foreach ($users as $user) {
+                $data[] = [
+                    'id' => $user->getId(),
+                    'text' => (string) $user,
+                ];
+            }
         }
 
         return JsonResponse::create($data);
@@ -555,7 +566,7 @@ class JournalUserController extends Controller
                 $roles = explode(',', $request->get('roles'));
             }
         }
-        $journalUsers = $em->getRepository('OjsUserBundle:User')->searchJournalUser(
+        $journalUsers = $em->getRepository('OjsUserBundle:User')->searchUser(
             $request->get('q'),
             $journal,
             $limit,
