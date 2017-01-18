@@ -159,7 +159,8 @@ class JournalController extends OAIController
         $builder = $em->createQueryBuilder();
         $builder->select('article')->from('OjsJournalBundle:Article', 'article');
         $builder->join('article.journal', 'journal', 'WITH');
-        $builder->where($builder->expr()->eq('journal.slug', ':slug'))->setParameter('slug', $slug);
+        $builder->where($builder->expr()->eq('article.status', ArticleStatuses::STATUS_PUBLISHED));
+        $builder->andWhere($builder->expr()->eq('journal.slug', ':slug'))->setParameter('slug', $slug);
 
         $data = ['records' => $builder->getQuery()->getResult()];
 
@@ -187,6 +188,7 @@ class JournalController extends OAIController
         $builder = $em->createQueryBuilder();
         $builder->select("article")->from("OjsJournalBundle:Article", "article");
         $builder->where($builder->expr()->eq("article.id", ":id"))->setParameter("id", $matches[4][0]);
+        $builder->andWhere($builder->expr()->eq('article.status', ArticleStatuses::STATUS_PUBLISHED));
 
         $data = [];
         $data['metadataPrefix'] = $request->get('metadataPrefix', 'oai_dc');
