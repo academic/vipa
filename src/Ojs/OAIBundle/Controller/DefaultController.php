@@ -219,6 +219,9 @@ class DefaultController extends OAIController
             $qb->expr()->eq("a.id",":id")
         )
             ->setParameter("id",$id);
+        $qb->andWhere(
+            $qb->expr()->eq("a.status",ArticleStatuses::STATUS_PUBLISHED)
+        );
         $data['record'] = $qb->getQuery()->getOneOrNullResult();
         if(!$data['record']){
             throw new NotFoundHttpException("Record not found");
