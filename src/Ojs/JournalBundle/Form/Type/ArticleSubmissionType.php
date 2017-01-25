@@ -27,6 +27,18 @@ class ArticleSubmissionType extends AbstractType
                     'choices' => $options['journal']->getArticleTypes(),
                 )
             )
+            ->add(
+                'language',
+                'entity',
+                [
+                    'label' => 'article.language.primary',
+                    'class' => 'Ojs\JournalBundle\Entity\Lang',
+                    'attr' => [
+                        'class' => 'select2-element ',
+                    ],
+                    'choices' => $options['journal']->getLanguages(),
+                ]
+            )
             ->add('translations', JournalBasedTranslationsType::class,[
                 'fields' => [
                     'title' => [

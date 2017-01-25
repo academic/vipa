@@ -142,6 +142,12 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * @Expose
      */
     private $primaryLanguage;
+
+    /**
+     * @var Lang
+     * @Expose
+     */
+    private $language;
     /**
      *
      * @var integer
@@ -158,10 +164,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * @JMS\Expose
      */
     private $subjects;
-    /**
-     * @var Collection|Lang[]
-     */
-    private $languages;
     /**
      * @var Issue
      * @GRID\Column(title="issue Title", field="issue.translations.title:translation_agg", safe=false, operatorsVisible=false)
@@ -277,7 +279,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     public function __construct()
     {
         $this->citations = new ArrayCollection();
-        $this->languages = new ArrayCollection();
         $this->articleAuthors = new ArrayCollection();
         $this->articleFiles = new ArrayCollection();
         $this->articleSubmissionFiles = new ArrayCollection();
@@ -405,36 +406,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
         $this->currentTranslation = $translation;
 
         return $translation;
-    }
-
-    /**
-     * @param  Lang  $language
-     * @return $this
-     */
-    public function addLanguage(Lang $language)
-    {
-        $this->languages[] = $language;
-
-        return $this;
-    }
-
-    /**
-     * @param  Lang  $language
-     * @return $this
-     */
-    public function removeLanguage(Lang $language)
-    {
-        $this->languages->removeElement($language);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Lang[]
-     */
-    public function getLanguages()
-    {
-        return $this->languages;
     }
 
     /**
@@ -1385,6 +1356,25 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     public function getCatalogs()
     {
         return $this->catalogs;
+    }
+
+    /**
+     * @return Lang
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param  Lang $language
+     * @return $this
+     */
+    public function setLanguage(Lang $language)
+    {
+        $this->language = $language;
+
+        return $this;
     }
 
 }

@@ -46,6 +46,11 @@ Ojs\JournalBundle\Entity\Article:
         name: submitter_id
         referencedColumnName: id
       cascade: ["persist"]
+    language:
+      targetEntity: Ojs\JournalBundle\Entity\Lang
+      joinColumn:
+        name: article_lang_id
+        referencedColumnName: id
   oneToMany:
     attributes:
       targetEntity: ArticleAttribute
@@ -94,18 +99,6 @@ Ojs\JournalBundle\Entity\Article:
           subject_id:
             referencedColumnName: id
             onDelete: CASCADE
-    languages:
-      targetEntity: Lang
-      joinTable:
-        name: article_language
-        inverseJoinColumns:
-          language_id:
-            referencedColumnName: id
-            onDelete: cascade
-        joinColumns:
-          article_id:
-            referencedColumnName: id
-            onDelete: cascade
       fetch: EXTRA_LAZY
       cascade: ["persist", "remove"]
     citations:
