@@ -1,11 +1,14 @@
 ojs_search_advanced:
     path: /search/advanced
+    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Search:advanced" }
 
 ojs_search_index:
     path:     /search/{page}
+    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Search:index",page: 1 }
 
 ojs_tags_cloud:
     path: /tags/cloud
+    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Search:tagCloud" }
