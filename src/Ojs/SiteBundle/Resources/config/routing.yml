@@ -21,10 +21,12 @@ redirect:
 
 ojs_user_profile:
     path: /@{slug}
+    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:User:profile" }
 
 ojs_user_edit_profile:
     path: /user/update
+    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:User:editProfile"}
 
 ojs_user_custom_field:
@@ -54,6 +56,7 @@ ojs_user_connected_account_delete:
 ojs_public_index:
     path:  /
     defaults: { _controller: "OjsSiteBundle:Site:index" }
+    host: "%base_host%"
 
 ojs_search:
     resource: "@OjsSiteBundle/Resources/config/routing/search.yml"

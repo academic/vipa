@@ -1,3 +1,4 @@
 ojs_site_people_index:
     path:     /{page}
+    host:     "%base_host%"
     defaults: { _controller: "OjsSiteBundle:People:index", page: 1 }
