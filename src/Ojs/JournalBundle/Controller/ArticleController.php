@@ -179,7 +179,7 @@ class ArticleController extends Controller
 
         $dispatcher = $this->get('event_dispatcher');
         $entity = new Article();
-        $entity = $entity->setJournal($journal);
+        $entity->setLanguage($journal->getMandatoryLang());
 
         $form = $this->createCreateForm($entity, $journal);
         $form->handleRequest($request);
@@ -202,6 +202,12 @@ class ArticleController extends Controller
             foreach ($entity->getArticleFiles() as $file) {
                 $file->setVersion(0);
                 $file->setArticle($entity);
+            }
+
+            if(!$entity->getLanguage()){
+
+                $entity->setLanguage($journal->getMandatoryLang());
+
             }
 
             $entity->setStatus(ArticleStatuses::STATUS_PUBLISH_READY);
