@@ -179,7 +179,7 @@ class ArticleController extends Controller
 
         $dispatcher = $this->get('event_dispatcher');
         $entity = new Article();
-        $entity->setLanguage($journal->getMandatoryLang());
+        $entity = $entity->setJournal($journal);
 
         $form = $this->createCreateForm($entity, $journal);
         $form->handleRequest($request);
