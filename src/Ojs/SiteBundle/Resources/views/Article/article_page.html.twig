@@ -60,14 +60,6 @@
                         <span title="{{ "first_page"|trans }}">{{ article.firstPage }}</span> -
                         <span title="{{ "last_page"|trans }}">{{ article.lastPage }}</span>
                     {% endif %}
-                    {% if article.languages %}
-                        <abbr title="{{ "languages"|trans }}">
-                            {% for language in article.languages %}
-                                <span class="badge badge-info">{{ language.name }} [{{ language.code }}]</span>
-                            {% endfor %}
-
-                        </abbr>
-                    {% endif %}
                     <span class="pull-right">
                             {% if article.pubdate %}
                                 <span>

@@ -407,7 +407,6 @@ class ArticleController extends Controller
         /** @var Article $article */
         $article = $event->getItem();
         $article->getCitations()->clear();
-        $article->getLanguages()->clear();
 
         $this->get('ojs_core.delete.service')->check($event->getItem());
         $em->remove($event->getItem());
