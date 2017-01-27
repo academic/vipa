@@ -1367,10 +1367,10 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     }
 
     /**
-     * @param  Lang $language
+     * @param Lang|null $language
      * @return $this
      */
-    public function setLanguage(Lang $language)
+    public function setLanguage(Lang $language = null)
     {
         $this->language = $language;
 

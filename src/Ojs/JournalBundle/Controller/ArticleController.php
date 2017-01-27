@@ -205,9 +205,7 @@ class ArticleController extends Controller
             }
 
             if(!$entity->getLanguage()){
-
                 $entity->setLanguage($journal->getMandatoryLang());
-
             }
 
             $entity->setStatus(ArticleStatuses::STATUS_PUBLISH_READY);
