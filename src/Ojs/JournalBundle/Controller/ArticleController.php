@@ -17,6 +17,7 @@ use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\ArticleSubmissionType;
 use Ojs\JournalBundle\Form\Type\ArticleType;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -312,6 +313,12 @@ class ArticleController extends Controller
             'ojs_journal_article_update',
             ['id' => $entity->getId(), 'journalId' => $journal->getId()]
         );
+
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+
         $form = $this->createForm(
             new ArticleType(),
             $entity,
@@ -319,6 +326,7 @@ class ArticleController extends Controller
                 'action' => $action,
                 'method' => 'PUT',
                 'journal' => $journal,
+                'doiDisabled' => !$user->isAdmin()
             ]
         );
 

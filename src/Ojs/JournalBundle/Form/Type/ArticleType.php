@@ -25,7 +25,7 @@ class ArticleType extends AbstractType
         /** @var Article $entity */
         $entity = $builder->getData();
         $disabled = false;
-        if($entity !== null && $entity->getDoiStatus() == DoiStatuses::VALID){
+        if($entity !== null && $entity->getDoiStatus() == DoiStatuses::VALID && $options['doiDisabled']){
             $disabled = true;
         }
         $form = $builder
@@ -216,6 +216,7 @@ class ArticleType extends AbstractType
                 'attr' => [
                     'class' => 'form-validate',
                 ],
+                'doiDisabled' => true
             )
         );
     }
