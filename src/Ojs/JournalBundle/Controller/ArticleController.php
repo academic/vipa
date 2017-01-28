@@ -204,6 +204,10 @@ class ArticleController extends Controller
                 $file->setArticle($entity);
             }
 
+            if(!$entity->getLanguage()){
+                $entity->setLanguage($journal->getMandatoryLang());
+            }
+
             $entity->setStatus(ArticleStatuses::STATUS_PUBLISH_READY);
             $entity->setSubmissionDate(new \DateTime());
         }
@@ -407,7 +411,6 @@ class ArticleController extends Controller
         /** @var Article $article */
         $article = $event->getItem();
         $article->getCitations()->clear();
-        $article->getLanguages()->clear();
 
         $this->get('ojs_core.delete.service')->check($event->getItem());
         $em->remove($event->getItem());

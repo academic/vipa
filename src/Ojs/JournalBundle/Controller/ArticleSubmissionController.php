@@ -269,6 +269,10 @@ class ArticleSubmissionController extends Controller
                 }
             }
 
+            if(!$article->getLanguage()){
+                $article->setLanguage($journal->getMandatoryLang());
+            }
+
             $em->persist($article);
             $em->flush();
 

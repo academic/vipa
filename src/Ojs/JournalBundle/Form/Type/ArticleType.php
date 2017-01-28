@@ -47,6 +47,18 @@ class ArticleType extends AbstractType
                 ]
             ])
             ->add(
+                'language',
+                'entity',
+                [
+                    'label' => 'article.language.primary',
+                    'class' => 'Ojs\JournalBundle\Entity\Lang',
+                    'attr' => [
+                        'class' => 'select2-element ',
+                    ],
+                    'choices' => $options['journal']->getLanguages(),
+                ]
+            )
+            ->add(
                 'subjects',
                 'entity',
                 array(
