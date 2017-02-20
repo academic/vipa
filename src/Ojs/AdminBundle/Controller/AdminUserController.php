@@ -7,12 +7,23 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\ORMException;
 use Ojs\AdminBundle\Events\AdminEvents;
+use Ojs\AdminBundle\Events\MergeEvent;
+use Ojs\AdminBundle\Events\MergeEvents;
 use Ojs\AdminBundle\Form\Type\ChangePasswordType;
 use Ojs\AdminBundle\Form\Type\UpdateUserType;
 use Ojs\AdminBundle\Form\Type\UserType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\BoardMember;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalSetupProgress;
+use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Entity\Subject;
+use Ojs\UserBundle\Entity\MultipleMail;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
+use Presta\SitemapBundle\Exception\Exception;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +35,7 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ojs\AdminBundle\Events\AdminEvent;
+use Ojs\AdminBundle\Form\Type\UserMergeType;
 
 /**
  * User administration controller
@@ -52,10 +64,21 @@ class AdminUserController extends Controller
             ]
         );
 
+        $mergeAction = new RowAction('<i class="fa fa-compress"></i>', 'ojs_admin_user_primary_merge');
+        $mergeAction->setRouteParameters('id');
+        $mergeAction->setAttributes(
+            [
+                'class' => 'btn btn-primary btn-xs',
+                'data-toggle' => 'tooltip',
+                'title' => $this->get('translator')->trans('title.user_merge'),
+            ]
+        );
+
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->showAction('ojs_admin_user_show', 'id');
         $rowAction[] = $gridAction->editAction('ojs_admin_user_edit', 'id');
         $rowAction[] = $passwordAction;
+        $rowAction[] = $mergeAction;
         $rowAction[] = $gridAction->userBanAction();
 
         $actionColumn->setRowActions($rowAction);
@@ -212,7 +235,7 @@ class AdminUserController extends Controller
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity)
-                        ->add('save','submit');
+            ->add('save','submit');
 
         return $this->render(
             'OjsAdminBundle:AdminUser:edit.html.twig',
@@ -375,8 +398,213 @@ class AdminUserController extends Controller
         }
 
         return $this->render('OjsAdminBundle:AdminUser:password.html.twig', [
-            'form' => $form->createView()
+                'form' => $form->createView()
             ]
         );
+    }
+
+
+    /**
+     * @param User|null $primaryUser
+     * @return Form
+     */
+    private function createMergeForm(User $primaryUser = null)
+    {
+        $form = $this->createForm(
+            new UserMergeType(),
+            null,
+            array(
+                'action' => $primaryUser == null ? $this->generateUrl('ojs_admin_user_merge') : $this->generateUrl('ojs_admin_user_primary_merge', ['id' => $primaryUser->getId()]),
+                'method' => 'POST',
+                'primaryUser' => $primaryUser
+            )
+        );
+
+        return $form;
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
+     */
+    public function mergeAction(Request $request, $id = null)
+    {
+        /** @var User $user */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
+        $user = null;
+        if($id !== null) {
+            $user = $em->find('OjsUserBundle:User', $id);
+        }
+        $form = $this->createMergeForm($user)
+            ->add('create', 'submit', array('label' => 'c'));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            /** @var User $primaryUser */
+            $primaryUser = $user == null ? $data['primaryUser'] : $user;
+
+            /** @var User[] $slaveUsers */
+            $slaveUsers = $data['slaveUsers'];
+
+            foreach ($slaveUsers as $slaveUser) {
+                if($primaryUser->getId() == $slaveUser->getId() || $slaveUser->getMerged() !== null){
+                    continue;
+                }
+                
+                foreach ($this->migrateEntities() as $name => $class)
+                {
+                    $this->migrateUser($class, $name, $primaryUser, $slaveUser);
+                }
+
+                $this->migrateMails($primaryUser, $slaveUser);
+
+                $primaryUser->addMergeUser($slaveUser);
+                $slaveUser->setMergedUser($primaryUser);
+                $em->persist($primaryUser);
+                $em->persist($slaveUser);
+            }
+
+            $event = new MergeEvent($primaryUser, $slaveUsers);
+            $dispatcher->dispatch(MergeEvents::OJS_ADMIN_USER_MERGE, $event);
+
+
+            $em->flush();
+
+            $this->successFlashBag('successful.create');
+
+            return $this->redirectToRoute(
+                'ojs_admin_user_index'
+            );
+        }
+
+        return $this->render(
+            'OjsAdminBundle:AdminUser:merge.html.twig',
+            array(
+                'form' => $form->createView(),
+            )
+        );
+
+    }
+
+    /**
+     * @param $class
+     * @param $entityName
+     * @param User $primary
+     * @param User $slave
+     */
+    private function migrateUser($class, $entityName, User $primary, User $slave)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        switch ($entityName)
+        {
+            case 'journal.user':
+
+                /**
+                 * @var JournalUser $result
+                 */
+                $result = $em->getRepository($class)->findOneBy(['user' => $slave]);
+
+                if(!$result){
+                    continue;
+                }
+
+                foreach ($result->getRoles() as $role)
+                {
+                    if(!in_array($role, $primary->getJournalRoles($result->getJournal())))
+                    {
+                        $journalUser = new JournalUser();
+                        $journalUser->setUser($primary);
+                        $journalUser->addRole($role);
+
+                        $em->persist($journalUser);
+                    }
+
+                }
+
+            break;
+
+            case 'subject':
+
+                foreach ($slave->getSubjects() as $subject)
+                {
+                    if(!in_array($subject, (array)$primary->getSubjects()))
+                    {
+                        $primary->addSubject($subject);
+                        $em->persist($primary);
+                    }
+                }
+                
+            break;
+
+            case 'article':
+                $results = $em->getRepository(Article::class)->findBy(['submitterUser' => $slave->getId()]);
+
+                foreach ($results as $article)
+                {
+                    $article->setSubmitterUser($primary);
+                    $em->persist($article);
+                }
+
+            break;
+
+            default:
+                $results = $em->getRepository($class)->findBy(['user' => $slave]);
+                foreach ($results as $result)
+                {
+                    $result->setUser($primary);
+                    $em->persist($result);
+                }
+            break;
+
+        }
+    }
+
+    /**
+     * @param User $primaryUser
+     * @param User $slaveUser
+     */
+    private function migrateMails(User $primaryUser, User $slaveUser)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $multipleMail = new MultipleMail();
+        $multipleMail->setUser($primaryUser);
+        $multipleMail->setIsConfirmed(1);
+        $multipleMail->setMail($slaveUser->getEmail());
+
+        $em->persist($multipleMail);
+
+        foreach ($slaveUser->getMultipleMails() as $multipleMail)
+        {
+            $em->remove($multipleMail);
+            $em->flush();
+            $mail = new MultipleMail();
+            $mail->setUser($primaryUser);
+            $mail->setIsConfirmed(1);
+            $mail->setMail($multipleMail->getMail());
+            $em->persist($mail);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function migrateEntities()
+    {
+        return
+            [
+                'board' => BoardMember::class,
+                'journal.setup.progress' => JournalSetupProgress::class,
+                'author' => Author::class,
+                'subject' => Subject::class,
+                'journal.user' => JournalUser::class,
+            ];
     }
 }
