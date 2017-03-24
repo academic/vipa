@@ -34,7 +34,7 @@ $ sudo update-rc.d elasticsearch defaults 95 10
 $ sudo service elasticsearch restart
 
 # PostgreSQL
-$ sudo apt-get postgresql git
+$ sudo apt-get install -y postgresql git
 
 # Add php7 repo and update
 
