@@ -31,14 +31,14 @@ $ sudo apt-get update
 $ sudo apt-get -y install elasticsearch
 
 $ sudo update-rc.d elasticsearch defaults 95 10
-# sudo service elasticsearch restart
+$ sudo service elasticsearch restart
 
 # PostgreSQL
 $ sudo apt-get install -y postgresql git
 
 # Add php7 repo and update
 
-$ apt-add-repository ppa:ondrej/php -y
+$ LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php -y
 $ apt-get update
 
 # Install PHP and its extensions
@@ -53,7 +53,7 @@ php-xdebug php-mbstring php-xml php7.0-zip php7.0-intl php7.0-bcmath
 $ curl -sS https://getcomposer.org/installer | php
 $ mv composer.phar /usr/local/bin/composer
 
-# Add Composer executable to PATH
+# Add Composer executable to PATH if you're using Vagrant
 
 $ printf "\nPATH=\"$(composer config -g home 2>/dev/null)/vendor/bin:\$PATH\"\n" | tee -a /home/vagrant/.profile
 
@@ -68,6 +68,7 @@ $ sudo sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.0/cli/php.ini
 
 $ apt-get install -y --force-yes nginx php7.0-fpm
 
+# If you don't have any websites which using files below
 $ rm /etc/nginx/sites-enabled/default
 $ rm /etc/nginx/sites-available/default
 $ service nginx restart
@@ -93,6 +94,8 @@ CREATE USER ojs WITH PASSWORD 'ojs';
 CREATE DATABASE ojs;
 GRANT ALL PRIVILEGES ON DATABASE ojs to ojs;
 \q
+
+$ cd $OLDPWD && su
 
 # Node & Bower
 $ sudo apt-get install nodejs nodejs-legacy
@@ -202,6 +205,10 @@ server {
     }
 }
 ```
+
+# Restart nginx service
+$ service nginx restart
+
 Install Bundles
 ----------------
 
