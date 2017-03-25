@@ -46,7 +46,7 @@ $ apt-get update
 $ apt-get install -y --force-yes php7.0-cli php7.0-dev \
 php-pgsql php-sqlite3 php-gd php-apcu php-curl php7.0-mcrypt \
 php-imap php7.0-gd php-memcached php7.0-pgsql php7.0-readline \
-php-xdebug php-mbstring php-xml php7.0-zip php7.0-intl php7.0-bcmath
+php-xdebug php-mbstring php7.0-xml php7.0-zip php7.0-intl php7.0-bcmath
 
 # Install Composer
 
