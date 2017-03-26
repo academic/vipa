@@ -1,4 +1,4 @@
-#Open Journal Software (OJS.io)
+# Open Journal Software (OJS.io)
 
 [![Build Status](https://travis-ci.org/ojs/ojs.svg?branch=master)](https://travis-ci.org/ojs/ojs)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ojs/ojs/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ojs/ojs/?branch=master)
