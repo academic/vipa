@@ -162,8 +162,15 @@ After the wizard is done, install the initial data if you would like: `$ php app
 
 Web Server Configuration Examples
 -------------------------
-### /etc/nginx/sites-available/ojs
+### /etc/nginx/sites-available/ojs
 
+```
+# Type this command (or change type your favourite text editor instead of 'nano') and paste the server example section
+$ sudo nano /etc/nginx/sites-available/ojs
+
+```
+Server example
+------------
 ```
 server {
     listen 80;
@@ -218,7 +225,9 @@ server {
 ```
 
 # Restart nginx service
+```
 $ service nginx restart
+```
 
 Install Bundles
 ----------------
