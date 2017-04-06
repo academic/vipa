@@ -231,13 +231,21 @@ server {
 }
 ```
 
-# Restart nginx service
+Restart nginx service
+-------
 ```
 $ service nginx restart
 ```
 
 Install Bundles
 ----------------
+You should run this command in **ojs** folder, if you're not sure, run this before: 
+
+```
+$ cd /var/www/ojs 
+```
+
+Then
 
 ```
 # Citation bundle
