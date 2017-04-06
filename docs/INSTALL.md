@@ -3,6 +3,13 @@ Installing OJS
 
 This guide will explain how you can install OJS on an Ubuntu server.
 
+**NOTICE:** Some steps takes longer time than others. So you may want to make some changes on your computer before connecting to the server over SSH for avoiding 'Broken pipe' situation. If you lost the connection between your computer and server (over SSH), you can't follow some steps' procesing status.
+
+Before start
+----------------
+This script requires a domain name while creating cookies so if you run this project under a pseudo domain (instead of a real one like .com) you should modify your computer's host file in order to connect your server instead of IP adress.
+It's not a complicated step, feel free to visit Google and use search box.
+
 Required Software
 -----------------
 Install and run these services and extensions before attempting to install OJS.
