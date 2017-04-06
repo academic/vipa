@@ -257,6 +257,6 @@ $ app/console ojs:install:package citation
 
 Troubleshooting
 ----------------
-If anything goes wrong (ie. you get a blank page instead of OJS home) check logs under app/log directory and Apache's own log file.
+If anything goes wrong (ie. you get a blank page instead of OJS home) check logs under app/log directory and Nginx's own log file.
 
 
