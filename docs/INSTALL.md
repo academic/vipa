@@ -3,6 +3,13 @@ Installing OJS
 
 This guide will explain how you can install OJS on an Ubuntu server.
 
+**NOTICE:** Some steps takes longer time than others. So you may want to make some changes on your computer before connecting to the server over SSH for avoiding 'Broken pipe' situation. If you lost the connection between your computer and server (over SSH), you can't follow some steps' procesing status.
+
+Before start
+----------------
+This script requires a domain name while creating cookies so if you run this project under a pseudo domain (instead of a real one like .com) you should modify your computer's host file in order to connect your server instead of IP adress.
+It's not a complicated step, feel free to visit Google and use search box.
+
 Required Software
 -----------------
 Install and run these services and extensions before attempting to install OJS.
@@ -33,7 +40,7 @@ $ sudo apt-get -y install elasticsearch
 $ sudo update-rc.d elasticsearch defaults 95 10
 $ sudo service elasticsearch restart
 
-# PostgreSQL
+# Install PostgreSQL and Git
 $ sudo apt-get install -y postgresql git
 
 # Add php7 repo and update
@@ -95,11 +102,12 @@ CREATE DATABASE ojs;
 GRANT ALL PRIVILEGES ON DATABASE ojs to ojs;
 \q
 
-$ cd $OLDPWD && su
+$ su
+$ cd $OLDPWD
 
 # Node & Bower
-$ sudo apt-get install nodejs nodejs-legacy
-$ sudo apt-get install npm
+$ sudo apt-get -y install nodejs nodejs-legacy
+$ sudo apt-get -y install npm
 $ sudo npm install -g bower
 
 ```
@@ -116,6 +124,9 @@ $ sudo chown -R www-data:www-data /var/www
 
 $ sudo su -s /bin/bash www-data
 $ cd /var/www
+
+# Remove default nginx index.php page if you don't have any website in there
+$ rm -rf html
 
 # Obtain the latest code
 
@@ -142,7 +153,14 @@ When installation is complete, you will need to provide some parameters to OJS. 
 
 
 ```
-$ composer update -vvv -o && bower update && php app/console assets:install web --symlink && php app/console assetic:dump && php app/console doctrine:schema:drop --force && php app/console doctrine:schema:create && php app/console ojs:install && php app/console ojs:install:samples
+$ composer update -vvv -o
+$ bower update
+$ php app/console assets:install web --symlink
+$ php app/console assetic:dump
+$ php app/console doctrine:schema:drop --force
+$ php app/console doctrine:schema:create
+$ php app/console ojs:install
+$ php app/console ojs:install:samples
 
 ```
 
@@ -151,8 +169,15 @@ After the wizard is done, install the initial data if you would like: `$ php app
 
 Web Server Configuration Examples
 -------------------------
-### /etc/nginx/sites-available/ojs
+### /etc/nginx/sites-available/ojs
 
+```
+# Type this command (or change type your favourite text editor instead of 'nano') and paste the server example section
+$ sudo nano /etc/nginx/sites-available/ojs
+
+```
+Server example
+------------
 ```
 server {
     listen 80;
@@ -206,11 +231,21 @@ server {
 }
 ```
 
-# Restart nginx service
+Restart nginx service
+-------
+```
 $ service nginx restart
+```
 
 Install Bundles
 ----------------
+You should run this command in **ojs** folder, if you're not sure, run this before: 
+
+```
+$ cd /var/www/ojs 
+```
+
+Then
 
 ```
 # Citation bundle
@@ -222,6 +257,6 @@ $ app/console ojs:install:package citation
 
 Troubleshooting
 ----------------
-If anything goes wrong (ie. you get a blank page instead of OJS home) check logs under app/log directory and Apache's own log file.
+If anything goes wrong (ie. you get a blank page instead of OJS home) check logs under app/log directory and Nginx's own log file.
 
 
