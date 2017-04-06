@@ -33,7 +33,7 @@ $ sudo apt-get -y install elasticsearch
 $ sudo update-rc.d elasticsearch defaults 95 10
 $ sudo service elasticsearch restart
 
-# PostgreSQL
+# Install PostgreSQL and Git
 $ sudo apt-get install -y postgresql git
 
 # Add php7 repo and update
@@ -95,11 +95,12 @@ CREATE DATABASE ojs;
 GRANT ALL PRIVILEGES ON DATABASE ojs to ojs;
 \q
 
-$ cd $OLDPWD && su
+$ su
+$ cd $OLDPWD
 
 # Node & Bower
-$ sudo apt-get install nodejs nodejs-legacy
-$ sudo apt-get install npm
+$ sudo apt-get -y install nodejs nodejs-legacy
+$ sudo apt-get -y install npm
 $ sudo npm install -g bower
 
 ```
@@ -116,6 +117,9 @@ $ sudo chown -R www-data:www-data /var/www
 
 $ sudo su -s /bin/bash www-data
 $ cd /var/www
+
+# Remove default nginx index.php page if you don't have any website in there
+$ rm -rf html
 
 # Obtain the latest code
 
@@ -142,7 +146,14 @@ When installation is complete, you will need to provide some parameters to OJS. 
 
 
 ```
-$ composer update -vvv -o && bower update && php app/console assets:install web --symlink && php app/console assetic:dump && php app/console doctrine:schema:drop --force && php app/console doctrine:schema:create && php app/console ojs:install && php app/console ojs:install:samples
+$ composer update -vvv -o
+$ bower update
+$ php app/console assets:install web --symlink
+$ php app/console assetic:dump
+$ php app/console doctrine:schema:drop --force
+$ php app/console doctrine:schema:create
+$ php app/console ojs:install
+$ php app/console ojs:install:samples
 
 ```
 
