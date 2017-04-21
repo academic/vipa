@@ -2,6 +2,7 @@ language: php
 
 env:
   - SYMFONY_VERSION="2.8.*" DB="postgres" SYMFONY_ENV="test"
+  - SYMFONY_VERSION="3.2.*" DB="postgres" SYMFONY_ENV="test"
 
 php:
   - 7.0
