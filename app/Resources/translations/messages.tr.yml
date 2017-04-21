@@ -952,6 +952,8 @@ status.unpublished: Yayımlanmadı
 status.publish_ready: 'Yayına Hazır'
 status.unknown: Bilinmiyor
 status.withdrawn: 'Geri Çekildi'
+status.junk: 'Çöp'
+status.ohal: 'Ohal'
 statusText: 'Durum Metni'
 step.edit: 'Adımı Düzenle'
 step.new: 'Yeni Adım'

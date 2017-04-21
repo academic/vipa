@@ -38,6 +38,8 @@ class Journal extends AbstractTranslatable
         JournalStatuses::STATUS_PREPARING    => 'status.preparing',
         JournalStatuses::STATUS_PUBLISHED    => 'status.published',
         JournalStatuses::STATUS_EXITED       => 'status.exited',
+        JournalStatuses::STATUS_JUNK         => 'status.junk',
+        JournalStatuses::STATUS_OHAL         => 'status.ohal',
     ];
     /** @var  boolean */
     protected $setupFinished;
@@ -134,6 +136,8 @@ class Journal extends AbstractTranslatable
      * @var integer
      * @JMS\Expose
      * @Grid\Column(field="status", title="status", filter="select", selectFrom="values", values={
+     *     "-7"="status.junk",
+     *     "-6"="status.ohal",
      *     "-5"="status.exited",
      *     "-4"="status.application",
      *     "-3"="status.rejected",

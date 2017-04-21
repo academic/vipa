@@ -954,6 +954,8 @@ status.unpublished: Unpublished
 status.publish_ready: 'Ready to Publish'
 status.unknown: Unknown
 status.withdrawn: Withdrawn
+status.junk: 'Junk'
+status.ohal: 'Ohal'
 statusText: 'Status Text'
 step.edit: 'Edit Step'
 step.new: 'New Step'
