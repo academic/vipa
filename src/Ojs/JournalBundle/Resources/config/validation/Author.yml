@@ -12,3 +12,4 @@ Ojs\JournalBundle\Entity\Author:
         email:
             - NotBlank: { groups: [submission], message: 'E-mail fields of authors can not be blank.' }
             - Email: { groups: [submission] }
+            - Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.register.email.error.allready_registered' }
