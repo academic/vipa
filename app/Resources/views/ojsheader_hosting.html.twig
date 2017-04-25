@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('ojs_public_index') }}"><img src="{{ ojs_logo }}"
+            <a class="navbar-brand" href="{{ url('vipa_public_index') }}"><img src="{{ vipa_logo }}"
                                                                                alt="{{ project_name }}"/></a>
         </div>
         <div class="navbar-collapse collapse">
@@ -27,15 +27,15 @@
                                 <span> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url('ojs_user_profile', {slug: app.user.username}) }}"
+                                <li><a href="{{ url('vipa_user_profile', {slug: app.user.username}) }}"
                                        title="{{ "you"|trans }}">@{{ app.user.username }}</a></li>
 
                                 <li>
-                                    <a href="{{ url('ojs_user_index') }}">
+                                    <a href="{{ url('vipa_user_index') }}">
                                         <i class="fa fa-cog"></i> {{ "user_page"|trans }}</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('ojs_user_edit_profile') }}" title="{{ "user.profile.edit"|trans }}"
+                                    <a href="{{ url('vipa_user_edit_profile') }}" title="{{ "user.profile.edit"|trans }}"
                                        data-placement="left">
                                         <i class="fa fa-edit"> {{ "user.profile.edit"|trans }}</i>
                                     </a>
@@ -44,7 +44,7 @@
                                 <li class="divider"></li>
                                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                     <li>
-                                        <a class="btn btn-link" href="{{ url('ojs_public_index') }}?_su=_exit"
+                                        <a class="btn btn-link" href="{{ url('vipa_public_index') }}?_su=_exit"
                                            title="{{ "log_out_from_user"|trans }}" data-placement="left"><i
                                                     class="fa fa-sign-out"></i> {{ "log_out_from_user"|trans }}</a>
                                     </li>

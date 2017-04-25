@@ -14,21 +14,21 @@ PrestaSitemapBundle:
     resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
     prefix:   /
 
-ojs_admin:
+vipa_admin:
   resource: '@OjsAdminBundle/Resources/config/routing.yml'
   prefix: admin
   requirements:
     id: \d+
 
-ojs_admin_root:
+vipa_admin_root:
   resource: '@OjsAdminBundle/Resources/config/routing_root.yml'
   prefix:   /
 
-ojs_oai:
+vipa_oai:
   resource: '@OjsOAIBundle/Resources/config/routing.yml'
   prefix: /api/public/oai
 
-ojs_journal:
+vipa_journal:
   resource: '@OjsJournalBundle/Resources/config/routing.yml'
   prefix:   /
   requirements:
@@ -36,11 +36,11 @@ ojs_journal:
     publisherId: \d+
     journalId: \d+
 
-ojs_core:
+vipa_core:
   resource: '@OjsCoreBundle/Resources/config/routing.yml'
   prefix:   /
 
-ojs_journal_panel:
+vipa_journal_panel:
   resource: '@OjsJournalBundle/Resources/config/routing_panel.yml'
   prefix: /journal
   requirements:
@@ -55,15 +55,15 @@ auth:
   resource: '@OjsUserBundle/Resources/config/routing.yml'
   prefix:   /
 
-ojs_user:
+vipa_user:
   resource: '@OjsUserBundle/Controller/'
   type: annotation
 
-ojs_location:
+vipa_location:
   resource: '@BulutYazilimLocationBundle/Resources/config/routing.yml'
   prefix:   /
 
-ojs_export:
+vipa_export:
   resource: '@OjsExportBundle/Resources/config/routing.yml'
   prefix:   /
 
@@ -86,7 +86,7 @@ fos_js_routing:
 jb_fileupload_crop:
   resource: '@JbFileUploaderBundle/Resources/config/routing.yml'
 
-ojs_site:
+vipa_site:
   resource: '@OjsSiteBundle/Resources/config/routing.yml'
   prefix:   /
 

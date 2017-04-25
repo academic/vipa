@@ -59,7 +59,7 @@ security:
         login_path:   /login
         use_forward:  false
         oauth_user_provider:
-          service: ojs.user.oauth
+          service: vipa.user.oauth
 
   access_control:
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

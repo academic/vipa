@@ -12,7 +12,7 @@ Both Uglifycss and uglifyjs projects are using in _assetic_ asset management con
 
 ###Bower
 Ojs project is using [**bower**](http://bower.io) for Js and Css package management. It can be installed via npm `npm install -g bower`.
-Bower packages are configured under `bower.json`. Packages will be automatically installed while _ojs:install_ process. If you want to update packages or in stall new package run `bower install && bower update` 
+Bower packages are configured under `bower.json`. Packages will be automatically installed while _vipa:install_ process. If you want to update packages or in stall new package run `bower install && bower update` 
 
 Here some important packages that will be installed via bower.
 ####Bootstrap

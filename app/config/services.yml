@@ -22,7 +22,7 @@ services:
     class: Ojs\JournalBundle\Form\Type\JournalUserType
     tags:
       -
-        alias: ojs_journalbundle_journaluser
+        alias: vipa_journalbundle_journaluser
         name: form.type
 
   gedmo.listener.softdeleteable:
@@ -37,7 +37,7 @@ services:
         connection: default
         name: doctrine.event_subscriber
 
-  ojs.twig.common_extension:
+  vipa.twig.common_extension:
     arguments:
       - "@doctrine.orm.entity_manager"
       - "@liip_imagine.filter.manager"
@@ -46,7 +46,7 @@ services:
       -
         name: twig.extension
 
-  ojs.user_provider.username_email:
+  vipa.user_provider.username_email:
     arguments:
       - "@doctrine.orm.entity_manager"
     class: Ojs\UserBundle\Service\EmailUserProvider

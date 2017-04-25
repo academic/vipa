@@ -1,7 +1,7 @@
 <div class="col-sm-3">
     <div class="person-box ng">
         <div class="avatar">
-            <a href="{{ path('ojs_user_profile', {slug: person.username}) }}">
+            <a href="{{ path('vipa_user_profile', {slug: person.username}) }}">
                 <img
                         {% if person.avatar is defined and person.avatar is not null %}
                             class="img-circle"
@@ -14,7 +14,7 @@
             </a>
         </div>
         <div class="content">
-            <a class="hovercard" href="{{ path('ojs_user_profile', {slug: person.username}) }}">
+            <a class="hovercard" href="{{ path('vipa_user_profile', {slug: person.username}) }}">
                 {% if person.title is not empty %}
                     {{ person.title.title }}
                 {% endif %}

@@ -17,9 +17,9 @@ Here is an example of how you can add buttons using available templates.
 ```
 {{
     actions({
-        'back': {'href': path('ojs_admin_language_index')},
-        'edit': {'href': path('ojs_admin_language_edit', {'id': entity.id})},
-        'delete': {'href': path('ojs_admin_language_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('vipa_admin_language_index')},
+        'edit': {'href': path('vipa_admin_language_edit', {'id': entity.id})},
+        'delete': {'href': path('vipa_admin_language_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
     })
 }}
 ```
@@ -51,7 +51,7 @@ There is an easy way to hide a button when the user lacks the permission to use 
 actions({
     ...
 
-    'edit': {'href': path('ojs_admin_language_edit', {'id': entity.id}), 'permission': is_granted('DELETE', selectedJournal(), 'design')}
+    'edit': {'href': path('vipa_admin_language_edit', {'id': entity.id}), 'permission': is_granted('DELETE', selectedJournal(), 'design')}
     ...
 })
 ```

@@ -1,0 +1,54 @@
+<?php
+
+namespace Vipa\UserBundle\Form\Type;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class UserFirstType extends AbstractType
+{
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('title', null, ['label' => 'user.title'])
+            ->add('firstName', 'text', ['label' => 'firstname'])
+            ->add('lastName', 'text', ['label' => 'lastname'])
+            ->add('username', 'text', ['label' => 'username'])
+            ->add(
+                'password',
+                'password',
+                array('label' => 'password', 'attr' => array('style' => 'color:#898989;font-size:80%'))
+            )
+            ->add('email', 'text', ['label' => 'email']);
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Vipa\UserBundle\Entity\User',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'vipa_userbundle_user';
+    }
+}

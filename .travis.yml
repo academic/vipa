@@ -29,13 +29,13 @@ before_script:
   - bower install --force --silent
   - php app/console assetic:dump --env=test
   - chmod -R 777 app/cache app/logs
-  - php app/console ojs:install --no-interaction --env=test
-  - php app/console ojs:install:samples --env=test
+  - php app/console vipa:install --no-interaction --env=test
+  - php app/console vipa:install:samples --env=test
   - php app/console h4cc_alice_fixtures:load:sets --env=test
-  - php app/console ojs:normalize:translatable:objects --env=test
-  - php app/console ojs:mail:events:sync --env=test
-  - php app/console ojs:mail:events:sync --sync-desc --env=test
-  - php app/console ojs:normalize:journal:article:types --env=test
+  - php app/console vipa:normalize:translatable:objects --env=test
+  - php app/console vipa:mail:events:sync --env=test
+  - php app/console vipa:mail:events:sync --sync-desc --env=test
+  - php app/console vipa:normalize:journal:article:types --env=test
   - php app/console fos:elastica:populate --env=test
   - composer show
 

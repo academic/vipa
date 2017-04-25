@@ -2,11 +2,11 @@ parameters:
     database_driver:   pdo_pgsql
     database_host:     127.0.0.1
     database_port:     5432
-    database_name:     ojs
-    database_user:     ojs
-    database_password: ojs
+    database_name:     vipa
+    database_user:     vipa
+    database_password: vipa
 
-    system_email:      ojs@localhost
+    system_email:      vipa@localhost
     feedback_email:    feedback@localhost
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
@@ -21,10 +21,10 @@ parameters:
     locale_support: [tr,en]
     secret:            884310f89c4aa13453c463ccae442f2e0f853503
 
-    base_host: ojs.dev
+    base_host: vipa.dev
 
     elasticsearch_host: 127.0.0.1
-    elasticsearch_index_name: ojs.elastic.index
+    elasticsearch_index_name: vipa.elastic.index
     orcid.client_id: 1
     orcid.client_secret: 1
     academicid.client_id: 1
@@ -33,10 +33,10 @@ parameters:
     linkedin.client_secret: 1
     https: false
     defaultPublisherSlug: www
-    ojs_logo: http://ojs.io/assets/app/images/logo.png
-    ojs_favicon: http://ojs.io/assets/app/images/logo.png
-    ojs_fb: openjournalsoftware
-    ojs_tw: ojs_io
+    vipa_logo: http://vipa.io/assets/app/images/logo.png
+    vipa_favicon: http://vipa.io/assets/app/images/logo.png
+    vipa_fb: openjournalsoftware
+    vipa_tw: vipa_io
     project_name: OJS
     country_id: 216
     session_name: '_OJS_SESSION_'

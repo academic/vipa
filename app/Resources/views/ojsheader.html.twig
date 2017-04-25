@@ -7,41 +7,41 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('ojs_public_index') }}"><img src="{{ ojs_logo }}"
+            <a class="navbar-brand" href="{{ url('vipa_public_index') }}"><img src="{{ vipa_logo }}"
                                                                                alt="{{ project_name }}"/></a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="{% if page == 'index' %}active{% endif %} navbar-btn hidden-xs">
-                    <a href="{{ url('ojs_public_index') }}" title="{{ "home"|trans }}" data-placement="bottom">
+                    <a href="{{ url('vipa_public_index') }}" title="{{ "home"|trans }}" data-placement="bottom">
                         <i class="fa fa-home fa-fw"></i>
                         <span class="hidden-sm hidden-md hidden-lg">{{ "home"|trans }}</span>
                     </a>
                 </li>
-                <li class="{% if page == 'ojs_public_index' %}active{% endif %} navbar-btn hidden-xs">
-                    <a href="{{ url('ojs_public_index') }}page/about" data-placement="bottom"
+                <li class="{% if page == 'vipa_public_index' %}active{% endif %} navbar-btn hidden-xs">
+                    <a href="{{ url('vipa_public_index') }}page/about" data-placement="bottom"
                        title="{{ "title.about"|trans }}"><i
                                 class="fa fa-info fa-fw"></i></a>
                 </li>
-                <li class="{% if page == 'ojs_site_explore_publisher' %}active{% endif %} navbar-btn">
-                    <a href="{{ url('ojs_site_explore_publisher') }}" data-placement="bottom"
+                <li class="{% if page == 'vipa_site_explore_publisher' %}active{% endif %} navbar-btn">
+                    <a href="{{ url('vipa_site_explore_publisher') }}" data-placement="bottom"
                        title="{{ "title.publishers"|trans }}"><i
                                 class="fa fa-university fa-fw"></i> {{ "title.publishers"|trans }}</a>
                 </li>
-                <li class="{% if page == 'ojs_site_people_index' %}active{% endif %} navbar-btn">
-                    <a href="{{ url('ojs_site_people_index') }}" data-placement="bottom"
+                <li class="{% if page == 'vipa_site_people_index' %}active{% endif %} navbar-btn">
+                    <a href="{{ url('vipa_site_people_index') }}" data-placement="bottom"
                        title="{{ "title.people_directory"|trans }}"><i
                                 class="fa fa-user fa-fw"></i> {{ "title.people_directory"|trans }}</a>
                 </li>
                 <li class="{% if page == 'explore' %}active{% endif %} navbar-btn">
-                    <a href="{{ url('ojs_site_explore_index') }}" data-placement="bottom"
+                    <a href="{{ url('vipa_site_explore_index') }}" data-placement="bottom"
                        title="{{ "title.explore"|trans }}"><i
                                 class="fa fa-compass fa-fw"></i> {{ "title.explore"|trans }}</a>
                 </li>
             </ul>
             {% if page != 'index' %}
                 <div class="navbar-search-box">
-                    <form class="navbar-form" role="search" action="{{ url('ojs_search_index') }}" method="get">
+                    <form class="navbar-form" role="search" action="{{ url('vipa_search_index') }}" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control"
                                    placeholder="{{ "search.on.everywhere" | trans({'%project_name%' : project_name}) }}"
@@ -74,15 +74,15 @@
                                 <span> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url('ojs_user_profile', {slug: app.user.username}) }}"
+                                <li><a href="{{ url('vipa_user_profile', {slug: app.user.username}) }}"
                                        title="{{ "you"|trans }}">@{{ app.user.username }}</a></li>
 
                                 <li>
-                                    <a href="{{ url('ojs_user_index') }}">
+                                    <a href="{{ url('vipa_user_index') }}">
                                         <i class="fa fa-cog"></i> {{ "user_page"|trans }}</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('ojs_user_edit_profile') }}" title="{{ "user.profile.edit"|trans }}"
+                                    <a href="{{ url('vipa_user_edit_profile') }}" title="{{ "user.profile.edit"|trans }}"
                                        data-placement="left">
                                         <i class="fa fa-edit"> {{ "user.profile.edit"|trans }}</i>
                                     </a>
@@ -91,7 +91,7 @@
                                 <li class="divider"></li>
                                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                     <li>
-                                        <a class="btn btn-link" href="{{ url('ojs_public_index') }}?_su=_exit"
+                                        <a class="btn btn-link" href="{{ url('vipa_public_index') }}?_su=_exit"
                                            title="{{ "log_out_from_user"|trans }}" data-placement="left"><i
                                                     class="fa fa-sign-out"></i> {{ "log_out_from_user"|trans }}</a>
                                     </li>

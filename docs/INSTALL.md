@@ -97,9 +97,9 @@ $ service php7.0-fpm restart
 $ su - postgres
 $ psql -d template1 -U postgres
 
-CREATE USER ojs WITH PASSWORD 'ojs';
-CREATE DATABASE ojs;
-GRANT ALL PRIVILEGES ON DATABASE ojs to ojs;
+CREATE USER vipa WITH PASSWORD 'vipa';
+CREATE DATABASE vipa;
+GRANT ALL PRIVILEGES ON DATABASE vipa to vipa;
 \q
 
 $ su
@@ -131,7 +131,7 @@ $ rm -rf html
 # Obtain the latest code
 
 $ git clone https://github.com/ojs/ojs.git
-$ cd ojs
+$ cd vipa
 
 ```
 
@@ -146,9 +146,9 @@ When installation is complete, you will need to provide some parameters to OJS. 
  * `database_driver` (`pdo_pgsql` by default)
  * `database_host` (`127.0.0.1` by default)
  * `database_port` (`5432` by default)
- * `database_name` (`ojs` by default)
- * `database_user` (`ojs` by default)
- * `database_password` (`ojs` by default)
+ * `database_name` (`vipa` by default)
+ * `database_user` (`vipa` by default)
+ * `database_password` (`vipa` by default)
 * `base_host`: Treat this as your domain name. If you want to use a virtualhost, make sure you pass its name here.
 
 
@@ -159,21 +159,21 @@ $ php app/console assets:install web --symlink
 $ php app/console assetic:dump
 $ php app/console doctrine:schema:drop --force
 $ php app/console doctrine:schema:create
-$ php app/console ojs:install
-$ php app/console ojs:install:samples
+$ php app/console vipa:install
+$ php app/console vipa:install:samples
 
 ```
 
-After the wizard is done, install the initial data if you would like: `$ php app/console ojs:install:initial-data`
+After the wizard is done, install the initial data if you would like: `$ php app/console vipa:install:initial-data`
 
 
 Web Server Configuration Examples
 -------------------------
-### /etc/nginx/sites-available/ojs
+### /etc/nginx/sites-available/vipa
 
 ```
 # Type this command (or change type your favourite text editor instead of 'nano') and paste the server example section
-$ sudo nano /etc/nginx/sites-available/ojs
+$ sudo nano /etc/nginx/sites-available/vipa
 
 ```
 Server example
@@ -181,10 +181,10 @@ Server example
 ```
 server {
     listen 80;
-    server_name ojs.prod www.ojs.prod local.ojs.prod *.ojs.prod;
+    server_name vipa.prod www.vipa.prod local.vipa.prod *.vipa.prod;
     client_max_body_size 1024M;
 
-    root /var/www/ojs;
+    root /var/www/vipa;
 
     rewrite ^/app.php?(.*)$ /$1 permanent;
 
@@ -206,10 +206,10 @@ server {
 
 server {
     listen 80;
-    server_name ojs.dev www.ojs.dev local.ojs.dev *.ojs.dev;
+    server_name vipa.dev www.vipa.dev local.vipa.dev *.vipa.dev;
     client_max_body_size 1024M;
 
-    root /var/www/ojs;
+    root /var/www/vipa;
 
     rewrite ^/app_dev.php?(.*)$ /$1 permanent;
 
@@ -239,10 +239,10 @@ $ service nginx restart
 
 Install Bundles
 ----------------
-You should run this command in **ojs** folder, if you're not sure, run this before: 
+You should run this command in **vipa** folder, if you're not sure, run this before: 
 
 ```
-$ cd /var/www/ojs 
+$ cd /var/www/vipa 
 ```
 
 Then
@@ -250,7 +250,7 @@ Then
 ```
 # Citation bundle
 
-$ app/console ojs:install:package citation
+$ app/console vipa:install:package citation
 
 ```
 
