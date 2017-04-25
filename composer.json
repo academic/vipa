@@ -14,7 +14,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Ojs\\": "src/Ojs"
+      "Vipa\\": "src/Vipa"
     },
     "classmap": [
       "app/AppKernel.php",
@@ -97,7 +97,7 @@
     "presta/sitemap-bundle": "~1.4",
     "openjournalsoftware/bibtex": "~0.2",
     "exercise/htmlpurifier-bundle": "~0.2",
-    "ojs/export-bundle": "dev-master",
+    "vipa/export-bundle": "dev-master",
     "willdurand/js-translation-bundle": "^2.5",
     "contentfarm/disposable-email-list":"dev-master"
   },
