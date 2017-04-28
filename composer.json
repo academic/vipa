@@ -74,7 +74,7 @@
     "friendsofsymfony/elastica-bundle": "~4.0",
     "braincrafted/bootstrap-bundle": "~2.2",
     "ircmaxell/password-compat": "~1.0",
-    "pagerfanta/pagerfanta": "1.0.3",
+    "pagerfanta/pagerfanta": "1.0.5",
     "white-october/pagerfanta-bundle": "~1.0",
     "apy/datagrid-bundle": "~2.2",
     "vipa/import-bundle": "dev-master",
