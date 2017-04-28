@@ -1,0 +1,29 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.announcement_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_journal_dashboard_index', {'journalId': selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_announcement_index', {'journalId': selectedJournal().id}),'title': 'title.announcements'|trans},
+        {'title': 'title.announcement_show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.announcement_show'|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ display(entity) }}
+
+    {{
+        actions({
+            'back': {'href': path('vipa_journal_announcement_index', {'journalId': selectedJournal().id})},
+            'edit': {'href': path('vipa_journal_announcement_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+            'delete': {
+                'href': path('vipa_journal_announcement_delete', {'id': entity.id, 'journalId': selectedJournal().id}),
+                'permission': is_granted('DELETE', selectedJournal(), 'announcements'),
+                'attributes': {'data-token': token}
+            },
+        })
+    }}
+{% endblock %}

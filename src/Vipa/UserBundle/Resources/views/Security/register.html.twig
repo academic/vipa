@@ -1,0 +1,51 @@
+{% extends "::vipabase.html.twig" %}
+{% block title %}{{ 'title.register'|trans }} {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% include '::flashbag.html.twig' %}
+        <div class="container">
+            <div class="col-md-6 col-sm-8 col-sm-offset-2 col-md-offset-3">
+                <div class="panel panel-success">
+                    <div class="panel-heading"><h1 class="panel-title"><i
+                                    class="fa fa-user"></i> {{ "register"|trans }}</h1></div>
+                    <div class="panel-body">
+                        <form action="{{ path('fos_user_registration_register') }}" method="POST" class="validate-form"
+                              novalidate="novalidate">
+                            {{ form_errors(form) }}
+
+                            {{ form_widget(form) }}
+
+                            <button type="submit" id="userRegisterButton" class="btn btn-primary pull-right">
+                                <i class="fa fa-sign-in"></i> {{ "register"|trans }}
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $("input#vipa_user_register_username").blur(function () {
+                $action = "{{path('get_username_check')}}" + "?username=" + $(this).val();
+                $status = $("#checkUsernameResult");
+                $btn = $("#userRegisterButton");
+                $status.html("<span style='color:#561212'>{{"user.username_check"|trans|raw}}</span>");
+                $.getJSON($action, function (res) {
+                    if (res) {
+                        $status.html('<span class="color:#125612">{{"user.username_available"|trans|raw}}</span>');
+                        $btn.show();
+                    } else {
+                        $status.html('<span class="color:#561212">{{"user.username_not_available"|trans|raw}}</span>');
+                        $btn.hide();
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

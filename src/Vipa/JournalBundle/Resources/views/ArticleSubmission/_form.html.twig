@@ -1,0 +1,97 @@
+<style>
+    .fileinput-button input {
+        font-size: 40px !important;
+        width: 95px;
+        height: 40px;
+        cursor: pointer;
+        top: -10px;
+        left: -10px;
+    }
+</style>
+<div id="step1-container" class="step">
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+
+    <div class="panel panel-info">
+        <div class="panel-heading">{{ "article.metadata"|trans }}</div>
+        <div class="panel-body">
+            {{ form_row(form.articleType) }}
+            {{ form_row(form.language) }}
+            {{ form_label(form.subjects) }}
+            <small>({{ 'you.can.multi.select.via.keyboard.crtl.button'|trans }})</small>
+            {{ form_widget(form.subjects) }}
+            <br>
+            {{ form_row(form.translations) }}
+            {{ twigEventDispatch({
+                'event_name': 'VIPA_JOURNAL_ARTICLE_EVENT_FORM',
+                'form': form,
+                'dispatch': dispatch is defined ? dispatch : false
+            })|raw }}
+            {{ form_row(form._token) }}
+        </div>
+    </div>
+
+    <hr />
+    <div class="panel panel-info submission-subform-panel">
+        <div class="panel-heading">{{ "article.authors"|trans }}</div>
+        <div class="submission-subform-container panel-body">
+                        <textarea class="submission-subform-template">{%- filter escape -%}
+                                {{ include('@VipaJournal/ArticleSubmission/_articleauthor_subform.html.twig', { 'form': form.articleAuthors.vars.prototype }) }}
+                        {% endfilter %}</textarea>
+
+            {% for articleauthorForm in form.articleAuthors %}
+                {{ include('@VipaJournal/ArticleSubmission/_articleauthor_subform.html.twig', { 'form': articleauthorForm }) }}
+            {% endfor %}
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel">
+                <i class="fa fa-plus"></i>
+                {{ "author.add"|trans }}
+            </button>
+        </div>
+    </div>
+    <hr />
+    <div class="panel panel-info submission-subform-panel">
+        <div class="panel-heading">{{ "article.citations"|trans }}</div>
+        <div class="submission-subform-container panel-body" id="citation-forms-container">
+            <textarea class="submission-subform-template">
+                {%- filter escape -%}
+                    {{ include('@VipaJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': form.citations.vars.prototype }) }}
+                {% endfilter %}
+            </textarea>
+
+            {{ twigEventDispatch({'event_name': 'VIPA_SUBMISSION_CITATION_FORM_EXTRA'})|raw }}
+
+            {% for citiationForm in form.citations %}
+                {{ include('@VipaJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': citiationForm }) }}
+            {% endfor %}
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel" id="citation-add-button">
+                <i class="fa fa-plus"></i>
+                {{ "citation.add"|trans }}
+            </button>
+        </div>
+    </div>
+    <hr>
+    <div class="panel panel-info submission-subform-panel">
+        <div class="panel-heading">{{ "article.files"|trans }}</div>
+        <div class="submission-subform-container panel-body">
+                        <textarea class="submission-subform-template">{%- filter escape -%}
+                            {{ include('@VipaJournal/ArticleSubmission/_articlefile_subform.html.twig', { 'form': form.articleFiles.vars.prototype }) }}
+                        {% endfilter %}</textarea>
+
+            {% for articlefileForm in form.articleFiles %}
+                {{ include('@VipaJournal/ArticleSubmission/_articlefile_subform.html.twig', { 'form': articlefileForm }) }}
+            {% endfor %}
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel">
+                <i class="fa fa-plus"></i>
+                {{ "select.article.file"|trans }}
+            </button>
+        </div>
+    </div>
+    <hr>
+    {{ form_row(form.save) }}
+</div>

@@ -1,0 +1,30 @@
+Vipa\JournalBundle\Entity\SubmissionSetting:
+  type: entity
+  table: submission_setting
+  repositoryClass: Vipa\JournalBundle\Entity\SubmissionSettingRepository
+  cache:
+    usage: NONSTRICT_READ_WRITE
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    submissionEnabled:
+      column: submission_enabled
+      type: boolean
+      nullable: true
+    createdBy:
+       type: string
+       gedmo:
+         blameable:
+           on: create
+    updatedBy:
+       type: string
+       gedmo:
+         blameable:
+           on: update
+  manyToOne:
+    journal:
+      targetEntity: Journal

@@ -1,0 +1,14 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+
+{% block body -%}
+    <h1>{{ 'file'|trans }}</h1>
+    {{ display(entity) }}
+    {{
+        actions({
+            'back': {'href': path('vipa_admin_file_index')},
+            'edit': {'href': path('vipa_admin_file_edit', {'id': entity.id})},
+            'delete': {'href': path('vipa_admin_file_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        })
+    }}
+{% endblock %}

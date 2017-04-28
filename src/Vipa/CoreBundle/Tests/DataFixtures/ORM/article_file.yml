@@ -1,0 +1,9 @@
+Vipa\JournalBundle\Entity\ArticleFile:
+  article_file:
+    article: 1
+    type: 0
+    version: 1
+    keywords: "help,vipa,getting started"
+    title: "Demo File"
+    description: Sample file
+    langCode: en

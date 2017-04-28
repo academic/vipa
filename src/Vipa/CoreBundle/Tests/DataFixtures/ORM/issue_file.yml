@@ -1,0 +1,10 @@
+Vipa\JournalBundle\Entity\IssueFile:
+  issue_file:
+    currentLocale: en
+    issue: 1
+    file: 'issue.txt'
+    type: 0
+    version: 1
+    title: "Demo File"
+    description: Sample file
+    langCode: en

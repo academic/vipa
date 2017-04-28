@@ -1,0 +1,116 @@
+vipa_admin_dashboard:
+    path:     dashboard
+    defaults: { _controller: "VipaAdminBundle:Admin:dashboard" }
+
+vipa_admin_stats:
+    path:  stats
+    defaults: { _controller: "VipaAdminBundle:Admin:stats" }
+
+vipa_admin_stats_issue:
+    path:  stats/issue
+    defaults: { _controller: "VipaAdminBundle:Admin:issue" }
+
+vipa_admin_user:
+    resource: "@VipaAdminBundle/Resources/config/routing/user.yml"
+    prefix:   user
+
+vipa_admin_journal:
+    resource: "@VipaAdminBundle/Resources/config/routing/journal.yml"
+    prefix:   journal
+
+vipa_admin_publisher:
+    resource: "@VipaAdminBundle/Resources/config/routing/publisher.yml"
+    prefix:   publisher
+
+vipa_admin_institution:
+    resource: "@VipaAdminBundle/Resources/config/routing/institution.yml"
+    prefix:   institution
+
+vipa_admin_mail_template:
+    resource: "@VipaAdminBundle/Resources/config/routing/mail_template.yml"
+    prefix:   mail-template
+
+vipa_admin_publisher_type:
+    resource: "@VipaAdminBundle/Resources/config/routing/publisher_type.yml"
+    prefix:   publisher-type
+
+vipa_admin_publisher_theme:
+    resource: "@VipaAdminBundle/Resources/config/routing/publisher_theme.yml"
+    prefix:   publisher-theme
+
+vipa_admin_publisher_design:
+    resource: "@VipaAdminBundle/Resources/config/routing/publisher_design.yml"
+    prefix:   publisher-design
+
+vipa_admin_publisher_manager:
+    resource: "@VipaAdminBundle/Resources/config/routing/publisher_managers.yml"
+    prefix:   publisher-manager
+
+
+vipa_admin_journal_theme:
+    resource: "@VipaAdminBundle/Resources/config/routing/admin_journal_theme.yml"
+    prefix:   journal-theme
+
+vipa_admin_subject:
+    resource: "@VipaAdminBundle/Resources/config/routing/subject.yml"
+    prefix:   subject
+
+vipa_admin_contact_type:
+    resource: "@VipaAdminBundle/Resources/config/routing/contact_type.yml"
+    prefix:   contact-type
+
+vipa_admin_language:
+    resource: "@VipaAdminBundle/Resources/config/routing/language.yml"
+    prefix:   language
+
+vipa_admin_article_type:
+    resource: "@VipaAdminBundle/Resources/config/routing/article_type.yml"
+    prefix:   article-type
+
+vipa_admin_application:
+    resource: "@VipaAdminBundle/Resources/config/routing/journal_application.yml"
+    prefix:   application
+
+vipa_admin_publisher_application:
+    resource: "@VipaAdminBundle/Resources/config/routing/publisher_application.yml"
+    prefix:   application
+
+vipa_admin_index:
+    resource: "@VipaAdminBundle/Resources/config/routing/index.yml"
+    prefix:   index
+
+vipa_admin_application_file_application_file:
+    resource: "@VipaAdminBundle/Resources/config/routing/application_file.yml"
+    prefix:   journal-application-file
+
+vipa_admin_system_settings:
+    resource: "@VipaAdminBundle/Resources/config/routing/system_settings.yml"
+    prefix:   settings
+
+vipa_admin_announcement:
+    resource: "@VipaAdminBundle/Resources/config/routing/announcement.yml"
+    prefix:   announcement
+
+vipa_admin_page:
+    resource: "@VipaAdminBundle/Resources/config/routing/page.yml"
+    prefix:   page
+
+vipa_admin_post:
+    resource: "@VipaAdminBundle/Resources/config/routing/post.yml"
+    prefix:   post
+
+vipa_admin_contact:
+    resource: "@VipaAdminBundle/Resources/config/routing/contact.yml"
+    prefix:   contact
+
+vipa_admin_period:
+    resource: "@VipaAdminBundle/Resources/config/routing/period.yml"
+    prefix:   period
+
+vipa_admin_person_title:
+    resource: "@VipaAdminBundle/Resources/config/routing/person_title.yml"
+    prefix:   person-title
+
+vipa_admin_file:
+    resource: "@VipaAdminBundle/Resources/config/routing/file.yml"
+    prefix:   file

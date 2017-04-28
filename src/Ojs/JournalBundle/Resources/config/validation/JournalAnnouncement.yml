@@ -1,6 +1,0 @@
-Ojs\JournalBundle\Entity\JournalAnnouncementTranslation:
-  properties:
-    title:
-      - NotBlank: ~
-    content:
-      - NotBlank: ~

@@ -1,0 +1,23 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.language_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_language_index'),'title': 'title.languages'|trans},
+        {'title': 'title.language_edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "lang.edit"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ form(edit_form) }}
+    <hr>
+    {% set back_path = 'vipa_admin_language_index' %}
+    {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
+{% endblock %}

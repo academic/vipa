@@ -1,0 +1,4 @@
+vipa_core_tag_search:
+    path:  /tag/search
+    defaults: { _controller: "VipaCoreBundle:Tags:tagSearch" }
+    methods:  [GET]

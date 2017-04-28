@@ -1,0 +1,22 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.user_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        { 'link': path('vipa_journal_user_index', {'journalId': selectedJournal().id}), 'title': 'title.user_new'|trans},
+        { 'title': 'title.journal_user_create'|trans},
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+{% block body -%}
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{{ 'title.user_new'|trans }}</h1>
+            {% include '::flashbag.html.twig' %}
+            <div class="record_actions">
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

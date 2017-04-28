@@ -1,0 +1,9 @@
+vipa_site_cms_page:
+    path: /page/{slug}
+    host: "%base_host%"
+    defaults: { _controller: "VipaSiteBundle:Cms:page" }
+
+vipa_site_cms_post:
+    path: /post/{slug}
+    host: "%base_host%"
+    defaults: { _controller: "VipaSiteBundle:Cms:post" }

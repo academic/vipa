@@ -1,0 +1,44 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.journal_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('vipa_admin_application_journal_index'),'title': 'application.journal'|trans},
+    {'title': 'edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <div class="col-md-12">
+        <div class="panel">
+            {% include '::flashbag.html.twig' %}
+            <h1>{{ "application.journal.edit"|trans }}</h1>
+            {{ form(form) }}
+            {{ getLogs(entity) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            var applicationPublisher = $('.application-publisher');
+            var publisherLabel = applicationPublisher.parent().find('.control-label');
+            function revisePublisherInput(){
+                var publisherEditValue = '{{ path('vipa_admin_publisher_edit', {id: 9999}) }}'.replace('9999', applicationPublisher.val());
+                if(publisherLabel.find('a').length<1){
+                    publisherLabel.append('&nbsp;&nbsp;<a target="_blank">{{ 'publisher.edit'|trans }}</a>');
+                }
+                publisherLabel.find('a').attr('href', publisherEditValue);
+            }
+            revisePublisherInput();
+            applicationPublisher.on('change', function(){
+                revisePublisherInput();
+            });
+        });
+    </script>
+{% endblock %}

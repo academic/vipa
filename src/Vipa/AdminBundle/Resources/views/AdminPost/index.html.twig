@@ -1,0 +1,25 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.posts'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'title': 'title.posts'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "title.posts"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+
+    {% if is_granted('CREATE', getEntity('VipaAdminBundle:AdminAnnouncement')) %}
+        <a href="{{ path('vipa_admin_post_new') }}" class="btn btn-success">
+            {{ "create"|trans }}
+        </a>
+    {% endif %}
+
+    <hr>
+    {{ grid(grid) }}
+{% endblock %}

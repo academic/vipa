@@ -1,0 +1,202 @@
+Vipa\UserBundle\Entity\User:
+  type:  entity
+  table: users
+  repositoryClass: Vipa\UserBundle\Entity\UserRepository
+  cache:
+    usage: NONSTRICT_READ_WRITE
+  attributeOverride:
+    salt:
+      type: string
+      nullable: true
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    apiKey:
+      type: string
+      length: 255
+      unique: true
+      nullable: true
+      gedmo:
+        - versioned
+    firstName:
+      column: first_name
+      type: string
+      length: 255
+      unique: false
+      nullable: true
+      gedmo:
+        - versioned
+    lastName:
+      column: last_name
+      type: string
+      length: 255
+      unique: false
+      nullable: true
+      gedmo:
+        - versioned
+    gender:
+      column: gender
+      type: string
+      length: 2
+      nullable: true
+    initials:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    institutionNotListed:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+    institutionName:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    url:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    phone:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    fax:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    address:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    billing_address:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    privacy:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+    settings:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    about:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    avatar:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    header:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    city:
+      type: string
+      nullable: true
+    created:
+     type: datetime
+     gedmo:
+       timestampable:
+         on: create
+    updated:
+     type: datetime
+     gedmo:
+       timestampable:
+         on: update
+    deletedAt:
+      type: date
+      nullable: true
+    tags:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+  oneToMany:
+    customFields:
+      targetEntity: Vipa\UserBundle\Entity\CustomField
+      mappedBy: user
+    multipleMails:
+      targetEntity: Vipa\UserBundle\Entity\MultipleMail
+      mappedBy: user
+    oauthAccounts:
+      targetEntity: Vipa\UserBundle\Entity\UserOauthAccount
+      mappedBy: user
+    authorDetails:
+      targetEntity: Vipa\JournalBundle\Entity\Author
+      mappedBy: user
+      cascade: ["persist"]
+    journalUsers:
+      targetEntity: Vipa\JournalBundle\Entity\JournalUser
+      mappedBy: user
+      fetch: EXTRA_LAZY
+      cache:
+        usage: NONSTRICT_READ_WRITE
+  manyToOne:
+    title:
+      targetEntity: Vipa\JournalBundle\Entity\PersonTitle
+      joinColumn:
+        name: title_id
+        referencedColumnName: id
+    country:
+      targetEntity: BulutYazilim\LocationBundle\Entity\Country
+      joinColumn:
+        name: country_id
+        referencedColumnName: id
+    institution:
+      targetEntity: Vipa\JournalBundle\Entity\Institution
+      joinColumn:
+        name: institution_id
+        referencedColumnName: id
+    merged:
+      targetEntity: Vipa\UserBundle\Entity\User
+      joinColumn:
+        name: merged_id
+        referencedColumnName: id
+      inversedBy: mergeUsers
+  manyToMany:
+    subjects:
+      targetEntity: Vipa\JournalBundle\Entity\Subject
+      cascade: ["persist"]
+      mappedBy: null
+      inversedBy: users
+      joinTable:
+        name: user_subjects
+        joinColumns:
+          -
+            name: user_id
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          -
+            name: subject_id
+            referencedColumnName: id
+            onDelete: CASCADE
+      orderBy: null
+      cache:
+          usage: NONSTRICT_READ_WRITE
+    restrictedJournals:
+      targetEntity: Vipa\JournalBundle\Entity\Journal
+      mappedBy: bannedUsers
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+    loggable: true
+  lifecycleCallbacks: {  }

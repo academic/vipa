@@ -1,0 +1,16 @@
+vipa_admin_mail_template_index:
+    path:  /
+    defaults: { _controller: "VipaAdminBundle:AdminMailTemplate:index" }
+
+vipa_admin_mail_template_show:
+    path:  /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminMailTemplate:show" }
+
+vipa_admin_mail_template_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminMailTemplate:edit" }
+
+vipa_admin_mail_template_update:
+    path:  /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminMailTemplate:update" }
+    methods:  [PUT]

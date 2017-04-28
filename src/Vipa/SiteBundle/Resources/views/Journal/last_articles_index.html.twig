@@ -1,0 +1,97 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.last_articles'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = 1 %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .margin-center {
+            margin: 0 auto;
+        }
+        .float-left {
+            float: left;
+            margin-right: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_public_index'), 'title': project_name},
+    {'link':generateJournalUrl(journal), 'title': journal.title},
+    {'link':url('vipa_archive_index',{slug: journal.slug,publisher: journal.publisher.slug}), 'title': "archive"|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <br>
+        <img src="
+            {% if journal.issues|length and journal.issues[journal.issues|length-1].header is not null %}
+                {{ journal.issues[journal.issues|length-1].header|imagine_filter('issue_header') }}
+            {% endif %}"
+            data-src="holder.js/960x200/#f9A497:#ffffff/text:header" class="img-responsive margin-center"/>
+
+        <!-- The carousel -->
+        <div class="page-header">
+            <img src="
+                    {% if journal.issues|length and journal.issues[journal.issues|length-1].cover is not null %}
+                        {{ journal.issues[journal.issues|length-1].cover|imagine_filter('issue_cover') }}
+                    {% endif %}"
+                 data-src="holder.js/72x72/#f9A497:#ffffff/text:cover" class="img-responsive float-left"/>
+            <div>
+                <h1>{{ journal.title }}</h1>
+                <h6>{{ journal.subtitle }}</h6>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-9 col-sm-8">
+                {% if articles|length %}
+                    <div class="panel panel-default">
+
+                        <ul class="list-group">
+                            {% for article in articles %}
+                                {% if article.issue is not empty %}
+                                    <li class="list-group-item list-group-item-default">
+                                        <a href="{{ url('vipa_article_page',{article_id: article.id,
+                                            slug: journal.slug, issue_id: article.issue.id}) }}"><i
+                                                    class="fa fa-file-text"></i> {{ article.title }}
+                                        </a><br/>
+                                        <i class="fa fa-users"></i>
+                                    <span class="text-muted">
+                                        ({% if article.created.date %}{{ article.created.date|date('Y-m-d') }}{% endif %}
+                                        )
+                                    </span>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                {% else %}
+                    <div class="alert alert-info">
+                        {{ vipa.any_content|trans }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                {% include 'VipaSiteBundle:Journal:journal_right_block.html.twig' %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        analytics.increase('journal', {{ journal.id }});
+        renderMathInElement(document.body);
+    </script>
+{% endblock %}

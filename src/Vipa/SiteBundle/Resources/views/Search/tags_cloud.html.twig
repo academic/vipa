@@ -1,0 +1,27 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.search'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = 1 %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_public_index'), 'title': project_name},
+    {'title': 'tags.cloud'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <hgroup class="page-header">
+            <h2 class="lead">
+                {{ 'tags.cloud'|trans }}
+            </h2>
+        </hgroup>
+
+        <section>
+            {% for tag in tags %}
+                <a href="/search?q=tag:{{ tag }}" class="btn btn-default">#{{ tag }}</a>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}

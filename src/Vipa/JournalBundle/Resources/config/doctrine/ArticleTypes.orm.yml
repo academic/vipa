@@ -1,0 +1,40 @@
+Vipa\JournalBundle\Entity\ArticleTypes:
+  type: entity
+  table: article_types
+  repositoryClass: Vipa\JournalBundle\Entity\ArticleTypesRepository
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    deletedAt:
+      type: date
+      nullable: true
+    createdBy:
+      type: string
+      gedmo:
+       blameable:
+         on: create
+    updatedBy:
+       type: string
+       gedmo:
+         blameable:
+           on: update
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+    loggable: true
+  lifecycleCallbacks: {  }

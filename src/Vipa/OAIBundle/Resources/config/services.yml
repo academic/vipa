@@ -1,0 +1,6 @@
+services:
+  vipa.oai.twig_extension:
+    class: Vipa\OAIBundle\Twig\OaiExtension
+    public: false
+    tags:
+      - { name: twig.extension }

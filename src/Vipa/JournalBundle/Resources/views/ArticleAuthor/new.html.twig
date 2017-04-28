@@ -1,0 +1,54 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.article_authors_new'|trans }} {{ parent() }}{% endblock %}
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_article_author_index', {'articleId': article.id, 'journalId': selectedJournal().id}),'title': 'title.article_authors'|trans},
+        {'title': 'title.article_authors_new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.article_authors_new'|trans }}</h1>
+
+    {% include '::flashbag.html.twig' %}
+    {{ form(form) }}
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('vipa_journal_article_author_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">
+                Back to the list
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            $.each($('.institutionNotListed'), function (index, value) {
+                var $institutionSelect = $(this).parent().parent().parent().parent().find('.institution');
+                var $institutionName = $(this).parent().parent().parent().parent().find('.institutionName');
+                if(this.checked){
+                    $institutionName.parent().removeClass('hidden');
+                    $institutionSelect.parent().addClass('hidden');
+                }else{
+                    $institutionName.parent().addClass('hidden');
+                    $institutionSelect.parent().removeClass('hidden');
+                }
+            });
+            $(document).on('change', '.institutionNotListed', function () {
+                var $institutionSelect = $(this).parent().parent().parent().parent().find('.institution');
+                var $institutionName = $(this).parent().parent().parent().parent().find('.institutionName');
+                if(this.checked){
+                    $institutionName.parent().removeClass('hidden');
+                    $institutionSelect.parent().addClass('hidden');
+                }else{
+                    $institutionName.parent().addClass('hidden');
+                    $institutionSelect.parent().removeClass('hidden');
+                }
+            });
+        });
+    </script>
+{% endblock %}

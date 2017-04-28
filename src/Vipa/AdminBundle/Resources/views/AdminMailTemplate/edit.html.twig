@@ -1,0 +1,25 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.mail_template_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('vipa_admin_mail_template_index'),'title': 'title.mail_templates'|trans},
+        {'title': 'title.mail_template_edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ entity.description }}</h1>
+    {% include '::flashbag.html.twig' %}
+    <div class="well">
+        <h5>{{ 'you.can.use.below.params.on.this.template'|trans }} :</h5> <br>
+        {{ eventParamsAsString|raw }}
+    </div>
+    {{ form(form) }}
+    {% set back_path = 'vipa_admin_mail_template_index' %}
+    {% include '::actionbuttons.html.twig' %}
+    {{ getLogs(entity) }}
+{% endblock %}

@@ -1,0 +1,11 @@
+Vipa\JournalBundle\Entity\SectionTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+
+Vipa\JournalBundle\Entity\Section:
+    properties:
+        translations:
+            - Valid: ~
+        sectionOrder:
+            - NotBlank: ~

@@ -1,0 +1,23 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.citation_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'title': 'title.citations'|trans},
+        {'title': 'title.citation_edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h2>{{ 'title.citation_edit'|trans }}</h2>
+
+    {{ form(edit_form) }}
+
+    {{
+        actions({
+            'back': {'href': path('vipa_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
+        })
+    }}
+{% endblock %}

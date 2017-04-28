@@ -1,0 +1,60 @@
+Vipa\JournalBundle\Entity\Section:
+    type: entity
+    repositoryClass: Vipa\JournalBundle\Entity\SectionRepository
+    table: section
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    manyToOne:
+       journal:
+          targetEntity: Journal
+          joinColumn:
+            name: journal_id
+            referencedColumnName: id
+          inversedBy: sections
+    oneToMany:
+        articles:
+            targetEntity: Article
+            mappedBy: section
+            cascade: ["persist", "merge"]
+            fetch: EXTRA_LAZY
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        allowIndex:
+            type: boolean
+            column: allow_index
+            nullable: true
+            options:
+                default: true
+            gedmo:
+                - versioned
+        hideTitle:
+            type: boolean
+            column: hide_title
+            nullable: true
+            options:
+                default: false
+        sectionOrder:
+            type: integer
+            column: section_order
+            nullable: false
+            options:
+                default: 1
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+           nullable: true
+    lifecycleCallbacks: {  }
+    gedmo:
+        loggable: true

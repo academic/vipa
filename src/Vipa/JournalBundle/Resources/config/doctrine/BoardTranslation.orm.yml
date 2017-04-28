@@ -1,0 +1,18 @@
+Vipa\JournalBundle\Entity\BoardTranslation:
+  type: entity
+  table: board_translations
+  cache:
+    usage: NONSTRICT_READ_WRITE
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+      name:
+          type: string
+          length: 255
+      description:
+          nullable: true
+          type: text

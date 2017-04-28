@@ -1,6 +1,0 @@
-Ojs\JournalBundle\Entity\Citation:
-    properties:
-        raw:
-            - NotBlank: { groups: [submission], message: 'Raw fields of citations can not be blank.' }
-        type:
-            - NotBlank: { groups: [submission], message: 'Type fields of citations can not be blank.' }

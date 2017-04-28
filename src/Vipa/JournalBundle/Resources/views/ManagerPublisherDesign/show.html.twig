@@ -1,0 +1,29 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.publisher_design_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_user_index'), 'title': 'user_page'|trans},
+    { 'link': path('vipa_publisher_manager_design_index', {publisherId: publisher.id}),'title': 'title.publisher_design'|trans},
+    {'title': 'title.publisher_design_show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ entity.title|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ display(entity) }}
+    {% if isGrantedForPublisher() %}
+        <div class="record_actions">
+            {{
+            actions({
+                'back': {'href': path('vipa_publisher_manager_design_index', {'publisherId': entity.publisher.id})},
+                'edit': {'href': path('vipa_publisher_manager_design_edit', {'publisherId': entity.publisher.id, 'id': entity.id})},
+                'delete': {'href': path('vipa_publisher_manager_design_delete', {'publisherId': entity.publisher.id, 'id': entity.id})},
+            })
+            }}
+        </div>
+    {% endif %}
+{% endblock %}

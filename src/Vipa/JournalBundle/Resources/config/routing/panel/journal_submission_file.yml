@@ -1,0 +1,30 @@
+vipa_journal_file_index:
+    path:     /{journalId}/file/
+    defaults: { _controller: "VipaJournalBundle:JournalSubmissionFile:index" }
+
+vipa_journal_file_show:
+    path:     /{journalId}/file/{id}/show
+    defaults: { _controller: "VipaJournalBundle:JournalSubmissionFile:show" }
+
+vipa_journal_file_new:
+    path:     /{journalId}/file/new
+    defaults: { _controller: "VipaJournalBundle:JournalSubmissionFile:new" }
+
+vipa_journal_file_create:
+    path:     /{journalId}/file/create
+    defaults: { _controller: "VipaJournalBundle:JournalSubmissionFile:create" }
+    methods:  POST
+
+vipa_journal_file_edit:
+    path:     /{journalId}/file/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:JournalSubmissionFile:edit" }
+
+vipa_journal_file_update:
+    path:     /{journalId}/file/{id}/update
+    defaults: { _controller: "VipaJournalBundle:JournalSubmissionFile:update" }
+    methods: [PUT]
+
+vipa_journal_file_delete:
+    path:     /{journalId}/file/{id}/delete
+    defaults: { _controller: "VipaJournalBundle:JournalSubmissionFile:delete" }
+    methods: [DELETE]

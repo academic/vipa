@@ -1,0 +1,29 @@
+Vipa\JournalBundle\Entity\ArticleTranslation:
+  type: entity
+  table: article_translations
+  cache:
+    usage: NONSTRICT_READ_WRITE
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    title:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    keywords:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    abstract:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+  gedmo:
+    loggable: true

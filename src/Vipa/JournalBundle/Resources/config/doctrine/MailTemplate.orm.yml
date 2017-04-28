@@ -1,0 +1,87 @@
+Vipa\JournalBundle\Entity\MailTemplate:
+    type: entity
+    table: mail_template
+    repositoryClass: Vipa\JournalBundle\Entity\MailTemplateRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        journal:
+          targetEntity: Vipa\JournalBundle\Entity\Journal
+          joinColumn:
+            name: journal_id
+            referencedColumnName: id
+    fields:
+        type:
+            type: string
+            length: 255
+            column: type
+            nullable: true
+            gedmo:
+                - versioned
+        description:
+            type: string
+            length: 255
+            column: description
+            nullable: true
+            gedmo:
+                - versioned
+        subject:
+            type: string
+            length: 255
+            column: subject
+            nullable: true
+            gedmo:
+                - versioned
+        lang:
+            type: string
+            length: 100
+            column: lang
+            gedmo:
+                - versioned
+        template:
+            type: text
+            gedmo:
+                - versioned
+        active:
+            type: boolean
+        useJournalDefault:
+            column: use_journal_default
+            type: boolean
+        journalDefault:
+            column: journal_default
+            type: boolean
+        created:
+            type: datetime
+            nullable: true
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           nullable: true
+           gedmo:
+             blameable:
+               on: update
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        loggable: true
+    lifecycleCallbacks: {  }

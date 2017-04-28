@@ -1,0 +1,13 @@
+Vipa\JournalBundle\Entity\JournalPageTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+    body:
+      - NotBlank: ~
+
+Vipa\JournalBundle\Entity\JournalPage:
+    properties:
+        translations:
+            - Valid: ~
+        tags:
+            - NotBlank: ~

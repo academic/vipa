@@ -1,9 +1,0 @@
-\Ojs\JournalBundle\Entity\ArticleFile:
-  a_file1:
-    article: '@article1'
-    type: 0
-    version: 1
-    keywords: "help,ojs,getting started"
-    title: "Demo File"
-    description: Getting started to ojs.
-    langCode: en

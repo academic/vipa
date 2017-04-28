@@ -1,0 +1,60 @@
+vipa_journal_board_index:
+    path:     /{journalId}/board/
+    defaults: { _controller: "VipaJournalBundle:Board:index" }
+
+vipa_journal_board_sort:
+    path:     /{journalId}/board/sort
+    defaults: { _controller: "VipaJournalBundle:Board:sort" }
+
+vipa_journal_board_show:
+    path:     /{journalId}/board/{id}/show
+    defaults: { _controller: "VipaJournalBundle:Board:show" }
+
+vipa_journal_board_new:
+    path:     /{journalId}/board/new
+    defaults: { _controller: "VipaJournalBundle:Board:new" }
+
+vipa_journal_board_create:
+    path:     /{journalId}/board/create
+    defaults: { _controller: "VipaJournalBundle:Board:create" }
+    methods:  POST
+
+vipa_journal_board_edit:
+    path:     /{journalId}/board/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:Board:edit" }
+
+vipa_journal_board_update:
+    path:     /{journalId}/board/{id}/update
+    defaults: { _controller: "VipaJournalBundle:Board:update" }
+    methods: [PUT]
+
+vipa_journal_board_member_sort:
+    path:     /{journalId}/board/{boardId}/member/sort
+    defaults: { _controller: "VipaJournalBundle:Board:memberSort" }
+
+vipa_journal_board_delete:
+    path:     /{journalId}/board/{id}/delete
+    defaults: { _controller: "VipaJournalBundle:Board:delete" }
+    methods: [DELETE]
+
+vipa_journal_board_member_add:
+    path:  /{journalId}/board/{boardId}/member/add
+    defaults: { _controller: "VipaJournalBundle:Board:addMember" }
+    methods:  [POST, PUT]
+
+vipa_journal_board_member_edit:
+    path:     /{journalId}/board/{boardId}/member/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:Board:editMember" }
+
+vipa_journal_board_member_update:
+    path:     /{journalId}/board/{boardId}/member/{id}/update
+    defaults: { _controller: "VipaJournalBundle:Board:updateMember" }
+    methods: [PUT]
+
+vipa_journal_board_member_remove:
+    path:  /{journalId}/board/{boardId}/member/{id}/remove
+    defaults: { _controller: "VipaJournalBundle:Board:removeMember" }
+
+vipa_journal_board_oto_generate:
+    path:  /{journalId}/board/oto-generate
+    defaults: { _controller: "VipaJournalBundle:Board:otoGenerate" }

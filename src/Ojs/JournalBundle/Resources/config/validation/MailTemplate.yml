@@ -1,8 +1,0 @@
-Ojs\JournalBundle\Entity\MailTemplate:
-    properties:
-        template:
-            - NotBlank: ~
-        type:
-            - NotBlank: ~
-        lang:
-            - NotBlank: ~

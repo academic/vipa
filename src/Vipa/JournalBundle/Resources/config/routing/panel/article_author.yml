@@ -1,0 +1,42 @@
+vipa_journal_article_author_index:
+    path:     /{journalId}/article/{articleId}/author
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:index" }
+
+vipa_journal_article_author_sort:
+    path:     /{journalId}/article/{articleId}/author/sort
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:authorSort" }
+
+vipa_journal_article_author_show:
+    path:     /{journalId}/article/{articleId}/author/{id}/show
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:show" }
+
+vipa_journal_article_author_new:
+    path:     /{journalId}/article/{articleId}/author/new
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:new" }
+
+vipa_journal_article_author_add:
+    path:     /{journalId}/article/{articleId}/author/add
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:add" }
+
+vipa_journal_article_author_create:
+    path:     /{journalId}/article/{articleId}/author/create/
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:create" }
+    methods: [POST]
+
+vipa_journal_article_author_edit:
+    path:     /{journalId}/article/{articleId}/author/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:edit" }
+
+vipa_journal_article_author_update:
+    path:     /{journalId}/article/{articleId}/author/{id}/update
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:update" }
+    methods:  [PUT]
+
+vipa_journal_article_author_delete:
+    path:     /{journalId}/article/{articleId}/author/{id}/delete
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:delete" }
+    methods:  [DELETE]
+
+vipa_journal_article_author_search:
+    path: /{journalId}/author/search
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:getAuthorBasedJournal" }

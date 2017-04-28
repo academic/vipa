@@ -1,0 +1,14 @@
+vipa_search_advanced:
+    path: /search/advanced
+    host: "%base_host%"
+    defaults: { _controller: "VipaSiteBundle:Search:advanced" }
+
+vipa_search_index:
+    path:     /search/{page}
+    host: "%base_host%"
+    defaults: { _controller: "VipaSiteBundle:Search:index",page: 1 }
+
+vipa_tags_cloud:
+    path: /tags/cloud
+    host: "%base_host%"
+    defaults: { _controller: "VipaSiteBundle:Search:tagCloud" }

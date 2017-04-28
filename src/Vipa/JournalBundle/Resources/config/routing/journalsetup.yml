@@ -1,0 +1,12 @@
+vipa_journal_setup:
+    path:  /
+    defaults: { _controller: "VipaJournalBundle:JournalSetup:index" }
+
+vipa_journal_setup_resume:
+    path:  /{setupId}/resume/
+    defaults: { _controller: "VipaJournalBundle:JournalSetup:resume" }
+
+vipa_journal_setup_step_control:
+    path:  /step/{setupId}/control/{step}
+    defaults: { _controller: "VipaJournalBundle:JournalSetup:stepControl" }
+    methods: [POST]

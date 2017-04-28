@@ -1,0 +1,86 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        @media (max-width: 400px) {
+            .btn-primary {
+                font-size: 12px !important;
+            }
+        }
+        .margin-bot {
+            margin-bottom: 5px;
+        }
+    </style>
+{% endblock %}
+{% block title %}{{ 'title.admin_dashboard'|trans }} {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1 class="text-center">{{ 'title.admin_dashboard'|trans }}</h1>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4>
+                            <i class="fa fa-random"></i>
+                            {{ 'admin.dashboard.switcher.title'|trans }}
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="">
+                            <div class="form-group col-sm-4">
+                                {{ form_label(switcher.journal) }}
+                                {{ form_widget(switcher.journal) }}
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                {{ form_widget(switcher.switch) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8 col-xs-12">
+                {% include '::flashbag.html.twig' %}
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4>
+                            <i class="fa fa-gears"></i>
+                            {{ 'admin.dashboard.system_settings'|trans }}
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-6 col-xs-12 margin-bot">
+                            {{ knp_menu_render('VipaAdminBundle:MenuBuilder:adminLeftMenu', {'template': 'VipaAdminBundle:Menu:knp_menu.html.twig'}) }}
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            {% set menuItem = knp_menu_get('VipaAdminBundle:MenuBuilder:adminRightMenu') %}
+                            {{ knp_menu_render(menuItem, {'template': 'VipaAdminBundle:Menu:knp_menu.html.twig'}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 col-xs-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4>
+                            <i class="fa fa-folder-open"></i>
+                            {{ 'admin.dashboard.applications'|trans }}
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-12">
+                            {{ knp_menu_render('VipaAdminBundle:MenuBuilder:adminApplicationMenu', {'template': 'VipaAdminBundle:Menu:knp_menu.html.twig'}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

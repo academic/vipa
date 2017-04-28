@@ -1,0 +1,18 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.user_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        { 'link': path('vipa_journal_user_index', {'journalId': selectedJournal().id}), 'title': 'title.journal_users'|trans },
+        { 'title': 'title.journal_user_add'|trans },
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">{{ 'title.journal_user_add'|trans }}</button>
+    {{ form_end(form) }}
+{% endblock %}

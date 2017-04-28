@@ -1,0 +1,37 @@
+Vipa\JournalBundle\Entity\BoardMember:
+    type: entity
+    table: board_member
+    repositoryClass: Vipa\JournalBundle\Entity\BoardMemberRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        board:
+            targetEntity: Board
+            joinColumn:
+                name: board_id
+                referencedColumnName: id
+            inversedBy: boardMembers
+            cascade: ["persist","merge"]
+        user:
+            targetEntity: Vipa\UserBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            cascade: ["persist","merge"]
+    fields:
+        seq:
+            type: integer
+            gedmo:
+                - versioned
+        showMail:
+            type: boolean
+            nullable: true
+            options:
+                default: true
+    lifecycleCallbacks: {  }
+    gedmo:
+        loggable: true

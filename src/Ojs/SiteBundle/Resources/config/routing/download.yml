@@ -1,7 +1,0 @@
-ojs_site_download_article:
-  path: /article-file/{articleFile}
-  defaults: { _controller: "OjsSiteBundle:Download:articleFile" }
-
-ojs_site_download_issue:
-  path: /issue-file/{issueFile}
-  defaults: { _controller: "OjsSiteBundle:Download:issueFile" }

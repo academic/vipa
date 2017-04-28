@@ -1,6 +1,0 @@
-Ojs\UserBundle\Entity\Role:
-    properties:
-        name:
-          - NotBlank: ~
-        role:
-          - NotBlank: ~

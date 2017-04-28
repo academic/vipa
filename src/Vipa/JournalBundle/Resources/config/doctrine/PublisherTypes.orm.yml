@@ -1,0 +1,56 @@
+Vipa\JournalBundle\Entity\PublisherTypes:
+    type: entity
+    table: publisher_types
+    repositoryClass: Vipa\JournalBundle\Entity\PublisherTypesRepository
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    oneToMany:
+        publishers:
+            targetEntity: Vipa\JournalBundle\Entity\Publisher
+            mappedBy: publisherType
+            fetch: EXTRA_LAZY
+            cascade: ["persist"]
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        slug:
+            type: string
+            length: 255
+            gedmo:
+              slug:
+                seperator: _
+                fields:
+                  - id
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        loggable: true
+    lifecycleCallbacks: {  }

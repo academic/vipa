@@ -1,0 +1,25 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.design_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {'journalId': selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_design_index', {'journalId': selectedJournal().id}),'title': 'journal.design'|trans},
+    {'title': 'title.design_show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "journal.design"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ display(entity) }}
+
+    {{
+    actions({
+        'back': {'href': path('vipa_journal_design_index', {'journalId': selectedJournal().id})},
+        'edit': {'href': path('vipa_journal_design_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('vipa_journal_design_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+    })
+    }}
+{% endblock %}

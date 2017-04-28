@@ -1,6 +1,0 @@
-services:
-  ojs.oai.twig_extension:
-    class: Ojs\OAIBundle\Twig\OaiExtension
-    public: false
-    tags:
-      - { name: twig.extension }

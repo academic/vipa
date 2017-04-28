@@ -1,0 +1,23 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ page.title }} {{ parent() }}{% endblock %}
+{% set hideleft = true %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_public_index'), 'title': 'home'|trans},
+        {'title': page.title}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="board">
+            <div class="board-inner">
+                <h1>{{ page.title }}</h1>
+                <p>{{ page.body|raw }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+vipa_admin_application_file_index:
+    path:     /
+    defaults: { _controller: "VipaAdminBundle:AdminJournalApplicationFile:index"}
+
+vipa_admin_application_file_show:
+    path:     /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminJournalApplicationFile:show"}
+
+vipa_admin_application_file_new:
+    path:     /new
+    defaults: { _controller: "VipaAdminBundle:AdminJournalApplicationFile:new"}
+
+vipa_admin_application_file_create:
+    path:     /create
+    defaults: { _controller: "VipaAdminBundle:AdminJournalApplicationFile:create"}
+    methods:  POST
+
+vipa_admin_application_file_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminJournalApplicationFile:edit"}
+
+vipa_admin_application_file_update:
+    path:     /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminJournalApplicationFile:update"}
+    methods: [PUT]
+
+vipa_admin_application_file_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminJournalApplicationFile:delete"}
+    methods: [DELETE]

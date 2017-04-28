@@ -1,0 +1,11 @@
+vipa_journal_setup:
+    prefix:   /journal/setup/
+    resource: "@VipaJournalBundle/Resources/config/routing/journalsetup.yml"
+
+dashboard_routing:
+    resource: "@VipaJournalBundle/Resources/config/routing/dashboard.yml"
+    prefix:   /
+
+publisher_routing:
+    resource: "@VipaJournalBundle/Resources/config/routing/publisher/publisher.yml"
+    prefix:   /publisher/{publisherId}

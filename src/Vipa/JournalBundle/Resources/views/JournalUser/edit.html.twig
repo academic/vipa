@@ -1,0 +1,20 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.user_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        { 'link': path('vipa_journal_user_index', {'journalId': selectedJournal().id}), 'title': 'title.journal_users'|trans },
+        { 'title': 'title.journal_user_edit'|trans },
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
+    <h3>{{ entity.user.username }}</h3>
+    {{ form_start(edit_form) }}
+    {{ form_row(edit_form.roles) }}
+    <button class="btn btn-success">{{ 'update'|trans }}</button>
+    {{ form_end(edit_form) }}
+{% endblock %}

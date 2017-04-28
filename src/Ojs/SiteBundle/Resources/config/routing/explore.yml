@@ -1,9 +1,0 @@
-ojs_site_explore_index:
-  path:  /journal/{page}
-  host: "%base_host%"
-  defaults: { _controller: "OjsSiteBundle:Explore:index", page: 1 }
-
-ojs_site_explore_publisher:
-  path:  /publisher/{page}
-  host: "%base_host%"
-  defaults: { _controller: "OjsSiteBundle:Explore:publisher", page: 1 }

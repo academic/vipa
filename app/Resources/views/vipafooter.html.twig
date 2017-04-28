@@ -1,0 +1,29 @@
+<hr class="top30">
+<footer class="top60">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <p class="text-center">
+                    {% if vipa_tw is defined %}
+                        <a href="https://twitter.com/{{ vipa_tw }}" target="_blank" title="Twitter"><i
+                                    class="fa fa-3x fa-twitter"></i></a>
+                    {% endif %}
+                    {% if vipa_tw is defined %}
+                        <a href="https://facebook.com/{{ vipa_fb }}" target="_blank" title="Facebook"><i
+                                    class="fa fa-3x fa-facebook"></i></a>
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <ul class="list-inline text-center">
+                    {% for adminPage in getAdminPages() %}
+                        <li><a href="{{ path('vipa_site_cms_page', {'slug': adminPage.slug}) }}">{{ adminPage.translate(app.request.locale).title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<hr/>
+

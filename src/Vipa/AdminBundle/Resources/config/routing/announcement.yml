@@ -1,0 +1,30 @@
+vipa_admin_announcement_index:
+    path:     /
+    defaults: { _controller: "VipaAdminBundle:AdminAnnouncement:index" }
+
+vipa_admin_announcement_new:
+    path:     /new
+    defaults: { _controller: "VipaAdminBundle:AdminAnnouncement:new" }
+
+vipa_admin_announcement_create:
+    path:     /create
+    defaults: { _controller: "VipaAdminBundle:AdminAnnouncement:create" }
+    methods:  [POST]
+
+vipa_admin_announcement_show:
+    path:     /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminAnnouncement:show" }
+
+vipa_admin_announcement_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminAnnouncement:edit" }
+
+vipa_admin_announcement_update:
+    path:     /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminAnnouncement:update" }
+    methods:  [PUT]
+
+vipa_admin_announcement_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminAnnouncement:delete" }
+    methods:  [DELETE]

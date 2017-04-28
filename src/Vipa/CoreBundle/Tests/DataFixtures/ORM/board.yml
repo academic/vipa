@@ -1,0 +1,6 @@
+Vipa\JournalBundle\Entity\Board:
+  board:
+    currentLocale: en
+    name: 'Sample Journal Board name'
+    description: 'Sample Journal Board description'
+    journal: 1

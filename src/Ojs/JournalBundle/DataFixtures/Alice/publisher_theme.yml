@@ -1,7 +1,0 @@
-\Ojs\JournalBundle\Entity\PublisherTheme:
-  publisherTheme:
-      title: Publisher Theme
-      public: false
-      css: "html{}"
-      publisher: '@default'
-

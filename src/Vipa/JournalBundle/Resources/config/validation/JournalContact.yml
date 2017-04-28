@@ -1,0 +1,11 @@
+Vipa\JournalBundle\Entity\JournalContact:
+    properties:
+        fullName:
+            - NotBlank: ~
+        email:
+            - NotBlank: ~
+            - Email: ~
+        contactType:
+            - NotBlank: { groups: [admin] }
+        journal:
+            - NotBlank: { groups: [admin] }

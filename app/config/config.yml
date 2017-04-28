@@ -1,7 +1,7 @@
 imports:
   - { resource: parameters.yml }
   - { resource: security.yml }
-  - { resource: ojs_params.yml }
+  - { resource: vipa_params.yml }
   - { resource: bibliography_params.yml }
   - { resource: services.yml }
   - { resource: assetic.yml }
@@ -11,7 +11,7 @@ imports:
   - { resource: media.yml }
 
 parameters:
-  admin_base_view: '::ojsbase.html.twig'
+  admin_base_view: '::vipabase.html.twig'
   router.request_context.host:   "%base_host%"
   router.request_context.scheme: http
   elastica_listener:
@@ -33,7 +33,7 @@ framework:
   trusted_hosts:   ~
   trusted_proxies: ~
   session:
-    storage_id: "ojs.session.storage.dynamic_domain"
+    storage_id: "vipa.session.storage.dynamic_domain"
     handler_id:  ~
     cookie_domain: ".%base_host%"
     name: "%session_name%"
@@ -49,17 +49,17 @@ twig:
       - '::uploadfields.html.twig'
       - 'BraincraftedBootstrapBundle:Form:bootstrap.html.twig'
       - 'TetranzSelect2EntityBundle:Form:fields.html.twig'
-      - 'OjsCoreBundle:Form:fields.html.twig'
+      - 'VipaCoreBundle:Form:fields.html.twig'
   globals:
     languages : "%languages%"
     base_host: "%base_host%"
     admin_base_view: "%admin_base_view%"
     https: "%https%"
-    ojs_logo: "%ojs_logo%"
-    ojs_tw: "%ojs_tw%"
-    ojs_fb: "%ojs_fb%"
+    vipa_logo: "%vipa_logo%"
+    vipa_tw: "%vipa_tw%"
+    vipa_fb: "%vipa_fb%"
     project_name: "%project_name%"
-    ojs_favicon: "%ojs_favicon%"
+    vipa_favicon: "%vipa_favicon%"
   number_format:
     decimals: 0
     decimal_point: ','
@@ -119,7 +119,7 @@ apy_data_grid:
 jms_di_extra:
   locations:
     all_bundles: false
-    bundles: [OjsJournalBundle]
+    bundles: [VipaJournalBundle]
     directories: ["%kernel.root_dir%/../src"]
 
 sc_datetimepicker:
@@ -136,11 +136,11 @@ a2lix_translation_form:
 fos_user:
   db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
   firewall_name: main
-  user_class: Ojs\UserBundle\Entity\User
+  user_class: Vipa\UserBundle\Entity\User
   registration:
     form:
-      type: ojs_user_register
-      validation_groups: ['ojs_register']
+      type: vipa_user_register
+      validation_groups: ['vipa_register']
   registration:
     confirmation:
       enabled: true
@@ -155,7 +155,7 @@ fos_user:
       validation_groups:  [ChangePassword]
   service:
     mailer: fos_user.mailer.twig_swift
-    user_manager: ojs_user.manager
+    user_manager: vipa_user.manager
   from_email:
     address: "%system_email%"
     sender_name: "%mailer_name%"
@@ -184,7 +184,7 @@ presta_sitemap:
 
 hwi_oauth:
   connect:
-    account_connector: ojs.user.oauth
+    account_connector: vipa.user.oauth
   firewall_names: [main]
   resource_owners:
     orcid:

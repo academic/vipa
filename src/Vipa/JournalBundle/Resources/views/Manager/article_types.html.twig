@@ -1,0 +1,31 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.journal_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'title': 'article.types'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <div class="large-12 columns">
+        <div class="panel">
+            {% include '::flashbag.html.twig' %}
+            {{ form(form) }}
+
+            {{ getLogs(entity) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.author_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_author_index', {'journalId': selectedJournal().id}), 'title': 'author.manager'|trans},
+    {'title' : 'title.author_edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
+    {{ form(edit_form) }}
+    {{
+    actions({
+        'back': {'href': path('vipa_journal_author_index', {'journalId': selectedJournal().id})}
+    })
+    }}
+
+    {{ getLogs(entity) }}
+{% endblock %}

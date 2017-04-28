@@ -1,0 +1,70 @@
+Vipa\JournalBundle\Entity\PublisherDesign:
+    type: entity
+    table: publisher_design
+    repositoryClass: Vipa\JournalBundle\Entity\PublisherDesignRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        publisher:
+            targetEntity: Vipa\JournalBundle\Entity\Publisher
+            inversedBy: publisherDesigns
+            joinColumn:
+                name: publisher_id
+                referencedColumnName: id
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+            gedmo:
+                  - versioned
+        content:
+            type: text
+            nullable: true
+            gedmo:
+                  - versioned
+        editableContent:
+            type: text
+            nullable: true
+            gedmo:
+                  - versioned
+        public:
+            column: is_public
+            type: boolean
+            nullable: true
+            gedmo:
+                  - versioned
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+    gedmo:
+        loggable: true
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+    lifecycleCallbacks: {  }
+

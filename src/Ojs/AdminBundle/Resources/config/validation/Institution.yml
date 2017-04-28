@@ -1,4 +1,0 @@
-Ojs\JournalBundle\Entity\Institution:
-    properties:
-        name:
-          - NotBlank: ~

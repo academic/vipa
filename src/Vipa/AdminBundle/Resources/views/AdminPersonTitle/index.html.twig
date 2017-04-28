@@ -1,0 +1,25 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.person_titles'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'title': 'title.person_titles'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "title.person_titles"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+
+    {% if is_granted('CREATE', getEntity('VipaJournalBundle:PersonTitle')) %}
+        <a href="{{ path('vipa_admin_person_title_new') }}" class="btn btn-success">
+            {{ "create"|trans }}
+        </a>
+    {% endif %}
+
+    <hr>
+    {{ grid(grid) }}
+{% endblock %}

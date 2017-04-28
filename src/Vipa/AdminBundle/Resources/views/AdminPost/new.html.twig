@@ -1,0 +1,18 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.post_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_post_index'),'title': 'title.posts'|trans},
+        {'title': 'title.post_new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.post_new'|trans }}</h1>
+    {{ form(form) }}
+    {{ actions({'back': {'href': path('vipa_admin_post_index')}}) }}
+{% endblock %}

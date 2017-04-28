@@ -1,0 +1,28 @@
+vipa_installer_homepage:
+    path: /install
+    defaults: { _controller: "VipaInstallerBundle:Home:index" }
+vipa_installer_check:
+    path: /install/check
+    defaults: { _controller: "VipaInstallerBundle:Check:check" }
+vipa_installer_configure:
+    path: /install/configure
+    defaults: { _controller: "VipaInstallerBundle:Config:configure" }
+vipa_installer_save_configure:
+    path: /install/saveconfiguration
+    defaults: { _controller: "VipaInstallerBundle:Config:save" }
+vipa_installer_setup:
+    path: /install/setup
+    defaults: { _controller: "VipaInstallerBundle:Setup:setup" }
+vipa_installer_create_admin:
+    path: /install/createadmin
+    defaults: { _controller: "VipaInstallerBundle:Setup:createUser" }
+vipa_installer_summary:
+    path: /install/summary
+    defaults: { _controller: "VipaInstallerBundle:Summary:summary" }
+
+vipa_installer_update:
+    path: /update
+    defaults: { _controller: "VipaInstallerBundle:Update:index" }
+vipa_installer_update_confirm:
+    path: /update/confirm
+    defaults: { _controller: "VipaInstallerBundle:Update:update" }

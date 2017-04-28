@@ -97,7 +97,7 @@
                         <!--raw-->
                         {#<!--
                             <form role="search"
-                                  action="{{ url('ojs_journal_index_search',{publisher: journal.publisher.slug, slug: journal.slug}) }}"
+                                  action="{{ url('vipa_journal_index_search',{publisher: journal.publisher.slug, slug: journal.slug}) }}"
                                   method="get" id="search_on_journal">
                         -->#}
                         <!--endraw-->
@@ -127,7 +127,7 @@
                 {% raw %}
                     <!--raw-->
                     {#<!--
-                        <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                        <a href="//{{ base_host }}{{ path('vipa_journal_submission_start',{"journalId":journal.id}) }}"
                                            class="list-group-item list-group-item-success">
                             <h5>
                                 <i class="fa fa-plus-circle"></i>
@@ -180,7 +180,7 @@
                 {% raw %}
                     <!--raw-->
                     {#<!--
-                        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
+                        <a href="{{ url('vipa_journal_contacts',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                            class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
                             </h5>
                         </a>
@@ -197,7 +197,7 @@
                 {% raw %}
                     <!--raw-->
                     {#<!--
-                        <a href="{{ url('ojs_announcement_index',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
+                        <a href="{{ url('vipa_announcement_index',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                            class="list-group-item ">
                            <h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
                         </a>
@@ -216,7 +216,7 @@
                         <!--raw-->
                         {#<!--
                             <form role="search"
-                                  action="{{ path('ojs_journal_subscribe',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
+                                  action="{{ path('vipa_journal_subscribe',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                                   method="post">
                         --->
                         <!--endraw-->
@@ -461,7 +461,7 @@
     <span class="design-hide-block hide">
         {% raw %}
             <!--raw-->
-            {#<!--{% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}--->
+            {#<!--{% include 'VipaSiteBundle:Journal:journal_right_block.html.twig' %}--->
             <!--endraw-->
         {% endraw %}
     </span>

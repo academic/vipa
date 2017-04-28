@@ -538,9 +538,9 @@ jb_file_uploader:
       upload_resolver: files
 
 parameters:
-  jb_fileuploader.resolver.asset.prototype.class: Ojs\CoreBundle\Service\FileUploadResolver\AssetsResolver
-  jb_fileuploader.file_history.manager.class: Ojs\CoreBundle\Service\FileHistoryManager
-  jb_fileuploader.croper.class: Ojs\CoreBundle\Service\Croper
-  jb_fileuploader.crop.manager.class: Ojs\CoreBundle\Service\CropFileManager
-  oneup_uploader.namer.uniqid.class : Ojs\CoreBundle\Service\FileNamer\UniqidNamer
-  oneup_uploader.routing.loader.class : Ojs\CoreBundle\Service\Routing\RouteLoader
+  jb_fileuploader.resolver.asset.prototype.class: Vipa\CoreBundle\Service\FileUploadResolver\AssetsResolver
+  jb_fileuploader.file_history.manager.class: Vipa\CoreBundle\Service\FileHistoryManager
+  jb_fileuploader.croper.class: Vipa\CoreBundle\Service\Croper
+  jb_fileuploader.crop.manager.class: Vipa\CoreBundle\Service\CropFileManager
+  oneup_uploader.namer.uniqid.class : Vipa\CoreBundle\Service\FileNamer\UniqidNamer
+  oneup_uploader.routing.loader.class : Vipa\CoreBundle\Service\Routing\RouteLoader

@@ -1,0 +1,15 @@
+Vipa\JournalBundle\Entity\Article:
+  article:
+    currentLocale: en
+    doi: 10.5281/zenodo.1445
+    firstPage: 1
+    lastPage: 5
+    Anonymous: false
+    journal: 1
+    keywords: "help, vipa, open journal"
+    pubdate: <dateTimeThisYear()>
+    status: 1
+    title: Getting Started with Vipa
+    submitterUser: 1
+    issue: 1
+    orderNum: <randomDigit()>

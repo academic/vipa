@@ -1,0 +1,42 @@
+Vipa\JournalBundle\Entity\ContactTypes:
+  type: entity
+  table: contact_types
+  repositoryClass: Vipa\JournalBundle\Entity\ContactTypesRepository
+  cache:
+      usage: NONSTRICT_READ_WRITE
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    deletedAt:
+      type: date
+      nullable: true
+    createdBy:
+      type: string
+      gedmo:
+        blameable:
+          on: create
+    updatedBy:
+      type: string
+      gedmo:
+       blameable:
+         on: update
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+    loggable: true
+  lifecycleCallbacks: {  }

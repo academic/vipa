@@ -1,0 +1,23 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.journal_index_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_index_index'),'title': 'title.journal_indexes'|trans},
+        {'title': 'title.journal_index_show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ entity.name|trans }}</h1>
+
+    {% include '::flashbag.html.twig' %}
+    {{ display(entity) }}
+    {% set back_path = 'vipa_admin_index_index' %}
+    {% set edit_path = 'vipa_admin_index_edit' %}
+    {% set delete_path = 'vipa_admin_index_delete' %}
+    {% include '::actionbuttons.html.twig' %}
+{% endblock %}

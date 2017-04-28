@@ -1,0 +1,53 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.publisher_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('vipa_admin_publisher_index'),'title': 'title.publishers'|trans},
+    {'title': 'title.publisher_edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+    {% include '::flashbag.html.twig' %}
+    {{ form_errors(form) }}
+
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <input id="late_long_input" class="form-control"/>
+
+        <div id="locationpicker" style="width: 100%; height: 400px;"></div>
+    </div>
+
+    <button type="submit" id="vipa_userbundle_user_submit" class="btn btn-primary">
+        {{ "save"|trans }}
+    </button>
+    {{ form_end(form) }}
+    {% set back_path = 'vipa_admin_publisher_index' %}
+    {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#locationpicker').locationpicker({
+                {% if entity.addressLat is not null or entity.addressLong is not null %}
+                location: {latitude: {{ entity.addressLat }}, longitude: {{ entity.addressLong }}},
+                {% endif %}
+                radius: 10,
+                inputBinding: {
+                    latitudeInput: $("input[data-id=addressLat]"),
+                    longitudeInput: $("input[data-id=addressLong]"),
+                    locationNameInput: $('#late_long_input')
+                },
+                enableAutocomplete: true
+            });
+        });
+    </script>
+{% endblock %}

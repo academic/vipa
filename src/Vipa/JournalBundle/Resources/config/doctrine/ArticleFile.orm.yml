@@ -1,0 +1,83 @@
+Vipa\JournalBundle\Entity\ArticleFile:
+    type: entity
+    table: article_file
+    repositoryClass: Vipa\JournalBundle\Entity\ArticleFileRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    oneToMany:
+        statistics:
+            targetEntity: Vipa\AnalyticsBundle\Entity\ArticleFileStatistic
+            mappedBy: articleFile
+            cascade: ["persist"]
+    manyToOne:
+        article:
+            targetEntity: Article
+            inversedBy: articleFiles
+            cascade: ["persist"]
+            joinColumn:
+                name: article_id
+                referencedColumnName: id
+    fields:
+        type:
+            type: integer
+            nullable: TRUE
+        file:
+            type: string
+            length: 255
+            nullable: true
+            gedmo:
+                - versioned
+        version:
+            type: integer
+        keywords:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
+        description:
+            type: text
+            nullable: TRUE
+            gedmo:
+                - versioned
+        title:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
+        langCode:
+            column: lang_code
+            type: string
+            length: 50
+            nullable: TRUE
+            gedmo:
+                - versioned
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           nullable: true
+           type: string
+           gedmo:
+             blameable:
+               on: update
+    gedmo:
+        loggable: true
+        soft_deleteable:
+          field_name: deletedAt
+    lifecycleCallbacks: {  }

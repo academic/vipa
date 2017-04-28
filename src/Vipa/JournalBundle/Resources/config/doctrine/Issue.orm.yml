@@ -1,0 +1,210 @@
+Vipa\JournalBundle\Entity\Issue:
+  type: entity
+  table: issue
+  repositoryClass: Vipa\JournalBundle\Entity\IssueRepository
+  cache:
+    usage: NONSTRICT_READ_WRITE
+  manyToOne:
+    journal:
+      targetEntity: Journal
+      joinColumn:
+        name: journal_id
+        referencedColumnName: id
+      inversedBy: issues
+      cascade: ["persist", "merge"]
+  oneToMany:
+    articles:
+      targetEntity: Article
+      mappedBy: issue
+      cascade: ["persist", "merge"]
+      fetch: LAZY
+    issueFiles:
+      targetEntity: IssueFile
+      mappedBy: issue
+      fetch: EXTRA_LAZY
+      cascade: ["persist", "remove"]
+    statistics:
+      targetEntity: Vipa\AnalyticsBundle\Entity\IssueStatistic
+      mappedBy: issue
+      cascade: ["persist", "remove"]
+  manyToMany:
+    catalogs:
+      targetEntity: Vipa\JournalBundle\Entity\Catalog
+      cascade: ["persist", "remove"] ## Is cascade.remove only removes reference from pivot table?
+      joinTable:
+          name: issue_catalogs
+          joinColumns:
+              issue_id:
+                  referencedColumnName: id
+          inverseJoinColumns:
+              catalog_id:
+                  referencedColumnName: id
+    sections:
+      orderBy: { 'sectionOrder': 'ASC' }
+      targetEntity: Section
+      joinTable:
+        name: issue_section
+        inverseJoinColumns:
+          section_id:
+            referencedColumnName: id
+        joinColumns:
+          issue_id:
+            referencedColumnName: id
+        cascade: ["persist", "merge", "remove"]
+        fetch: LAZY
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    volume:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    number:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    cover:
+      type: string
+      column: cover
+      length: 255
+      nullable: TRUE
+      gedmo:
+        - versioned
+    header:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    special:
+      type: boolean
+      column: special
+      nullable: TRUE
+      gedmo:
+        - versioned
+    year:
+      type: datetime
+      nullable: true
+      gedmo:
+          - versioned
+    datePublished:
+      type: datetime
+      column: date_published
+      nullable: true
+      gedmo:
+        - versioned
+    published:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+    lastIssue:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+    public:
+        type: boolean
+        nullable: true
+        gedmo:
+          - versioned
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    deletedAt:
+      type: date
+      nullable: true
+    createdBy:
+      type: string
+      nullable: true
+      gedmo:
+        blameable:
+          on: create
+    updatedBy:
+      type: string
+      nullable: true
+      gedmo:
+        blameable:
+          on: update
+    tags:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    supplement:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+    fullFile:
+      type: string
+      nullable: true
+      column: full_file
+      gedmo:
+        - versioned
+    viewCount:
+      type: integer
+      nullable: true
+      column: view_count
+      options:
+        default: 0
+    totalArticleView:
+      type: integer
+      nullable: true
+      column: total_article_view
+      options:
+        default: 0
+    totalArticleDownload:
+      type: integer
+      nullable: true
+      column: total_article_download
+      options:
+        default: 0
+    downloadCount:
+      type: integer
+      nullable: true
+      column: download_count
+      options:
+        default: 0
+    numerator:
+      type: integer
+      nullable: true
+    displayMode:
+      type: integer
+      nullable: true
+      column: display_mode
+      options:
+        default: 2
+    inPress:
+      type: boolean
+      nullable: true
+      column: in_press
+      options:
+        default: false
+    earlyPub:
+      type: boolean
+      nullable: true
+      column: early_pub
+      options:
+        default: false
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+    loggable: true
+  lifecycleCallbacks: {  }

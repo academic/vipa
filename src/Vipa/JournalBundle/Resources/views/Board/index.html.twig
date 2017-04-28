@@ -1,0 +1,32 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.boards'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    { 'title': 'title.boards'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1> {{ 'title.boards'|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {% if is_granted('CREATE', selectedJournal(), 'boards') %}
+        <a href="{{ path('vipa_journal_board_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
+    {% endif %}
+    {% if is_granted('CREATE', selectedJournal(), 'boards') %}
+        <a href="{{ path('vipa_journal_board_oto_generate', {'journalId': selectedJournal().id}) }}" class="btn btn-info">
+            {{ "oto.generate"|trans }}
+        </a>
+    {% endif %}
+
+    <a href="{{ path('vipa_journal_board_sort', {'journalId': selectedJournal().id}) }}" class="btn btn-primary">
+        {{ "sort.pages"|trans }}
+    </a>
+
+    <hr>
+    {{ grid(grid) }}
+{% endblock %}

@@ -1,0 +1,8 @@
+parameters:
+    vipa_site.application_controller.class: "VipaSiteBundle:Application"
+
+services:
+    twig.extension.loader:
+        class:        Twig_Extension_StringLoader
+        tags:
+             - { name: 'twig.extension' }

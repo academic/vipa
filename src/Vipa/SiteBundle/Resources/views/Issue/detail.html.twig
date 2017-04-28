@@ -1,0 +1,166 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.issue_detail'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = 1 %}
+
+{% if isJournalHosting is defined and isJournalHosting == true %}
+    {% set journalUrl = url('journal_hosting') %}
+{% else %}
+    {% set journalUrl = generateJournalUrl(issue.journal) %}
+{% endif %}
+
+{% block breadcrumb %}
+    {% if isJournalHosting is defined and isJournalHosting == true %}
+        {% set list = [
+        {'link': journalUrl, 'title': issue.journal.title},
+        {'title': 'issue'|trans}
+        ] %}
+    {% else %}
+        {% set list = [
+        {'link': path('vipa_public_index'), 'title': project_name},
+        {'link': journalUrl, 'title': issue.journal.title},
+        {'title': 'issue'|trans}
+        ] %}
+    {% endif %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class=" col-md-12">
+            {% if issue.displayMode is null
+                or issue.displayMode == displayModes.all
+                or issue.displayMode == displayModes.title
+            %}
+                <h1>{{ fieldDisplay(issue, 'title') }}</h1>
+                <h4>
+                    {% if issue.volume is not null and issue.volume != "0" %}
+                        {{ "volume"|trans }}: {{ issue.volume }} -
+                    {% endif %}
+                    {{ "issue"|trans }}: {{ issue.number }}
+                </h4>
+            {% elseif issue.displayMode == displayModes.volumeAndNumber %}
+                <h1>
+                    {% if issue.volume is not null and issue.volume != "0" %}
+                        {{ "volume"|trans }}: {{ issue.volume }} -
+                    {% endif %}
+                    {{ "issue"|trans }}: {{ issue.number }}
+                </h1>
+            {% endif %}
+            <h4>
+                {% if issue.special %}
+                    <span class="label label-success">
+                        <i class="fa fa-star" title="{{ "special.issue"|trans }}"></i>
+                        {{ "special.issue"|trans }}
+                    </span>
+                {% endif %}
+            </h4>
+            <h5>
+                <i class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.view'|trans }}"></i>
+                {% if issue.totalArticleView is null %} 0 {% else %} {{ issue.totalArticleView|number_format }} {% endif %}
+                &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+                <i class="fa fa-download" data-toggle="tooltip" title="{{ 'articles.total.download'|trans }}"></i>
+                {% if issue.totalArticleDownload is null %} 0 {% else %} {{ issue.totalArticleDownload|number_format }} {% endif %}
+            </h5>
+        </div>
+
+        <div class="col-md-9">
+
+            <div class="panel panel-default">
+                <div class="text-center">
+                    {% if issue.cover is not null %}
+                        <br>
+                        <img src="{{ issue.cover|imagine_filter('issue_cover_medium') }}"/>
+                    {% endif %}
+                    <h4>{{ 'contents'|trans }}</h4>
+                </div>
+                <ul class="list-group">
+                    {% for section in sections %}
+                        {% if section.articles|length>0 %}
+                            <li class="list-group-item list-group-item-primary">
+                                <i class="fa fa-globe"></i> {{ section.title }}
+                                <ul class="list-group">
+                                    {% for article in articles[section.id] %}
+                                        <li class="list-group-item list-group-item-default">
+                                            <a href="
+                                                {% if isJournalHosting is defined and isJournalHosting == true %}
+                                                    {{ url('journal_hosting_issue_article', {
+                                                            article_id: article.id,
+                                                            issue_id: issue.id}) }}
+                                                {% else %}
+                                                    {{ url('vipa_article_page', {article_id: article.id,
+                                                        slug: issue.journal.slug,
+                                                        issue_id: issue.id}) }}
+                                                {% endif %}">
+                                                <i class="fa fa-file-text"></i> {{ article.title }}
+                                            </a>
+                                            {% if article.firstPage is not empty and article.lastPage is not empty %}
+                                                / <small>{{ 'pages'|trans }}: {{ article.firstPage ~ '-' ~ article.lastPage }}</small>
+                                            {% endif %}
+                                            <div class="pull-right">
+                                                {% for file in article.articleFiles %}
+                                                    <a href="{{ path('vipa_site_download_article', {articleFile: file.id}) }}"
+                                                       target="_blank">
+                                                        {{ file.title }}
+                                                    </a>
+                                                    {% if not loop.last %}
+                                                         -
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                            {% if article.articleAuthors|length > 0 %}
+                                                <br>
+                                                <span>
+                                                    {% for author in article.articleAuthors %}
+                                                        {{ author }}{% if loop.last != true %}, {% endif %}
+                                                    {% endfor %}
+                                                </span>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                {%  if issue.fullFile is not empty %}
+                    <div class="panel-footer text-center">
+                        <a href="{{ path('vipa_public_index') }}uploads/issuefiles/{{ issue.fullFile }}" class="btn btn-success" target="_blank">{{ 'issue.full_file'|trans }}</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            {% if issue.issueFiles|length %}
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <span class="panel-title">{{ "issuefile.list"|trans }}</span>
+                    </div>
+                    <ul class="list-group">
+                        {% for file in issue.issueFiles %}
+                            <li class="list-group-item">
+                                <a href="{{ url('vipa_site_download_issue', {issueFile: file.id}) }}">
+                                    <i class="fa fa-download"></i> {{ file.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% set journal = issue.journal %}
+            {% include 'VipaSiteBundle:Journal:journal_right_block.html.twig' %}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            analytics.view('issue', {{ issue.id }}, '{{ token }}');
+            renderMathInElement(document.body);
+        });
+    </script>
+{% endblock %}

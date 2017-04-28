@@ -1,0 +1,31 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.users'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        { 'title': 'title.users'|trans},
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>{{ "user.list"|trans }}</h1>
+            {% include '::flashbag.html.twig' %}
+
+            {% if is_granted('CREATE', getEntity('VipaUserBundle:User')) %}
+                <a href="{{ path('vipa_admin_user_new') }}" class="btn btn-success">
+                    {{ "user.new"|trans }}
+                </a>
+                <a href="{{ path('vipa_admin_user_merge') }}" class="btn btn-primary">
+                    {{ "user.merge"|trans }}
+                </a>
+            {% endif %}
+
+            <hr>
+            {{ grid(grid) }}
+        </div>
+    </div>
+{% endblock %}

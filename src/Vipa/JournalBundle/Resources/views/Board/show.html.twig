@@ -1,0 +1,53 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.board_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    { 'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans },
+    { 'link': path('vipa_journal_board_index', {'journalId': selectedJournal().id}), 'title': 'board.manager'|trans },
+    { 'title': 'title.board_show'|trans }
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
+    <h1 title="{{ "board.name"|trans }}">{{ entity.name }}</h1>
+    <p class="{{ "description"|trans }}">{{ entity.description|raw }}</p>
+    <br>
+    <br>
+    {% if is_granted('EDIT', selectedJournal(), 'boards') %}
+        {{ form(addMemberForm) }}
+    {% endif %}
+    <hr>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>{{ 'board.members'|trans }}</h4>
+        </div>
+        <div class="panel-body">
+            <a href="{{ path('vipa_journal_board_member_sort', {'journalId': selectedJournal().id, 'boardId': entity.id}) }}" class="btn btn-primary">
+                {{ "sort.members"|trans }}
+            </a>
+            <hr/>
+            {{ grid(membersGrid) }}
+        </div>
+    </div>
+    <div class="btn-group">
+        <a class="btn btn-default btn-sm" href="{{ path('vipa_journal_board_index', {'journalId': selectedJournal().id}) }}"
+           title="{{ "b"|trans }}">
+            <i class="fa fa-arrow-left"></i>
+        </a>
+        {% if is_granted('EDIT', selectedJournal(), 'boards') %}
+            <a class="btn btn-warning btn-sm" href="{{ path('vipa_journal_board_edit', { 'id': entity.id, 'journalId': selectedJournal().id }) }}"
+               title="{{ "edit"|trans }}">
+                <i class="fa fa-pencil"></i>
+            </a>
+        {% endif %}
+        {% if is_granted('DELETE', selectedJournal(), 'boards') %}
+            <a class="btn btn-danger btn-sm" onclick="return confirm('{% trans %}sure{% endtrans %}');"
+               href="{{ path('vipa_journal_board_delete', { 'id': entity.id, 'journalId': selectedJournal().id}) }}" title="{{ "delete"|trans }}">
+                <i class="fa fa-trash-o"></i>
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

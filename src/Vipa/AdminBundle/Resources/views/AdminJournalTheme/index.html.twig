@@ -1,0 +1,25 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.default_journal_theme'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'title.default_journal_theme'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "title.default_journal_theme"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+
+    {% if is_granted('CREATE', getEntity('VipaAdminBundle:AdminJournalTheme')) %}
+        <a href="{{ path('vipa_admin_journal_theme_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
+    {% endif %}
+
+    <hr>
+    {{ grid(grid) }}
+{% endblock %}

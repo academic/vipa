@@ -1,0 +1,30 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.language_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_person_title_index'),'title': 'title.person_titles'|trans},
+        {'title': 'title.person_title_show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.person_title_show'|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ display(entity) }}
+
+    {{
+        actions({
+            'back': {'href': path('vipa_admin_person_title_index')},
+            'edit': {'href': path('vipa_admin_person_title_edit', {'id': entity.id})},
+            'delete': {
+                'href': path('vipa_admin_person_title_delete', {'id': entity.id}),
+                'permission': is_granted('DELETE', entity),
+                'attributes': {'data-token': token}
+            },
+        })
+    }}
+{% endblock %}

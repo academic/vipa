@@ -1,0 +1,34 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.article_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        { 'link': path('vipa_journal_article_index', {'journalId': selectedJournal().id}), 'title': 'article.manager'|trans},
+        { 'title' : 'title.article_new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "article.add"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+
+    {% include '@VipaJournal/ArticleSubmission/_form.html.twig' %}
+
+    <div class="record_actions">
+        <a class="button success" href="{{ path('vipa_journal_article_index', {'journalId': selectedJournal().id}) }}">
+            {{ "b"|trans }}
+        </a>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        setupSubmissionForm({{ abstractTemplates|json_encode|raw }});
+    </script>
+
+    {{ twigEventDispatch({'event_name': 'VIPA_NEW_ARTICLE_SUBMISSION_SCRIPT'})|raw }}
+{% endblock %}

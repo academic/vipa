@@ -1,0 +1,13 @@
+Vipa\JournalBundle\Entity\AuthorTranslation:
+    type: entity
+    table: author_translations
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        biography:
+            type: text
+            nullable: TRUE

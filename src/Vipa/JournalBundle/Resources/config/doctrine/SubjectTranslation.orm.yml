@@ -1,0 +1,19 @@
+Vipa\JournalBundle\Entity\SubjectTranslation:
+    type: entity
+    table: subject_translations
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        subject:
+            type: string
+            length: 255
+        description:
+            type: text
+            nullable: TRUE
+

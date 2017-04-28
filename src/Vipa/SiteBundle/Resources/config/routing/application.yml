@@ -1,0 +1,15 @@
+vipa_apply_journal:
+  path: /journal
+  defaults: { _controller: "%vipa_site.application_controller.class%:journal" }
+
+vipa_apply_publisher:
+  path: /publisher
+  defaults: { _controller: "VipaSiteBundle:Application:publisher" }
+
+vipa_apply_institute_success:
+  path: /publisher/success
+  defaults: { _controller: "VipaSiteBundle:Application:instituteSuccess" }
+
+vipa_apply_journal_success:
+  path: /journal/success
+  defaults: { _controller: "VipaSiteBundle:Application:journalSuccess" }

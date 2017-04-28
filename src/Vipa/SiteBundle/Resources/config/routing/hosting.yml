@@ -1,0 +1,43 @@
+journal_hosting:
+    path:  /
+    defaults: { _controller: "VipaSiteBundle:Hosting:index" }
+
+journal_hosting_archive:
+    path:  /archive
+    defaults: { _controller: "VipaSiteBundle:Hosting:archiveIndex", isJournalHosting: true }
+
+journal_hosting_articles:
+    path: /articles
+    defaults: { _controller: "VipaSiteBundle:Hosting:journalArticles", isJournalHosting: true }
+journal_hosting_last:
+    path:  /last
+    defaults: { _controller: "VipaSiteBundle:Hosting:last", isJournalHosting: true }
+
+journal_hosting_contacts:
+    path:  /contacts
+    defaults: { _controller: "VipaSiteBundle:Hosting:contacts", isJournalHosting: true }
+
+journal_hosting_board:
+    path:  /board
+    defaults: { _controller: "VipaSiteBundle:Hosting:board", isJournalHosting: true }
+
+journal_hosting_early_preview:
+    path:  /early_preview
+    defaults: { _controller: "VipaSiteBundle:Hosting:earlyPreview", isJournalHosting: true }
+
+journal_hosting_announcement:
+    path:  /announcements
+    defaults: { _controller: "VipaSiteBundle:Hosting:announcement", isJournalHosting: true }
+
+journal_hosting_page:
+    path: /page/{slug}
+    defaults: { _controller: "VipaSiteBundle:Hosting:page", [slug: null ,isJournalHosting: true] }
+
+journal_hosting_issue:
+    path: /issue/{id}
+    defaults: { _controller: "VipaSiteBundle:Hosting:issuePage", [id: null, isJournalHosting: true]}
+
+journal_hosting_issue_article:
+    path:  /issue/{issue_id}/{article_id}
+    defaults: { _controller: "VipaSiteBundle:Hosting:articlePage", [issue_id: null, isJournalHosting: true]}
+

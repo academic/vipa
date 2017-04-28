@@ -1,0 +1,28 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.page_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_page_index'),'title': 'title.pages'|trans},
+        {'title': 'title.page_edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.page_edit'|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ form(edit_form) }}
+
+    <hr>
+
+    {{
+        actions({
+            'back': {'href': path('vipa_admin_page_index')}
+        })
+    }}
+
+    {{ getLogs(entity) }}
+{% endblock %}

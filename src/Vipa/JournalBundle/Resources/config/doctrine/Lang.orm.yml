@@ -1,0 +1,35 @@
+Vipa\JournalBundle\Entity\Lang:
+    type: entity
+    table: lang
+    repositoryClass: Vipa\JournalBundle\Entity\LangRepository
+    cache:
+      usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        code:
+            type: string
+            length: 255
+        name:
+            type: string
+            length: 255
+            nullable: true
+        rtl:
+            type: boolean
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           nullable: true
+           gedmo:
+             blameable:
+               on: update
+    lifecycleCallbacks: {  }

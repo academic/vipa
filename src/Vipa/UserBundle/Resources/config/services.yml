@@ -1,0 +1,45 @@
+parameters:
+    hwi_oauth.resource_owner.oauth2.class: 'Vipa\UserBundle\OAuth\ResourceOwner\GenericOAuth2ResourceOwner'
+
+services:
+  vipa_user.soft_delete:
+    class: Vipa\UserBundle\Listeners\SoftDeleteListener
+    tags:
+      - { name: doctrine.event_listener, event: preSoftDelete }
+
+  vipa_user.multiple_mail_listener:
+    class: Vipa\UserBundle\Listeners\MultipleMailListener
+    arguments:
+          - "@service_container"
+    tags:
+      - { name: doctrine.event_listener, event: prePersist }
+
+  vipa_user.manager:
+    class: Vipa\UserBundle\Manager\UserManager
+    arguments: ["@security.encoder_factory","@fos_user.util.username_canonicalizer","@fos_user.util.email_canonicalizer","@fos_user.object_manager",'Vipa\UserBundle\Entity\User']
+
+  vipa_form.register:
+    class: Vipa\UserBundle\Form\Type\RegisterFormType
+    tags:
+      - { name: form.type, alias: vipa_user_register}
+
+  user.event_listener:
+    class: Vipa\UserBundle\EventListener\UserEventListener
+    arguments: ["@router", "@vipa_mailer"]
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.user.oauth:
+    class: Vipa\UserBundle\Provider\FOSUBUserProvider
+    arguments: ["@doctrine", "@fos_user.user_manager", {}]
+
+  vipa_user.user_events:
+    class: Vipa\UserBundle\Event\UserEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa.user.validation.unique_multiple_emails:
+    class: Vipa\UserBundle\Validator\UniqueMultipleEmailsValidator
+    arguments: ["@doctrine.orm.entity_manager"]
+    tags:
+      - { name: validator.constraint_validator, alias: alias_name }

@@ -1,0 +1,29 @@
+vipa_admin_period_index:
+    path:     /
+    defaults: { _controller: "VipaAdminBundle:AdminPeriod:index" }
+
+vipa_admin_period_show:
+    path:     /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminPeriod:show" }
+
+vipa_admin_period_new:
+    path:     /new
+    defaults: { _controller: "VipaAdminBundle:AdminPeriod:new" }
+
+vipa_admin_period_create:
+    path:     /create
+    defaults: { _controller: "VipaAdminBundle:AdminPeriod:create" }
+    methods: [POST]
+
+vipa_admin_period_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminPeriod:edit" }
+
+vipa_admin_period_update:
+    path:     /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminPeriod:update" }
+    methods: [POST,PUT]
+
+vipa_admin_period_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminPeriod:delete" }

@@ -1,0 +1,30 @@
+Vipa\JournalBundle\Entity\JournalTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+
+Vipa\JournalBundle\Entity\Journal:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: ['issn']
+            message: 'issn.in.use'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: ['eissn']
+            message: 'eissn.in.use'
+    properties:
+        translations:
+            - Valid: ~
+        mandatoryLang:
+            - NotBlank: {groups: [adminJournalEdit]}
+        languages:
+            - NotBlank: {groups: [adminJournalEdit]}
+        issn:
+            - Issn: ~
+            - Vipa\JournalBundle\Validator\Constraints\JournalIssn: { message: 'issn.in.use' }
+        eissn:
+            - Issn: ~
+            - Vipa\JournalBundle\Validator\Constraints\JournalIssn: { message: 'eissn.in.use' }
+        founded:
+            - NotBlank: ~
+            - GreaterThan:
+                value: -116 years

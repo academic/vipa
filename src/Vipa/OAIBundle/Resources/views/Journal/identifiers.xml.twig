@@ -1,0 +1,15 @@
+{% extends 'VipaOAIBundle:Default:layout.xml.twig' %}
+{% block content %}
+    <request verb="ListIdentifiers" metadataPrefix="oai_dc">
+        {{ app.request.requestUri }}
+    </request>
+    <ListIdentifiers>
+        {% for record in records %}
+            <header>
+                <identifier>oai:{{ base_host }}:record/{{ record.id }}</identifier>
+                <datestamp>{{ record.submissionDate|date }}</datestamp>
+                <setSpec>{{ record.section.id }}</setSpec>
+            </header>
+        {% endfor %}
+    </ListIdentifiers>
+{% endblock %}

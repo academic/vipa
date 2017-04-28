@@ -1,0 +1,34 @@
+Vipa\JournalBundle\Entity\ArticleAttribute:
+  lifecycleCallbacks: {}
+  type: entity
+  table: article_attribute
+  repositoryClass: Vipa\JournalBundle\Entity\ArticleAttributeRepository
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    attribute:
+      type: string
+    value:
+      type: string
+    createdBy:
+       type: string
+       gedmo:
+         blameable:
+           on: create
+       nullable: true
+    updatedBy:
+       type: string
+       gedmo:
+         blameable:
+           on: update
+  manyToOne:
+    article:
+      targetEntity: Article
+      inversedBy: attributes
+      joinColumn:
+        name: article_id
+        referencedColumnName: id

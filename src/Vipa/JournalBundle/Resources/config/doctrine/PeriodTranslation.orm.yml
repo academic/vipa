@@ -1,0 +1,16 @@
+Vipa\JournalBundle\Entity\PeriodTranslation:
+    type: entity
+    table: period_translations
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        period:
+            type: string
+            nullable: false
+

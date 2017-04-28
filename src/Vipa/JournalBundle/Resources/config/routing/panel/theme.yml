@@ -1,0 +1,38 @@
+vipa_journal_theme_index:
+    path:     /{journalId}/theme/
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:index" }
+
+vipa_journal_theme_show:
+    path:     /{journalId}/theme/{id}/show
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:show" }
+
+vipa_journal_theme_new:
+    path:     /{journalId}/theme/new
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:new" }
+
+vipa_journal_theme_create:
+    path:     /{journalId}/theme/create
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:create" }
+    methods: [POST]
+
+vipa_journal_theme_edit:
+    path:     /{journalId}/theme/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:edit" }
+
+vipa_journal_theme_update:
+    path:     /{journalId}/theme/{id}/update
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:update" }
+    methods: [PUT]
+
+vipa_journal_theme_delete:
+    path:     /{journalId}/theme/{id}/delete
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:delete" }
+    methods: [DELETE]
+
+vipa_journal_theme_globals:
+    path:     /{journalId}/theme/global-themes
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:globalThemes" }
+
+vipa_journal_global_theme_clone:
+    path:     /{journalId}/theme/{id}/clone
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:cloneGlobalTheme" }

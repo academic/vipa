@@ -1,0 +1,15 @@
+Vipa\SiteBundle\Entity\BlockTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+    content:
+      - NotBlank: ~
+
+Vipa\SiteBundle\Entity\Block:
+    properties:
+        translations:
+            - Valid: ~
+        type:
+            - NotBlank: ~
+        color:
+            - NotBlank: ~

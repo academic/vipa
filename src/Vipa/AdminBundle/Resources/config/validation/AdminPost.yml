@@ -1,0 +1,11 @@
+Vipa\AdminBundle\Entity\AdminPostTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+    content:
+      - NotBlank: ~
+
+Vipa\AdminBundle\Entity\AdminPost:
+    properties:
+        translations:
+            - Valid: ~

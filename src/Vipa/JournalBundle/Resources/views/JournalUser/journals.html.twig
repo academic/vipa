@@ -1,0 +1,53 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.journal_role_myjournals'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'title': 'title.journal_role_myjournals'|trans},
+    ] %}
+
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+
+{% block body -%}
+    <h3>{{ 'title.journal_role_myjournals'|trans }}</h3>
+        {% for user in journalUsers %}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <a href="{{ path('vipa_journal_user_leave', {'journalId': user.journal.id}) }}"
+                   class="btn btn-danger btn-labeled pull-right">
+                    <span class="btn-label">
+                        <i class="fa fa-sign-out"></i>
+                    </span>
+                    {{ "title.journal_user_leave"|trans }}
+                </a>
+                <h5>{{ user.journal.title }}</h5>
+            </div>
+            <div class="panel-body">
+                {% for role in user.roles %}
+                    <a href="{{ path('vipa_journal_user_leave_role', {'journalId': user.journal.id, 'roleId': role.id}) }}"
+                       class="btn btn-danger btn-labeled confirmation">
+                        <span class="btn-label">
+                            <i class="fa fa-trash"></i>
+                        </span>
+                        {{ role.name|trans }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.confirmation').on('click', function () {
+                return confirm('{{ 'delete.journal_user_role'|trans }}');
+            });
+        });
+    </script>
+{% endblock %}

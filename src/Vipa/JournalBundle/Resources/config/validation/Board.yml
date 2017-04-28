@@ -1,0 +1,9 @@
+Vipa\JournalBundle\Entity\BoardTranslation:
+  properties:
+    name:
+      - NotBlank: ~
+
+Vipa\JournalBundle\Entity\Board:
+    properties:
+        translations:
+            - Valid: ~

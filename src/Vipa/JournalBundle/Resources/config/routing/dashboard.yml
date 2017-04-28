@@ -1,0 +1,8 @@
+vipa_user_index:
+    path:  /user
+    host: "%base_host%"
+    defaults: { _controller: "VipaJournalBundle:Manager:userIndex" }
+
+vipa_user_myjournals:
+    path:  /editor/myjournals
+    defaults: { _controller: "VipaJournalBundle:Manager:myJournals" }

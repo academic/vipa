@@ -1,0 +1,51 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.connected_account_add'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'User'|trans},
+    { 'link': path('vipa_admin_user_index'), 'title': 'user.update_profile'|trans},
+    { 'title': 'user.connected_accounts'|trans},
+
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+
+
+{% block body -%}
+
+    <div class="large-12 columns">
+        <section class="tab-panel">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation">
+                    <a href="{{ url('vipa_user_edit_profile') }}">{{ "user.update_profile"|trans }}</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="{{ url('vipa_user_custom_field') }}">{{ "user.custom_fields"|trans }}</a>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="{{ url('vipa_user_connected_account') }}">{{ "user.connected_accounts"|trans }}</a>
+                </li>
+            </ul>
+        </section>
+        <div class="tab-content">
+            <div class="panel">
+                <div class="record_actions">
+                    {% for label, flashes in app.session.flashbag.all %}
+                        {% for flash in flashes %}
+                            <div class="alert alert-{{ label }}">
+                                {{ flash }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    <br/>
+                    <a class="btn btn-success"
+                       href="#">{{ "user.connected_accounts.add_orcid_account"|trans }}</a>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

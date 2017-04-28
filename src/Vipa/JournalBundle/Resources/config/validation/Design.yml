@@ -1,0 +1,4 @@
+Vipa\JournalBundle\Entity\Design:
+    properties:
+        title:
+            - NotBlank: ~

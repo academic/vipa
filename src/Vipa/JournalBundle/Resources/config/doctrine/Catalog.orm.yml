@@ -1,0 +1,27 @@
+Vipa\JournalBundle\Entity\Catalog:
+    repositoryClass: Vipa\JournalBundle\Entity\CatalogRepository
+    table: catalog
+    type: entity
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            column: title
+            length: 255
+            type: string
+            nullable: false
+        alias:
+            column: alias
+            length: 80
+            type: string
+            nullable: true
+        isActive:
+            column: is_active
+            type: boolean
+            nullable: false

@@ -1,0 +1,16 @@
+Vipa\JournalBundle\Entity\InstitutionTranslation:
+    type: entity
+    table: institution_translations
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        about:
+            type: text
+            nullable: true
+

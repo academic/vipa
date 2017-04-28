@@ -1,0 +1,36 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.user_author_register'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'title': 'title.user_author_register'|trans},
+    ] %}
+
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+
+{% block body -%}
+    <h3>{{ 'title.user_author_register'|trans }}</h3>
+    <div class="list-group alljournallist">
+        {% for journal in joined %}
+            <span class="list-group-item">
+                {{ journal.title }}
+                <span class="label label-success pull-right">
+                    <i class="fa fa-check"></i>
+                </span>
+            </span>
+        {% endfor %}
+
+        {% for journal in nonJoined %}
+            <a href="{{ path('vipa_journal_user_register', {'journalId': journal.id}) }}" class="list-group-item">
+                {{ journal.title }}
+                <span class="label label-primary pull-right">
+                    <i class="fa fa-plus"></i>
+                    <span>{{ "title.user_author_register"|trans }}</span>
+                </span>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

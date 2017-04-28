@@ -14,7 +14,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Ojs\\": "src/Ojs"
+      "Vipa\\": "src/Vipa"
     },
     "classmap": [
       "app/AppKernel.php",
@@ -74,10 +74,10 @@
     "friendsofsymfony/elastica-bundle": "~4.0",
     "braincrafted/bootstrap-bundle": "~2.2",
     "ircmaxell/password-compat": "~1.0",
-    "pagerfanta/pagerfanta": "1.0.3",
+    "pagerfanta/pagerfanta": "1.0.5",
     "white-october/pagerfanta-bundle": "~1.0",
     "apy/datagrid-bundle": "~2.2",
-    "ojs/import-bundle": "~1.0",
+    "vipa/import-bundle": "dev-master",
     "jms/di-extra-bundle": "~1.7",
     "stephanecollot/datetimepicker-bundle": "~1.0",
     "problematic/acl-manager-bundle": "~1.0",
@@ -97,7 +97,7 @@
     "presta/sitemap-bundle": "~1.4",
     "openjournalsoftware/bibtex": "~0.2",
     "exercise/htmlpurifier-bundle": "~0.2",
-    "ojs/export-bundle": "dev-master",
+    "vipa/export-bundle": "dev-master",
     "willdurand/js-translation-bundle": "^2.5",
     "contentfarm/disposable-email-list":"dev-master"
   },

@@ -1,0 +1,32 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.subjects'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'title': 'title.subjects'|trans},
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "subject.list"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+
+    <a href="#" onclick="$('.grid').toggle();
+            $('.tree').toggle();
+            return false;" class="btn btn-info">{{ 'button.toggle_tree'|trans }}
+    </a>
+    {% if is_granted('CREATE', getEntity('VipaJournalBundle:Subject')) %}
+        <a href="{{ path('vipa_admin_subject_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
+    {% endif %}
+
+    <hr>
+    {{ grid(grid) }}
+    <div class="tree" style="display:none">
+        {{ tree|raw }}
+    </div>
+{% endblock %}

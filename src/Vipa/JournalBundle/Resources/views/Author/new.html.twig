@@ -1,0 +1,21 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.author_new'|trans }} {{ parent() }}{% endblock %}
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_author_index', {'journalId': selectedJournal().id}), 'title': 'author.manager'|trans},
+    {'title' : 'title.author_new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'author.creation'|trans }}</h1>
+
+    {{ form(form) }}
+    {{
+    actions({
+        'back': {'href': path('vipa_journal_author_index', {'journalId': selectedJournal().id})},
+    })
+    }}
+{% endblock %}

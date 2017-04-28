@@ -1,0 +1,51 @@
+Vipa\JournalBundle\Entity\ArticleAuthor:
+    type: entity
+    table: article_author
+    repositoryClass: Vipa\JournalBundle\Entity\ArticleAuthorRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        authorOrder:
+            type: integer
+            column: author_order
+            nullable: true
+            gedmo:
+                - versioned
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+        deletedAt:
+            type: date
+            nullable: true
+    manyToOne:
+        author:
+            targetEntity: Author
+            inversedBy: articleAuthors
+            joinColumn:
+                name: author_id
+                referencedColumnName: id
+            cascade: ["persist"]
+        article:
+            targetEntity: Article
+            inversedBy: articleAuthors
+            joinColumn:
+                name: article_id
+                referencedColumnName: id
+            cascade: ["persist"]
+    lifecycleCallbacks: {  }
+    gedmo:
+        loggable: true
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false

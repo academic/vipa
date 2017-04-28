@@ -1,0 +1,38 @@
+Vipa\UserBundle\Entity\User:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: usernameCanonical
+        errorPath: username
+        message: fos_user.username.already_used
+        groups:
+          - journal_user
+          - Default
+          - vipa_register
+          - editProfile
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: emailCanonical
+        errorPath: email
+        message: fos_user.email.already_used
+        groups:
+          - journal_user
+          - Default
+          - vipa_register
+          - editProfile
+  properties:
+    username:
+      - NotBlank: { groups: [Default, vipa_register, editProfile, journal_user] }
+    password:
+      - NotBlank: { groups: [Default, editProfile, journal_user] }
+      - Length: { min: 6, groups: [Default, editProfile] }
+    plainPassword:
+      - NotBlank: { groups: [vipa_register] }
+      - Length: { min: 6, groups: [vipa_register] }
+    email:
+      - NotBlank: { groups: [Default, vipa_register, editProfile, journal_user] }
+      - Email: { groups: [Default, vipa_register, editProfile, journal_user] }
+      - Vipa\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid', groups: [vipa_register, journal_user] }
+      - Vipa\UserBundle\Validator\Constraints\DisposableEmail: { message: 'user.invalid.mail.domain', groups: [vipa_register, journal_user] }
+    firstName:
+      - NotBlank: { groups: [Default, vipa_register, editProfile, journal_user] }
+    lastName:
+      - NotBlank: { groups: [Default, vipa_register, journal_user] }

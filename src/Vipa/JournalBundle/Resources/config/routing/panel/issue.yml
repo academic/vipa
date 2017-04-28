@@ -1,0 +1,54 @@
+vipa_journal_issue_index:
+    path:     /{journalId}/issue
+    defaults: { _controller: "VipaJournalBundle:Issue:index" }
+
+vipa_journal_issue_new:
+    path:     /{journalId}/issue/new
+    defaults: { _controller: "VipaJournalBundle:Issue:new" }
+
+vipa_journal_issue_create:
+    path:     /{journalId}/issue/create
+    defaults: { _controller: "VipaJournalBundle:Issue:create" }
+    methods:  [POST]
+
+vipa_journal_issue_show:
+    path:     /{journalId}/issue/{id}
+    defaults: { _controller: "VipaJournalBundle:Issue:show" }
+
+vipa_journal_issue_edit:
+    path:     /{journalId}/issue/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:Issue:edit" }
+
+vipa_journal_issue_update:
+    path:     /{journalId}/issue/{id}/update
+    defaults: { _controller: "VipaJournalBundle:Issue:update" }
+    methods:  [PUT]
+
+vipa_journal_issue_delete:
+    path:     /{journalId}/issue/{id}/delete
+    defaults: { _controller: "VipaJournalBundle:Issue:delete" }
+    methods:  [DELETE]
+
+vipa_journal_issue_arrange:
+    path:     /{journalId}/issue/{id}/arrange
+    defaults: { _controller: "VipaJournalBundle:Issue:arrange" }
+
+vipa_journal_issue_arrange_sort:
+    path:     /{journalId}/issue/{id}/{sectionId}/sort
+    defaults: { _controller: "VipaJournalBundle:Issue:arrangeSort" }
+
+vipa_journal_issue_article_add:
+    path:     /{journalId}/issue/{id}/add-article/{articleId}
+    defaults: { _controller: "VipaJournalBundle:Issue:addArticle" }
+
+vipa_journal_issue_article_remove:
+    path:     /{journalId}/issue/{id}/remove-article/{articleId}
+    defaults: { _controller: "VipaJournalBundle:Issue:removeArticle" }
+
+vipa_journal_issue_view:
+    path:     /{journalId}/issue/{id}/article
+    defaults: { _controller: "VipaJournalBundle:Issue:view" }
+
+vipa_journal_issue_make_last:
+    path:     /{journalId}/issue/{id}/make-last
+    defaults: { _controller: "VipaJournalBundle:Issue:makeLastIssue" }

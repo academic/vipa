@@ -1,0 +1,17 @@
+{% extends 'VipaInstallerBundle:Default:installer.html.twig' %}
+{% block body -%}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <h2>{{ "installer.congrat"|trans }}</h2>
+
+                Username: {{ app.user.username }} <br/>
+                Email: {{ app.user.email }} <br/> <br/>
+
+                <a class="btn btn-success" href="{{ path('vipa_public_index') }}">
+                    {{ "installer.gohome"|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

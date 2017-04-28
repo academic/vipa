@@ -1,4 +1,0 @@
-services:
-#    ojs_analytics.example:
-#        class: Ojs\AnalyticsBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]

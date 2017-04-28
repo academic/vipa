@@ -1,9 +1,0 @@
-Ojs\JournalBundle\Entity\PublisherTypesTranslation:
-  properties:
-    name:
-      - NotBlank: ~
-
-Ojs\JournalBundle\Entity\PublisherTypes:
-    properties:
-        translations:
-            - Valid: ~

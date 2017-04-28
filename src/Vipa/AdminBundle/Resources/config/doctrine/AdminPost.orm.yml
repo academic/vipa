@@ -1,0 +1,39 @@
+Vipa\AdminBundle\Entity\AdminPost:
+  type: entity
+  repositoryClass: Vipa\AdminBundle\Entity\AdminPostRepository
+  table: admin_post
+  cache:
+      usage: NONSTRICT_READ_WRITE
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+    loggable: true
+  id:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    slug:
+      type: string
+      gedmo:
+        slug:
+          seperator: "-"
+          fields:
+            - id
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+      nullable: false
+    updatedAt:
+      type: datetime
+      nullable: true
+      gedmo:
+        timestampable:
+          on: update
+    deletedAt:
+      type: datetime
+      nullable: true

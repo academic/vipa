@@ -1,0 +1,4 @@
+Vipa\JournalBundle\Entity\Index:
+  properties:
+    name:
+      - NotBlank: ~

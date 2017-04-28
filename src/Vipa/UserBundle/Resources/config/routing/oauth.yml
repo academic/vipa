@@ -1,0 +1,20 @@
+vipa_user_oauth_orcid:
+  path: /login/check-orcid
+
+vipa_user_oauth_academicid:
+  path: /login/check-academicid
+
+vipa_user_oauth_linkedin:
+  path: /login/check-linkedin
+
+hwi_oauth_connect:
+  resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+  prefix:   /connect
+
+hwi_oauth_login:
+  resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+  prefix:   /login
+
+hwi_oauth_redirect:
+  resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+  prefix:   /redirect

@@ -1,0 +1,28 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.citations'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'title': 'title.citations'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <ul class="nav nav-tabs article-show-tags">
+        <li role="presentation"><a href="{{ path('vipa_journal_article_show', {'id': app.request.get('articleId'), 'journalId': selectedJournal().id}) }}">{{ "Info"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('vipa_journal_article_file_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}) }}">{{ "article.files"|trans }}</a></li>
+        <li role="presentation" class="active"><a href="#">{{ "title.citations"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('vipa_journal_article_author_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}) }}">{{ "article.authors"|trans }}</a></li>
+    </ul>
+
+    {% include '::flashbag.html.twig' %}
+    <h2>{{ 'title.citations'|trans }}</h2>
+    <a href="{{ path('vipa_journal_citation_new', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}) }}" class="btn btn-success">
+        {{ "c"|trans }}
+    </a>
+
+    <hr>
+    {{ grid(grid) }}
+{% endblock %}

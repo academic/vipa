@@ -1,0 +1,30 @@
+vipa_admin_journal_index:
+    path:  /
+    defaults: { _controller: "VipaAdminBundle:AdminJournal:index" }
+
+vipa_admin_journal_show:
+    path:  /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminJournal:show" }
+
+vipa_admin_journal_new:
+    path:  /new
+    defaults: { _controller: "VipaAdminBundle:AdminJournal:new" }
+
+vipa_admin_journal_create:
+    path:  /create
+    defaults: { _controller: "VipaAdminBundle:AdminJournal:create" }
+    methods: [POST]
+
+vipa_admin_journal_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "%vipa_admin.journal_controller.class%:edit" }
+
+vipa_admin_journal_update:
+    path:  /{id}/update
+    defaults: { _controller: "%vipa_admin.journal_controller.class%:update" }
+    methods:  [PUT]
+
+vipa_admin_journal_autocomplete:
+    path:  /autocomplete
+    defaults: { _controller: "VipaAdminBundle:AdminJournal:autoComplete" }
+    methods:  [GET]

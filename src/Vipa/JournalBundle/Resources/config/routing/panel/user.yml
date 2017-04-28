@@ -1,0 +1,58 @@
+vipa_journal_user_index:
+    path:     /{journalId}/user
+    defaults: { _controller: "VipaJournalBundle:JournalUser:index" }
+
+vipa_journal_user_new:
+    path:     /{journalId}/user/new
+    defaults: { _controller: "VipaJournalBundle:JournalUser:newUser" }
+
+vipa_journal_user_create:
+    path:     /{journalId}/user/create
+    defaults: { _controller: "VipaJournalBundle:JournalUser:createUser" }
+
+vipa_journal_user_add:
+    path:     /{journalId}/user/add
+    defaults: { _controller: "VipaJournalBundle:JournalUser:addUser" }
+    methods:  [GET, POST]
+
+vipa_journal_user_edit:
+    path:     /{journalId}/user/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:JournalUser:editUser" }
+
+vipa_journal_user_update:
+    path:     /{journalId}/user/{id}/update
+    defaults: { _controller: "VipaJournalBundle:JournalUser:updateUser" }
+    methods:  [PUT]
+
+vipa_journal_user_delete:
+    path:     /{journalId}/user/{id}/delete
+    defaults: { _controller: "VipaJournalBundle:JournalUser:deleteUser" }
+    methods:  [DELETE]
+
+vipa_journal_user_register_list:
+    path:  /join
+    defaults: { _controller: "VipaJournalBundle:JournalUser:registerAsAuthor" }
+
+vipa_journal_user_register:
+    path:  /join/{journalId}
+    defaults: { _controller: "VipaJournalBundle:JournalUser:registerAsAuthor" }
+
+vipa_journal_user_my:
+    path:  /my
+    defaults: { _controller: "VipaJournalBundle:JournalUser:journals" }
+
+vipa_journal_user_leave:
+    path: /leave/{journalId}
+    defaults: { _controller: "VipaJournalBundle:JournalUser:leaveJournal" }
+
+vipa_journal_user_leave_role:
+    path: /leave/{journalId}/role/{roleId}
+    defaults: { _controller: "VipaJournalBundle:JournalUser:leaveJournal" }
+
+vipa_journal_user_search:
+    path: /user/search
+    defaults: { _controller: "VipaJournalBundle:JournalUser:getUserByUsername" }
+
+vipa_journal_user_search_based_journal:
+    path: /{journalId}/user/search
+    defaults: { _controller: "VipaJournalBundle:JournalUser:getUserBasedJournal" }

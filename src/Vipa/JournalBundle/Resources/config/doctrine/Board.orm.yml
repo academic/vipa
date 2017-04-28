@@ -1,0 +1,35 @@
+Vipa\JournalBundle\Entity\Board:
+    type: entity
+    table: board
+    repositoryClass: Vipa\JournalBundle\Entity\BoardRepository
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        journal:
+            targetEntity: Journal
+            joinColumn:
+              name: journal_id
+              referencedColumnName: id
+            inversedBy: boards
+            cascade: ["persist","merge"]
+    oneToMany:
+        boardMembers:
+            targetEntity: BoardMember
+            mappedBy: board
+            cascade: ["persist", "merge"]
+            fetch: EXTRA_LAZY
+    fields:
+        boardOrder:
+            type: integer
+            column: board_order
+            options:
+              default: 0
+    lifecycleCallbacks: {  }
+    gedmo:
+        loggable: true

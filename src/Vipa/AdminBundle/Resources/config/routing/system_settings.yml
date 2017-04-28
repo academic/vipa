@@ -1,0 +1,3 @@
+vipa_admin_system_setting_index:
+    path:     /
+    defaults: { _controller: "VipaAdminBundle:AdminSystemSettings:index" }

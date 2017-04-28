@@ -1,3 +1,0 @@
-ojs_api_homepage:
-  path:  /public/v1/index
-  defaults: { _controller: "OjsApiBundle:Default:index" }

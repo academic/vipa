@@ -1,0 +1,12 @@
+Vipa\JournalBundle\Entity\Lang:
+    properties:
+        name:
+            - NotBlank: ~
+        code:
+            - NotBlank: ~
+            - Length:
+                max: 10
+            - Regex:
+                pattern: '/^[a-zA-Z]{2,3}([-\/][a-zA-Z]{2,3})?$/i'
+                message: "userInput.invalidCharacters"
+                match:   true

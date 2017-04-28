@@ -1,0 +1,30 @@
+vipa_admin_person_title_index:
+    path:     /
+    defaults: { _controller: "VipaAdminBundle:AdminPersonTitle:index" }
+
+vipa_admin_person_title_show:
+    path:     /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminPersonTitle:show" }
+
+vipa_admin_person_title_new:
+    path:     /new
+    defaults: { _controller: "VipaAdminBundle:AdminPersonTitle:new" }
+
+vipa_admin_person_title_create:
+    path:     /create
+    defaults: { _controller: "VipaAdminBundle:AdminPersonTitle:create" }
+    methods:  POST
+
+vipa_admin_person_title_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminPersonTitle:edit" }
+
+vipa_admin_person_title_update:
+    path:     /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminPersonTitle:update" }
+    methods:  [POST, PUT]
+
+vipa_admin_person_title_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminPersonTitle:delete" }
+    methods:  [POST, DELETE]

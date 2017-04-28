@@ -1,0 +1,13 @@
+Vipa\JournalBundle\Entity\PublisherTranslation:
+  properties:
+        name:
+          - NotBlank: ~
+
+Vipa\JournalBundle\Entity\Publisher:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
+    properties:
+        translations:
+            - Valid: ~
+        slug:
+            - NotBlank: ~

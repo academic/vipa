@@ -1,0 +1,28 @@
+Vipa\UserBundle\Entity\Role:
+  type: entity
+  table: role
+  repositoryClass: Vipa\UserBundle\Entity\RoleRepository
+  cache:
+      usage: NONSTRICT_READ_WRITE
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      scale: 0
+      length: 255
+      unique: false
+      nullable: false
+      precision: 0
+    role:
+      type: string
+      scale: 0
+      length: 50
+      unique: true
+      nullable: false
+      precision: 0
+  lifecycleCallbacks: {  }

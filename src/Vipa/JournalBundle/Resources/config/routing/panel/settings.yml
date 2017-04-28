@@ -1,0 +1,21 @@
+vipa_journal_settings_index:
+    path:  /{journalId}/settings/
+    defaults: { _controller: "VipaJournalBundle:Manager:journalSettings" }
+
+vipa_journal_settings_update:
+    path:  /{journalId}/settings/update
+    defaults: { _controller: "VipaJournalBundle:Manager:updateJournal" }
+    methods:  [PUT, POST]
+
+vipa_article_types_settings_index:
+    path:  /{journalId}/settings/article-types
+    defaults: { _controller: "VipaJournalBundle:Manager:ArticleTypesSettings" }
+
+vipa_article_types_settings_update:
+    path:  /{journalId}/settings/article-types/update
+    defaults: { _controller: "VipaJournalBundle:Manager:updateArticleTypes" }
+    methods:  [PUT, POST]
+
+vipa_journal_settings_submission:
+    path:  /{journalId}/settings/submission
+    defaults: { _controller: "VipaJournalBundle:SubmissionSetting:edit" }

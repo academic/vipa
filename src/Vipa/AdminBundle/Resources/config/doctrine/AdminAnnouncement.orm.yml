@@ -1,0 +1,24 @@
+Vipa\AdminBundle\Entity\AdminAnnouncement:
+    table: admin_announcement
+    type: entity
+    repositoryClass: Vipa\AdminBundle\Entity\AdminAnnouncementRepository
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        image:
+            type: string
+            length: 255
+            nullable: true
+        content:
+            type: text
+            nullable: true
+    lifecycleCallbacks: {  }

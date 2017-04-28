@@ -1,0 +1,28 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.board_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    { 'link': path('vipa_journal_board_show', {'journalId': selectedJournal().id, id: board.id}),'title': 'board'|trans},
+    {'title': 'title.board_member_edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.board_member_edit'|trans }} ({{ entity.user.username }})</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ form_start(edit_form) }}
+    {{ form_widget(edit_form) }}
+    <button class="btn-primary btn" type="submit">{{ "u"|trans }}</button>
+    {{ form_end(edit_form) }}
+    <br>
+    {{
+    actions({
+        'back': {'href': path('vipa_journal_board_show', {'journalId': selectedJournal().id,'id': board.id})}
+    })
+    }}
+    {{ getLogs(entity) }}
+
+{% endblock %}

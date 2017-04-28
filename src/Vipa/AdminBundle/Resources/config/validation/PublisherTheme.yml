@@ -1,0 +1,6 @@
+Vipa\JournalBundle\Entity\PublisherTheme:
+    properties:
+        title:
+            - NotBlank: ~
+        css:
+            - NotBlank: ~

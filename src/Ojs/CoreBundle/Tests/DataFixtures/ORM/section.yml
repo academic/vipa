@@ -1,7 +1,0 @@
-Ojs\JournalBundle\Entity\Section:
-  section:
-    currentLocale: tr
-    journal: 1
-    title: 'Sample Section'
-    hideTitle: false
-    allowIndex: true

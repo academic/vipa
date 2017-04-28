@@ -1,6 +1,0 @@
-Ojs\SiteBundle\Entity\BlockLink:
-    properties:
-        text:
-            - NotBlank: ~
-        url:
-            - NotBlank: ~

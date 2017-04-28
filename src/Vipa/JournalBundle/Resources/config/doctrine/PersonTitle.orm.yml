@@ -1,0 +1,12 @@
+Vipa\JournalBundle\Entity\PersonTitle:
+    type: entity
+    table: person_title
+    repositoryClass: Vipa\JournalBundle\Entity\PersonTitleRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+    lifecycleCallbacks: {  }

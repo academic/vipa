@@ -1,0 +1,16 @@
+Vipa\JournalBundle\Entity\ArticleTypesTranslation:
+    type: entity
+    table: article_types_translations
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: text
+            nullable: TRUE

@@ -1,0 +1,19 @@
+Vipa\AdminBundle\Entity\AdminPageTranslation:
+    type: entity
+    table: admin_page_translations
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+        body:
+            type: text
+            nullable: true

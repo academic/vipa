@@ -1,6 +1,0 @@
-Ojs\JournalBundle\Entity\SubmissionChecklist:
-    properties:
-        label:
-            - NotBlank: ~
-        locale:
-            - NotBlank: ~

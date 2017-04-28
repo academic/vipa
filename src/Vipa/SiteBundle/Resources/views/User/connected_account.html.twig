@@ -1,0 +1,80 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.connected_account'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'User'|trans},
+    { 'link': path('vipa_admin_user_index'), 'title': 'user.update_profile'|trans},
+    { 'title': 'user.custom_fields'|trans},
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+
+
+{% block body -%}
+
+    <div class="large-12 columns">
+        {% include 'VipaSiteBundle:User:tabs.html.twig' with {activo:3} %}
+
+        <div class="tab-content">
+            <div class="panel">
+                <div class="record_actions">
+                    {% for label, flashes in app.session.flashbag.all %}
+                        {% for flash in flashes %}
+                            <div class="alert alert-{{ label }}">
+                                {{ flash }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <br/>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ 'user.connected_accounts.add'|trans }}</h3>
+                        </div>
+                        <div class="panel-body">
+                        {% for owner in hwi_oauth_resource_owners() %}
+                            <a href="{{ hwi_oauth_login_url(owner) }}" class="link-unstyled">
+                                <button type="button" class="btn btn-labeled btn-success">
+                                <span class="btn-label">
+                                    <i class="fa fa-{{ owner }} fa-key"></i>
+                                </span>
+                                    {{ owner|trans }}
+                                </button>
+                            </a>
+                        {% endfor %}
+                        </div>
+                    </div>
+
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                        <tr>
+                            <th>{{ "user.connected_accounts.provider"|trans }}</th>
+                            <th>{{ "user.connected_accounts.provider_user_id"|trans }}</th>
+                            <th>{{ "user.connected_accounts.action"|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in user.oauthAccounts %}
+                            <tr>
+                                <td>{{ entity.provider|trans }}</td>
+                                <td>{{ entity.providerId }}</td>
+                                <td>
+                                    <a class="btn-xs btn btn-danger"
+                                       onclick="return confirm('{% trans %}sure{% endtrans %}');"
+                                       href="{{ path('vipa_user_connected_account_delete', { 'id': entity.id}) }}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

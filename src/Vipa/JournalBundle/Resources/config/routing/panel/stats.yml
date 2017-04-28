@@ -1,0 +1,5 @@
+vipa_journal_stats_index:
+    path:     /{journalId}/stats
+    defaults: { _controller: "VipaJournalBundle:Stats:index" }
+    options:
+        expose: true

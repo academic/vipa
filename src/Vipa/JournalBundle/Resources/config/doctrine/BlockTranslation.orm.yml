@@ -1,0 +1,17 @@
+Vipa\JournalBundle\Entity\BlockTranslation:
+  type: entity
+  table: blocks_translations
+  id:
+      id:
+          type: integer
+          id: true
+          generator:
+              strategy: AUTO
+  fields:
+      title:
+          type: string
+          length: 255
+          nullable: true
+      content:
+          type: text
+          nullable: true

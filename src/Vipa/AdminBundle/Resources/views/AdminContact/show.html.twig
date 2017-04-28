@@ -1,0 +1,29 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.contact_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_contact_index'), 'title': 'title.contacts'|trans},
+        {'title': 'title.contact_show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'journalcontact.singular'|trans }}
+        <small>#{{ entity.id }}</small>
+    </h1>
+    {% include '::flashbag.html.twig' %}
+    {{ display(entity) }}
+
+    {{
+        actions({
+            'back': {'href': path('vipa_admin_contact_index')},
+            'edit': {'href': path('vipa_admin_contact_edit', {'id': entity.id})},
+            'delete': {'href': path('vipa_admin_contact_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        })
+    }}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+Vipa\JournalBundle\Entity\ArticleTranslation:
+  properties:
+    title:
+      - NotBlank: { groups: [submission], message: 'title.field.for.default.lang.can.not.be.blank' }
+    keywords:
+      - NotBlank: { groups: [submission], message: 'keywords.field.for.default.lang.can.not.be.blank' }
+    abstract:
+      - NotBlank: { groups: [submission], message: 'abstract.field.for.default.lang.can.not.be.blank' }
+
+Vipa\JournalBundle\Entity\Article:
+    properties:
+        translations:
+            - Valid: ~
+        articleFiles:
+            - Valid: ~
+            - Count:
+                groups: [submission]
+                min: 1
+                max: 1000
+                minMessage: "must.specify.least.one.article.file"
+                maxMessage: "You cannot specify more than {{ limit }} article file"
+        articleAuthors:
+            - Valid: ~
+            - Count:
+                groups: [submission]
+                min: 1
+                max: 1000
+                minMessage: "must.specify.least.one.article.author"
+                maxMessage: "You cannot specify more than {{ limit }} author"
+        citations:
+            - Valid: ~
+            - Count:
+                groups: [submission]
+                min: 1
+                max: 1000
+                minMessage: "must.specify.least.one.article.citation"
+                maxMessage: "You cannot specify more than {{ limit }} citation"
+        status:
+            - Vipa\JournalBundle\Validator\Constraints\ArticleStatus: { message: 'article.status_can_not_be_published_without_author'}
+        submissionDate:
+            - NotBlank: ~

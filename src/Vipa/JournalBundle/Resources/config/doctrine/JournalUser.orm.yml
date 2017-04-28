@@ -1,0 +1,54 @@
+Vipa\JournalBundle\Entity\JournalUser:
+    type: entity
+    table: journal_user
+    repositoryClass: Vipa\JournalBundle\Entity\JournalUserRepository
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    manyToOne:
+        journal:
+            targetEntity: Vipa\JournalBundle\Entity\Journal
+            inversedBy: journalUsers
+            joinColumn:
+                name: journal_id
+                referencedColumnName: id
+            cache:
+                usage: NONSTRICT_READ_WRITE
+        user:
+            targetEntity: Vipa\UserBundle\Entity\User
+            inversedBy: journalUsers
+            cascade: ["persist"]
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            cache:
+                usage: NONSTRICT_READ_WRITE
+
+    manyToMany:
+        roles:
+            targetEntity: Vipa\UserBundle\Entity\Role
+            cascade: ["persist"]
+            joinTable:
+                name: journal_user_role
+                joinColumns:
+                    journal_user_id:
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    role_id:
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            cache:
+                usage: NONSTRICT_READ_WRITE
+
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    uniqueConstraints:
+        journal_user_idx:
+            columns: journal_id, user_id
+
+    lifecycleCallbacks: {  }

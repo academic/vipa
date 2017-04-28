@@ -1,0 +1,30 @@
+Vipa\UserBundle\Entity\UserOauthAccount:
+  type: entity
+  table: user_oauth_accounts
+  repositoryClass: Vipa\UserBundle\Entity\UserOauthAccountRepository
+  id:
+    id:
+      generator:
+        strategy: AUTO
+      id: true
+      type: integer
+  fields:
+    provider:
+      type: string
+      length: 255
+    providerId:
+      type: string
+    token:
+      type: string
+      nullable: true
+  manyToOne:
+    user:
+      targetEntity: Vipa\UserBundle\Entity\User
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+      inversedBy: oauthAccounts
+      cascade: ['persist']
+  gedmo:
+    loggable: true
+  lifecycleCallbacks: {  }

@@ -1,4 +1,0 @@
-ojs_core_tag_search:
-    path:  /tag/search
-    defaults: { _controller: "OjsCoreBundle:Tags:tagSearch" }
-    methods:  [GET]

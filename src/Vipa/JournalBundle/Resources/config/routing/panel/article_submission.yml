@@ -1,0 +1,32 @@
+vipa_journal_submission_me:
+    path:     /{journalId}/submission/me
+    defaults: { _controller: "VipaJournalBundle:ArticleSubmission:index" }
+
+vipa_journal_submission_all:
+    path:     /{journalId}/submission/all
+    defaults: { _controller: "VipaJournalBundle:ArticleSubmission:index", all: true }
+
+vipa_journal_submission_start:
+  path:     /{journalId}/submission/start
+  defaults: { _controller: "VipaJournalBundle:ArticleSubmission:start" }
+
+vipa_journal_submission_new:
+  path:     /{journalId}/submission/new
+  defaults: { _controller: "VipaJournalBundle:ArticleSubmission:new" }
+
+vipa_journal_submission_edit:
+  path:     /{journalId}/submission/edit/{id}
+  defaults: { _controller: "VipaJournalBundle:ArticleSubmission:edit" }
+
+vipa_journal_submission_preview:
+  path:     /{journalId}/submission/preview/{articleId}
+  defaults: { _controller: "VipaJournalBundle:ArticleSubmission:preview" }
+
+vipa_journal_submission_orcid:
+  path:     /{journalId}/submission/orcid
+  defaults: { _controller: "VipaJournalBundle:ArticleSubmission:getOrcidAuthor" }
+
+vipa_journal_submission_cancel:
+    path:     /{journalId}/submission/cancel/{id}
+    defaults: { _controller: "VipaJournalBundle:ArticleSubmission:cancel"}
+

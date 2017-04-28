@@ -1,0 +1,58 @@
+{% block sidebar %}
+    <div class="col-sm-3 col-md-3">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                {% if selectedJournal() %}
+                    <div class="panel-heading">
+                        {{ selectedJournal().title }}
+                        {% if selectedJournal().isIndexable() %}
+                            {% set journalPublicLink = path('vipa_journal_index', {slug: selectedJournal().slug})  %}
+                        {% else %}
+                            {% set journalPublicLink = '#'  %}
+                        {% endif %}
+                        <a class="btn btn-block text-center" target="_blank" href="{{ journalPublicLink }}">
+                            {% if selectedJournal().image %}
+                                <img src="{{ selectedJournal().image|imagine_filter('journal_croped') }}"
+                                     class="avatar" title="{{ selectedJournal().title }}" width="150"/>
+                            {% else %}
+                                <img src="#" class="tri"/>
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="panel-footer">
+                        <small>{{ 'loggedAs'|trans }} : <span style="color:#003399">{{ app.user.username }}</span>
+                        </small>
+                        <br/>
+                        {% for journalRole in userJournalRoles() %}
+                            <span class="label label-info">{{ journalRole.name|trans }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <a class="list-group-item list-group-item-warning"
+                       href="{{ path('vipa_journal_user_register_list') }}">
+                        <i class="fa fa-plus-square"></i> {{ "journal.join"|trans }}
+                    </a>
+
+                    <a class="list-group-item list-group-item-default" href="{{ path('vipa_journal_user_my') }}">
+                        <i class="fa fa-book"></i>
+                        {{ "journals"|trans }} </a>
+                {% endif %}
+            </div>
+            {% if selectedJournal() %}
+                <div class="panel panel-default">
+                    <div class="panel-body" style="padding: 0">
+                        {{ knp_menu_render('VipaJournalBundle:MenuBuilder:topLeftMenu', {'currentClass': 'active'}) }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if selectedJournal() %}
+                <div class="panel panel-default" style="margin-top: 5px;">
+                    <div class="panel-body" style="padding: 0;">
+                        {{ knp_menu_render('VipaJournalBundle:MenuBuilder:leftMenu', {'currentClass': 'active'}) }}
+                    </div>
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

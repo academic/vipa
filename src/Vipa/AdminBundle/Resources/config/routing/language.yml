@@ -1,0 +1,30 @@
+vipa_admin_language_index:
+    path:     /
+    defaults: { _controller: "VipaAdminBundle:AdminLanguage:index" }
+
+vipa_admin_language_show:
+    path:     /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminLanguage:show" }
+
+vipa_admin_language_new:
+    path:     /new
+    defaults: { _controller: "VipaAdminBundle:AdminLanguage:new" }
+
+vipa_admin_language_create:
+    path:     /create
+    defaults: { _controller: "VipaAdminBundle:AdminLanguage:create" }
+    methods: [POST]
+
+vipa_admin_language_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminLanguage:edit" }
+
+vipa_admin_language_update:
+    path:     /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminLanguage:update" }
+    methods:  [PUT]
+
+vipa_admin_language_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminLanguage:delete" }
+    methods:  [DELETE]

@@ -1,0 +1,25 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.block_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    { 'link': path('vipa_journal_block_index', {'journalId': selectedJournal().id}),'title': 'block'|trans},
+    {'title': 'title.block_new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {% if is_granted('CREATE', selectedJournal(), 'block') %}
+        <h1>{{ "block.create"|trans }}</h1>
+    {% endif %}
+    {{ form(form) }}
+
+    {{
+    actions({
+        'back': {'href': path('vipa_journal_block_index', {'journalId': selectedJournal().id})},
+    })
+    }}
+
+{% endblock %}

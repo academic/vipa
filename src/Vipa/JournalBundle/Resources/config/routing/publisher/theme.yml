@@ -1,0 +1,30 @@
+vipa_publisher_manager_theme_index:
+    path:  /
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:index" }
+
+vipa_publisher_manager_theme_show:
+    path:  /{id}/show
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:show" }
+
+vipa_publisher_manager_theme_new:
+    path:  /new
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:new" }
+
+vipa_publisher_manager_theme_create:
+    path:  /create
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:create" }
+    methods: [POST]
+
+vipa_publisher_manager_theme_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:edit" }
+
+vipa_publisher_manager_theme_update:
+    path:  /{id}/update
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:update" }
+    methods:  [PUT]
+
+vipa_publisher_manager_theme_delete:
+    path:  /{id}/delete
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:delete" }
+    methods:  [DELETE]

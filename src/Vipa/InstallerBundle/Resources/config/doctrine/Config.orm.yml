@@ -1,0 +1,50 @@
+Vipa\InstallerBundle\Entity\Config:
+  type: entity
+  table: config
+  repositoryClass: Vipa\InstallerBundle\Entity\ConfigRepository
+  id:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    database_driver:
+      type: string
+    database_host:
+      type: string
+    database_port:
+      type: string
+    database_name:
+      type: string
+    database_user:
+      type: string
+    database_password:
+      type: string
+      nullable: true
+    system_email:
+      type: string
+    mailer_transport:
+      type: string
+      nullable: true
+    mailer_host:
+      type: string
+      nullable: true
+    mailer_user:
+      type: string
+      nullable: true
+    mailer_password:
+      type: string
+      nullable: true
+    locale:
+      type: string
+    secret:
+      type: string
+    base_host:
+      type: string
+    post_types:
+      type: string
+    elasticsearch_host:
+      type: string
+    mongodb_host:
+      type: string

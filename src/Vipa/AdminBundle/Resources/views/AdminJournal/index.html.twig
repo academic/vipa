@@ -1,0 +1,38 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.journals'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'journal.manager'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .btn {
+            margin-bottom: 5px;
+        }
+        .btn-xs {
+            margin-bottom: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block body -%}
+    <div class="panel">
+        <h1>{{ "journal.list"|trans }}</h1>
+        {% include '::flashbag.html.twig' %}
+        <a href="{{ path('vipa_admin_journal_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
+
+        <hr>
+        {{ grid(grid) }}
+
+
+    </div>
+{% endblock %}

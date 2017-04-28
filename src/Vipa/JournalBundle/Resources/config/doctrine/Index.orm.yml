@@ -1,0 +1,31 @@
+Vipa\JournalBundle\Entity\Index:
+  type: entity
+  repositoryClass: Vipa\JournalBundle\Entity\IndexRepository
+  table: indexes
+  cache:
+      usage: NONSTRICT_READ_WRITE
+  fields:
+    name:
+      type: string
+      nullable: false
+      length: 255
+      gedmo:
+        - versioned
+    logo:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    status:
+      type: boolean
+      gedmo:
+        - versioned
+  id:
+     id:
+       generator:
+         strategy: AUTO
+       id: true
+       type: integer
+  gedmo:
+      loggable: true

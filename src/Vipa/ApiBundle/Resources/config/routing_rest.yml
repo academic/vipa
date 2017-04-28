@@ -1,0 +1,223 @@
+api_contact_types:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/ContactTypesRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "contacttype"
+
+api_journal:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/JournalRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "journal"
+
+api_publisher:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/PublisherRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "publisher"
+
+api_institution:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/InstitutionRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "institution"
+
+api_subject:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/SubjectRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "subject"
+
+api_user:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/UserRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "user"
+
+api_lang:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/LangRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "lang"
+
+api_index:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/IndexRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "index"
+
+api_period:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/PeriodRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "period"
+
+api_person_title:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/PersonTitleRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "persontitle"
+
+api_publisher_type:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/PublisherTypeRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "publishertype"
+
+api_article_type:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/ArticleTypeRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "articletype"
+
+api_contact:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/ContactRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "contact"
+
+api_post:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/PostRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "post"
+
+api_page:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/PageRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "page"
+
+api_announcement:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/AnnouncementRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "announcement"
+
+api_publisher_theme:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/PublisherThemeRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "publishertheme"
+
+api_publisher_manager:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Admin/PublisherManagerRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+  options:
+      api_view: "publishermanager"
+
+api_journal_issue:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Journal/JournalIssueRestController.php"
+  prefix:       /v1/journal/{journalId}
+  name_prefix:  api_1_
+  options:
+      api_view: "journalissue"
+
+api_journal_issue_file:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Journal/JournalIssueFileRestController.php"
+  prefix:       /v1/journal/{journalId}/issue/{issueId}
+  name_prefix:  api_1_issue_
+  options:
+      api_view: "issuefile"
+
+api_journal_theme:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Journal/JournalThemeRestController.php"
+  prefix:       /v1/journal/{journalId}
+  name_prefix:  api_1_
+  options:
+      api_view: "journaltheme"
+
+api_journal_board:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Journal/JournalBoardRestController.php"
+  prefix:       /v1/journal/{journalId}
+  name_prefix:  api_1_
+  options:
+      api_view: "journalboard"
+
+api_journal_section:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Journal/JournalSectionRestController.php"
+  prefix:       /v1/journal/{journalId}
+  name_prefix:  api_1_
+  options:
+      api_view: "journalsection"
+
+api_journal_article:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Journal/JournalArticleRestController.php"
+  prefix:       /v1/journal/{journalId}
+  name_prefix:  api_1_
+  options:
+      api_view: "journalarticle"
+
+api_journal_article_file:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Journal/JournalArticleFileRestController.php"
+  prefix:       /v1/journal/{journalId}/article/{articleId}
+  name_prefix:  api_1_article_
+  options:
+      api_view: "articlefile"
+
+api_journal_article_author:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Journal/JournalArticleAuthorRestController.php"
+  prefix:       /v1/journal/{journalId}/article/{articleId}
+  name_prefix:  api_1_article_
+  options:
+      api_view: "articleauthor"
+
+api_journal_article_citation:
+  type:         rest
+  resource:     "@VipaApiBundle/Controller/Journal/JournalArticleCitationRestController.php"
+  prefix:       /v1/journal/{journalId}/article/{articleId}
+  name_prefix:  api_1_article_
+  options:
+      api_view: "articlecitation"
+
+api_analytics :
+  type: rest
+  resource:     "@VipaApiBundle/Controller/AnalyticsRestController.php"
+  prefix:       /v1/
+  name_prefix:  api_1_
+  options:
+      expose: true

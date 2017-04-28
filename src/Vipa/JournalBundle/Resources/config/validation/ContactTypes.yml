@@ -1,0 +1,9 @@
+Vipa\JournalBundle\Entity\ContactTypesTranslation:
+  properties:
+    name:
+      - NotBlank: ~
+
+Vipa\JournalBundle\Entity\ContactTypes:
+    properties:
+        translations:
+            - Valid: ~

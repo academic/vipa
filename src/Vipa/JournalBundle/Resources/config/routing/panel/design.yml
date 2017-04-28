@@ -1,0 +1,30 @@
+vipa_journal_design_index:
+    path:     /{journalId}/design/
+    defaults: { _controller: "VipaJournalBundle:Design:index" }
+
+vipa_journal_design_show:
+    path:     /{journalId}/design/{id}/show
+    defaults: { _controller: "VipaJournalBundle:Design:show" }
+
+vipa_journal_design_new:
+    path:     /{journalId}/design/new
+    defaults: { _controller: "VipaJournalBundle:Design:new" }
+
+vipa_journal_design_create:
+    path:     /{journalId}/design/create
+    defaults: { _controller: "VipaJournalBundle:Design:create" }
+    methods: [POST]
+
+vipa_journal_design_edit:
+    path:     /{journalId}/design/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:Design:edit" }
+
+vipa_journal_design_update:
+    path:     /{journalId}/design/{id}/update
+    defaults: { _controller: "VipaJournalBundle:Design:update" }
+    methods: [PUT]
+
+vipa_journal_design_delete:
+    path:     /{journalId}/design/{id}/delete
+    defaults: { _controller: "VipaJournalBundle:Design:delete" }
+    methods: [DELETE]

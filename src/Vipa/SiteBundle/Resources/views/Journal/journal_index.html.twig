@@ -1,0 +1,443 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ journal.title }} &raquo; {{ 'title.journal'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = 1 %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .margin-bot {
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% if isJournalHosting is defined and isJournalHosting == true %}
+        {% set list = [
+        {'link': path('vipa_public_index'),  'title': journal.title }
+        ] %}
+    {% else %}
+        {% set list = [
+        {'link': path('vipa_public_index'), 'title': project_name},
+        {'link': journal.publicURI, 'title': journal.title }
+        ] %}
+    {% endif %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if design is defined and design is not null and design.content is defined and design.content is not null %}
+            {% include template_from_string(design.content) %}
+        {% else %}
+            {% block journalheader %}
+                <div id="header">
+                    <div class="row">
+                        {% if journal.header %}
+                            <div class="col-md-12">
+                                <img src="{{ journal.header|imagine_filter('journal_header') }}"
+                                     class="width100 img-responsive margin-bot"/>
+                            </div>
+                        {% endif %}
+                        <div class="col-md-12">
+                            {% include '::flashbag.html.twig' %}
+                            <dl class="journal-meta">
+                                {% if journal.issn %}
+                                    <dt>ISSN</dt>
+                                    <dd>{{ journal.issn }}</dd>
+                                {% endif %}
+
+                                {% if journal.eissn %}
+                                    <dt>e-ISSN</dt>
+                                    <dd>{{ journal.eissn }}</dd>
+                                {% endif %}
+
+                                {% if journal.periods|length > 0 %}
+                                    <dt>{{ "period"|trans }}</dt>
+                                    <dd>
+                                        {% for period in journal.periods %}
+                                            {{ period.period }}
+                                            {% if not loop.last %}
+                                                ,
+                                            {% endif %}
+                                        {% endfor %}
+                                    </dd>
+                                {% endif %}
+
+                                {% if journal.founded is defined %}
+                                    <dt>
+                                            {{ "journal.founded"|trans }}:
+                                    </dt>
+                                    <dd>
+                                        {{ journal.founded|date('Y') }}
+                                        {% if journal.endingDate is defined and journal.endingDate is not empty %}
+                                             - {{ journal.endingDate|date('Y') }}
+                                        {% endif %}
+                                    </dd>
+                                {% endif %}
+
+
+                                {% if journal.publisher %}
+                                    <dt>{{ "publisher"|trans }}</dt>
+                                    <dd>{{ journal.publisher.name }}</dd>
+                                {% endif %}
+                                <!--
+                            {% if journal.country %}
+                            <dt>{{ "country"|trans }}</dt>
+                            <dd>{{ journal.country }}</dd>
+                            {% endif %}
+                            -->
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+            <div class="row">
+                <div class="col-md-2 col-sm-3 col-xs-8 margin-bot">
+                    <img
+                            {% if journal.image is not null %}
+                                src="{{ journal.image|imagine_filter('journal_croped') }}" class="img-responsive img-rounded float-left"
+                            {% else %}
+                                src="#" class="img-responsive img-rounded float-left tri"
+                            {% endif %}
+                            alt="{{ 'cover_image'|trans }} " width="200" height="300"/>
+
+                    <div class="text-center list-group-item">
+                        <i class="fa fa-eye" class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.view'|trans }}"></i>
+                        {{ journal.totalArticleView|number_format(0,'.','.') }}
+                        &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+                        <i class="fa fa-download" class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.download'|trans }}"></i>
+                        {{ journal.totalArticleDownload|number_format(0,'.','.') }}
+                    </div>
+                    <a href="#" data-href="#issuetree" class="js-scroll-to btn btn-default btn-block">
+                        <i class="fa fa-search"></i>
+                        {{ "journal.issues"|trans }}
+                    </a>
+                </div>
+                <div class="col-md-7 col-sm-5 margin-bot">
+                    {% if journal.url %}
+                        <a href="{{ journal.url }}" target="_blank">
+                            <small>{{ journal.url }}</small>
+                        </a>
+                        <br>
+                    {% endif %}
+                    {% if journal.formerlyKnownAsJournal is not empty %}
+                        <b>
+                            {{ 'formerly.known.as'|trans }}:
+                            {% if isJournalHosting is defined and isJournalHosting == true %}
+                            <a href="{{ path('journal_hosting', {slug: journal.formerlyKnownAsJournal.slug }) }}">
+                                {{ journal.formerlyKnownAsJournal.title }}
+                            </a>
+                            {% else %}
+                            <a href="{{ path('vipa_journal_index', {slug: journal.formerlyKnownAsJournal.slug }) }}">
+                                {{ journal.formerlyKnownAsJournal.title }}
+                            </a>
+                            {% endif %}
+                        </b>
+                        <br>
+                    {% endif %}
+                    {% if journal.continuedAsJournal is not empty %}
+                        <b>
+                            {{ 'continued.as.journal'|trans }}:
+                            {% if isJournalHosting is defined and isJournalHosting == true %}
+                            <a href="{{ path('journal_hosting', {slug: journal.continuedAsJournal.slug }) }}">
+                                {{ journal.continuedAsJournal.title }}
+                            </a>
+                            {% else %}
+                            <a href="{{ path('vipa_journal_index', {slug: journal.continuedAsJournal.slug }) }}">
+                                {{ journal.continuedAsJournal.title }}
+                            </a>
+                            {% endif %}
+                        </b>
+                        <br>
+                    {% endif %}
+                    {{ journal.description|raw }}
+                </div>
+                <div class="col-md-3 col-sm-4">
+                    <div class="list-group journal-stats">
+                        <div class="list-group-item ">
+                            <form role="search"
+                                  action="{{ url('vipa_search_index') }}"
+                                  method="get" id="search_on_journal"
+                                >
+                                <div class="input-group">
+                                    <input type="text" class="form-control"
+                                           placeholder="{{ "search.on.journal"|trans }}" name="q" value="">
+                                    <input type="hidden" value="journal:{{ journal.id }}" name="journal_query" />
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        {% if isJournalHosting is defined and isJournalHosting == true %}
+                            <ul class="list-group-item list-group-item-warning">
+                            {% include '::language_selector.html.twig' %}
+                            </ul>
+                            <a href="//{{ base_host }}{{ path('vipa_journal_submission_start',{"journalId":journal.id}) }}"
+                               class="list-group-item list-group-item-success">
+                                <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ archive_uri }}"
+                               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ url('journal_hosting_board')  }}"
+                               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "board"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ url('journal_hosting_contacts') }}"
+                               class="list-group-item ">
+                                <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ url('journal_hosting_announcement') }}"
+                               class="list-group-item ">
+                                <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
+                            </a>
+                        {% else %}
+                            <a href="//{{ base_host }}{{ path('vipa_journal_submission_start',{"journalId":journal.id}) }}"
+                               class="list-group-item list-group-item-success">
+                                <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ archive_uri }}"
+                               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ url('vipa_journal_index_board',{slug: journal.slug})  }}"
+                               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "board"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ url('vipa_journal_contacts',{slug: journal.slug}) }}"
+                               class="list-group-item ">
+                                <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
+                            </a>
+
+                            <a href="{{ url('vipa_announcement_index',{slug: journal.slug}) }}"
+                               class="list-group-item ">
+                                <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
+                            </a>
+                        {% endif %}
+
+                        {% for journalPage in journalPages %}
+                            {% if journalPage.visible == true %}
+                                {% if isJournalHosting is defined and isJournalHosting == true %}
+                                        <a href="{{ url('journal_hosting_page', {slug: journalPage.slug}) }}"
+                                           class="list-group-item ">
+                                            <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ url('vipa_site_journal_page', {slug: journalPage.slug, journal_slug: journal.slug}) }}"
+                                           class="list-group-item ">
+                                            <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
+                                        </a>
+                                    {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="list-group-item ">
+                            <form role="search"
+                                  action="{{ path('vipa_journal_subscribe',{slug: journal.slug}) }}"
+                                  method="post">
+                                <div class="input-group">
+                                    <input type="text" class="form-control"
+                                           placeholder="{{ "journal.subscribe"|trans }}" name="mail">
+
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="fa fa-send"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                    {% if journal.journalIndexs|length>0 %}
+                        <div class="list-group">
+                            {% for journalIndex in journal.journalIndexs %}
+                                {% if journalIndex.verified == true %}
+                                    <a href="{{ journalIndex.link }}" target="_blank">
+                                        <div class="list-group-item col-md-12">
+                                            {% if journalIndex.index.logo %}
+                                                <div class="col-md-4">
+                                                    <img src="{{ journalIndex.index.logo|imagine_filter('index_logo') }}"
+                                                        alt="{{ journalIndex.index.name }}" width="32" height="32"/>
+                                                </div>
+                                            {% endif %}
+                                                <div class="col-md-7">
+                                                    <h5>{{ journalIndex.index.name }}</h5>
+                                                </div>
+                                        </div>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h5 class="page-header"><span class="panel-title">{{ "journal_index.issues"|trans }}</span></h5>
+                </div>
+
+                <div class="col-md-9 col-sm-8">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 margin-bot">
+                            <div id="issuetree">
+                                <ul>
+                                    {% for key, issues in years %}
+                                        <li>
+                                            <h4 title=" {{ "year"|trans }}"> {{ key }}</h4>
+
+                                            <ul>
+                                                {% for issue in issues %}
+                                                    <li>
+                                                        <a href="{{ issue.publicURI }}">
+                                                            {{ issueTextGenerate(issue) }}
+                                                            {% if issue.special %}
+                                                            <span class="label label-success">
+                                                            <i class="fa fa-star" title="{{ "special.issue"|trans }}"></i>
+                                                                {{ "special.issue"|trans }}
+                                                            </span>
+                                                            {% elseif issue.inPress %}
+                                                            <span class="label label-primary">
+                                                            <i class="fa fa-star" title="{{ "issue.in_press"|trans }}"></i>
+                                                                {{ "issue.in_press"|trans }}
+                                                            </span>
+                                                            {% elseif issue.earlyPub %}
+                                                            <span class="label label-primary">
+                                                            <i class="fa fa-star" title="{{ "issue.early_pub"|trans }}"></i>
+                                                                {{ "issue.early_pub"|trans }}
+                                                            </span>
+                                                            {% endif %}
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                    {% endfor %}
+
+                                </ul>
+                                <a class="btn btn-primary " href="{{ archive_uri }}">
+                                    <i class="fa fa-arrow-right"></i>
+                                    {{ "archive"|trans }}
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-12" id="issue-container">
+                            {% if lastIssue %}
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <strong>{{ lastIssue.title }}</strong>
+                                        <a href="{{ lastIssue.publicURI }}">
+                                            <span class="badge badge-warning pull-right">{{ "read.lastissue"|trans }}</span>
+                                        </a>
+                                        <br>
+                                        {% if lastIssue.volume is not null and lastIssue.volume != 0 %}
+                                            {{ "volume"|trans }} {{ lastIssue.volume }}
+                                            -
+                                        {% endif %}
+                                        {{ "issue"|trans }} {{ lastIssue.number }}
+                                        - {{ lastIssue.datePublished|localizeddate("medium",'none',null,null,'MMMM Y') }}
+                                    </div>
+                                    <div class="panel-body">
+                                        <ul class="list-unstyled">
+                                            {% for article in lastIssueArticles[:10] %}
+                                                <li>
+                                                    <p>
+                                                        <i class="fa fa-caret-right"></i>
+                                                        <a href="{{ article.publicURI }}">{{ article.title }}</a>
+
+                                                        <br>
+                                                        {% if article.firstPage is not null and article.lastPage is not null  %}
+                                                           {{ "pages"|trans }} {{ article.firstPage }} -  {{ article.lastPage }}
+                                                        {% endif %}
+
+                                                        <span class="clearfix">
+                                                            <i class="fa fa-pencil"></i>
+                                                            {% for articleAuthor in article.articleAuthors %}
+                                                                {{ articleAuthor.author.fullName }}{% if loop.last != true %}, {% endif %}
+                                                            {% endfor %}
+                                                        </span>
+                                                    </p>
+                                                </li>
+                                            {% endfor %}
+                                            {% if lastIssue.articles|length > 10 %}
+                                                <a class="btn btn-xs btn-default" href="{{ lastIssue.publicURI }}">{{ 'more'|trans }}...</a>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-4">
+                    {% include 'VipaSiteBundle:Journal:journal_right_block.html.twig' %}
+                </div>
+            </div>
+            {% if posts|length>0 %}
+                <div class="row">
+                    <h3>{{ 'title.posts'|trans }}</h3>
+                    <ul>
+                        {% for post in posts %}
+                            <li>
+                                <a href="{{ path('vipa_site_journal_post',
+                                {'slug': post.slug, 'journal_slug': journal.slug}) }}">
+                                    {{ post.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <p class="locks-link"><a href="{{ path('vipa_journal_lockss_index',{slug: journal.slug}) }}">LOCKSS</a></p>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            analytics.view('journal', {{ journal.id }}, '{{ token }}');
+            renderMathInElement(document.body);
+
+
+        });
+
+        $('#search_on_journal').on('submit',function(){
+            var search_query = $('[name=q]',$(this)).val();
+            var journal_query = $('[name=journal_query]',$(this)).val();
+
+            $('[name=q]',$(this)).val(journal_query + ' ' + search_query);
+
+        });
+    </script>
+    {% if journal.googleAnalyticsId is not null %}
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', '{{ journal.googleAnalyticsId }}', 'auto');
+            ga('send', 'pageview');
+
+
+        </script>
+    {% endif %}
+{% endblock %}

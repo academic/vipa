@@ -1,4 +1,0 @@
-Ojs\AdminBundle\Entity\AdminFile:
-    properties:
-        name:
-            - NotBlank: ~

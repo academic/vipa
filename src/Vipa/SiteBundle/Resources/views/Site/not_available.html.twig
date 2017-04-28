@@ -1,0 +1,9 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ title|trans }} {{ parent() }}{% endblock %}
+
+{% block body -%}
+    <div class="alert alert-info">
+        {{ message|trans|raw }}
+    </div>
+{% endblock %}

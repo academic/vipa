@@ -1,0 +1,7 @@
+Vipa\UserBundle\Entity\MultipleMail:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: mail
+  properties:
+    mail:
+      - Email: { message: 'user.multiple_mail.error.not_email'}
+      - Vipa\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid' }

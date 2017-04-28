@@ -1,9 +1,0 @@
-Ojs\JournalBundle\Entity\ContactTypesTranslation:
-  properties:
-    name:
-      - NotBlank: ~
-
-Ojs\JournalBundle\Entity\ContactTypes:
-    properties:
-        translations:
-            - Valid: ~

@@ -1,0 +1,19 @@
+Vipa\AdminBundle\Entity\AdminPostTranslation:
+    type: entity
+    table: admin_post_translations
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+          type: string
+          length: 255
+          nullable: true
+        content:
+          type: text
+          nullable: true

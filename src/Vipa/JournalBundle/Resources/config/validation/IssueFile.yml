@@ -1,0 +1,17 @@
+Vipa\JournalBundle\Entity\IssueFileTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+
+Vipa\JournalBundle\Entity\IssueFile:
+    properties:
+        translations:
+            - Valid: ~
+        file:
+            - NotBlank: ~
+        type:
+            - NotBlank: ~
+        langCode:
+            - NotBlank: ~
+        version:
+            - Type: integer

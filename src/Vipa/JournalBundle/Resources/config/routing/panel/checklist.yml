@@ -1,0 +1,34 @@
+vipa_journal_checklist_index:
+    path:     /{journalId}/checklist/
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:index" }
+
+vipa_journal_checklist_sort:
+    path:     /{journalId}/checklist/sort
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:sort" }
+
+vipa_journal_checklist_show:
+    path:     /{journalId}/checklist/{id}/show
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:show" }
+
+vipa_journal_checklist_new:
+    path:     /{journalId}/checklist/new
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:new" }
+
+vipa_journal_checklist_create:
+    path:     /{journalId}/checklist/create
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:create" }
+    methods:  POST
+
+vipa_journal_checklist_edit:
+    path:     /{journalId}/checklist/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:edit" }
+
+vipa_journal_checklist_update:
+    path:     /{journalId}/checklist/{id}/update
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:update" }
+    methods: [PUT]
+
+vipa_journal_checklist_delete:
+    path:     /{journalId}/checklist/{id}/delete
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:delete" }
+    methods: [DELETE]

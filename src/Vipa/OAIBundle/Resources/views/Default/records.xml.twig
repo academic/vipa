@@ -1,0 +1,94 @@
+{% extends 'VipaOAIBundle:Default:layout.xml.twig' %}
+{% block content %}
+    <request verb="ListRecords" metadataPrefix="oai_dc">http://{{ base_host }}/oai</request>
+    <ListRecords>
+        {% for record in records %}
+            <record>
+                <header>
+                    <identifier>oai:{{ base_host }}:article/{{ record.id }}</identifier>
+                    <datestamp>{{ record.pubdate|date("Y-m-d\\TH:i:s\\Z") }}</datestamp>
+                    {% if specType is defined and specType == 'section' %}
+                        <setSpec>{{ record.section.id }}</setSpec>
+                    {% else %}
+                        <setSpec>{{ record.journal.slug }}</setSpec>
+                    {% endif %}
+                </header>
+                <metadata>
+                    <{{ metadataPrefix }}:dc
+                            {% if metadataPrefix == "oai_dc" %}
+                                xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                            {% endif %}
+                            xmlns:dc="http://purl.org/dc/elements/1.1/">
+                        {% for translation in record.translations %}
+                            {% if translation.title is not empty and translation.title != '-' %}
+                                <dc:title xml:lang="en-US"><![CDATA[{{ translation.title|fixEncoding }}]]></dc:title>
+                            {% endif %}
+                        {% endfor %}
+                        {% for author in record.articleAuthors %}
+                            <dc:creator>
+                                <![CDATA[{{ author.author.lastName|fixEncoding }}, {{ author.author.firstName|fixEncoding }}]]>{% if author.author.institution %}; {{ author.author.institution.name }}{% endif %}
+                            </dc:creator>
+                        {% endfor %}
+                        {% for translation in record.translations %}
+                            {% if translation.keywords is not empty and translation.keywords != '-' %}
+                                <dc:subject><![CDATA[{{ record.keywords|fixEncoding }}]]></dc:subject>
+                            {% endif %}
+                        {% endfor %}
+                        {% for translation in record.translations %}
+                            {% if translation.abstract is not empty and translation.abstract != '-' %}
+                                <dc:description><![CDATA[{{ translation.abstract|striptags|replace({'': '', '': '','': '','': ''})|fixEncoding }}]]></dc:description>
+                            {% endif %}
+                        {% endfor %}
+                        {% for translation in record.journal.publisher.translations %}
+                            {% if translation.name is not empty and translation.name != '-' %}
+                                <dc:publisher>{{ translation.name }}</dc:publisher>
+                            {% endif %}
+                        {% endfor %}
+                        <dc:date>{{ record.pubDate|date("Y-m-d\\TH:i:s\\Z") }}</dc:date>
+                        <dc:type>info:eu-repo/semantics/article</dc:type>
+                        <dc:format>application/pdf</dc:format>
+                        {% if record.issue %}
+                            <dc:identifier>{{ url('vipa_article_page', {article_id: record.id, issue_id: record.issue.id, slug: record.journal.slug}) }}</dc:identifier>
+                        {% else %}
+                            <dc:identifier>{{ url('vipa_article_page', {article_id: record.id, issue_id: 0, slug: record.journal.slug}) }}</dc:identifier>
+                        {% endif %}
+                        <dc:identifier>{{ record.doi }}</dc:identifier>
+                        {% if record.issue %}
+                            <dc:source xml:lang="en-US">
+                                <![CDATA[
+                                {% if record.issue.displayMode is null or record.issue.displayMode == displayModes.all %}
+                                    {{ record.issue.title|fixEncoding }}; Volume: {{ record.issue.volume }}, Issue: {{ record.issue.number }}
+                                {% elseif record.issue.displayMode == displayModes.title %}
+                                    {{ record.issue.title|fixEncoding }}
+                                {% elseif record.issue.displayMode == displayModes.volumeAndNumber %}
+                                    Volume: {{ record.issue.volume }}, Issue: {{ record.issue.number }}
+                                {% endif %}
+                                {% if record.firstPage and record.lastPage %}
+                                    {{ record.firstPage }}-{{ record.lastPage }}
+                                {% endif %}
+                                ]]>
+                            </dc:source>
+                        {% endif %}
+                        {% if record.journal.issn %}
+                            <dc:source>{{ record.journal.issn }}</dc:source>
+                        {% endif %}
+                        {% if record.journal.eissn %}
+                            <dc:source>{{ record.journal.eissn }}</dc:source>
+                        {% endif %}
+                        {% if record.primaryLanguage %}
+                            <dc:language>{{ record.primaryLanguage }}</dc:language>
+                        {% endif %}
+                        {% for file in record.articleFiles %}
+                            <dc:relation>{{ url('vipa_site_download_article', {articleFile: file.id}) }}</dc:relation>
+                        {% endfor %}
+                    </{{ metadataPrefix }}:dc>
+                </metadata>
+            </record>
+        {% endfor %}
+        {% if isLast != false %}
+        <resumptionToken expirationDate="{{ "+1 days"|date("Y-m-d\\TH:i:s\\Z") }}"
+                         completeListSize="{{ records.getTotalItemCount }}"
+                         cursor="{{ currentPage }}">{{ resumptionToken }}</resumptionToken>
+        {% endif %}
+    </ListRecords>
+{% endblock %}

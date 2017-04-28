@@ -1,7 +1,0 @@
-\Ojs\AdminBundle\Entity\SystemSetting:
-  setting:
-    userRegistrationActive: true
-    publisherApplicationActive: true
-    journalApplicationActive: true
-    articleSubmissionActive: true
-    systemFooterScript: ''

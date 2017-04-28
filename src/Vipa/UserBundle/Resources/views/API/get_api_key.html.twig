@@ -1,0 +1,27 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.custom_field'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'User'|trans},
+    { 'link': path('vipa_admin_user_index'), 'title': 'user.update_profile'|trans},
+    { 'title': 'user.apikey'|trans},
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+
+
+{% block body -%}
+
+    <div class="large-12 columns">
+        {% include 'VipaSiteBundle:User:tabs.html.twig' with {activo:5} %}
+        <div class="tab-content">
+            {% include '::flashbag.html.twig' %}
+            <div class="panel">
+                <input class="form-control" value="{{ app.user.apiKey }}" onClick="this.select();" autofocus>
+            </div>
+            <a href="{{ path('regenerate_apikey') }}"><button class="btn btn-default" >{{ 'regenerate.apikey' }}</button></a>
+        </div>
+    </div>
+{% endblock %}

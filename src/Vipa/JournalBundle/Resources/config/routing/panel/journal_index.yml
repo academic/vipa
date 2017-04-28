@@ -1,0 +1,32 @@
+vipa_journal_index_index:
+    path:     /{journalId}/index/
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:index", journal: 0 }
+    requirements:
+      journal: \d+
+
+vipa_journal_index_show:
+    path:     /{journalId}/index/{id}/show
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:show" }
+
+vipa_journal_index_new:
+    path:     /{journalId}/index/new/
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:new",journal: null }
+
+vipa_journal_index_create:
+    path:     /{journalId}/index/create/
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:create",journal: null }
+    methods:  POST
+
+vipa_journal_index_edit:
+    path:     /{journalId}/index/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:edit" }
+
+vipa_journal_index_update:
+    path:     /{journalId}/index/{id}/update
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:update" }
+    methods: [PUT]
+
+vipa_journal_index_delete:
+    path:     /{journalId}/index/{id}/delete
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:delete" }
+    methods: [DELETE]

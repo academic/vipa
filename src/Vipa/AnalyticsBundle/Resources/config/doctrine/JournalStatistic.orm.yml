@@ -1,0 +1,14 @@
+Vipa\AnalyticsBundle\Entity\JournalStatistic:
+    type: entity
+    repositoryClass: Vipa\AnalyticsBundle\Entity\JournalStatisticRepository
+    lifecycleCallbacks: { }
+    manyToOne:
+        journal:
+            targetEntity: Vipa\JournalBundle\Entity\Journal
+            inversedBy: statistics
+            joinColumn:
+                name: journal_id
+                referencedColumnName: id
+    fields:
+        view:
+            type: integer

@@ -1,0 +1,30 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.issue_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_issue_index', {'journalId': selectedJournal().id}),'title': 'issue'|trans},
+    {'title': 'title.issue_show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">{{ "Info"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('vipa_journal_issue_file_index', {issueId: entity.id,journalId: entity.journal.id}) }}">{{ "title.issue_files"|trans }}</a></li>
+    </ul>
+    <h1>{{ "issue"|trans }}</h1>
+    {{ twigEventDispatch({'event_name': 'VIPA_ISSUE_SHOW_VIEW'})|raw }}
+    {{ display(entity) }}
+    {{
+    actions({
+        'back': {'href': path('vipa_journal_issue_index', {'journalId': selectedJournal().id})},
+        'edit': {'href': path('vipa_journal_issue_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('vipa_journal_issue_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+    })
+    }}
+{% endblock %}

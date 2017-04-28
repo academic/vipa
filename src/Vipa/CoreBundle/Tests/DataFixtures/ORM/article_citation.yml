@@ -1,0 +1,6 @@
+Vipa\JournalBundle\Entity\Citation:
+  article_citation:
+    articles: [1]
+    orderNum: <randomDigit()>
+    raw: <text(300)>
+    type: 'article'

@@ -1,0 +1,43 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.journal_settings_submission'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'title': 'title.journal_settings_submission'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <div class="col-md-12">
+        {{ include('::flashbag.html.twig') }}
+        {{ form_start(form) }}
+            <h4>{{ form_row(form.submissionEnabled) }}</h4>
+            {{ form_row(form.translations) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            function reviseSubmissionInputs(){
+                if($('#submission_setting_submissionEnabled').is(':checked')){
+                    $('.submission-close-text').parent().hide();
+                    $('.last-step-confirm').parent().show();
+                    $('.submission-abstract-template').parent().show();
+                }else{
+                    $('.submission-close-text').parent().show();
+                    $('.last-step-confirm').parent().hide();
+                    $('.submission-abstract-template').parent().hide();
+                }
+            }
+            reviseSubmissionInputs();
+            $('#submission_setting_submissionEnabled').change(function(){
+               reviseSubmissionInputs();
+            });
+        });
+    </script>
+{% endblock %}

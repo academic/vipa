@@ -1,0 +1,51 @@
+Vipa\JournalBundle\Entity\ArticleSubmissionFile:
+    type: entity
+    table: article_submission_file
+    repositoryClass: Vipa\JournalBundle\Entity\ArticleSubmissionFileRepository
+    manyToOne:
+      article:
+        targetEntity: Vipa\JournalBundle\Entity\Article
+        joinColumn:
+          referencedColumnName: id
+          name: article_id
+        inversedBy: articleSubmissionFiles
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+      id:
+        type: integer
+        id: true
+        generator:
+          strategy: AUTO
+    fields:
+      title:
+        type: string
+        gedmo:
+            - versioned
+      locale:
+        type: string
+        nullable: true
+      detail:
+        type: text
+        nullable: true
+        gedmo:
+            - versioned
+      visible:
+        type: boolean
+        nullable: true
+      required:
+        type: boolean
+        nullable: true
+      file:
+        type: string
+        length: 255
+        nullable: TRUE
+        gedmo:
+          - versioned
+      deletedAt:
+        type: datetime
+        nullable: true
+    gedmo:
+      loggable: true
+      soft_deleteable:
+        field_name: deletedAt

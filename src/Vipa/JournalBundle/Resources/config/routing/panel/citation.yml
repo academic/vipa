@@ -1,0 +1,30 @@
+vipa_journal_citation_index:
+    path:     /{journalId}/article/{articleId}/citation/
+    defaults: { _controller: "VipaJournalBundle:Citation:index" }
+
+vipa_journal_citation_show:
+    path:     /{journalId}/article/{articleId}/citation/{id}/show
+    defaults: { _controller: "VipaJournalBundle:Citation:show" }
+
+vipa_journal_citation_new:
+    path:     /{journalId}/article/{articleId}/citation/new
+    defaults: { _controller: "VipaJournalBundle:Citation:new" }
+
+vipa_journal_citation_create:
+    path:     /{journalId}/article/{articleId}/citation/create
+    defaults: { _controller: "VipaJournalBundle:Citation:create" }
+    methods:  POST
+
+vipa_journal_citation_edit:
+    path:     /{journalId}/article/{articleId}/citation/{id}/edit
+    defaults: { _controller: "VipaJournalBundle:Citation:edit" }
+
+vipa_journal_citation_update:
+    path:     /{journalId}/article/{articleId}/citation/{id}/update
+    defaults: { _controller: "VipaJournalBundle:Citation:update" }
+    methods:  [PUT]
+
+vipa_journal_citation_delete:
+    path:     /{journalId}/article/{articleId}/citation/{id}/delete
+    defaults: { _controller: "VipaJournalBundle:Citation:delete" }
+    methods:  [DELETE]

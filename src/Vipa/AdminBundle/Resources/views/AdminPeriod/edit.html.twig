@@ -1,0 +1,23 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.period_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('vipa_admin_period_index'),'title': 'period'|trans},
+    {'title': 'edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "period"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ form(edit_form) }}
+
+    {% set back_path = 'vipa_admin_period_index' %}
+    {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
+{% endblock %}

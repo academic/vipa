@@ -1,0 +1,30 @@
+vipa_admin_publisher_theme_index:
+    path:  /
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherTheme:index" }
+
+vipa_admin_publisher_theme_show:
+    path:  /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherTheme:show" }
+
+vipa_admin_publisher_theme_new:
+    path:  /new
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherTheme:new" }
+
+vipa_admin_publisher_theme_create:
+    path:  /create
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherTheme:create" }
+    methods: [POST]
+
+vipa_admin_publisher_theme_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherTheme:edit" }
+
+vipa_admin_publisher_theme_update:
+    path:  /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherTheme:update" }
+    methods:  [PUT]
+
+vipa_admin_publisher_theme_delete:
+    path:  /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherTheme:delete" }
+    methods:  [DELETE]

@@ -1,5 +1,0 @@
-Ojs\AdminBundle\Entity\AdminAnnouncement:
-  announcement:
-    title: <text(50)>
-    image: <text(20)>
-    content: <url()>

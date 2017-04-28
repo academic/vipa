@@ -1,0 +1,4 @@
+Vipa\AdminBundle\Entity\AdminFile:
+    properties:
+        name:
+            - NotBlank: ~

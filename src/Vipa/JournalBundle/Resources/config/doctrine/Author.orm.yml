@@ -1,0 +1,176 @@
+Vipa\JournalBundle\Entity\Author:
+  type: entity
+  table: author
+  repositoryClass: Vipa\JournalBundle\Entity\AuthorRepository
+  oneToMany:
+    articleAuthors:
+      targetEntity: ArticleAuthor
+      mappedBy: author
+      cascade: ["persist"]
+  manyToOne:
+    title:
+      targetEntity: Vipa\JournalBundle\Entity\PersonTitle
+      joinColumn:
+        name: title_id
+        referencedColumnName: id
+    institution:
+      targetEntity: Institution
+      joinColumn:
+        name: institution_id
+        referencedColumnName: id
+    user:
+      targetEntity: Vipa\UserBundle\Entity\User
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+      inversedBy: authorDetails
+      cascade: ["persist"]
+    country:
+      targetEntity: BulutYazilim\LocationBundle\Entity\Country
+      joinColumn:
+        name: country_id
+        referencedColumnName: id
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+          strategy: AUTO
+  fields:
+    firstName:
+      type: string
+      nullable: true
+      length: 255
+      column: first_name
+      gedmo:
+        - versioned
+    middleName:
+      type: string
+      nullable: true
+      length: 255
+      column: middle_name
+      gedmo:
+        - versioned
+    lastName:
+      type: string
+      nullable: TRUE
+      length: 255
+      column: last_name
+      gedmo:
+        - versioned
+    firstNameTransliterated:
+      type: string
+      nullable: true
+      length: 255
+      column: first_name_transliterated
+      gedmo:
+        - versioned
+    middleNameTransliterated:
+      type: string
+      nullable: true
+      length: 255
+      column: middle_name_transliterated
+      gedmo:
+        - versioned
+    lastNameTransliterated:
+      type: string
+      nullable: true
+      length: 255
+      column: last_name_transliterated
+      gedmo:
+        - versioned
+    initials:
+      type: string
+      nullable: true
+      length: 255
+      gedmo:
+        - versioned
+    orcid:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    email:
+      type: string
+      nullable: true
+      length: 255
+      gedmo:
+        - versioned
+    url:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    institutionNotListed:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+    institutionName:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    phone:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    fax:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    address:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    city:
+      type: text
+      nullable: true
+    billing_address:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    authorDetails:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    deletedAt:
+      type: date
+      nullable: true
+    createdBy:
+      type: string
+      gedmo:
+       blameable:
+         on: create
+    updatedBy:
+      type: string
+      gedmo:
+       blameable:
+         on: update
+    tags:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+    loggable: true
+  lifecycleCallbacks: {  }

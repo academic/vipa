@@ -1,0 +1,5 @@
+Vipa\JournalBundle\Entity\ArticleAuthor:
+  article_author:
+    author: 1
+    article: 1
+    authorOrder: 3

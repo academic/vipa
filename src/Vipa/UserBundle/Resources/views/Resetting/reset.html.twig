@@ -1,0 +1,7 @@
+{% extends "::vipabase.html.twig" %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.password_reset'|trans }} {{ parent() }}{% endblock %}
+
+{% block body %}
+{% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
+{% endblock body %}

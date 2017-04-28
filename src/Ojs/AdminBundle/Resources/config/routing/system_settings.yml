@@ -1,3 +1,0 @@
-ojs_admin_system_setting_index:
-    path:     /
-    defaults: { _controller: "OjsAdminBundle:AdminSystemSettings:index" }

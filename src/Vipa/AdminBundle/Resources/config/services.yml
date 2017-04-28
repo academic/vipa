@@ -1,0 +1,40 @@
+parameters:
+  vipa_core.journal_application_controller.class: "VipaAdminBundle:AdminJournalApplication"
+  vipa_admin.journal_controller.class: "VipaAdminBundle:AdminJournal"
+
+services:
+  admin.event_listener:
+    class: Vipa\AdminBundle\EventListener\AdminEventListener
+    arguments: ["@router", "@doctrine.orm.entity_manager", "@vipa_mailer"]
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.graph.data.generator:
+    class: Vipa\AnalyticsBundle\Utils\GraphDataGenerator
+    arguments: ["@doctrine.orm.entity_manager", "%locale%"]
+
+  form.type.journal_application:
+    class: Vipa\AdminBundle\Form\Type\JournalApplicationType
+    tags:
+      -
+        alias: vipa_journalbundle_journalapplication
+        name: form.type
+
+  form.type.admin.journal_application:
+    class: Vipa\AdminBundle\Form\Type\AdminJournalApplicationType
+    tags:
+      -
+        alias: vipa_adminbundle_journalapplication
+        name: form.type
+
+  form.type.admin.journal_edit:
+    class: Vipa\AdminBundle\Form\Type\JournalEditType
+    tags:
+      -
+        alias: vipa_adminbundle_journal_edit_type
+        name: form.type
+
+  vipa_admin.admin_events:
+    class: Vipa\AdminBundle\Events\AdminEvents
+    tags:
+      - { name: vipa.mail.event}

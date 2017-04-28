@@ -1,0 +1,17 @@
+\Vipa\JournalBundle\Entity\Journal:
+  journal1:
+    currentLocale: en
+    issn: null
+    eissn: 2148-2357
+    subtitle: Vipa Help
+    title: Vipa Help Journal
+    titleAbbr: Vipa Help
+    titleTransliterated: null
+    url: "http://vipa.io"
+    slug: help
+    publisher: '@default'
+    subjects: ['@subject1', '@subject2']
+    languages: [1, 2]
+    status: 1
+    setupFinished: true
+    mandatoryLang: 2

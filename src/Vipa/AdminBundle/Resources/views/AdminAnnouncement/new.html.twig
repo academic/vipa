@@ -1,0 +1,18 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.announcement_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_announcement_index'),'title': 'title.announcements'|trans},
+        {'title': 'title.announcement_new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.announcement_new'|trans }}</h1>
+    {{ form(form) }}
+    {{ actions({'back': {'href': path('vipa_admin_announcement_index')}}) }}
+{% endblock %}

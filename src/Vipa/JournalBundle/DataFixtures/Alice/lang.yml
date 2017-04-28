@@ -1,0 +1,25 @@
+\Vipa\JournalBundle\Entity\Lang:
+    lang1:
+        code: fr
+        name: Français
+        rtl: false
+    lang2:
+        code: it
+        name: Italiano
+        rtl: false
+    lang3:
+        code: de
+        name: Deutsch
+        rtl: false
+    lang4:
+        code: ar
+        name: العربية
+        rtl: true
+    lang5:
+        code: ru
+        name: Pусский
+        rtl: false
+    lang6:
+        code: es
+        name: español
+        rtl: false

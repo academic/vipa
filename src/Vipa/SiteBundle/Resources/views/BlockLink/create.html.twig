@@ -1,0 +1,28 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.block_link_create'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_public_index'), 'title': project_name},
+    {'title': 'blocklink'|trans},
+    {'title': "create"|trans }
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h4>Create New Block Link</h4>
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <form action="" method="post">
+        {{ form_widget(form) }}
+        <div class="record_actions">
+            <button class="btn btn-default" type="submit">{{ "save"|trans }}</button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,23 @@
+vipa_admin_application_journal_index:
+  path:     /journal
+  defaults: { _controller: "VipaAdminBundle:AdminJournalApplication:index" }
+
+vipa_admin_application_journal_show:
+  path:     /journal/{id}
+  defaults: { _controller: "VipaAdminBundle:AdminJournalApplication:detail" }
+
+vipa_admin_application_journal_edit:
+  path:     /journal/edit/{id}
+  defaults: { _controller: "%vipa_core.journal_application_controller.class%:edit" }
+
+vipa_admin_application_journal_update:
+  path:     /journal/update/{id}
+  defaults: { _controller: "%vipa_core.journal_application_controller.class%:update" }
+
+vipa_admin_application_journal_save:
+  path:     /journal/{id}/save
+  defaults: { _controller: "VipaAdminBundle:AdminJournalApplication:save" }
+
+vipa_admin_application_journal_reject:
+  path:     /journal/{id}/reject
+  defaults: { _controller: "VipaAdminBundle:AdminJournalApplication:reject" }

@@ -1,0 +1,283 @@
+Vipa\JournalBundle\Entity\Article:
+  repositoryClass: Vipa\JournalBundle\Entity\ArticleRepository
+  table: article
+  type: entity
+  cache:
+    usage: NONSTRICT_READ_WRITE
+  id:
+    id:
+      generator:
+        strategy: AUTO
+      id: true
+      type: integer
+  lifecycleCallbacks: {}
+  manyToOne:
+    journal:
+      targetEntity: Journal
+      joinColumn:
+        name: journal_id
+        referencedColumnName: id
+      inversedBy: articles
+      fetch: EXTRA_LAZY
+    section:
+      targetEntity: Section
+      joinColumn:
+        name: section_id
+        referencedColumnName: id
+      inversedBy: articles
+    issue:
+      targetEntity: Issue
+      joinColumn:
+        name: issue_id
+        referencedColumnName: id
+      inversedBy: articles
+      fetch: EAGER
+      cache:
+        usage: NONSTRICT_READ_WRITE
+    articleType:
+      targetEntity: Vipa\JournalBundle\Entity\ArticleTypes
+      joinColumn:
+        name: article_type_id
+        referencedColumnName: id
+      fetch: EXTRA_LAZY
+    submitterUser:
+      targetEntity: Vipa\UserBundle\Entity\User
+      joinColumn:
+        name: submitter_id
+        referencedColumnName: id
+      cascade: ["persist"]
+    language:
+      targetEntity: Vipa\JournalBundle\Entity\Lang
+      joinColumn:
+        name: article_lang_id
+        referencedColumnName: id
+  oneToMany:
+    attributes:
+      targetEntity: ArticleAttribute
+      mappedBy: article
+      cascade: ["persist", "remove"]
+      indexBy: attribute
+    articleAuthors:
+      orderBy: { 'authorOrder': 'ASC' }
+      targetEntity: ArticleAuthor
+      mappedBy: article
+      cascade: ["persist", "remove"]
+    articleFiles:
+      targetEntity: ArticleFile
+      mappedBy: article
+      cascade: ["persist", "remove"]
+    articleSubmissionFiles:
+      targetEntity: Vipa\JournalBundle\Entity\ArticleSubmissionFile
+      mappedBy: article
+      cascade: ["persist", "remove"]
+    statistics:
+      targetEntity: Vipa\AnalyticsBundle\Entity\ArticleStatistic
+      mappedBy: article
+      cascade: ["persist", "remove"]
+  manyToMany:
+    catalogs:
+      targetEntity: Vipa\JournalBundle\Entity\Catalog
+      cascade: ["persist", "remove"] ## Is cascade.remove only removes reference from pivot table?
+      joinTable:
+          name: article_catalogs
+          joinColumns:
+              article_id:
+                  referencedColumnName: id
+          inverseJoinColumns:
+              catalog_id:
+                  referencedColumnName: id
+    subjects:
+      targetEntity: Vipa\JournalBundle\Entity\Subject
+      cascade: ["persist"]
+      joinTable:
+        name: article_subject
+        joinColumns:
+          article_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          subject_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+      fetch: EXTRA_LAZY
+      cascade: ["persist", "remove"]
+    citations:
+      targetEntity: Citation
+      inversedBy: articles
+      orderBy: { 'orderNum': 'ASC' }
+      joinTable:
+        name: article_citation
+        inverseJoinColumns:
+          citation_id:
+            referencedColumnName: id
+            onDelete: cascade
+        joinColumns:
+          article_id:
+            referencedColumnName: id
+            onDelete: cascade
+      cascade: ["persist"]
+  fields:
+    titleTransliterated:
+      column: title_transliterated
+      length: 255
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    primaryLanguage:
+      column: primary_language
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    orderNum:
+      type: integer
+      options:
+        default: 0
+      nullable: true
+      gedmo:
+        - versioned
+    status:
+      type: integer
+      options:
+        default: 0
+      nullable: true
+      gedmo:
+        - versioned
+    setupFinished:
+      type: boolean
+      options:
+        default: 1
+      nullable: true
+    abstractTransliterated:
+      column: abstract_transliterated
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    doi:
+      length: 255
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    doiStatus:
+      type: integer
+      options: {"default" : 0}
+    doiRequestTime:
+      column: doi_request_time
+      type: datetime
+      nullable: true
+    firstPage:
+      column: first_page
+      type: integer
+      nullable: true
+      gedmo:
+        - versioned
+    anonymous:
+      column: is_anonymous
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+    lastPage:
+      column: last_page
+      type: integer
+      nullable: true
+      gedmo:
+        - versioned
+    otherId:
+      column: other_id
+      length: 255
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    header:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    submissionDate:
+      column: submission_date
+      type: datetime
+      nullable: true
+    acceptanceDate:
+      column: acceptance_date
+      type: datetime
+      nullable: true
+    pubdate:
+      type: datetime
+      nullable: true
+      gedmo:
+          - versioned
+    pubdateSeason:
+      column: pubdate_season
+      length: 255
+      type: string
+      nullable: true
+    slug:
+      type: string
+      length: 40
+      nullable: true
+      gedmo:
+        slug:
+          seperator: _
+          fields:
+            - id
+    uri:
+      length: 255
+      type: string
+      nullable: true
+    note:
+      type: text
+      nullable: true
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    deletedAt:
+      type: date
+      nullable: true
+    createdBy:
+      type: string
+      nullable: true
+      gedmo:
+        blameable:
+          on: create
+    updatedBy:
+      type: string
+      nullable: true
+      gedmo:
+        blameable:
+          on: update
+    viewCount:
+      type: integer
+      nullable: true
+      column: view_count
+      options:
+        default: 0
+    downloadCount:
+      type: integer
+      nullable: true
+      column: download_count
+      options:
+        default: 0
+    numerator:
+      type: integer
+      nullable: true
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+    loggable: true
+  indexes:
+    doix:
+      columns: doi

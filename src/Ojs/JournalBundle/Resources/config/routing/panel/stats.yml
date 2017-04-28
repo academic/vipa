@@ -1,5 +1,0 @@
-ojs_journal_stats_index:
-    path:     /{journalId}/stats
-    defaults: { _controller: "OjsJournalBundle:Stats:index" }
-    options:
-        expose: true

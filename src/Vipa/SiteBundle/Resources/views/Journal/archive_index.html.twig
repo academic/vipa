@@ -1,0 +1,99 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.archives'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = 1 %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .thumbnail {
+            float: left;
+            margin-left: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% if isJournalHosting is defined and isJournalHosting == true %}
+    {% set journalUrl = url('journal_hosting') %}
+{% else %}
+    {% set journalUrl = generateJournalUrl(journal) %}
+{% endif %}
+
+{% block breadcrumb %}
+    {% if isJournalHosting is defined and isJournalHosting == true %}
+    {% set list = [
+    {'link': journalUrl, 'title': journal.title},
+    {'title': "archive"|trans}
+    ] %}
+{% else %}
+{% set list = [
+    {'link': path('vipa_public_index'), 'title': project_name},
+    {'link': journalUrl, 'title': journal.title},
+    {'title': "archive"|trans}
+    ] %}
+{% endif %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <!-- The carousel -->
+        <div class="page-header">
+            <h1>{{ journal.title }}</h1>
+            <h6>{{ journal.subtitle }}</h6>
+        </div>
+        <div class="row">
+            <div class="col-md-9 col-sm-8">
+                {% for year in groupedIssues|keys %}
+                    <div class="panel panel-default" id="issues_list">
+                        <div class="panel-heading toggle-list">
+                            <a class="panel-title archive-year-title btn-block" data-toggle="collapse"
+                               data-parent="#issues_list" href="#issue_of_{{ year }}">
+                                {{ year }}
+                                <span class="pull-right fa fa-list"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body collapse" id="issue_of_{{ year }}">
+                            {% for issue in groupedIssues[year] %}
+                                <div class="thumbnail">
+                                    <a class="btn" href="{% if isJournalHosting is defined and isJournalHosting == true %}
+                                            {{ url('journal_hosting_issue',{id: issue.id}) }}
+                                        {% else %}
+                                            {{ url('vipa_issue_page',{journal_slug:journal.slug,id:issue.id}) }}
+                                        {% endif %}">
+
+                                        {% if issue.cover is not null %}
+                                            <img src="{{ issue.cover|imagine_filter('issue_cover_medium') }}"
+                                                 class="img-responsive tr"/>
+                                        {% endif %}
+
+                                        {% if issue.inPress %}
+                                            <small>({{ 'issue.in_press'|trans }})</small>
+                                            <br>
+                                        {% endif %}
+
+                                         <p>{{ issueTextGenerate(issue) }}</p>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        {{ 'vipa.any_content'|trans }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                {% include 'VipaSiteBundle:Journal:journal_right_block.html.twig' %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        analytics.increase('journal', {{ journal.id }})
+    </script>
+{% endblock %}

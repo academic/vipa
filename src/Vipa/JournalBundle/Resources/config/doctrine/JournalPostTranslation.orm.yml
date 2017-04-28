@@ -1,0 +1,19 @@
+Vipa\JournalBundle\Entity\JournalPostTranslation:
+    type: entity
+    table: journal_post_translations
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+          type: string
+          length: 255
+          nullable: false
+        content:
+          type: text
+          nullable: false

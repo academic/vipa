@@ -1,0 +1,7 @@
+vipa_site_download_article:
+  path: /article-file/{articleFile}
+  defaults: { _controller: "VipaSiteBundle:Download:articleFile" }
+
+vipa_site_download_issue:
+  path: /issue-file/{issueFile}
+  defaults: { _controller: "VipaSiteBundle:Download:issueFile" }

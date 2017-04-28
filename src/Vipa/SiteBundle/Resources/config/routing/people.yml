@@ -1,0 +1,4 @@
+vipa_site_people_index:
+    path:     /{page}
+    host:     "%base_host%"
+    defaults: { _controller: "VipaSiteBundle:People:index", page: 1 }

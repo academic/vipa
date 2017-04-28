@@ -1,0 +1,45 @@
+Vipa\AdminBundle\Entity\AdminPage:
+    type: entity
+    table: admin_page
+    repositoryClass: Vipa\AdminBundle\Entity\AdminPageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        tags:
+            type: string
+            length: 255
+        visible:
+            type: boolean
+            nullable: true
+        slug:
+            type: string
+            length: 255
+            unique: true
+            gedmo:
+                slug:
+                    seperator: _
+                    fields:
+                      - id
+        created:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: create
+        updated:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: update
+        deletedAt:
+           type: date
+           nullable: true
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false
+        loggable: true
+    lifecycleCallbacks: {  }

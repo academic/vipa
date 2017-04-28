@@ -1,0 +1,38 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.journal_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('vipa_admin_journal_index'),'title': 'journal.manager'|trans},
+    {'title': 'edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+
+    <h1>{{ "journal.edit"|trans }}</h1><br>
+    <h5>{{ 'journal'|trans }}: {{ entity }}</h5><hr>
+    {% include '::flashbag.html.twig' %}
+    {{ form(edit_form) }}
+    <div class="record_actions">
+        {% set back_path = 'vipa_admin_journal_index' %}
+        {% include '::actionbuttons.html.twig' %}
+        <a class="btn btn-success btn-sm" href="{{ path('vipa_journal_dashboard_index', { 'journalId': entity.id }) }}">
+            {{ 'manage.journal'|trans }}
+        </a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ form_javascript(edit_form) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(edit_form) }}
+
+{% endblock %}

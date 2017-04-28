@@ -1,0 +1,34 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.institution_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('vipa_admin_institution_index'),'title': 'title.institutions'|trans},
+    {'title': 'title.institution_new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+
+    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {{ form_errors(form) }}
+
+    {{ form_widget(form) }}
+    <button type="submit" id="vipa_userbundle_user_submit" class="btn btn-primary">
+        {{ "c"|trans }}
+    </button>
+    {{ form_end(form) }}
+    {% set back_path = 'vipa_admin_institution_index' %}
+    {% include '::actionbuttons.html.twig' %}
+
+{% endblock %}

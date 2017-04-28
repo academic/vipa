@@ -1,0 +1,30 @@
+vipa_admin_institution_index:
+    path:  /
+    defaults: { _controller: "VipaAdminBundle:AdminInstitution:index" }
+
+vipa_admin_institution_show:
+    path:  /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminInstitution:show" }
+
+vipa_admin_institution_new:
+    path:  /new
+    defaults: { _controller: "VipaAdminBundle:AdminInstitution:new" }
+
+vipa_admin_institution_create:
+    path:  /create
+    defaults: { _controller: "VipaAdminBundle:AdminInstitution:create" }
+    methods: [POST]
+
+vipa_admin_institution_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminInstitution:edit" }
+
+vipa_admin_institution_update:
+    path:  /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminInstitution:update" }
+    methods:  [PUT]
+
+vipa_admin_institution_delete:
+    path:  /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminInstitution:delete" }
+    methods:  [DELETE]

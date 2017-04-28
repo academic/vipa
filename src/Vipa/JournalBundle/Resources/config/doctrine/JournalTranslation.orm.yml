@@ -1,0 +1,37 @@
+Vipa\JournalBundle\Entity\JournalTranslation:
+    type: entity
+    table: journal_translations
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+        subtitle:
+            type: string
+            length: 255
+            nullable: true
+        description:
+            type: text
+            nullable: true
+        titleAbbr:
+            type: string
+            length: 255
+            column: title_abbr
+            nullable: true
+        footerText:
+            type: text
+            nullable: true
+            column: footer_text
+        mailSignature:
+            type: string
+            length: 255
+            nullable: true
+            column: mail_signature

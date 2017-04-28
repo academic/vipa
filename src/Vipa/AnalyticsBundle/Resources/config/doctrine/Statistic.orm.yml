@@ -1,0 +1,17 @@
+Vipa\AnalyticsBundle\Entity\Statistic:
+    type: entity
+    table: statistic
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+        name: discriminator
+        type: string
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: date
+    lifecycleCallbacks: {  }

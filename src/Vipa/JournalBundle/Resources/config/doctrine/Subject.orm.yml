@@ -1,0 +1,113 @@
+Vipa\JournalBundle\Entity\Subject:
+    type: entity
+    table: subject
+    repositoryClass: Vipa\JournalBundle\Entity\SubjectRepository
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        lft:
+            type: integer
+            gedmo:
+              - treeLeft
+        rgt:
+            type: integer
+            gedmo:
+              - treeRight
+        root:
+            type: integer
+            nullable: true
+            gedmo:
+              - treeRoot
+        lvl:
+            type: integer
+            gedmo:
+              - treeLevel
+        slug:
+            type: string
+            length: 255
+            gedmo:
+                slug:
+                    seperator: _
+                    fields:
+                      - id
+        totalJournalCount:
+            column: total_journal_count
+            nullable: TRUE
+            options:
+                default: 0
+            type: integer
+        created:
+            type: datetime
+            nullable: true
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+        tags:
+            type: string
+            nullable: true
+    manyToMany:
+        users:
+            targetEntity: Vipa\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: subjects
+            inversedBy: null
+            joinTable: {  }
+            orderBy: null
+        journals:
+            targetEntity: Vipa\JournalBundle\Entity\Journal
+            cascade: {  }
+            mappedBy: subjects
+            inversedBy: null
+            joinTable: {  }
+            orderBy: null
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        loggable: true
+        tree:
+            type: nested
+    lifecycleCallbacks: {  }
+    manyToOne:
+        parent:
+            targetEntity: Subject
+            inversedBy: children
+            joinColumn:
+                name: parent_id
+                referencedColumnName: id
+                onDelete: CASCADE
+            gedmo:
+              - treeParent
+
+    oneToMany:
+        children:
+            targetEntity: Subject
+            mappedBy: parent
+            orderBy:
+                lft: ASC
+            cache:
+                usage: NONSTRICT_READ_WRITE

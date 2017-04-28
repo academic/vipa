@@ -1,0 +1,26 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.journal_index_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_index_index', {'journalId': selectedJournal().id}),'title': 'journalindex.list'|trans},
+    {'title': 'title.journal_index_new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.journal_index_new'|trans }}</h1>
+
+    {{ form(form) }}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+
+    <a class="btn btn-default" href="{{ path('vipa_journal_index_index', {'journalId': selectedJournal().id}) }}">
+        {{ 'b'|trans }}
+    </a>
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,27 @@
+Vipa\JournalBundle\Entity\Block:
+  type: entity
+  table: blocks
+  repositoryClass: Vipa\JournalBundle\Entity\BlockRepository
+  cache:
+      usage: NONSTRICT_READ_WRITE
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  manyToOne:
+      journal:
+          targetEntity: Journal
+          joinColumn:
+            name: journal_id
+            referencedColumnName: id
+          cascade: ["persist","merge"]
+  fields:
+    color:
+      type: string
+      nullable: true
+    blockOrder:
+      column: block_order
+      type: integer
+      nullable: true

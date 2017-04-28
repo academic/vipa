@@ -1,0 +1,19 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'global.themes'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_theme_index', {'journalId': selectedJournal().id}),'title': 'journal.theme'|trans},
+    {'title': 'global.themes'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
+    <h1>{{ 'global.themes'|trans }}</h1>
+    {{ grid(globalThemesGrid) }}
+    <h1>{{ 'global.journal.themes'|trans }}</h1>
+    {{ grid(globalJournalThemesGrid) }}
+{% endblock %}

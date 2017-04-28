@@ -1,0 +1,30 @@
+vipa_admin_contact_index:
+    path:  /
+    defaults: { _controller: "VipaAdminBundle:AdminContact:index" }
+
+vipa_admin_contact_show:
+    path:  /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminContact:show" }
+
+vipa_admin_contact_new:
+    path:  /new
+    defaults: { _controller: "VipaAdminBundle:AdminContact:new" }
+
+vipa_admin_contact_create:
+    path:  /create
+    defaults: { _controller: "VipaAdminBundle:AdminContact:create" }
+    methods: [POST]
+
+vipa_admin_contact_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminContact:edit" }
+
+vipa_admin_contact_update:
+    path:  /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminContact:update" }
+    methods: [PUT]
+
+vipa_admin_contact_delete:
+    path:  /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminContact:delete" }
+    methods: [DELETE]

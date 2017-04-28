@@ -1,0 +1,19 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.publisher_type_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('vipa_admin_publisher_type_index'),'title': 'title.publisher_types'|trans},
+    {'title': 'title.publisher_type_new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "publishertype.new"|trans }}</h1>
+
+    <a href="{{ path('vipa_admin_publisher_type_index') }}">{{ "b"|trans }}</a>
+    {{ form(form) }}
+{% endblock %}

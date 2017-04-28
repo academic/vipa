@@ -2,13 +2,13 @@
 * * * * * [PROJECT_PATH]/app/console swiftmailer:spool:send
 
 # sync mail events in every 5 day
-0 2 */5 * * [PROJECT_PATH]/app/console ojs:mail:events:sync
+0 2 */5 * * [PROJECT_PATH]/app/console vipa:mail:events:sync
 
 # sync mail events descriptions
-1 2 */15 * * [PROJECT_PATH]/app/console ojs:mail:events:sync --sync-desc
+1 2 */15 * * [PROJECT_PATH]/app/console vipa:mail:events:sync --sync-desc
 
 # normalize last issues in every 5 day once time
-0 2 */5 * * [PROJECT_PATH]/app/console ojs:normalize:last:issues
+0 2 */5 * * [PROJECT_PATH]/app/console vipa:normalize:last:issues
 
 # sync journals submission checklists
-0 */2 * * * [PROJECT_PATH]/app/console ojs:sync:submission-checklist
+0 */2 * * * [PROJECT_PATH]/app/console vipa:sync:submission-checklist

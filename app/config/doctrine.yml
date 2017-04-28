@@ -15,12 +15,12 @@ doctrine:
     orm:
         dql:
             string_functions:
-                translation_agg: Ojs\CoreBundle\Query\PostgreSQL\TranslationAgg
-                role_agg: Ojs\CoreBundle\Query\PostgreSQL\JournalRoleAgg
+                translation_agg: Vipa\CoreBundle\Query\PostgreSQL\TranslationAgg
+                role_agg: Vipa\CoreBundle\Query\PostgreSQL\JournalRoleAgg
         auto_generate_proxy_classes: false
         auto_mapping: true
         resolve_target_entities:
-            Symfony\Component\Security\Core\User\UserInterface: Ojs\UserBundle\Entity\User
+            Symfony\Component\Security\Core\User\UserInterface: Vipa\UserBundle\Entity\User
         mappings:
             gedmo_translatable:
                 type: annotation

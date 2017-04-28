@@ -1,0 +1,25 @@
+Vipa\JournalBundle\Entity\JournalAnnouncement:
+    table: journal_announcement
+    type: entity
+    repositoryClass: Vipa\JournalBundle\Entity\JournalAnnouncementRepository
+    manyToOne:
+        journal:
+            targetEntity: Vipa\JournalBundle\Entity\Journal
+            joinColumn:
+                name: journal_id
+                referencedColumnName: id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+        content:
+            type: text
+            nullable: true
+    lifecycleCallbacks: {  }

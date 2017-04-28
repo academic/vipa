@@ -1,0 +1,30 @@
+vipa_admin_subject_index:
+    path:  /
+    defaults: { _controller: "VipaAdminBundle:AdminSubject:index" }
+
+vipa_admin_subject_show:
+    path:  /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminSubject:show" }
+
+vipa_admin_subject_new:
+    path:  /new
+    defaults: { _controller: "VipaAdminBundle:AdminSubject:new" }
+
+vipa_admin_subject_create:
+    path:  /create
+    defaults: { _controller: "VipaAdminBundle:AdminSubject:create" }
+    methods: [POST]
+
+vipa_admin_subject_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminSubject:edit" }
+
+vipa_admin_subject_update:
+    path:  /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminSubject:update" }
+    methods:  [PUT]
+
+vipa_admin_subject_delete:
+    path:  /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminSubject:delete" }
+    methods:  [DELETE]

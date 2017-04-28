@@ -1,0 +1,25 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.submission_file_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_file_index', {'journalId': selectedJournal().id}),'title': 'submission_file.show'|trans},
+    {'title': 'title.submission_file_edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.submission_file_edit'|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ form(edit_form) }}
+
+    {{
+    actions({
+        'back': {'href': path('vipa_journal_file_index', {'journalId': selectedJournal().id})}
+    })
+    }}
+
+    {{ getLogs(entity) }}
+{% endblock %}

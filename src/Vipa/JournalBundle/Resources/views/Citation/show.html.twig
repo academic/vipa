@@ -1,0 +1,31 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.citation_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'title': 'title.citations'|trans},
+        {'title': 'title.citation_show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h2>{{ 'title.citation_show'|trans }}</h2>
+
+    {{ display(entity) }}
+    {% set eventContent = twigEventDispatch({'event_name': 'VIPA_SUBMISSION_CITATION_VIEW', 'citation': entity}) %}
+    {% if eventContent is not empty %}
+        <table class="table">
+            {{ eventContent|raw }}
+        </table>
+    {% endif %}
+
+    {{
+        actions({
+            'back': {'href': path('vipa_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
+            'edit': {'href': path('vipa_journal_citation_edit', {'id': entity.id, 'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
+            'delete': {'href': path('vipa_journal_citation_delete', {'id': entity.id, 'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+        })
+    }}
+{% endblock %}

@@ -1,0 +1,175 @@
+Vipa\JournalBundle\Entity\Institution:
+    type: entity
+    table: institution
+    repositoryClass: Vipa\JournalBundle\Entity\InstitutionRepository
+    cache:
+        usage: NONSTRICT_READ_WRITE
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    oneToMany:
+        children:
+            targetEntity: Institution
+            mappedBy: parent
+            orderBy:
+                  lft: ASC
+        institutionContacts:
+            targetEntity: Vipa\JournalBundle\Entity\JournalContact
+            mappedBy: institution
+    manyToOne:
+        institutionType:
+            targetEntity: Vipa\JournalBundle\Entity\PublisherTypes
+            joinColumn:
+                name: institution_type_id
+                referencedColumnName: id
+        country:
+            targetEntity: BulutYazilim\LocationBundle\Entity\Country
+            joinColumn:
+                  name: country_id
+                  referencedColumnName: id
+        parent:
+              targetEntity: Institution
+              inversedBy: children
+              joinColumn:
+                    name: parent_id
+                    referencedColumnName: id
+                    onDelete: CASCADE
+              gedmo:
+                - treeParent
+    fields:
+        lft:
+           type: integer
+           gedmo:
+             - treeLeft
+        rgt:
+           type: integer
+           gedmo:
+             - treeRight
+        root:
+           type: integer
+           nullable: true
+           gedmo:
+             - treeRoot
+        lvl:
+           type: integer
+           gedmo:
+             - treeLevel
+        name:
+            type: string
+            length: 255
+            gedmo:
+                - versioned
+        address:
+            type: text
+            nullable: TRUE
+            gedmo:
+                - versioned
+        city:
+            type: text
+            nullable: true
+
+        addressLat:
+            type: string
+            length: 255
+            column: address_lat
+            nullable: TRUE
+            gedmo:
+                  - versioned
+        addressLong:
+            type: string
+            length: 255
+            column: address_long
+            nullable: TRUE
+            gedmo:
+                - versioned
+        phone:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
+        fax:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
+        email:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
+        domain:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
+        url:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
+        wiki:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                  - versioned
+        #IMAGES
+        logo:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
+        header:
+            type: string
+            length: 255
+            nullable: true
+            gedmo:
+                - versioned
+        #IMAGES#
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+           nullable: true
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+           nullable: true
+        tags:
+            type: string
+            nullable: true
+            gedmo:
+                  - versioned
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        loggable: true
+        tree:
+             type: nested
+    lifecycleCallbacks: {  }

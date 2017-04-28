@@ -1,0 +1,50 @@
+# This is common Vipa app parameters
+parameters:
+    # languages with ISO 639-1 codes
+    languages:
+        tr:
+            name: Türkçe
+            code: tr
+        en:
+            name: English
+            code: en
+    roles:
+        - 
+            role: ROLE_JOURNAL_MANAGER
+            desc: Journal Manager
+        - 
+            role: ROLE_SUBSCRIPTION_MANAGER
+            desc: Subscription Manager
+        - 
+            role: ROLE_EDITOR
+            desc: Editor
+        -
+            role: ROLE_CO_EDITOR
+            desc: Co-Editor
+        -
+            role: ROLE_SECTION_EDITOR
+            desc: Section Editor
+        - 
+            role: ROLE_LAYOUT_EDITOR
+            desc: Layout Editor
+        -
+            role: ROLE_REVIEWER
+            desc: Reviewer
+        -
+            role: ROLE_COPYEDITOR
+            desc: Copyeditor
+        - 
+            role: ROLE_PROOFREADER
+            desc: Proofreader
+        - 
+            role: ROLE_AUTHOR
+            desc: Author
+        - 
+            role: ROLE_READER
+            desc: Reader
+        -
+            role: ROLE_USER
+            desc: User
+        -
+            role: ROLE_SECRETARY
+            desc: Secretary

@@ -1,0 +1,77 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.publisher_application'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = 1 %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .graphics-panel .control-label {
+            text-align: left !important;
+            font-size: 14px;
+            padding: 5px 0 !important;
+        }
+    </style>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('vipa_public_index'), 'title': project_name},
+    {'title': 'application.publisher.apply'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <!-- Page Content -->
+        <h1 class="page-header">{{ "application.publisher.apply"|trans }}</h1>
+        {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
+        {% for label, flashes in app.session.flashbag.all %}
+            {% for flash in flashes %}
+                <div class="alert alert-{{ label }}">
+                    {{ flash }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>{{ "publisher.about"|trans }}</h4></div>
+            <div class="panel-body">
+                {{ form_errors(form) }}
+
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h4>{{ "application.basic"|trans }}</h4></div>
+                    <div class="panel-body">
+                        {% for field in [form.publisherType, form.translations, form.tags] %}
+                            {{ form_row(field) }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h4>{{ "application.contact"|trans }}</h4></div>
+                    <div class="panel-body">
+                        {% for field in [form.phone, form.fax, form.email, form.address, form.country,
+                        form.addressLat, form.addressLong, form.url, form.wiki,] %}
+                            {{ form_row(field) }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="panel panel-info graphics-panel">
+                    <div class="panel-heading"><h4>{{ "application.graphics"|trans }}</h4></div>
+                    <div class="panel-body">
+                        {{ form_row(form.logo) }}
+                        {{ form_row(form.header) }}
+                    </div>
+                </div>
+
+                <button type="submit" id="vipa_journalbundle_issue_submit" class="btn btn-success pull-right">
+                    {{ "apply"|trans }}
+                </button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

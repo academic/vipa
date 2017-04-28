@@ -1,0 +1,22 @@
+{% extends '::vipabase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.contacts'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'title': 'title.contacts'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.contacts'|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    <a href="{{ path('vipa_admin_contact_new') }}" class="btn btn-success">
+        {{ "c"|trans }}
+    </a>
+
+    <hr>
+    {{ grid(grid) }}
+{% endblock %}

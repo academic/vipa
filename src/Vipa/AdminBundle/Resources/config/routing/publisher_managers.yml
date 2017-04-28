@@ -1,0 +1,30 @@
+vipa_admin_publisher_managers_index:
+    path:  /
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherManagers:index" }
+
+vipa_admin_publisher_managers_show:
+    path:  /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherManagers:show" }
+
+vipa_admin_publisher_managers_new:
+    path:  /new
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherManagers:new" }
+
+vipa_admin_publisher_managers_create:
+    path:  /create
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherManagers:create" }
+    methods: [POST]
+
+vipa_admin_publisher_managers_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherManagers:edit" }
+
+vipa_admin_publisher_managers_update:
+    path:  /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherManagers:update" }
+    methods:  [PUT]
+
+vipa_admin_publisher_managers_delete:
+    path:  /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherManagers:delete" }
+    methods:  [DELETE]

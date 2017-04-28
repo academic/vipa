@@ -1,0 +1,12 @@
+\Vipa\JournalBundle\Entity\Author:
+  author1:
+    currentLocale: en
+    address: Ankara, Turkey
+    email: info@vipa.io
+    firstName: Vipa
+    initials: OA
+    lastName: Author
+    biography: This is a virtual author for Vipa Help Journal.
+    title: 1
+    institution: '@institution'
+    user(unique): '@user_author'

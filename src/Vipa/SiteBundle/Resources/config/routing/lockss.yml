@@ -1,0 +1,15 @@
+vipa_journal_lockss_index:
+    path: /{slug}/lockss-manifest
+    host: "%base_host%"
+    defaults: { _controller: "VipaSiteBundle:Lockss:index" }
+
+vipa_journal_lockss_vol:
+    path: /{slug}/lockss-manifest/vol_{year}
+    host: "%base_host%"
+    defaults: { _controller: "VipaSiteBundle:Lockss:vol" }
+
+vipa_journal_lockss_vol_month:
+    path: /{slug}/lockss-manifest/vol_{year}/{month}
+    host: "%base_host%"
+    defaults: { _controller: "VipaSiteBundle:Lockss:month" }
+

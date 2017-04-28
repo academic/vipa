@@ -1,0 +1,215 @@
+parameters:
+    vipa_journal.dashboard_controller.class: "VipaJournalBundle:Dashboard"
+
+services:
+  vipa.journal_service:
+    class: Vipa\JournalBundle\Service\JournalService
+    arguments:
+      - "@doctrine.orm.entity_manager"
+      - "@session"
+      - "@router"
+      - "@security.token_storage"
+      - "@request_stack"
+      - "%defaultPublisherSlug%"
+
+  journal.orm_event_listener:
+    class: Vipa\JournalBundle\Listeners\AclOrmListener
+    arguments: ["@service_container"]
+    tags:
+        - { name: doctrine.event_listener, event: postPersist }
+
+  form.type.journal_users_type:
+    class: Vipa\JournalBundle\Form\Type\JournalUsersFieldType
+    arguments: ["@vipa.journal_service"]
+    tags:
+        - { name: form.type, alias: journal_users_type }
+
+  vipa.serializationlistener:
+    class: Vipa\CoreBundle\Listeners\SerializationListener
+    arguments: []
+    tags:
+        - { name: jms_serializer.event_subscriber }
+  vipa.journal.subscription_subscriber:
+    class: Vipa\JournalBundle\Listeners\SubscriptionSubscriber
+    arguments: ["@doctrine.orm.entity_manager", "@vipa_mailer"]
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.journal_item:
+    class: Vipa\JournalBundle\Listeners\AbstractJournalItemMailer
+    abstract: true
+    arguments: ["@vipa_mailer", "@doctrine", "@security.token_storage", "@router"]
+
+  vipa.mail_listener.journal:
+    class: Vipa\JournalBundle\Listeners\JournalMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.article:
+    class: Vipa\JournalBundle\Listeners\ArticleMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.journal_announcement:
+    class: Vipa\JournalBundle\Listeners\JournalAnnouncementMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.journal_post:
+    class: Vipa\JournalBundle\Listeners\JournalPostMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.journal_page:
+    class: Vipa\JournalBundle\Listeners\JournalPageMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.issue:
+    class: Vipa\JournalBundle\Listeners\IssueMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.section:
+    class: Vipa\JournalBundle\Listeners\SectionMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.board:
+    class: Vipa\JournalBundle\Listeners\BoardMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.journal_contact:
+    class: Vipa\JournalBundle\Listeners\JournalContactMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.journal_index:
+    class: Vipa\JournalBundle\Listeners\JournalIndexMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.journal_submission_file:
+    class: Vipa\JournalBundle\Listeners\JournalSubmissionFileMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.journal_submission_checklist:
+    class: Vipa\JournalBundle\Listeners\JournalSubmissionChecklistMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+  vipa.mail_listener.journal_user:
+    class: Vipa\JournalBundle\Listeners\JournalUserMailer
+    parent: vipa.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
+
+#  journal.numerator_orm_subscriber:
+#    class: Vipa\JournalBundle\Listeners\NumeratorOrmSubscriber
+#    tags:
+#        - { name: doctrine.event_listener, event: postPersist }
+
+  vipa_journal.article_events:
+    class: Vipa\JournalBundle\Event\Article\ArticleEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.board_events:
+    class: Vipa\JournalBundle\Event\Board\BoardEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.design_events:
+    class: Vipa\JournalBundle\Event\Design\DesignEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.index_events:
+    class: Vipa\JournalBundle\Event\Index\IndexEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.issue_events:
+    class: Vipa\JournalBundle\Event\Issue\IssueEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.journal_application_events:
+    class: Vipa\JournalBundle\Event\Journal\JournalEvents
+
+  vipa_journal.journal_events:
+    class: Vipa\JournalBundle\Event\JournalEvents
+
+  vipa_journal.journal_announcement_events:
+    class: Vipa\JournalBundle\Event\JournalAnnouncement\JournalAnnouncementEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.journal_contact_events:
+    class: Vipa\JournalBundle\Event\JournalContact\JournalContactEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.journal_index_events:
+    class: Vipa\JournalBundle\Event\JournalIndex\JournalIndexEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.journal_page_events:
+    class: Vipa\JournalBundle\Event\JournalPage\JournalPageEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.journal_post_events:
+    class: Vipa\JournalBundle\Event\JournalPost\JournalPostEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.journal_submission_checklist_events:
+    class: Vipa\JournalBundle\Event\JournalSubmissionChecklist\JournalSubmissionChecklistEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.journal_submission_file_events:
+    class: Vipa\JournalBundle\Event\JournalSubmissionFile\JournalSubmissionFileEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.journal_user_events:
+    class: Vipa\JournalBundle\Event\JournalUser\JournalUserEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.section_events:
+    class: Vipa\JournalBundle\Event\Section\SectionEvents
+    tags:
+      - { name: vipa.mail.event}
+
+  vipa_journal.citation_events:
+    class: Vipa\JournalBundle\Event\CitationEvents
+
+  vipa_journal.menu_events:
+    class: Vipa\JournalBundle\Event\MenuEvents
+
+  vipa_journal.workflow_events:
+    class: Vipa\JournalBundle\Event\WorkflowEvents
+
+  vipa.journal.validation.issn:
+    class: Vipa\JournalBundle\Validator\JournalIssnValidator
+    arguments: ["@doctrine.orm.entity_manager"]
+    tags:
+      - { name: validator.constraint_validator, alias: vipa_journal_validation_issn }

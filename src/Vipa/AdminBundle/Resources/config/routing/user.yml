@@ -1,0 +1,44 @@
+vipa_admin_user_index:
+    path:     /
+    defaults: { _controller: "VipaAdminBundle:AdminUser:index" }
+
+vipa_admin_user_show:
+    path:  /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminUser:show" }
+
+vipa_admin_user_new:
+    path:  /new
+    defaults: { _controller: "VipaAdminBundle:AdminUser:new" }
+
+vipa_admin_user_create:
+    path:  /create
+    defaults: { _controller: "VipaAdminBundle:AdminUser:create" }
+
+vipa_admin_user_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminUser:edit" }
+
+vipa_admin_user_update:
+    path:  /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminUser:update" }
+    methods:  [PUT]
+
+vipa_admin_user_block:
+    path: /{id}/block
+    defaults: { _controller: "VipaAdminBundle:AdminUser:block" }
+
+vipa_admin_user_unblock:
+    path: /{id}/unblock
+    defaults: { _controller: "VipaAdminBundle:AdminUser:unblock" }
+
+vipa_admin_user_password:
+    path:  /{id}/password
+    defaults: { _controller: "VipaAdminBundle:AdminUser:changePassword" }
+
+vipa_admin_user_merge:
+    path:  /merge
+    defaults: { _controller: "VipaAdminBundle:AdminUser:merge", user: null }
+
+vipa_admin_user_primary_merge:
+    path:  /{id}/merge
+    defaults: { _controller: "VipaAdminBundle:AdminUser:merge" }

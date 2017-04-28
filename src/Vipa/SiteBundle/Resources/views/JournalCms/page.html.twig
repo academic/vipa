@@ -1,0 +1,39 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ journalPage.title }} &raquo; {{ journalPage.journal.title }} {{ parent() }}{% endblock %}
+{% set hideleft = true %}
+
+{% block body -%}
+
+    <div class="container">
+        {% if isJournalHosting is defined and isJournalHosting == true %}
+            {% set list = [
+            {'link': path('journal_hosting'), 'title': journalPage.journal.title},
+            {'title': journalPage.title }
+            ] %}
+        {% else %}
+            {% set list = [
+            {'link': path('vipa_journal_index', {'slug': journalPage.journal.slug}), 'title': journalPage.journal.title},
+            {'title': journalPage.title }
+            ] %}
+        {% endif %}
+        {{ breadcrumb(list) }}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>{{ journalPage.title }}</h3>
+                {% include '::flashbag.html.twig' %}
+            </div>
+            <div class="panel-body">
+                <p>
+                    {{ journalPage.body|raw }}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        analytics.increase('post', {{ journalPage.id }})
+    </script>
+{% endblock %}

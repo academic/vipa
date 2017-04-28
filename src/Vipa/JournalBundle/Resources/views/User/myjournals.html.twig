@@ -1,0 +1,46 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.editor_myjournals'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    { 'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans },
+    { 'title': 'title.editor_myjournals'|trans }
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'title.editor_myjournals'|trans }}</h1>
+    {% if entities %}
+        <table class="records_list  table">
+            <thead>
+            <tr>
+                <th>{{ "journal"|trans }}</th>
+                <th>{{ "role.singular"|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>
+                        <a href="{{ path('vipa_journal_dashboard_index', { 'journalId': entity.journal.id }) }}">
+                            <span class="badge">#{{ entity.journal.id }}</span>
+                            {{ entity.journal.title }}
+                        </a>
+                    </td>
+                    <td>
+                        {% for role in entity.roles %}
+                            <span class="label label-info">{{ role.name }}</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+
+        <div class="alert alert-warning">
+            <p>{{ "journal.any_have"|trans }}</p>
+        </div>
+    {% endif %}
+{% endblock %}

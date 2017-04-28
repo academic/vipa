@@ -1,9 +1,0 @@
-Ojs\JournalBundle\Entity\BoardTranslation:
-  properties:
-    name:
-      - NotBlank: ~
-
-Ojs\JournalBundle\Entity\Board:
-    properties:
-        translations:
-            - Valid: ~

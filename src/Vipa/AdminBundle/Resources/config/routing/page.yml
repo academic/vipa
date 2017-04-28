@@ -1,0 +1,29 @@
+vipa_admin_page_index:
+    path:     /
+    defaults: { _controller: "VipaAdminBundle:AdminPage:index" }
+
+vipa_admin_page_show:
+    path:     /{id}/show
+    defaults: { _controller: "VipaAdminBundle:AdminPage:show" }
+
+vipa_admin_page_new:
+    path:     /new
+    defaults: { _controller: "VipaAdminBundle:AdminPage:new" }
+
+vipa_admin_page_create:
+    path:     /create
+    defaults: { _controller: "VipaAdminBundle:AdminPage:create" }
+    methods: [POST]
+
+vipa_admin_page_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VipaAdminBundle:AdminPage:edit" }
+
+vipa_admin_page_update:
+    path:     /{id}/update
+    defaults: { _controller: "VipaAdminBundle:AdminPage:update" }
+    methods: [POST,PUT]
+
+vipa_admin_page_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VipaAdminBundle:AdminPage:delete" }

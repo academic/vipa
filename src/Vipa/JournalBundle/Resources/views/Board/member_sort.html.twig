@@ -1,0 +1,38 @@
+{% extends '::vipabase.html.twig' %}
+{% block title %}{{ 'title.member_sort'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_board_show', {'journalId': selectedJournal().id,'id': boardId}),'title': 'title.board_show'|trans},
+        {'title': 'title.member_sort'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'sort.members'|trans }}</h1>
+    {{ include('::flashbag.html.twig') }}
+    <div class="row">
+        <form method="post" action="{{ path('vipa_journal_board_member_sort', {'journalId': selectedJournal().id,'boardId': boardId}) }}">
+            <div class="col-sm-4 col-sm-push-4 well">
+                <ul id="sortable" class="list-group">
+                    <input type="hidden" value='{{ jsonSortData|raw }}' name="sortData"/>
+                    {% for member in members %}
+                        <li class="list-group-item" data-id="{{ member.id }}">
+                            <h5>
+                                <i class="fa fa-arrows-v" aria-hidden="true"></i>
+                                {{ member.user }}
+                            </h5>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button class="btn btn-primary pull-right">
+                    {{ 'update'|trans }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {{ actions({'back': {'href': path('vipa_journal_board_member_sort', {'journalId': selectedJournal().id,'boardId': boardId})}}) }}
+{% endblock %}

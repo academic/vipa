@@ -1,0 +1,8 @@
+\Vipa\JournalBundle\Entity\PublisherDesign:
+  publisherDesign:
+      title: Publisher Design
+      public: false
+      content: "html{}"
+      editableContent: "html{}"
+      publisher: '@default'
+
