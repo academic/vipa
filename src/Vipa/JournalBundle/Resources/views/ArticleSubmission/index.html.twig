@@ -1,9 +1,9 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.submissions'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-    { 'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans },
-    { 'link': path('ojs_journal_submission_me', {journalId: selectedJournal().id}), 'title': 'article.mysubmits'|trans }
+    { 'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans },
+    { 'link': path('vipa_journal_submission_me', {journalId: selectedJournal().id}), 'title': 'article.mysubmits'|trans }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -12,17 +12,17 @@
     {% include '::flashbag.html.twig' %}
     <h2>{{ 'title.submissions'|trans }}</h2>
     {% if is_granted('CREATE', selectedJournal()) %}
-        <a href="{{ path('ojs_journal_submission_start', {journalId: selectedJournal().id}) }}" class="btn btn-success">
+        <a href="{{ path('vipa_journal_submission_start', {journalId: selectedJournal().id}) }}" class="btn btn-success">
             {{ "article.submit"|trans }}
         </a>
     {% endif %}
 
     <hr>
     <div class="btn-group">
-        <a class="btn {% if all == false %}btn-info{% else %}btn-default{% endif %}" href="{{ path('ojs_journal_submission_me', {journalId: selectedJournal().id}) }}">{{ "article.mysubmits"|trans }}</a>
+        <a class="btn {% if all == false %}btn-info{% else %}btn-default{% endif %}" href="{{ path('vipa_journal_submission_me', {journalId: selectedJournal().id}) }}">{{ "article.mysubmits"|trans }}</a>
         {% if is_granted('EDIT', selectedJournal()) %}
             <a class="btn {% if all %}btn-info{% else %}btn-default{% endif %}"
-               href="{{ path('ojs_journal_submission_all', {journalId: selectedJournal().id}) }}">{{ "article.all"|trans }}</a>
+               href="{{ path('vipa_journal_submission_all', {journalId: selectedJournal().id}) }}">{{ "article.all"|trans }}</a>
         {% endif %}
     </div>
 

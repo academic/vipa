@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.author_sort'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_article_author_index', {'journalId': selectedJournal().id, 'articleId': articleId}),'title': 'title.article_authors'|trans},
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_article_author_index', {'journalId': selectedJournal().id, 'articleId': articleId}),'title': 'title.article_authors'|trans},
         {'title': 'title.author_sort'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,7 +14,7 @@
     <h1>{{ 'sort.authors'|trans }}</h1>
     {{ include('::flashbag.html.twig') }}
     <div class="row">
-        <form method="post" action="{{ path('ojs_journal_article_author_sort', {'journalId': selectedJournal().id,'articleId': articleId}) }}">
+        <form method="post" action="{{ path('vipa_journal_article_author_sort', {'journalId': selectedJournal().id,'articleId': articleId}) }}">
             <div class="col-sm-4 col-sm-push-4 well">
                 <ul id="sortable" class="list-group">
                     <input type="hidden" value='{{ jsonSortData|raw }}' name="sortData"/>
@@ -34,5 +34,5 @@
         </form>
     </div>
 
-    {{ actions({'back': {'href': path('ojs_journal_article_author_index', {'journalId': selectedJournal().id,'articleId': articleId})}}) }}
+    {{ actions({'back': {'href': path('vipa_journal_article_author_index', {'journalId': selectedJournal().id,'articleId': articleId})}}) }}
 {% endblock %}

@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.issue_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_issue_index', {'journalId': selectedJournal().id}),'title': 'issue'|trans},
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_issue_index', {'journalId': selectedJournal().id}),'title': 'issue'|trans},
     {'title': 'title.issue_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -13,7 +13,7 @@
 {% block body -%}
     <h1>{{ 'title.issue_new'|trans }}</h1>
 
-    <a class="btn btn-default" href="{{ path('ojs_journal_issue_index', {'journalId': selectedJournal().id}) }}">{{ "back"|trans }}</a>
+    <a class="btn btn-default" href="{{ path('vipa_journal_issue_index', {'journalId': selectedJournal().id}) }}">{{ "back"|trans }}</a>
 
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
@@ -26,7 +26,7 @@
     {{ form_errors(form) }}
     {{ form_widget(form) }}
 
-    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+    <button type="submit" id="vipa_userbundle_user_submit" class="btn btn-primary">
         {{ "create"|trans }}
     </button>
     {{ form_end(form) }}

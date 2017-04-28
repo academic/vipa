@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.journal_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_admin_application_journal_index'),'title': 'application.journal'|trans},
+    { 'link': path('vipa_admin_application_journal_index'),'title': 'application.journal'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -29,7 +29,7 @@
             var applicationPublisher = $('.application-publisher');
             var publisherLabel = applicationPublisher.parent().find('.control-label');
             function revisePublisherInput(){
-                var publisherEditValue = '{{ path('ojs_admin_publisher_edit', {id: 9999}) }}'.replace('9999', applicationPublisher.val());
+                var publisherEditValue = '{{ path('vipa_admin_publisher_edit', {id: 9999}) }}'.replace('9999', applicationPublisher.val());
                 if(publisherLabel.find('a').length<1){
                     publisherLabel.append('&nbsp;&nbsp;<a target="_blank">{{ 'publisher.edit'|trans }}</a>');
                 }

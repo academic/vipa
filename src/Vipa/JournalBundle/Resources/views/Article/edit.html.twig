@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.article_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_article_index', {'journalId': entity.journal.id}), 'title': 'article.manager'|trans},
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_article_index', {'journalId': entity.journal.id}), 'title': 'article.manager'|trans},
         {'title': 'title.article_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -19,7 +19,7 @@
     <div class="record_actions">
         {{
             actions({
-                'back': {'href': path('ojs_journal_article_index', {'journalId': entity.journal.id})},
+                'back': {'href': path('vipa_journal_article_index', {'journalId': entity.journal.id})},
             })
         }}
         {{ twigEventDispatch({'event_name': 'OJS_ARTICLE_EDIT_VIEW', entity: entity})|raw }}

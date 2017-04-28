@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.admin_dashboard'|trans }} {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
@@ -45,7 +45,7 @@
                         <tbody>
                         {% for article in articlesMonthly %}
                             <tr>
-                                <td><a href="{{ path('ojs_article_withoutIssue_page',{slug: article.slug, article_id: article.id}) }}">{{ article.title }}</a></td>
+                                <td><a href="{{ path('vipa_article_withoutIssue_page',{slug: article.slug, article_id: article.id}) }}">{{ article.title }}</a></td>
                                 <td>{{ article.view }}</td>
                             </tr>
                         {% endfor %}
@@ -63,7 +63,7 @@
                         <tbody>
                         {% for article in articles %}
                             <tr>
-                                <td><a href="{{ path('ojs_article_withoutIssue_page',{slug: article.slug, article_id: article.id}) }}">{{ article.title }}</a></td>
+                                <td><a href="{{ path('vipa_article_withoutIssue_page',{slug: article.slug, article_id: article.id}) }}">{{ article.title }}</a></td>
                                 <td>{{ article.view }}</td>
                             </tr>
                         {% endfor %}
@@ -91,7 +91,7 @@
                         <tbody>
                         {% for articleFile in articleFilesMonthly %}
                             <tr>
-                                <td><a href="{{ path('ojs_site_download_article', {articleFile: articleFile.id}) }}">{{ articleFile.title }}</a></td>
+                                <td><a href="{{ path('vipa_site_download_article', {articleFile: articleFile.id}) }}">{{ articleFile.title }}</a></td>
                                 <td>{{ articleFile.download }}</td>
                             </tr>
                         {% endfor %}
@@ -109,7 +109,7 @@
                         <tbody>
                         {% for articleFile in articleFiles %}
                             <tr>
-                                <td><a href="{{ path('ojs_site_download_article', {articleFile: articleFile.id}) }}">{{ articleFile.title }}</a></td>
+                                <td><a href="{{ path('vipa_site_download_article', {articleFile: articleFile.id}) }}">{{ articleFile.title }}</a></td>
                                 <td>{{ articleFile.download }}</td>
                             </tr>
                         {% endfor %}
@@ -137,7 +137,7 @@
                         <tbody>
                         {% for issueFile in issueFilesMonthly %}
                             <tr>
-                                <td><a href="{{ path('ojs_site_download_issue',{issueFile: issueFile.id}) }}"></a>{{ issueFile.title }}</td>
+                                <td><a href="{{ path('vipa_site_download_issue',{issueFile: issueFile.id}) }}"></a>{{ issueFile.title }}</td>
                                 <td>{{ issueFile.download }}</td>
                             </tr>
                         {% endfor %}
@@ -155,7 +155,7 @@
                         <tbody>
                         {% for issueFile in issueFiles %}
                             <tr>
-                                <td><a href="{{ path('ojs_site_download_issue',{issueFile: issueFile.id}) }}"></a>{{ issueFile.title }}</td>
+                                <td><a href="{{ path('vipa_site_download_issue',{issueFile: issueFile.id}) }}"></a>{{ issueFile.title }}</td>
                                 <td>{{ issueFile.download }}</td>
                             </tr>
                         {% endfor %}

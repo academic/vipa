@@ -1,10 +1,10 @@
 {% set hideleft = 1 %}
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.journal_setup'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_journal_dashboard_index', {journalId: 1}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_dashboard_index', {journalId: 1}), 'title': 'dashboard'|trans},
     {'title': 'title.journal_setup'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -78,7 +78,7 @@
                         <div class="col-sm-12">
                             <hr/>
                             <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: VipaJournalSetup.step1('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 1}) }}');">
+                               onclick="javascript: VipaJournalSetup.step1('{{ path('vipa_journal_setup_step_control', {setupId: setupId, step: 1}) }}');">
                                 <i class="fa fa-save"></i>
                                 {{ "save.next"|trans }}
                                 <i class="fa fa-chevron-right"></i>
@@ -101,7 +101,7 @@
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: VipaJournalSetup.step2('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 2}) }}');">
+                           onclick="javascript: VipaJournalSetup.step2('{{ path('vipa_journal_setup_step_control', {setupId: setupId, step: 2}) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -123,7 +123,7 @@
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: VipaJournalSetup.step3('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 3}) }}');">
+                           onclick="javascript: VipaJournalSetup.step3('{{ path('vipa_journal_setup_step_control', {setupId: setupId, step: 3}) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -163,7 +163,7 @@
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: VipaJournalSetup.step4('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 4}) }}');">
+                           onclick="javascript: VipaJournalSetup.step4('{{ path('vipa_journal_setup_step_control', {setupId: setupId, step: 4}) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -238,7 +238,7 @@
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: VipaJournalSetup.step5('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 5}) }}');">
+                           onclick="javascript: VipaJournalSetup.step5('{{ path('vipa_journal_setup_step_control', {setupId: setupId, step: 5}) }}');">
                             <i class="fa fa-chevron-right"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -259,7 +259,7 @@
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: VipaJournalSetup.step6('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 6}) }}');">
+                           onclick="javascript: VipaJournalSetup.step6('{{ path('vipa_journal_setup_step_control', {setupId: setupId, step: 6}) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.finish"|trans }}
                             <i class="fa fa-chevron-right"></i>

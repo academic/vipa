@@ -1,12 +1,12 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% import "::design_macros.html.twig" as macros %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.design_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_design_index', {'journalId': selectedJournal().id}),'title': 'journal.design'|trans},
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_design_index', {'journalId': selectedJournal().id}),'title': 'journal.design'|trans},
     {'title': 'title.design_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -50,7 +50,7 @@
         {% include template_from_string( entity.editableContent|raw ) %}
     </div>
 
-    <a class="btn btn-default btn-sm" href="{{ path('ojs_journal_design_index', {journalId: selectedJournal().id}) }}" title="{{"b"|trans}}">
+    <a class="btn btn-default btn-sm" href="{{ path('vipa_journal_design_index', {journalId: selectedJournal().id}) }}" title="{{"b"|trans}}">
         <i class="fa fa-arrow-left"></i>
     </a>
 
@@ -147,12 +147,12 @@
                 }
             });
 
-            $('#ojs_journalbundle_design_submit').attr('type', 'button')
+            $('#vipa_journalbundle_design_submit').attr('type', 'button')
                     .on('click', function(){
                 gm.deinitCanvas();
                 $('.holder-remove').removeAttr("src").removeAttr("data-holder-rendered");
-                $('#ojs_journalbundle_design_editableContent').val($("#" + gm.options.canvasId).html());
-                $("form[name='ojs_journalbundle_design']").submit();
+                $('#vipa_journalbundle_design_editableContent').val($("#" + gm.options.canvasId).html());
+                $("form[name='vipa_journalbundle_design']").submit();
             });
         });
 

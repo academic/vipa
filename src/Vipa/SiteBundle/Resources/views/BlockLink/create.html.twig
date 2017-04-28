@@ -1,9 +1,9 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.block_link_create'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
+    {'link': path('vipa_public_index'), 'title': project_name},
     {'title': 'blocklink'|trans},
     {'title': "create"|trans }
     ] %}

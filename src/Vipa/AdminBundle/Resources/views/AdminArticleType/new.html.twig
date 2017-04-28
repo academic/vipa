@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.article_type_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_admin_article_type_index'),'title': 'article.types'|trans},
+    { 'link': path('vipa_admin_article_type_index'),'title': 'article.types'|trans},
     {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,6 +15,6 @@
     <h1>{{ "article.type.new"|trans }}</h1>
 
     {{ form(form) }}
-    {% set back_path = 'ojs_admin_article_type_index' %}
+    {% set back_path = 'vipa_admin_article_type_index' %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}

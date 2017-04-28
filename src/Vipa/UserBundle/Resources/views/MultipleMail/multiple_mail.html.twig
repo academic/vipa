@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.multiple_mail'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'User'|trans},
-    { 'link': path('ojs_admin_user_index'), 'title': 'user.update_profile'|trans},
+    { 'link': path('vipa_admin_user_index'), 'title': 'user.update_profile'|trans},
     { 'title': 'user.multiple_mail'|trans},
     ] %}
     {{ breadcrumb(list) }}
@@ -22,7 +22,7 @@
                 <div class="record_actions">
                     {% include '::flashbag.html.twig' %}
                     <br/>
-                    <a class="btn btn-success" href="{{ url('ojs_user_multiple_mail_add') }}">{{ "c"|trans }}</a>
+                    <a class="btn btn-success" href="{{ url('vipa_user_multiple_mail_add') }}">{{ "c"|trans }}</a>
                     <br/>
                     <br/>
                     <table class="table table-responsive table-bordered">
@@ -39,7 +39,7 @@
                                 <td>
                                     <a class="btn-xs btn btn-danger"
                                        onclick="return confirm('{% trans %}sure{% endtrans %}');"
-                                       href="{{ path('ojs_user_multiple_mail_delete', { 'id': entity.id}) }}">
+                                       href="{{ path('vipa_user_multiple_mail_delete', { 'id': entity.id}) }}">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>

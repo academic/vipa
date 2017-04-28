@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.submission_checklist_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block  stylesheets %}
@@ -8,8 +8,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_checklist_index', {'journalId': selectedJournal().id}),'title': 'submission_checklist.show'|trans},
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_checklist_index', {'journalId': selectedJournal().id}),'title': 'submission_checklist.show'|trans},
     {'title': 'title.submission_checklist_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -21,7 +21,7 @@
     {{ form(form) }}
 
     {{ actions({
-        'back': {'href': path('ojs_journal_checklist_index', {'journalId': selectedJournal().id})},
+        'back': {'href': path('vipa_journal_checklist_index', {'journalId': selectedJournal().id})},
     }) }}
 {% endblock %}
 

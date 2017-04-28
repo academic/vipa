@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ post.title }} {{ parent() }}{% endblock %}
 {% set hideleft = true %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': 'home'|trans},
+        {'link': path('vipa_public_index'), 'title': 'home'|trans},
         {'title': post.title}
     ] %}
     {{ breadcrumb(list) }}

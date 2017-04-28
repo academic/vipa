@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.article'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% set isDoiValid = article.isDoiValid %}
@@ -14,10 +14,10 @@
                 ] %}
         {% else %}
             {% set list = [
-            {'link': path('ojs_public_index'), 'title': project_name},
+            {'link': path('vipa_public_index'), 'title': project_name},
             {'link': journal.publicURI,'title': article.journal.title},
             {'link': archive_uri, 'title': "archive"|trans},
-            {'link': path('ojs_issue_page',
+            {'link': path('vipa_issue_page',
             {journal_slug:journal.slug,id: article.issue.id}),
             'title': "volume"|trans ~ " " ~ article.issue.volume ~ ", " ~ "issue"|trans ~ " " ~ article.issue.number },
             ] %}
@@ -30,7 +30,7 @@
             ] %}
         {% else %}
             {% set list = [
-            {'link': path('ojs_public_index'), 'title': project_name},
+            {'link': path('vipa_public_index'), 'title': project_name},
             {'link': journal.publicURI,'title': article.journal.title},
             {'link': archive_uri, 'title': "archive"|trans}
             ] %}
@@ -50,7 +50,7 @@
                                 {{ "volume"|trans }} {{ article.issue.volume }}, {{ "issue"|trans }} {{ article.issue.number }},
                             </a>
                         {% else %}
-                            <a href="{{ url('ojs_issue_page', {journal_slug:journal.slug,id: article.issue.id}) }}">
+                            <a href="{{ url('vipa_issue_page', {journal_slug:journal.slug,id: article.issue.id}) }}">
                                 {{ "volume"|trans }} {{ article.issue.volume }}, {{ "issue"|trans }} {{ article.issue.number }},
                             </a>
                         {% endif %}
@@ -95,7 +95,7 @@
                             {% if article.articleFiles|length > 0 %}
                                 {% for file in article.articleFiles %}
                                     {% if file.type == 0 %}
-                                        <a href="{{ path('ojs_site_download_article', {articleFile: file.id}) }}"
+                                        <a href="{{ path('vipa_site_download_article', {articleFile: file.id}) }}"
                                            class="btn btn-sm btn-link" target="_blank"><i
                                                     class="fa fa-file-pdf-o"></i> {{ file.title }}
                                             <small>
@@ -117,7 +117,7 @@
                                 {% for authorsInfo in article.articleAuthors %}
                                     <small>
                                         {% if authorsInfo.author.user is not empty %}
-                                            <a href="{{ path('ojs_user_profile', {slug: authorsInfo.author.user.username}) }}">
+                                            <a href="{{ path('vipa_user_profile', {slug: authorsInfo.author.user.username}) }}">
                                                 <span class="author">{{ authorsInfo.author.fullName }}</span>
                                             </a>
                                         {% else %}
@@ -126,7 +126,7 @@
 
                                         {% if article.issue %}
                                         <sup>
-                                            <a href="{{ path('ojs_article_page', {
+                                            <a href="{{ path('vipa_article_page', {
                                                 issue_id: article.issue.id,
                                                 article_id: article.id,
                                                 slug: journal.slug
@@ -351,7 +351,7 @@
                     {% if article.articleFiles|length > 0 %}
                         <div id="articlePreview">
                             {% for file in article.articleFiles %}
-                                <a href="{{ path('ojs_site_download_article', {articleFile: file.id}) }}"
+                                <a href="{{ path('vipa_site_download_article', {articleFile: file.id}) }}"
                                    class="btn btn-lg btn-primary" target="_blank"><i
                                             class="fa fa-download"></i> {{ articleFileType[file.type]|trans }}
                                     <small>
@@ -370,7 +370,7 @@
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
             <div class="list-group journal-stats">
                 {% if isJournalHosting is defined and isJournalHosting == true %}
-                    <a href="{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                    <a href="{{ path('vipa_journal_submission_start',{"journalId":journal.id}) }}"
                        class="list-group-item list-group-item-success">
                         <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                     </a>
@@ -393,7 +393,7 @@
                         <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
                     </a>
                 {% else %}
-                    <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                    <a href="//{{ base_host }}{{ path('vipa_journal_submission_start',{"journalId":journal.id}) }}"
                        class="list-group-item list-group-item-success">
                         <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                     </a>
@@ -402,16 +402,16 @@
                        class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                     </a>
 
-                    <a href="{{ url('ojs_journal_index_board',{slug: journal.slug})  }}"
+                    <a href="{{ url('vipa_journal_index_board',{slug: journal.slug})  }}"
                        class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "board"|trans }}</h5>
                     </a>
 
-                    <a href="{{ url('ojs_journal_contacts',{slug: journal.slug}) }}"
+                    <a href="{{ url('vipa_journal_contacts',{slug: journal.slug}) }}"
                        class="list-group-item ">
                         <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
                     </a>
 
-                    <a href="{{ url('ojs_announcement_index',{slug: journal.slug}) }}"
+                    <a href="{{ url('vipa_announcement_index',{slug: journal.slug}) }}"
                        class="list-group-item ">
                         <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
                     </a>
@@ -419,7 +419,7 @@
 
                 <div class="list-group-item ">
                     <form role="search"
-                          action="{{ path('ojs_journal_subscribe',{slug: journal.slug}) }}"
+                          action="{{ path('vipa_journal_subscribe',{slug: journal.slug}) }}"
                           method="post">
                         <div class="input-group">
                             <input type="text" class="form-control"

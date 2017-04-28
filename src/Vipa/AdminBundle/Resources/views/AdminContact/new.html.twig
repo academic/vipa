@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.contact_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_admin_contact_index'), 'title': 'title.contact_new'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_contact_index'), 'title': 'title.contact_new'|trans},
         {'title': 'title.contact_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,5 +15,5 @@
     <h1>{{ 'title.journal_contact_new'|trans }}</h1>
 
     {{ form(form) }}
-    {{ actions({'back': {'href': path('ojs_admin_contact_index')}}) }}
+    {{ actions({'back': {'href': path('vipa_admin_contact_index')}}) }}
 {% endblock %}

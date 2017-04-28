@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.publisher_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_user_index'), 'title': 'user_page'|trans},
+        {'link': path('vipa_user_index'), 'title': 'user_page'|trans},
     {'title': 'title.publisher_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -22,7 +22,7 @@
         <div id="locationpicker" style="width: 100%; height: 400px;"></div>
     </div>
 
-    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+    <button type="submit" id="vipa_userbundle_user_submit" class="btn btn-primary">
         {{ "save"|trans }}
     </button>
     {{ form_end(form) }}

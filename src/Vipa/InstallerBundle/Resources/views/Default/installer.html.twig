@@ -116,21 +116,21 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" {% if data.page == 'home' %}class="active"{% endif %}><a
-                            href="{{ url('ojs_installer_homepage') }}">1. {{ "installer.menu.home"|trans }}</a></li>
+                            href="{{ url('vipa_installer_homepage') }}">1. {{ "installer.menu.home"|trans }}</a></li>
                 <li role="presentation" {% if data.page == 'check' %}class="active"{% endif %}><a
-                            href="{{ url('ojs_installer_check') }}">2. {{ "installer.menu.check"|trans }}</a></li>
+                            href="{{ url('vipa_installer_check') }}">2. {{ "installer.menu.check"|trans }}</a></li>
                 <li role="presentation" {% if data.page == 'config' %}class="active"{% endif %}><a
-                            href="{{ url('ojs_installer_configure') }}">3. {{ "installer.menu.configure"|trans }}</a>
+                            href="{{ url('vipa_installer_configure') }}">3. {{ "installer.menu.configure"|trans }}</a>
                 </li>
                 <li role="presentation" {% if data.page == 'setup' %}class="active"{% endif %}><a
-                            href="{{ url('ojs_installer_setup') }}">4. {{ "installer.menu.setup"|trans }}</a></li>
+                            href="{{ url('vipa_installer_setup') }}">4. {{ "installer.menu.setup"|trans }}</a></li>
                 <li role="presentation" {% if data.page == 'summary' %}class="active"{% endif %}><a
-                            href="{{ url('ojs_installer_summary') }}">5. {{ "installer.menu.summary"|trans }}</a></li>
+                            href="{{ url('vipa_installer_summary') }}">5. {{ "installer.menu.summary"|trans }}</a></li>
             </ul>
 
 
         </nav>
-        <h3 class="text-muted">{{ "ojs.etup"|trans }}</h3>
+        <h3 class="text-muted">{{ "vipa.etup"|trans }}</h3>
     </div>
 
     {% block body %}
@@ -138,7 +138,7 @@
     {% endblock %}
 
     <footer class="footer">
-        <p>&copy; <a href="http://ojs.io">OJS.io</a> 2014</p>
+        <p>&copy; <a href="http://vipa.io">OJS.io</a> 2014</p>
     </footer>
 
 </div>

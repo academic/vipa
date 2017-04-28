@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.journal_role_myjournals'|trans }} {{ parent() }}{% endblock %}
 
@@ -16,7 +16,7 @@
         {% for user in journalUsers %}
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <a href="{{ path('ojs_journal_user_leave', {'journalId': user.journal.id}) }}"
+                <a href="{{ path('vipa_journal_user_leave', {'journalId': user.journal.id}) }}"
                    class="btn btn-danger btn-labeled pull-right">
                     <span class="btn-label">
                         <i class="fa fa-sign-out"></i>
@@ -27,7 +27,7 @@
             </div>
             <div class="panel-body">
                 {% for role in user.roles %}
-                    <a href="{{ path('ojs_journal_user_leave_role', {'journalId': user.journal.id, 'roleId': role.id}) }}"
+                    <a href="{{ path('vipa_journal_user_leave_role', {'journalId': user.journal.id, 'roleId': role.id}) }}"
                        class="btn btn-danger btn-labeled confirmation">
                         <span class="btn-label">
                             <i class="fa fa-trash"></i>

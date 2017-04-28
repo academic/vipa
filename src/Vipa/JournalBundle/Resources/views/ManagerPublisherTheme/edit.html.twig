@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.publisher_theme_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_user_index'), 'title': 'user_page'|trans},
-    {'link': path('ojs_publisher_manager_theme_index', {publisherId: publisher.id}),'title': 'title.publisher_theme'|trans},
+        {'link': path('vipa_user_index'), 'title': 'user_page'|trans},
+    {'link': path('vipa_publisher_manager_theme_index', {publisherId: publisher.id}),'title': 'title.publisher_theme'|trans},
     {'title': 'title.publisher_theme_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -16,9 +16,9 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
     {# @todo revise there
-    {% set back_path = 'ojs_publisher_manager_theme_index' %}
+    {% set back_path = 'vipa_publisher_manager_theme_index' %}
     {% if isGrantedForPublisher() %}
-        {% set delete_path = 'ojs_publisher_manager_theme_delete' %}
+        {% set delete_path = 'vipa_publisher_manager_theme_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
     #}

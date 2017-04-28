@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.last_articles'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
@@ -17,9 +17,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
+    {'link': path('vipa_public_index'), 'title': project_name},
     {'link':generateJournalUrl(journal), 'title': journal.title},
-    {'link':url('ojs_archive_index',{slug: journal.slug,publisher: journal.publisher.slug}), 'title': "archive"|trans}
+    {'link':url('vipa_archive_index',{slug: journal.slug,publisher: journal.publisher.slug}), 'title': "archive"|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -59,7 +59,7 @@
                             {% for article in articles %}
                                 {% if article.issue is not empty %}
                                     <li class="list-group-item list-group-item-default">
-                                        <a href="{{ url('ojs_article_page',{article_id: article.id,
+                                        <a href="{{ url('vipa_article_page',{article_id: article.id,
                                             slug: journal.slug, issue_id: article.issue.id}) }}"><i
                                                     class="fa fa-file-text"></i> {{ article.title }}
                                         </a><br/>
@@ -76,7 +76,7 @@
 
                 {% else %}
                     <div class="alert alert-info">
-                        {{ ojs.any_content|trans }}
+                        {{ vipa.any_content|trans }}
                     </div>
                 {% endif %}
             </div>

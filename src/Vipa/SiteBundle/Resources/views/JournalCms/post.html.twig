@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ post.title }} &raquo; {{ post.journal.title }} {{ parent() }}{% endblock %}
 {% set hideleft = true %}
 
@@ -6,7 +6,7 @@
 
     <div class="container">
         {% set list = [
-        {'link': path('ojs_journal_index', {'slug': post.journal.slug}), 'title': post.journal.title},
+        {'link': path('vipa_journal_index', {'slug': post.journal.slug}), 'title': post.journal.title},
             {'title': post.title }
         ] %}
         {{ breadcrumb(list) }}

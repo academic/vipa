@@ -112,15 +112,15 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" {% if data.page == 'home' %}class="active"{% endif %}><a
-                            href="{{ url('ojs_installer_update') }}">1. {{ "installer.menu.update"|trans }}</a></li>
+                            href="{{ url('vipa_installer_update') }}">1. {{ "installer.menu.update"|trans }}</a></li>
                 <li role="presentation" {% if data.page == 'update' %}class="active"{% endif %}><a
-                            href="{{ url('ojs_installer_update_confirm') }}">2. {{ "installer.menu.update_confirm"|trans }}</a>
+                            href="{{ url('vipa_installer_update_confirm') }}">2. {{ "installer.menu.update_confirm"|trans }}</a>
                 </li>
             </ul>
 
 
         </nav>
-        <h3 class="text-muted">{{ "ojs.updater"|trans }}</h3>
+        <h3 class="text-muted">{{ "vipa.updater"|trans }}</h3>
     </div>
 
     {% block body %}
@@ -128,7 +128,7 @@
     {% endblock %}
 
     <footer class="footer">
-        <p>&copy; <a href="http://ojs.io">OJS.io</a> 2014</p>
+        <p>&copy; <a href="http://vipa.io">OJS.io</a> 2014</p>
     </footer>
 
 </div>

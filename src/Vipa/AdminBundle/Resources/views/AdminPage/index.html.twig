@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.pages'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
         {'title': 'title.pages'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,7 +15,7 @@
     {% include '::flashbag.html.twig' %}
 
     {% if is_granted('CREATE', getEntity('VipaAdminBundle:AdminAnnouncement')) %}
-        <a href="{{ path('ojs_admin_page_new') }}" class="btn btn-success">
+        <a href="{{ path('vipa_admin_page_new') }}" class="btn btn-success">
             {{ "create"|trans }}
         </a>
     {% endif %}

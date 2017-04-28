@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.connected_account'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'User'|trans},
-    { 'link': path('ojs_admin_user_index'), 'title': 'user.update_profile'|trans},
+    { 'link': path('vipa_admin_user_index'), 'title': 'user.update_profile'|trans},
     { 'title': 'user.custom_fields'|trans},
     ] %}
     {{ breadcrumb(list) }}
@@ -64,7 +64,7 @@
                                 <td>
                                     <a class="btn-xs btn btn-danger"
                                        onclick="return confirm('{% trans %}sure{% endtrans %}');"
-                                       href="{{ path('ojs_user_connected_account_delete', { 'id': entity.id}) }}">
+                                       href="{{ path('vipa_user_connected_account_delete', { 'id': entity.id}) }}">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>

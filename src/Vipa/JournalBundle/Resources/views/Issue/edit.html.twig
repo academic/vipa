@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.issue_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_issue_index', {'journalId': selectedJournal().id}),'title': 'issue'|trans},
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_issue_index', {'journalId': selectedJournal().id}),'title': 'issue'|trans},
     {'title': 'title.issue_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -12,7 +12,7 @@
 
 {% block body -%}
     <h1>{{ 'title.issue_edit'|trans }}</h1>
-    <a href="{{ path('ojs_journal_issue_file_index', {journalId: entity.journal.id, issueId: entity.id}) }}" class="btn btn-primary">
+    <a href="{{ path('vipa_journal_issue_file_index', {journalId: entity.journal.id, issueId: entity.id}) }}" class="btn btn-primary">
         {{ 'title.issue_files'|trans }}
     </a>
 
@@ -21,7 +21,7 @@
     {{ form_errors(edit_form) }}
     {{ form_widget(edit_form) }}
 
-    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+    <button type="submit" id="vipa_userbundle_user_submit" class="btn btn-primary">
         {{ "save"|trans }}
     </button>
     {{ form_end(edit_form) }}

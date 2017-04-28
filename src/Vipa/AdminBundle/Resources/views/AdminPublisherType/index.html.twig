@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.publisher_types'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
     { 'title': 'title.publisher_types'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,7 +15,7 @@
     {% include '::flashbag.html.twig' %}
 
     {% if is_granted('CREATE', getEntity('VipaJournalBundle:PublisherTypes')) %}
-        <a href="{{ path('ojs_admin_publisher_type_new') }}" class="btn btn-success">
+        <a href="{{ path('vipa_admin_publisher_type_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}

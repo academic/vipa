@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.submission_new'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
@@ -29,7 +29,7 @@
             <ul class="nav nav-pills nav-justified submission-progress" id="article-submission-steps">
                 <li id="submission-progress-step1" class="active">
                     <a class="btn btn-block"
-                       href="{{ path('ojs_journal_submission_start', {journalId: selectedJournal().id}) }}">
+                       href="{{ path('vipa_journal_submission_start', {journalId: selectedJournal().id}) }}">
                         1.
                         {{ "submission.starting"|trans }}
                         <i class="fa fa-arrow-right"></i>

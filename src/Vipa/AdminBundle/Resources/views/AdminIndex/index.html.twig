@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.indexes'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
     {'title': 'title.indexes'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,7 +14,7 @@
     <h1>{{ 'index.list'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
 
-    <a href="{{ path('ojs_admin_index_new') }}" class="btn btn-success">
+    <a href="{{ path('vipa_admin_index_new') }}" class="btn btn-success">
         {{ 'c'|trans }}
     </a>
 

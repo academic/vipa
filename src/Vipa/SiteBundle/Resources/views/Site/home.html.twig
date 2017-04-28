@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.home'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
@@ -13,14 +13,14 @@
         <section role="presentation">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <a href="{{ path("ojs_public_index") }}"><img id="logo" src="{{ ojs_logo }}"/></a>
+                    <a href="{{ path("vipa_public_index") }}"><img id="logo" src="{{ vipa_logo }}"/></a>
                 </div>
             </div>
         </section>
         <section role="search" id="search_section">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <form action="{{ path('ojs_search_index') }}" method="get">
+                    <form action="{{ path('vipa_search_index') }}" method="get">
                         <div class="input-group">
                             <input type="text" name="q" class="form-control" value=""
                                    placeholder="{{ "search.on.everywhere" | trans({'%project_name%' : project_name}) }}"
@@ -71,7 +71,7 @@
                         {% endif %}
 
                         {% if app.request.attributes.get('_system_setting').publisherApplicationActive %}
-                            <a href="{{ url("ojs_apply_publisher") }}"
+                            <a href="{{ url("vipa_apply_publisher") }}"
                                class="btn btn-primary  btn-labeled">
                                     <span class="btn-label pull-left">
                                         <i class="fa fa-institution fa-fw"></i>
@@ -80,7 +80,7 @@
                             </a>
                         {% endif %}
                         {% if app.request.attributes.get('_system_setting').journalApplicationActive %}
-                            <a href="{{ url('ojs_apply_journal') }}" class="btn btn-primary btn-labeled">
+                            <a href="{{ url('vipa_apply_journal') }}" class="btn btn-primary btn-labeled">
                                     <span class="btn-label pull-left">
                                         <i class="fa fa-book fa-fw"></i>
                                     </span>
@@ -139,7 +139,7 @@
                         {% for post in posts %}
                             <li>
                                 <i class="fa-li fa fa-file-text-o"></i>
-                                <a href="{{ path('ojs_site_cms_post', {'slug': post.slug}) }}">
+                                <a href="{{ path('vipa_site_cms_post', {'slug': post.slug}) }}">
                                     <h5>{{ post.title }}</h5>
                                 </a>
                             </li>

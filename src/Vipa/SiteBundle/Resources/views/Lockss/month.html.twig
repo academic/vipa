@@ -10,7 +10,7 @@
 <ol>
     {% for article in articles %}
     <li style="b">
-        <a href="{{ path('ojs_article_withoutIssue_page', {slug: journal.slug, article_id: article.id}) }}">
+        <a href="{{ path('vipa_article_withoutIssue_page', {slug: journal.slug, article_id: article.id}) }}">
             {{ article.doi }}
         </a>
     </li>

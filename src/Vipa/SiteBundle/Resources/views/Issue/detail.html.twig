@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.issue_detail'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
@@ -16,7 +16,7 @@
         ] %}
     {% else %}
         {% set list = [
-        {'link': path('ojs_public_index'), 'title': project_name},
+        {'link': path('vipa_public_index'), 'title': project_name},
         {'link': journalUrl, 'title': issue.journal.title},
         {'title': 'issue'|trans}
         ] %}
@@ -88,7 +88,7 @@
                                                             article_id: article.id,
                                                             issue_id: issue.id}) }}
                                                 {% else %}
-                                                    {{ url('ojs_article_page', {article_id: article.id,
+                                                    {{ url('vipa_article_page', {article_id: article.id,
                                                         slug: issue.journal.slug,
                                                         issue_id: issue.id}) }}
                                                 {% endif %}">
@@ -99,7 +99,7 @@
                                             {% endif %}
                                             <div class="pull-right">
                                                 {% for file in article.articleFiles %}
-                                                    <a href="{{ path('ojs_site_download_article', {articleFile: file.id}) }}"
+                                                    <a href="{{ path('vipa_site_download_article', {articleFile: file.id}) }}"
                                                        target="_blank">
                                                         {{ file.title }}
                                                     </a>
@@ -125,7 +125,7 @@
                 </ul>
                 {%  if issue.fullFile is not empty %}
                     <div class="panel-footer text-center">
-                        <a href="{{ path('ojs_public_index') }}uploads/issuefiles/{{ issue.fullFile }}" class="btn btn-success" target="_blank">{{ 'issue.full_file'|trans }}</a>
+                        <a href="{{ path('vipa_public_index') }}uploads/issuefiles/{{ issue.fullFile }}" class="btn btn-success" target="_blank">{{ 'issue.full_file'|trans }}</a>
                     </div>
                 {% endif %}
             </div>
@@ -139,7 +139,7 @@
                     <ul class="list-group">
                         {% for file in issue.issueFiles %}
                             <li class="list-group-item">
-                                <a href="{{ url('ojs_site_download_issue', {issueFile: file.id}) }}">
+                                <a href="{{ url('vipa_site_download_issue', {issueFile: file.id}) }}">
                                     <i class="fa fa-download"></i> {{ file.title }}
                                 </a>
                             </li>

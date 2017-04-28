@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.publisher_managers_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_admin_publisher_managers_index'),'title': 'title.publisher_managers'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('vipa_admin_publisher_managers_index'),'title': 'title.publisher_managers'|trans},
     {'title': 'title.publisher_managers_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,7 +15,7 @@
     <h1>{{ "publishermanagers.edit"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {% set back_path = 'ojs_admin_publisher_managers_index' %}
+    {% set back_path = 'vipa_admin_publisher_managers_index' %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}

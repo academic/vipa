@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.language_show'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_admin_page_index'),'title': 'title.pages'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_page_index'),'title': 'title.pages'|trans},
         {'title': 'title.page_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -17,10 +17,10 @@
     {{ display(entity) }}
     {{
         actions({
-            'back': {'href': path('ojs_admin_page_index')},
-            'edit': {'href': path('ojs_admin_page_edit', {'id': entity.id})},
+            'back': {'href': path('vipa_admin_page_index')},
+            'edit': {'href': path('vipa_admin_page_edit', {'id': entity.id})},
             'delete': {
-                'href': path('ojs_admin_page_delete', {'id': entity.id}),
+                'href': path('vipa_admin_page_delete', {'id': entity.id}),
                 'permission': is_granted('DELETE', entity),
                 'attributes': {'data-token': token}
             },

@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.publisher'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
@@ -13,7 +13,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
+    {'link': path('vipa_public_index'), 'title': project_name},
     {'title': 'instution'|trans}
     ] %}
     {{ breadcrumb(list) }}

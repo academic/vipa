@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.period_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_admin_period_index'),'title': 'periods'|trans},
+    { 'link': path('vipa_admin_period_index'),'title': 'periods'|trans},
     {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,6 +15,6 @@
     <h1>{{ "period.new"|trans }}</h1>
 
     {{ form(form) }}
-    {% set back_path = 'ojs_admin_period_index' %}
+    {% set back_path = 'vipa_admin_period_index' %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}

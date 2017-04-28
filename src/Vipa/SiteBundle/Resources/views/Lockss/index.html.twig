@@ -9,7 +9,7 @@
 <h1>Publication Years</h1>
 <ul>
     {% for i in 2006.."now"|date("Y") %}
-        <li><a href="{{ path('ojs_journal_lockss_vol', {slug: journal.slug, year: i}) }}">{{ i }}</a></li>
+        <li><a href="{{ path('vipa_journal_lockss_vol', {slug: journal.slug, year: i}) }}">{{ i }}</a></li>
     {% endfor %}
 </ul>
 <em> LOCKSS system has permission to collect, preserve, and serve this open access Archival Unit. </em>  </body>

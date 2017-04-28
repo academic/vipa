@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %} {{ user.title ~' '~ user.firstName ~' '~ user.lastName }} @  {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
+    {'link': path('vipa_public_index'), 'title': project_name},
     {'title': 'user.profile'|trans},
     {'title':  user.title ~' '~ user.firstName ~' '~ user.lastName }
     ] %}
@@ -85,7 +85,7 @@
                         <div class="grid-item journal-item">
                             <div class="views-field-field-journal-cover-fid">
                                 <span class="field-content">
-                                    {% set url =  path('ojs_journal_index', {slug: journal.slug}) %}
+                                    {% set url =  path('vipa_journal_index', {slug: journal.slug}) %}
                                     <a href="{{ url }}">
                                         {% if journal.image is defined and journal.image is not null %}
                                             {% set src = journal.image|imagine_filter('journal_croped') %}
@@ -141,14 +141,14 @@
 
                                 <div class="timeline-label">
                                     <h2>
-                                        <a href="{{ path('ojs_article_page', {
+                                        <a href="{{ path('vipa_article_page', {
                                             slug: article.journal.slug,
                                             issue_id: article.issue.id,
                                             article_id: article.id
                                         }) }}">
                                             <span>{{ article.title(false) }}</span>
                                         </a>@
-                                        <a href="{{ path('ojs_journal_index', {
+                                        <a href="{{ path('vipa_journal_index', {
                                             slug: article.journal.slug
                                         }) }}">
                                             <span>{{ article.journal.title }}</span>

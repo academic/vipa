@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.archives'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
@@ -26,7 +26,7 @@
     ] %}
 {% else %}
 {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
+    {'link': path('vipa_public_index'), 'title': project_name},
     {'link': journalUrl, 'title': journal.title},
     {'title': "archive"|trans}
     ] %}
@@ -59,7 +59,7 @@
                                     <a class="btn" href="{% if isJournalHosting is defined and isJournalHosting == true %}
                                             {{ url('journal_hosting_issue',{id: issue.id}) }}
                                         {% else %}
-                                            {{ url('ojs_issue_page',{journal_slug:journal.slug,id:issue.id}) }}
+                                            {{ url('vipa_issue_page',{journal_slug:journal.slug,id:issue.id}) }}
                                         {% endif %}">
 
                                         {% if issue.cover is not null %}
@@ -80,7 +80,7 @@
                     </div>
                 {% else %}
                     <div class="alert alert-info">
-                        {{ 'ojs.any_content'|trans }}
+                        {{ 'vipa.any_content'|trans }}
                     </div>
                 {% endfor %}
             </div>

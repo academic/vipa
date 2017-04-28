@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.institution_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_admin_institution_index'),'title': 'title.institutions'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('vipa_admin_institution_index'),'title': 'title.institutions'|trans},
     {'title': 'title.institution_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -18,11 +18,11 @@
 
     {{ form_widget(form) }}
 
-    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+    <button type="submit" id="vipa_userbundle_user_submit" class="btn btn-primary">
         {{ "save"|trans }}
     </button>
     {{ form_end(form) }}
-    {% set back_path = 'ojs_admin_institution_index' %}
+    {% set back_path = 'vipa_admin_institution_index' %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}

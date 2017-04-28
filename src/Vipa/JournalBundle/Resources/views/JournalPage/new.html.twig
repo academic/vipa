@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.page_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_page_index', {'journalId': selectedJournal().id}),'title': 'title.pages'|trans},
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_page_index', {'journalId': selectedJournal().id}),'title': 'title.pages'|trans},
         {'title': 'title.page_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -13,5 +13,5 @@
 {% block body -%}
     <h1>{{ 'title.page_new'|trans }}</h1>
     {{ form(form) }}
-    {{ actions({'back': {'href': path('ojs_journal_page_index', {'journalId': selectedJournal().id})}}) }}
+    {{ actions({'back': {'href': path('vipa_journal_page_index', {'journalId': selectedJournal().id})}}) }}
 {% endblock %}

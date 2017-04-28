@@ -1,8 +1,8 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.authors'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
     { 'title': 'title.authors'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -12,7 +12,7 @@
     <h1>{{ 'title.authors'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {% if is_granted('CREATE', getEntity('VipaJournalBundle:Author')) %}
-        <a href="{{ path('ojs_journal_author_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
+        <a href="{{ path('vipa_journal_author_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}

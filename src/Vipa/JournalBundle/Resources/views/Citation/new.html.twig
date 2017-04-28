@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.citation_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'title': 'title.citations'|trans},
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'title': 'title.citations'|trans},
         {'title': 'title.citation_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -17,7 +17,7 @@
 
     {{
         actions({
-            'back': {'href': path('ojs_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
+            'back': {'href': path('vipa_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
         })
     }}
 {% endblock %}

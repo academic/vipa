@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.user_author_register'|trans }} {{ parent() }}{% endblock %}
 
@@ -24,7 +24,7 @@
         {% endfor %}
 
         {% for journal in nonJoined %}
-            <a href="{{ path('ojs_journal_user_register', {'journalId': journal.id}) }}" class="list-group-item">
+            <a href="{{ path('vipa_journal_user_register', {'journalId': journal.id}) }}" class="list-group-item">
                 {{ journal.title }}
                 <span class="label label-primary pull-right">
                     <i class="fa fa-plus"></i>

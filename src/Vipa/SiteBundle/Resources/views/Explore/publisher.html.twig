@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.explore.publisher'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = true %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_site_explore_publisher'), 'title': project_name},
+    {'link': path('vipa_site_explore_publisher'), 'title': project_name},
     {'title': 'explore'|trans}
     ] %}
 
@@ -23,19 +23,19 @@
                                 <li class="list-group-item">
                                     {% if type_filters is empty %}
                                         {% set parameter = type.key %}
-                                        <a href="{{ path('ojs_site_explore_publisher', {type_filters: type.key}) }}">{{ type.key }}</a>
+                                        <a href="{{ path('vipa_site_explore_publisher', {type_filters: type.key}) }}">{{ type.key }}</a>
                                     {% else %}
                                         {% if type.key in type_filters %}
                                             {% set parameter = type_filters|pop(type.key) %}
                                             {{ type.key }}
-                                            <a href="{{ path('ojs_site_explore_publisher', {type_filters: parameter|join(',')}) }}">
+                                            <a href="{{ path('vipa_site_explore_publisher', {type_filters: parameter|join(',')}) }}">
                                         <span class="label label-danger">
                                             <i class="glyphicon glyphicon-remove"></i>
                                         </span>
                                             </a>
                                         {% else %}
                                             {% set parameter = type_filters|merge([type.key]) %}
-                                            <a href="{{ path('ojs_site_explore_publisher', {type_filters: parameter|join(',')}) }}">{{ type.key }}</a>
+                                            <a href="{{ path('vipa_site_explore_publisher', {type_filters: parameter|join(',')}) }}">{{ type.key }}</a>
                                         {% endif %}
                                     {% endif %}
                                     <span class="badge">{{ type.doc_count }}</span>
@@ -49,7 +49,7 @@
 
         <div class="col-md-9 col-sm-9">
             {% for publisher in publishers %}
-                <a class="publisher" href="{{ path('ojs_site_explore_index', {publisher_filters: publisher.name}) }}">
+                <a class="publisher" href="{{ path('vipa_site_explore_index', {publisher_filters: publisher.name}) }}">
                     <span class="publisher-inner">
                         {% if publisher.logo is defined and publisher.logo is not null %}
                             <span class="publisher-logo">

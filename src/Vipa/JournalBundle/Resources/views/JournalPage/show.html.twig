@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.page_show'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_page_index', {'journalId': selectedJournal().id}),'title': 'title.pages'|trans},
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_page_index', {'journalId': selectedJournal().id}),'title': 'title.pages'|trans},
         {'title': 'title.page_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -13,7 +13,7 @@
 {% block body -%}
     <h1>{{ 'title.page_show'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <a href="{{ path('ojs_site_journal_page', {journal_slug:selectedJournal().slug, slug:entity.slug}) }}" class="pull-right btn btn-default">
+    <a href="{{ path('vipa_site_journal_page', {journal_slug:selectedJournal().slug, slug:entity.slug}) }}" class="pull-right btn btn-default">
         {{ "title.page.go"|trans }}
         <i class="fa fa-arrow-right"></i>
     </a>
@@ -21,10 +21,10 @@
 
     {{
         actions({
-            'back': {'href': path('ojs_journal_page_index', {'journalId': selectedJournal().id})},
-            'edit': {'href': path('ojs_journal_page_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+            'back': {'href': path('vipa_journal_page_index', {'journalId': selectedJournal().id})},
+            'edit': {'href': path('vipa_journal_page_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
             'delete': {
-                'href': path('ojs_journal_page_delete', {'id': entity.id, 'journalId': selectedJournal().id}),
+                'href': path('vipa_journal_page_delete', {'id': entity.id, 'journalId': selectedJournal().id}),
                 'permission': is_granted('DELETE', selectedJournal(), 'pages'),
                 'attributes': {'data-token': token}
             },

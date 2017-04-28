@@ -1,9 +1,9 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.article_authors_new'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_article_author_index', {'articleId': article.id, 'journalId': selectedJournal().id}),'title': 'title.article_authors'|trans},
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_article_author_index', {'articleId': article.id, 'journalId': selectedJournal().id}),'title': 'title.article_authors'|trans},
         {'title': 'title.article_authors_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -16,7 +16,7 @@
     {{ form(form) }}
     <ul class="record_actions">
         <li>
-            <a href="{{ path('ojs_journal_article_author_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">
+            <a href="{{ path('vipa_journal_article_author_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">
                 Back to the list
             </a>
         </li>

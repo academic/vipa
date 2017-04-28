@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.publisher_managers_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_admin_publisher_managers_index'),'title': 'title.publisher_managerss'|trans},
+    {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('vipa_admin_publisher_managers_index'),'title': 'title.publisher_managerss'|trans},
     {'title': 'title.publisher_managers_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,6 +14,6 @@
 {% block body -%}
     <h1>{{ "publishermanagers.new"|trans }}</h1>
 
-    <a href="{{ path('ojs_admin_publisher_managers_index') }}">{{ "b"|trans }}</a>
+    <a href="{{ path('vipa_admin_publisher_managers_index') }}">{{ "b"|trans }}</a>
     {{ form(form) }}
 {% endblock %}

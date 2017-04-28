@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.publisher_application'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
@@ -15,7 +15,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
+    {'link': path('vipa_public_index'), 'title': project_name},
     {'title': 'application.publisher.apply'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-success pull-right">
+                <button type="submit" id="vipa_journalbundle_issue_submit" class="btn btn-success pull-right">
                     {{ "apply"|trans }}
                 </button>
             </div>

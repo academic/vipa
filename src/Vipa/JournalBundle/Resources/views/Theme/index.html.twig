@@ -1,9 +1,9 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.themes'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
     {'title': 'title.themes'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -13,10 +13,10 @@
     <h1>{{ 'title.themes'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {% if is_granted('CREATE', selectedJournal(), 'theme') %}
-        <a href="{{ path('ojs_journal_theme_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
+        <a href="{{ path('vipa_journal_theme_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
-        <a href="{{ path('ojs_journal_theme_globals', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
+        <a href="{{ path('vipa_journal_theme_globals', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "global.themes"|trans }}
         </a>
     {% endif %}

@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.journal_application_file'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
         { 'title': 'title.journal_application_file'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,7 +14,7 @@
     <h1>{{ "journal_application_file.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {% if is_granted('CREATE', getEntity('VipaJournalBundle:JournalApplicationFile')) %}
-        <a href="{{ path('ojs_admin_application_file_new') }}" class="btn btn-success">
+        <a href="{{ path('vipa_admin_application_file_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}

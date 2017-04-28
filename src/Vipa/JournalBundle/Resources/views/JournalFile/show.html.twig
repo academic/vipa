@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.file_show'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_filemanager_index', {'journalId': selectedJournal().id}),'title': 'title.files'|trans},
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_filemanager_index', {'journalId': selectedJournal().id}),'title': 'title.files'|trans},
         {'title': 'title.file_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -16,10 +16,10 @@
     {{ display(entity) }}
     {{
         actions({
-            'back': {'href': path('ojs_journal_filemanager_index', {'journalId': selectedJournal().id})},
-            'edit': {'href': path('ojs_journal_filemanager_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+            'back': {'href': path('vipa_journal_filemanager_index', {'journalId': selectedJournal().id})},
+            'edit': {'href': path('vipa_journal_filemanager_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
             'delete': {
-                'href': path('ojs_journal_filemanager_delete', {'id': entity.id, 'journalId': selectedJournal().id}),
+                'href': path('vipa_journal_filemanager_delete', {'id': entity.id, 'journalId': selectedJournal().id}),
                 'permission': is_granted('DELETE', selectedJournal(), 'files'),
                 'attributes': {'data-token': token}
             },

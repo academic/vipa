@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.citation_show'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'title': 'title.citations'|trans},
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'title': 'title.citations'|trans},
         {'title': 'title.citation_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -23,9 +23,9 @@
 
     {{
         actions({
-            'back': {'href': path('ojs_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
-            'edit': {'href': path('ojs_journal_citation_edit', {'id': entity.id, 'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
-            'delete': {'href': path('ojs_journal_citation_delete', {'id': entity.id, 'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+            'back': {'href': path('vipa_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
+            'edit': {'href': path('vipa_journal_citation_edit', {'id': entity.id, 'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
+            'delete': {'href': path('vipa_journal_citation_delete', {'id': entity.id, 'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
         })
     }}
 {% endblock %}

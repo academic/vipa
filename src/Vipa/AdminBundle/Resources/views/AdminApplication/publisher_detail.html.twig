@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.publisher_detail'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_admin_application_publisher_index'),'title': 'application.journal.publisher'|trans},
+    { 'link': path('vipa_admin_application_publisher_index'),'title': 'application.journal.publisher'|trans},
     {'title': 'show'|trans},
     {'title': entity.name}
     ] %}
@@ -99,7 +99,7 @@
                     <td>{{ entity.createdBy|user }}</td>
                 </tr>
             </table>
-            <a class="btn btn-success" href="{{ url('ojs_admin_application_publisher_save', {id: entity.id}) }}">
+            <a class="btn btn-success" href="{{ url('vipa_admin_application_publisher_save', {id: entity.id}) }}">
                 {{ "institute.merge_as_new_institute"|trans }}
             </a>
         </div>

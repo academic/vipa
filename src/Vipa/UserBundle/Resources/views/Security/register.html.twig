@@ -1,4 +1,4 @@
-{% extends "::ojsbase.html.twig" %}
+{% extends "::vipabase.html.twig" %}
 {% block title %}{{ 'title.register'|trans }} {{ parent() }}{% endblock %}
 
 {% block body %}
@@ -31,7 +31,7 @@
     {{ parent() }}
     <script>
         $(document).ready(function () {
-            $("input#ojs_user_register_username").blur(function () {
+            $("input#vipa_user_register_username").blur(function () {
                 $action = "{{path('get_username_check')}}" + "?username=" + $(this).val();
                 $status = $("#checkUsernameResult");
                 $btn = $("#userRegisterButton");

@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.submission_new'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
@@ -32,19 +32,19 @@
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
                 <li id="submission-progress-step1">
-                    <a href="{{ path('ojs_journal_submission_start', {journalId: selectedJournal().id}) }}">
+                    <a href="{{ path('vipa_journal_submission_start', {journalId: selectedJournal().id}) }}">
                         <span class="badge">1</span>
                         {{ "submission.starting"|trans }}
                     </a>
                 </li>
                 <li id="submission-progress-step2">
-                    <a href="{{ path('ojs_journal_submission_edit', {journalId: selectedJournal().id, id: article.id}) }}">
+                    <a href="{{ path('vipa_journal_submission_edit', {journalId: selectedJournal().id, id: article.id}) }}">
                         <span class="badge">2</span>
                         {{ "article.singular"|trans }}
                     </a>
                 </li>
                 <li id="submission-progress-step6 last-step" class="active">
-                    <a href="{{ path('ojs_journal_submission_preview', {journalId: selectedJournal().id, articleId: article.id}) }}">
+                    <a href="{{ path('vipa_journal_submission_preview', {journalId: selectedJournal().id, articleId: article.id}) }}">
                         <span class="badge">3</span>
                         {{ "preview"|trans }} & {{ "submit"|trans }}
                     </a>
@@ -203,7 +203,7 @@
                         {{ form_row(form.submit) }}
                         {{ form_end(form) }}
                         <hr>
-                        <a href="{{ path('ojs_journal_submission_edit', {'journalId': selectedJournal().id,'id': article.id}) }}"
+                        <a href="{{ path('vipa_journal_submission_edit', {'journalId': selectedJournal().id,'id': article.id}) }}"
                            class="btn btn-danger btn-block">{{ "submission.continue_edit"|trans }}</a>
                     </div>
                 </div>
@@ -215,7 +215,7 @@
     {% block javascripts %}
         {{ parent() }}
         <script>
-            $("form[name='ojs_article_submission']").submit(function () {
+            $("form[name='vipa_article_submission']").submit(function () {
                 {% if submissionSetting is not empty %}
                 return confirm("{{ submissionSetting.submissionConfirmText }}");
                 {% else %}

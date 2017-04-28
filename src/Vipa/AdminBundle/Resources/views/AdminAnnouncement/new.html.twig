@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.announcement_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_admin_announcement_index'),'title': 'title.announcements'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('vipa_admin_announcement_index'),'title': 'title.announcements'|trans},
         {'title': 'title.announcement_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,5 +14,5 @@
 {% block body -%}
     <h1>{{ 'title.announcement_new'|trans }}</h1>
     {{ form(form) }}
-    {{ actions({'back': {'href': path('ojs_admin_announcement_index')}}) }}
+    {{ actions({'back': {'href': path('vipa_admin_announcement_index')}}) }}
 {% endblock %}

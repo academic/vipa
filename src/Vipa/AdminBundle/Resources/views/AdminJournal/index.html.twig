@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.journals'|trans }} {{ parent() }}{% endblock %}
 
@@ -26,7 +26,7 @@
     <div class="panel">
         <h1>{{ "journal.list"|trans }}</h1>
         {% include '::flashbag.html.twig' %}
-        <a href="{{ path('ojs_admin_journal_new') }}" class="btn btn-success">
+        <a href="{{ path('vipa_admin_journal_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
 

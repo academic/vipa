@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.boards'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
@@ -14,7 +14,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
+    {'link': path('vipa_public_index'), 'title': project_name},
     {'link':generateJournalUrl(journal), 'title': journal.title},
     {'title': "board"|trans}
     ] %}
@@ -64,7 +64,7 @@
                                 <div class="col-sm-10">
                                     <address>
                                         <h4>
-                                            <a href="{{ path('ojs_user_profile', {slug: person.username}) }}">
+                                            <a href="{{ path('vipa_user_profile', {slug: person.username}) }}">
                                                 {% if person.title is not empty %}
                                                     {{ person.title }}
                                                 {% endif %}

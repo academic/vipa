@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ entity.username }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
@@ -20,7 +20,7 @@
         {% if app.user != entity %}
 
             {% if isSystemAdmin() %}
-                <a class="btn-sm btn btn-info" href="{{ path('ojs_public_index') }}?_su={{ entity.username }}">
+                <a class="btn-sm btn btn-info" href="{{ path('vipa_public_index') }}?_su={{ entity.username }}">
                     <i class="fa fa-sign-in"></i>
                 </a>
             {% endif %}

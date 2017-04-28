@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.custom_field'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'User'|trans},
-    { 'link': path('ojs_admin_user_index'), 'title': 'user.update_profile'|trans},
+    { 'link': path('vipa_admin_user_index'), 'title': 'user.update_profile'|trans},
     { 'title': 'user.custom_fields'|trans},
     ] %}
     {{ breadcrumb(list) }}
@@ -29,7 +29,7 @@
                     {% endfor %}
 
                     <br/>
-                    <a class="btn btn-success" href="{{ url('ojs_user_custom_field_create') }}">{{ "c"|trans }}</a>
+                    <a class="btn btn-success" href="{{ url('vipa_user_custom_field_create') }}">{{ "c"|trans }}</a>
                     <br/>
                     <br/>
                     <table class="table table-responsive table-bordered">
@@ -49,12 +49,12 @@
                                 <td>{% if entity.isUrl %}{{ "Yes"|trans }}{% else %}{{ "No"|trans }}{% endif %}</td>
                                 <td>
                                     <a class="btn-xs btn btn-warning"
-                                       href="{{ path('ojs_user_custom_field_create', { 'id': entity.id }) }}">
+                                       href="{{ path('vipa_user_custom_field_create', { 'id': entity.id }) }}">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                     <a class="btn-xs btn btn-danger"
                                        onclick="return confirm('{% trans %}sure{% endtrans %}');"
-                                       href="{{ path('ojs_user_custom_field_delete', { 'id': entity.id}) }}">
+                                       href="{{ path('vipa_user_custom_field_delete', { 'id': entity.id}) }}">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>

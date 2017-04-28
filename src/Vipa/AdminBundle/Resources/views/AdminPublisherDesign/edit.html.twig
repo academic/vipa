@@ -1,12 +1,12 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% import "::design_macros.html.twig" as macros %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.publisher_design_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_admin_publisher_design_index'),'title': 'title.publisher_design'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('vipa_admin_publisher_design_index'),'title': 'title.publisher_design'|trans},
     {'title': 'title.publisher_design_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -44,9 +44,9 @@
         {% include template_from_string( entity.editableContent|raw ) %}
     </div>
 
-    {% set back_path = 'ojs_admin_publisher_design_index' %}
+    {% set back_path = 'vipa_admin_publisher_design_index' %}
     {% if is_granted('DELETE', edit_form.vars.data) %}
-        {% set delete_path = 'ojs_admin_publisher_design_delete' %}
+        {% set delete_path = 'vipa_admin_publisher_design_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
@@ -139,13 +139,13 @@
                 }
             });
 
-            $('#ojs_adminbundle_publisher_design_submit').attr('type', 'button');
-            $('#ojs_adminbundle_publisher_design_submit').on('click', function () {
+            $('#vipa_adminbundle_publisher_design_submit').attr('type', 'button');
+            $('#vipa_adminbundle_publisher_design_submit').on('click', function () {
                 gm.deinitCanvas();
                 $('.holder-remove').removeAttr("src");
                 $('.holder-remove').removeAttr("data-holder-rendered");
-                $('#ojs_adminbundle_publisher_design_editableContent').val($("#" + gm.options.canvasId).html());
-                $("form[name='ojs_adminbundle_publisher_design']").submit();
+                $('#vipa_adminbundle_publisher_design_editableContent').val($("#" + gm.options.canvasId).html());
+                $("form[name='vipa_adminbundle_publisher_design']").submit();
             });
         });
 

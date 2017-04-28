@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.journal_contact_show'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id}),'title': 'title.journal_contacts'|trans},
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_journal_contact_index', {'journalId': selectedJournal().id}),'title': 'title.journal_contacts'|trans},
     {'title': 'title.journal_contact_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -18,9 +18,9 @@
     {{ display(entity) }}
     {{
         actions({
-            'back': {'href': path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id})},
-            'edit': {'href': path('ojs_journal_journal_contact_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
-            'delete': {'href': path('ojs_journal_journal_contact_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+            'back': {'href': path('vipa_journal_journal_contact_index', {'journalId': selectedJournal().id})},
+            'edit': {'href': path('vipa_journal_journal_contact_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+            'delete': {'href': path('vipa_journal_journal_contact_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
         })
     }}
 

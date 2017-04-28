@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.user_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        { 'link': path('ojs_journal_user_index', {'journalId': selectedJournal().id}), 'title': 'title.journal_users'|trans },
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        { 'link': path('vipa_journal_user_index', {'journalId': selectedJournal().id}), 'title': 'title.journal_users'|trans },
         { 'title': 'title.journal_user_edit'|trans },
     ] %}
     {{ breadcrumb(list) }}

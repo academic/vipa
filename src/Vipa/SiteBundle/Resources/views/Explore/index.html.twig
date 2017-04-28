@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.explore'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = true %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_site_explore_index'), 'title': project_name},
+        {'link': path('vipa_site_explore_index'), 'title': project_name},
         {'title': 'explore'|trans}
     ] %}
 
@@ -23,7 +23,7 @@
                                 <li class="list-group-item">
                                     {% if locale_filters is empty %}
                                         {% set parameter = locale.key %}
-                                        <a href="{{ path('ojs_site_explore_index', {
+                                        <a href="{{ path('vipa_site_explore_index', {
                                             locale_filters: locale.key,
                                             publisher_filters: app.request.get('publisher_filters'),
                                             subject_filters: app.request.get('subject_filters')}) }}">{{ locale.key }}</a>
@@ -31,7 +31,7 @@
                                         {% if locale.key in locale_filters %}
                                             {% set parameter = locale_filters|pop(locale.key) %}
                                             {{ locale.key }}
-                                            <a href="{{ path('ojs_site_explore_index', {
+                                            <a href="{{ path('vipa_site_explore_index', {
                                                 locale_filters: parameter|join(','),
                                                 publisher_filters: app.request.get('publisher_filters'),
                                                 subject_filters: app.request.get('subject_filters')}) }}">
@@ -41,7 +41,7 @@
                                             </a>
                                         {% else %}
                                             {% set parameter = locale_filters|merge([locale.key]) %}
-                                            <a href="{{ path('ojs_site_explore_index', {
+                                            <a href="{{ path('vipa_site_explore_index', {
                                                 locale_filters: parameter|join(','),
                                                 publisher_filters: app.request.get('publisher_filters'),
                                                 subject_filters: app.request.get('subject_filters')}) }}">{{ locale.key }}</a>
@@ -71,14 +71,14 @@
                                 <li class="list-group-item">
                                     {% if subject_filters is empty %}
                                         {% set parameter = subject.key %}
-                                        <a href="{{ path('ojs_site_explore_index', {
+                                        <a href="{{ path('vipa_site_explore_index', {
                                             subject_filters: subject.key,
                                             type_filters: app.request.get('type_filters'),
                                             publisher_filters: app.request.get('publisher_filters')}) }}" class="subject">{{ subject.key }}</a>
                                     {% else %}
                                         {% if subject.key in subject_filters %}
                                             {% set parameter = subject_filters|pop(subject.key) %}
-                                            <a href="{{ path('ojs_site_explore_index', {
+                                            <a href="{{ path('vipa_site_explore_index', {
                                                 subject_filters: parameter|join(','),
                                                 type_filters: app.request.get('type_filters'),
                                                 publisher_filters: app.request.get('publisher_filters')}) }}" class="subject">
@@ -89,7 +89,7 @@
                                             </a>
                                         {% else %}
                                             {% set parameter = subject_filters|merge([subject.key]) %}
-                                            <a href="{{ path('ojs_site_explore_index', {
+                                            <a href="{{ path('vipa_site_explore_index', {
                                                 subject_filters: parameter|join(','),
                                                 type_filters: app.request.get('type_filters'),
                                                 publisher_filters: app.request.get('publisher_filters')}) }}" class="subject">{{ subject.key }}</a>
@@ -109,7 +109,7 @@
                                 <li class="list-group-item">
                                     {% if type_filters is empty %}
                                         {% set parameter = type.key %}
-                                        <a href="{{ path('ojs_site_explore_index', {
+                                        <a href="{{ path('vipa_site_explore_index', {
                                             type_filters: type.key,
                                             publisher_filters: app.request.get('publisher_filters'),
                                             subject_filters: app.request.get('subject_filters')}) }}">{{ type.key }}</a>
@@ -117,7 +117,7 @@
                                         {% if type.key in type_filters %}
                                             {% set parameter = type_filters|pop(type.key) %}
                                             {{ type.key }}
-                                            <a href="{{ path('ojs_site_explore_index', {
+                                            <a href="{{ path('vipa_site_explore_index', {
                                                 type_filters: parameter|join(','),
                                                 publisher_filters: app.request.get('publisher_filters'),
                                                 subject_filters: app.request.get('subject_filters')}) }}">
@@ -127,7 +127,7 @@
                                             </a>
                                         {% else %}
                                             {% set parameter = type_filters|merge([type.key]) %}
-                                            <a href="{{ path('ojs_site_explore_index', {
+                                            <a href="{{ path('vipa_site_explore_index', {
                                                 type_filters: parameter|join(','),
                                                 publisher_filters: app.request.get('publisher_filters'),
                                                 subject_filters: app.request.get('subject_filters')}) }}">{{ type.key }}</a>
@@ -157,7 +157,7 @@
                                 <li class="list-group-item">
                                     {% if publisher_filters is empty %}
                                         {% set parameter = publisher.key %}
-                                        <a href="{{ path('ojs_site_explore_index', {
+                                        <a href="{{ path('vipa_site_explore_index', {
                                             publisher_filters: publisher.key,
                                             subject_filters: app.request.get('subject_filters'),
                                             type_filters: app.request.get('type_filters') }) }}"
@@ -165,7 +165,7 @@
                                     {% else %}
                                         {% if publisher.key in publisher_filters %}
                                             {% set parameter = publisher_filters|pop(publisher.key) %}
-                                            <a href="{{ path('ojs_site_explore_index', {
+                                            <a href="{{ path('vipa_site_explore_index', {
                                                 publisher_filters: parameter|join(','),
                                                 subject_filters: app.request.get('subject_filters'),
                                                 type_filters: app.request.get('type_filters')}) }}" class="publisher-name">
@@ -176,7 +176,7 @@
                                             </a>
                                         {% else %}
                                             {% set parameter = publisher_filters|merge([publisher.key]) %}
-                                            <a href="{{ path('ojs_site_explore_index', {
+                                            <a href="{{ path('vipa_site_explore_index', {
                                                 publisher_filters: parameter|join(','),
                                                 subject_filters: app.request.get('subject_filters'),
                                                 type_filters: app.request.get('type_filters')}) }}"

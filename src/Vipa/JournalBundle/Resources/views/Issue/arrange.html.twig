@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.issue_arrange'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    { 'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans },
-    { 'link': path('ojs_journal_issue_index', {'journalId': selectedJournal().id}), 'title': 'issue.manager'|trans },
+    { 'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans },
+    { 'link': path('vipa_journal_issue_index', {'journalId': selectedJournal().id}), 'title': 'issue.manager'|trans },
     { 'title': 'title.issue_arrange'|trans }
     ] %}
     {{ breadcrumb(list) }}
@@ -45,7 +45,7 @@
                         <option></option>
                         {% for article in articlesUnissued %}
                             <option value="{{ article.id }}"
-                                    rel="{{ path('ojs_journal_issue_article_add', {'id':issue.id, 'journalId': issue.journal.id, 'articleId': article.id}) }}">
+                                    rel="{{ path('vipa_journal_issue_article_add', {'id':issue.id, 'journalId': issue.journal.id, 'articleId': article.id}) }}">
                                 [#{{ article.id }}] {{ article.title|slice(0,200) }}
                             </option>
                         {% endfor %}
@@ -77,7 +77,7 @@
             <fieldset>
                 <legend>{{ s.title }}
 
-                    <a href="{{ path('ojs_journal_issue_arrange_sort', {'journalId': issue.journal.id,'id': issue.id,'sectionId': s.id}) }}" class="btn btn-link">
+                    <a href="{{ path('vipa_journal_issue_arrange_sort', {'journalId': issue.journal.id,'id': issue.id,'sectionId': s.id}) }}" class="btn btn-link">
                         {{ "sort.articles"|trans }}
                     </a></legend>
                 <table class="table">
@@ -105,10 +105,10 @@
                                     </td>
                                     <td>
                                         <a class="btn btn-danger btn-xs"
-                                           href="{{ path('ojs_journal_issue_article_remove', {'id':issue.id, 'journalId': issue.journal.id, 'articleId': article.id}) }}">
+                                           href="{{ path('vipa_journal_issue_article_remove', {'id':issue.id, 'journalId': issue.journal.id, 'articleId': article.id}) }}">
                                             <i class="fa fa-remove"></i>
                                         </a>
-                                        <a href="{{ path('ojs_article_page', {'issue_id': issue.id,'slug': article.journal.slug, 'article_id' : article.id  } ) }}">
+                                        <a href="{{ path('vipa_article_page', {'issue_id': issue.id,'slug': article.journal.slug, 'article_id' : article.id  } ) }}">
                                             <small>{{ article.title }}</small>
                                         </a>
                                     </td>
@@ -149,7 +149,7 @@
         $(function () {
             $("#issueManagerPreviewArticle").click(function () {
                 if ($("#unissuedArticles").val().length > 0) {
-                    var path = '{{ path('ojs_journal_article_show', {journalId: selectedJournal().id, id: 1}) }}'.slice(0,-1);
+                    var path = '{{ path('vipa_journal_article_show', {journalId: selectedJournal().id, id: 1}) }}'.slice(0,-1);
                     window.open(path + $("#unissuedArticles").val());
                 }
             });

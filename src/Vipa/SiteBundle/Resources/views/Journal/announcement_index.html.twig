@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.announcements'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
+    {'link': path('vipa_public_index'), 'title': project_name},
     {'link':generateJournalUrl(journal), 'title': journal.title},
     {'title': "announcements"|trans}
     ] %}
@@ -32,7 +32,7 @@
                     </div>
                 {% else %}
                     <div class="alert alert-info">
-                        {{ 'ojs.any_content'|trans }}
+                        {{ 'vipa.any_content'|trans }}
                     </div>
                 {% endfor %}
             </div>

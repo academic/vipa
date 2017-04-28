@@ -1,12 +1,12 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% import "::design_macros.html.twig" as macros %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.publisher_design_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_user_index'), 'title': 'user_page'|trans},
-    {'link': path('ojs_publisher_manager_design_index', {publisherId: publisher.id}),'title': 'title.publisher_design'|trans},
+        {'link': path('vipa_user_index'), 'title': 'user_page'|trans},
+    {'link': path('vipa_publisher_manager_design_index', {publisherId: publisher.id}),'title': 'title.publisher_design'|trans},
     {'title': 'title.publisher_design_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <a class="btn btn-default btn-sm" href="{{ path('ojs_admin_publisher_design_index') }}" title="{{ "b"|trans }}">
+    <a class="btn btn-default btn-sm" href="{{ path('vipa_admin_publisher_design_index') }}" title="{{ "b"|trans }}">
         <i class="fa fa-arrow-left"></i>
     </a>
 
@@ -159,13 +159,13 @@
                 }
             });
 
-            $('#ojs_adminbundle_publisher_design_submit').attr('type', 'button');
-            $('#ojs_adminbundle_publisher_design_submit').on('click', function () {
+            $('#vipa_adminbundle_publisher_design_submit').attr('type', 'button');
+            $('#vipa_adminbundle_publisher_design_submit').on('click', function () {
                 gm.deinitCanvas();
                 $('.holder-remove').removeAttr("src");
                 $('.holder-remove').removeAttr("data-holder-rendered");
-                $('#ojs_adminbundle_publisher_design_editableContent').val($("#" + gm.options.canvasId).html());
-                $("form[name='ojs_adminbundle_publisher_design']").submit();
+                $('#vipa_adminbundle_publisher_design_editableContent').val($("#" + gm.options.canvasId).html());
+                $("form[name='vipa_adminbundle_publisher_design']").submit();
             });
         });
 

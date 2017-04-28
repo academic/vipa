@@ -1,13 +1,13 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 
 {% block body -%}
     <h1>IssueFile</h1>
     {{ display(entity) }}
     {{
     actions({
-        'back': {'href': path('ojs_journal_issue_file_index', {'issueId': entity.issue.id, 'journalId': selectedJournal().id})},
-        'edit': {'href': path('ojs_journal_issue_file_edit', {'id': entity.id, 'issueId': entity.issue.id, 'journalId': selectedJournal().id})},
-        'delete': {'href': path('ojs_journal_issue_file_delete', {'id': entity.id, 'issueId': entity.issue.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('vipa_journal_issue_file_index', {'issueId': entity.issue.id, 'journalId': selectedJournal().id})},
+        'edit': {'href': path('vipa_journal_issue_file_edit', {'id': entity.id, 'issueId': entity.issue.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('vipa_journal_issue_file_delete', {'id': entity.id, 'issueId': entity.issue.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 {% endblock %}

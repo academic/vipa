@@ -1,9 +1,9 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.create_custom_field'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'user'|trans},
-    { 'link': path('ojs_admin_user_index'), 'title': 'user.update_profile'|trans},
+    { 'link': path('vipa_admin_user_index'), 'title': 'user.update_profile'|trans},
     { 'title': 'user.custom_field.create'|trans},
     ] %}
     {{ breadcrumb(list) }}
@@ -17,13 +17,13 @@
         <section class="tab-panel">
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation">
-                    <a href="{{ url('ojs_user_edit_profile') }}">{{ "user.update_profile"|trans }}</a>
+                    <a href="{{ url('vipa_user_edit_profile') }}">{{ "user.update_profile"|trans }}</a>
                 </li>
                 <li role="presentation" class="active">
-                    <a href="{{ url('ojs_user_custom_field') }}">{{ "user.custom_fields"|trans }}</a>
+                    <a href="{{ url('vipa_user_custom_field') }}">{{ "user.custom_fields"|trans }}</a>
                 </li>
                 <li role="presentation" class="">
-                    <a href="{{ url('ojs_user_connected_account') }}">{{ "user.connected_accounts"|trans }}</a>
+                    <a href="{{ url('vipa_user_connected_account') }}">{{ "user.connected_accounts"|trans }}</a>
                 </li>
             </ul>
         </section>
@@ -41,7 +41,7 @@
 
                     {{ form_widget(form) }}
 
-                    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+                    <button type="submit" id="vipa_userbundle_user_submit" class="btn btn-primary">
                         {{ "c"|trans }}
                     </button>
                     {{ form_end(form) }}

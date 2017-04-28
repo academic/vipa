@@ -1,9 +1,9 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.editor_dashboard'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    { 'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans },
+    { 'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans },
     { 'title': 'title.editor_dashboard'|trans }
     ] %}
     {{ breadcrumb(list) }}
@@ -14,7 +14,7 @@
     <div class="col-md-12">
         <ul class="list-group">
             <li class="list-group-item">
-                <a href="{{ path('ojs_user_myjournals') }}">{{ "journal.my"|trans }}</a>
+                <a href="{{ path('vipa_user_myjournals') }}">{{ "journal.my"|trans }}</a>
             </li>
 
         </ul>
@@ -33,7 +33,7 @@
             {% set article = stats.article.mostViewedArticle %}
             <h2>{{ "stats.most.viewed.article"|trans }}<span
                         class="badge">{{ stats.article.mostViewedArticleCount }}</span></h2>
-            <a href="{{ url('ojs_article_page',{article_id: article.id,slug: article.journal.slug}) }}">
+            <a href="{{ url('vipa_article_page',{article_id: article.id,slug: article.journal.slug}) }}">
                 {{ article.title }}
             </a>
         {% else %}
@@ -45,7 +45,7 @@
             {% set article = stats.article.mostDownloadedArticle %}
             <h2>{{ "stats.most.downloaded.article"|trans }}<span
                         class="badge">{{ stats.article.mostDownloadedArticleCount }}</span></h2>
-            <a href="{{ url('ojs_article_page',{article_id: article.id,slug: article.journal.slug}) }}">
+            <a href="{{ url('vipa_article_page',{article_id: article.id,slug: article.journal.slug}) }}">
                 {{ article.title }}
             </a>
         {% else %}

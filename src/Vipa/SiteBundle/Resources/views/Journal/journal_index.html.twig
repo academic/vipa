@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ journal.title }} &raquo; {{ 'title.journal'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
@@ -14,11 +14,11 @@
 {% block breadcrumb %}
     {% if isJournalHosting is defined and isJournalHosting == true %}
         {% set list = [
-        {'link': path('ojs_public_index'),  'title': journal.title }
+        {'link': path('vipa_public_index'),  'title': journal.title }
         ] %}
     {% else %}
         {% set list = [
-        {'link': path('ojs_public_index'), 'title': project_name},
+        {'link': path('vipa_public_index'), 'title': project_name},
         {'link': journal.publicURI, 'title': journal.title }
         ] %}
     {% endif %}
@@ -129,7 +129,7 @@
                                 {{ journal.formerlyKnownAsJournal.title }}
                             </a>
                             {% else %}
-                            <a href="{{ path('ojs_journal_index', {slug: journal.formerlyKnownAsJournal.slug }) }}">
+                            <a href="{{ path('vipa_journal_index', {slug: journal.formerlyKnownAsJournal.slug }) }}">
                                 {{ journal.formerlyKnownAsJournal.title }}
                             </a>
                             {% endif %}
@@ -144,7 +144,7 @@
                                 {{ journal.continuedAsJournal.title }}
                             </a>
                             {% else %}
-                            <a href="{{ path('ojs_journal_index', {slug: journal.continuedAsJournal.slug }) }}">
+                            <a href="{{ path('vipa_journal_index', {slug: journal.continuedAsJournal.slug }) }}">
                                 {{ journal.continuedAsJournal.title }}
                             </a>
                             {% endif %}
@@ -157,7 +157,7 @@
                     <div class="list-group journal-stats">
                         <div class="list-group-item ">
                             <form role="search"
-                                  action="{{ url('ojs_search_index') }}"
+                                  action="{{ url('vipa_search_index') }}"
                                   method="get" id="search_on_journal"
                                 >
                                 <div class="input-group">
@@ -175,7 +175,7 @@
                             <ul class="list-group-item list-group-item-warning">
                             {% include '::language_selector.html.twig' %}
                             </ul>
-                            <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                            <a href="//{{ base_host }}{{ path('vipa_journal_submission_start',{"journalId":journal.id}) }}"
                                class="list-group-item list-group-item-success">
                                 <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                             </a>
@@ -198,7 +198,7 @@
                                 <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
                             </a>
                         {% else %}
-                            <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                            <a href="//{{ base_host }}{{ path('vipa_journal_submission_start',{"journalId":journal.id}) }}"
                                class="list-group-item list-group-item-success">
                                 <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                             </a>
@@ -207,16 +207,16 @@
                                class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                             </a>
 
-                            <a href="{{ url('ojs_journal_index_board',{slug: journal.slug})  }}"
+                            <a href="{{ url('vipa_journal_index_board',{slug: journal.slug})  }}"
                                class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "board"|trans }}</h5>
                             </a>
 
-                            <a href="{{ url('ojs_journal_contacts',{slug: journal.slug}) }}"
+                            <a href="{{ url('vipa_journal_contacts',{slug: journal.slug}) }}"
                                class="list-group-item ">
                                 <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
                             </a>
 
-                            <a href="{{ url('ojs_announcement_index',{slug: journal.slug}) }}"
+                            <a href="{{ url('vipa_announcement_index',{slug: journal.slug}) }}"
                                class="list-group-item ">
                                 <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
                             </a>
@@ -230,7 +230,7 @@
                                             <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
                                         </a>
                                     {% else %}
-                                        <a href="{{ url('ojs_site_journal_page', {slug: journalPage.slug, journal_slug: journal.slug}) }}"
+                                        <a href="{{ url('vipa_site_journal_page', {slug: journalPage.slug, journal_slug: journal.slug}) }}"
                                            class="list-group-item ">
                                             <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
                                         </a>
@@ -240,7 +240,7 @@
 
                         <div class="list-group-item ">
                             <form role="search"
-                                  action="{{ path('ojs_journal_subscribe',{slug: journal.slug}) }}"
+                                  action="{{ path('vipa_journal_subscribe',{slug: journal.slug}) }}"
                                   method="post">
                                 <div class="input-group">
                                     <input type="text" class="form-control"
@@ -388,7 +388,7 @@
                     <ul>
                         {% for post in posts %}
                             <li>
-                                <a href="{{ path('ojs_site_journal_post',
+                                <a href="{{ path('vipa_site_journal_post',
                                 {'slug': post.slug, 'journal_slug': journal.slug}) }}">
                                     {{ post.title }}</a>
                             </li>
@@ -398,7 +398,7 @@
             {% endif %}
         {% endif %}
 
-        <p class="locks-link"><a href="{{ path('ojs_journal_lockss_index',{slug: journal.slug}) }}">LOCKSS</a></p>
+        <p class="locks-link"><a href="{{ path('vipa_journal_lockss_index',{slug: journal.slug}) }}">LOCKSS</a></p>
     </div>
 
 {% endblock %}

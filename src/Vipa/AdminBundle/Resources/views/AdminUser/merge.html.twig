@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.user_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('ojs_admin_user_index'), 'title': 'title.users'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('vipa_admin_user_index'), 'title': 'title.users'|trans},
         { 'title': 'title.user_merge'|trans},
     ] %}
     {{ breadcrumb(list) }}

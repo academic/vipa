@@ -1,9 +1,9 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.issues'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+        {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
         {'title': 'title.issue_files'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -13,8 +13,8 @@
     {% include '::flashbag.html.twig' %}
 
     <ul class="nav nav-tabs">
-        <li role="presentation"><a href="{{ path('ojs_journal_issue_show', {'id': issue.id, 'journalId': selectedJournal().id}) }}">{{ "Info"|trans }}</a></li>
-        <li role="presentation" class="active"><a href="{{ path('ojs_journal_issue_file_index', {'issueId': issue.id, 'journalId': selectedJournal().id}) }}">{{ "title.issue_files"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('vipa_journal_issue_show', {'id': issue.id, 'journalId': selectedJournal().id}) }}">{{ "Info"|trans }}</a></li>
+        <li role="presentation" class="active"><a href="{{ path('vipa_journal_issue_file_index', {'issueId': issue.id, 'journalId': selectedJournal().id}) }}">{{ "title.issue_files"|trans }}</a></li>
     </ul>
 
     <h1>{{ 'title.issue_files'|trans }}</h1>
@@ -22,7 +22,7 @@
         {{ 'upload.full.file.to.issue.fullfile.field'|trans }}
     </div>
     {% if is_granted('CREATE', selectedJournal(), 'issues') %}
-        <a href="{{ path('ojs_journal_issue_file_new', {'issueId': issue.id, 'journalId': selectedJournal().id}) }}" class="btn btn-success">
+        <a href="{{ path('vipa_journal_issue_file_new', {'issueId': issue.id, 'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}

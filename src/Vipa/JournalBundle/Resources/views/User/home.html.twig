@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.user_welcome'|trans }} {{ parent() }}{% endblock %}
 
@@ -29,7 +29,7 @@
                 {% for user in journalUsers %}
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <a href="{{ path('ojs_journal_dashboard_index', {'journalId': user.journal.id}) }}"
+                            <a href="{{ path('vipa_journal_dashboard_index', {'journalId': user.journal.id}) }}"
                                class="btn btn-success btn-block">
                                 <i class="fa fa-arrow-right pull-right"></i>
                                 {{ user.journal.title }}
@@ -46,7 +46,7 @@
                 <div class="alert alert-warning">
                     {{ "journal.no_journal_you_have"|trans }}
                     <hr/>
-                    <a class="btn btn-default btn-block" href="{{ path('ojs_site_explore_index') }}"><i
+                    <a class="btn btn-default btn-block" href="{{ path('vipa_site_explore_index') }}"><i
                                 class="fa fa-compass fa-fw"></i>{{ "explore"|trans }}</a>
                 </div>
             {% endif %}
@@ -79,11 +79,11 @@
                             <td>{{ article.submissionDate|date('Y-m-d H:i:s') }}</td>
                             <td>
                                 {% if article.statusText ==  'status.not_submitted' %}
-                                    <a href="{{ path('ojs_journal_submission_edit', {journalId: article.journal.id, id: article.id}) }}"
+                                    <a href="{{ path('vipa_journal_submission_edit', {journalId: article.journal.id, id: article.id}) }}"
                                        class="btn btn-warning btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="{{ path('ojs_journal_submission_cancel', {journalId: article.journal.id, id: article.id}) }}"
+                                    <a href="{{ path('vipa_journal_submission_cancel', {journalId: article.journal.id, id: article.id}) }}"
                                        class="btn btn-danger btn-xs" data-toggle="tooltip" title="{{ 'delete'|trans }}" data-method="delete" data-confirm="{{ 'sure'|trans }}">
                                         <i class="fa fa-trash"></i>
                                     </a>
@@ -91,7 +91,7 @@
                                     {{ twigEventDispatch({'event_name': 'OJS_USER_ARTICLE_ACTIONS', 'article': article})|raw }}
                                 {% elseif article.statusText ==  'status.published' %}
                                     {% if article.issue is not null %}
-                                        <a href="{{ path('ojs_article_page', {
+                                        <a href="{{ path('vipa_article_page', {
                                             slug: article.journal.slug,
                                             issue_id: article.issue.id,
                                             article_id: article.id

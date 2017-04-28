@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.journal_show'|trans }} {{ parent() }}{% endblock %}
 
@@ -9,7 +9,7 @@ journal.show tpl for super admin users
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_admin_journal_index'),'title': 'journal.manager'|trans},
+    { 'link': path('vipa_admin_journal_index'),'title': 'journal.manager'|trans},
     {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -49,8 +49,8 @@ journal.show tpl for super admin users
     <div class="record_actions">
         {{
             actions({
-                'back': {'href': path('ojs_admin_journal_index')},
-                'edit': {'href': path('ojs_journal_settings_index', {'journalId': entity.id})},
+                'back': {'href': path('vipa_admin_journal_index')},
+                'edit': {'href': path('vipa_journal_settings_index', {'journalId': entity.id})},
             })
         }}
     </div>

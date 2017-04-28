@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.section_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_section_index', {'journalId': selectedJournal().id}),'title': 'title.sections'|trans},
+    {'link': path('vipa_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'link': path('vipa_journal_section_index', {'journalId': selectedJournal().id}),'title': 'title.sections'|trans},
     {'title': 'title.section_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -16,7 +16,7 @@
     {{ form(edit_form) }}
 
     <div class="btn-group">
-        <a class="btn btn-default btn-sm" href="{{ path('ojs_journal_section_index', { 'journalId': selectedJournal().id }) }}"
+        <a class="btn btn-default btn-sm" href="{{ path('vipa_journal_section_index', { 'journalId': selectedJournal().id }) }}"
            title="{{ "b"|trans }}">
             <i class="fa fa-arrow-left"></i>
         </a>

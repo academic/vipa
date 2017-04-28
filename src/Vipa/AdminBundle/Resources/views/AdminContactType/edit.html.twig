@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.contact_type_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('ojs_admin_contact_type_index'),'title': 'title.contact_types'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('vipa_admin_contact_type_index'),'title': 'title.contact_types'|trans},
         {'title': 'title.contact_type_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -16,7 +16,7 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
-    {% set back_path = 'ojs_admin_contact_type_index' %}
+    {% set back_path = 'vipa_admin_contact_type_index' %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}

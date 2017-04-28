@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.index_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_admin_index_index'),'title': 'title.indexes'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('vipa_admin_index_index'),'title': 'title.indexes'|trans},
     {'title': 'title.index_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -17,7 +17,7 @@
 
     {{ form(edit_form) }}
 
-    <a href="{{ path('ojs_admin_index_index') }}" class="btn btn-warning">
+    <a href="{{ path('vipa_admin_index_index') }}" class="btn btn-warning">
         <i class="fa fa-arrow-left"></i> {{ 'b'|trans }}
     </a>
 

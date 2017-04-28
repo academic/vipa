@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.mail_template_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('ojs_admin_mail_template_index'),'title': 'title.mail_templates'|trans},
+        {'link': path('vipa_admin_dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('vipa_admin_mail_template_index'),'title': 'title.mail_templates'|trans},
         {'title': 'title.mail_template_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -20,7 +20,7 @@
         <div class="well">{{ defaultMailTemplate.template|raw }}</div>
     </div>
     {{ form(form) }}
-    {% set back_path = 'ojs_admin_mail_template_index' %}
+    {% set back_path = 'vipa_admin_mail_template_index' %}
     {% include '::actionbuttons.html.twig' %}
     {{ getLogs(entity) }}
 {% endblock %}
@@ -28,7 +28,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        $("#ojs_journalbundle_mailtemplate_useJournalDefault").change(function() {
+        $("#vipa_journalbundle_mailtemplate_useJournalDefault").change(function() {
             if(this.checked) {
                 $.each($('.use-default-hidden'), function(index, value){
                     console.log($(value).parent());
@@ -41,6 +41,6 @@
                 });
             }
         });
-        $('#ojs_journalbundle_mailtemplate_useJournalDefault').click().click();
+        $('#vipa_journalbundle_mailtemplate_useJournalDefault').click().click();
     </script>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% block title %}{{ 'title.journal_application'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
@@ -26,7 +26,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': project_name},
+        {'link': path('vipa_public_index'), 'title': project_name},
         {'title': "journal.apply.form" | trans }
     ] %}
     {{ breadcrumb(list) }}
@@ -157,7 +157,7 @@
 
                 {{ twigEventDispatch({'event_name': 'OJS_JOURNAL_APPLICATION_EXTRA_FIELDS', 'form': form})|raw }}
 
-                <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-success pull-right">
+                <button type="submit" id="vipa_journalbundle_issue_submit" class="btn btn-success pull-right">
                     {{ "apply"|trans }}
                 </button>
             </div>
@@ -173,7 +173,7 @@
         var addContactLink = $('#add_contact');
         var newPublisherButton = $('#new-publisher');
         var newPublisherForm = $('#publisher-form');
-        var publisherSelector = $('#ojs_journalbundle_journalapplication_publisher').parent().parent();
+        var publisherSelector = $('#vipa_journalbundle_journalapplication_publisher').parent().parent();
 
         $(document).ready(function() {
             collectionHolder = $('#contacts');
@@ -190,7 +190,7 @@
                 newPublisherButton.hide();
                 publisherSelector.hide();
 
-                $('#ojs_journalbundle_journalapplication_publisher').removeAttr('required');
+                $('#vipa_journalbundle_journalapplication_publisher').removeAttr('required');
             });
 
             newPublisherForm.find('input:not([type="hidden"]),select').each(function(item) {

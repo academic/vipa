@@ -1,10 +1,10 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.publisher_theme'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_user_index'), 'title': 'user_page'|trans},
+        {'link': path('vipa_user_index'), 'title': 'user_page'|trans},
     { 'title': 'title.publisher_theme'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,7 +15,7 @@
     {% include '::flashbag.html.twig' %}
 
     {% if isGrantedForPublisher() %}
-        <a href="{{ path('ojs_publisher_manager_theme_new', {publisherId: publisher.id}) }}" class="btn btn-success">
+        <a href="{{ path('vipa_publisher_manager_theme_new', {publisherId: publisher.id}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}
