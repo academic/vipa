@@ -124,7 +124,7 @@ class AdminController extends Controller
         ];
         
         $event = new StatEvent($json, $data);
-        $dispatcher->dispatch(StatEvents::OJS_ADMIN_STATS_CACHE, $event);
+        $dispatcher->dispatch(StatEvents::VIPA_ADMIN_STATS_CACHE, $event);
         
         $data = $event->getData();
         $data['stats'] = json_encode($event->getJson());

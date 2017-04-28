@@ -88,7 +88,7 @@
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 {% elseif article.statusText ==  'status.inreview' %}
-                                    {{ twigEventDispatch({'event_name': 'OJS_USER_ARTICLE_ACTIONS', 'article': article})|raw }}
+                                    {{ twigEventDispatch({'event_name': 'VIPA_USER_ARTICLE_ACTIONS', 'article': article})|raw }}
                                 {% elseif article.statusText ==  'status.published' %}
                                     {% if article.issue is not null %}
                                         <a href="{{ path('vipa_article_page', {

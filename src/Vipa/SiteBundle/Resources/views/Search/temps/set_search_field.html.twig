@@ -2,7 +2,7 @@
     <div class="col-md-2">
         <div class="form-group condition-form">
             <label for=""> &nbsp;</label>
-            <select class="form-control item-condition" onchange="OJSAdvancedSearch.updateInputQuery()">
+            <select class="form-control item-condition" onchange="VIPAAdvancedSearch.updateInputQuery()">
                 <option value="OR">{{ 'search.or'|trans }}</option>
                 <option value="AND">{{ 'search.and'|trans }}</option>
                 <option value="NOT">{{ 'search.not'|trans }}</option>
@@ -12,7 +12,7 @@
     <div class="col-md-2">
         <div class="form-group">
             <label for="">{{ 'search.field'|trans }}</label>
-            <select class="form-control item-search-field" onchange="OJSAdvancedSearch.updateInputQuery()">
+            <select class="form-control item-search-field" onchange="VIPAAdvancedSearch.updateInputQuery()">
                 {% for field in fieldList %}
                     <option value="{{ field }}">{{ ('advanced.'~field)|trans }}</option>
                 {% endfor %}
@@ -24,12 +24,12 @@
             <label for="">{{ 'search.value'|trans }}</label>
 
             <div class="input-group">
-                <input class="form-control field-item-value" type="text" onkeyup="OJSAdvancedSearch.updateInputQuery()"/>
+                <input class="form-control field-item-value" type="text" onkeyup="VIPAAdvancedSearch.updateInputQuery()"/>
 
-                <div class="input-group-addon remove-field-item" onclick="OJSAdvancedSearch.removeFieldItem(this)">
+                <div class="input-group-addon remove-field-item" onclick="VIPAAdvancedSearch.removeFieldItem(this)">
                     <a href="javascript:void(0)" title="{{ 'search.removeFieldItem'|trans }}"><i class="fa fa-trash"></i></a>
                 </div>
-                <div class="input-group-addon add-field-item" onclick="OJSAdvancedSearch.addFieldItem()">
+                <div class="input-group-addon add-field-item" onclick="VIPAAdvancedSearch.addFieldItem()">
                     <a href="javascript:void(0)" title="{{ 'search.addFieldItem'|trans }}"><i class="fa fa-plus"></i></a>
                 </div>
             </div>

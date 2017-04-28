@@ -43,7 +43,7 @@ class CoreEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            CoreEvents::OJS_INSTALL_3PARTY => 'onInstall3Party',
+            CoreEvents::VIPA_INSTALL_3PARTY => 'onInstall3Party',
         );
     }
 
@@ -52,7 +52,7 @@ class CoreEventListener implements EventSubscriberInterface
      */
     public function onInstall3Party(CoreEvent $event)
     {
-        $getMailEvent = $this->vipaMailer->getTemplateByEvent(CoreEvents::OJS_INSTALL_BASE);
+        $getMailEvent = $this->vipaMailer->getTemplateByEvent(CoreEvents::VIPA_INSTALL_BASE);
         if(!$getMailEvent){
             return;
         }

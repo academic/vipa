@@ -1,9 +1,9 @@
-var OJSAdvancedSearch = {
+var VIPAAdvancedSearch = {
     searchQueryInput: $('#searchQueryInput'),
     searchFieldsArea: $('#advanced-search-fields-area'),
     searchFieldTemplate: $('#search-field-template').html(),
     init: function(){
-        console.log('OJS Advanced Search System Starts!');
+        console.log('VIPA Advanced Search System Starts!');
         this.insertFirstFieldItem();
         this.addFieldItem();
     },
@@ -90,6 +90,6 @@ var OJSAdvancedSearch = {
         });
     }
 };
-OJSAdvancedSearch.init();
+VIPAAdvancedSearch.init();
 
 

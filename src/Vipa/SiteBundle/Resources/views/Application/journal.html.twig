@@ -155,7 +155,7 @@
                     {% do form.journalApplicationUploadFiles.setRendered %}
                 {% endif %}
 
-                {{ twigEventDispatch({'event_name': 'OJS_JOURNAL_APPLICATION_EXTRA_FIELDS', 'form': form})|raw }}
+                {{ twigEventDispatch({'event_name': 'VIPA_JOURNAL_APPLICATION_EXTRA_FIELDS', 'form': form})|raw }}
 
                 <button type="submit" id="vipa_journalbundle_issue_submit" class="btn btn-success pull-right">
                     {{ "apply"|trans }}
@@ -222,7 +222,7 @@
         }
     </script>
 
-    {{ twigEventDispatch({'event_name': 'OJS_JOURNAL_APPLICATION_SCRIPT'})|raw }}
+    {{ twigEventDispatch({'event_name': 'VIPA_JOURNAL_APPLICATION_SCRIPT'})|raw }}
 
     {{ form_javascript(form) }}
 {% endblock %}

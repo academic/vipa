@@ -31,5 +31,5 @@
             'delete': {'href': path('vipa_journal_article_delete', {'id': entity.id, 'journalId': entity.journal.id}), 'attributes': {'data-token': token}},
         })
     }}
-    {{ twigEventDispatch({'event_name': 'OJS_ARTICLE_SHOW_VIEW', entity: entity})|raw }}
+    {{ twigEventDispatch({'event_name': 'VIPA_ARTICLE_SHOW_VIEW', entity: entity})|raw }}
 {% endblock %}

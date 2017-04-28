@@ -74,7 +74,7 @@
             </div>
             {% endif %}
 
-            {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_PUBLIC_VIEW', 'user': user})|raw }}
+            {{ twigEventDispatch({'event_name': 'VIPA_USER_PROFILE_PUBLIC_VIEW', 'user': user})|raw }}
 
             <div class="col-sm-12">
                 <hr>
@@ -203,7 +203,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_PUBLIC_VIEW_SCRIPT', 'user': user})|raw }}
+    {{ twigEventDispatch({'event_name': 'VIPA_USER_PROFILE_PUBLIC_VIEW_SCRIPT', 'user': user})|raw }}
     <script type="text/javascript">
         analytics.increase('user', {{ user.id }});
 

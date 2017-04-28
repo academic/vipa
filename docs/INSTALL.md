@@ -1,7 +1,7 @@
-Installing OJS
+Installing VIPA
 ==============
 
-This guide will explain how you can install OJS on an Ubuntu server.
+This guide will explain how you can install VIPA on an Ubuntu server.
 
 **NOTICE:** Some steps takes longer time than others. So you may want to make some changes on your computer before connecting to the server over SSH for avoiding 'Broken pipe' situation. If you lost the connection between your computer and server (over SSH), you can't follow some steps' procesing status.
 
@@ -12,7 +12,7 @@ It's not a complicated step, feel free to visit Google and use search box.
 
 Required Software
 -----------------
-Install and run these services and extensions before attempting to install OJS.
+Install and run these services and extensions before attempting to install VIPA.
 
 * Nginx
 * PostgreSQL
@@ -140,7 +140,7 @@ Installing Dependencies
 
 While installing some depenencies, Composer will ask for a GitHub access token. You don't have to proivde one, as it will try to download from the source but you will need to press `ENTER` each time it tries. If you want to provide, see [GitHub's help article](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
 
-When installation is complete, you will need to provide some parameters to OJS. Some of those are:
+When installation is complete, you will need to provide some parameters to VIPA. Some of those are:
 
 * *Database parameters*: Use the one you have created before installing dependencies. Type them carefully as you might have to re-run this wizard if anything goes wrong.
  * `database_driver` (`pdo_pgsql` by default)
@@ -257,6 +257,6 @@ $ app/console vipa:install:package citation
 
 Troubleshooting
 ----------------
-If anything goes wrong (ie. you get a blank page instead of OJS home) check logs under app/log directory and Nginx's own log file.
+If anything goes wrong (ie. you get a blank page instead of VIPA home) check logs under app/log directory and Nginx's own log file.
 
 

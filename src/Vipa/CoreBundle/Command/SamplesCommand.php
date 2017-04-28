@@ -72,8 +72,8 @@ class SamplesCommand extends ContainerAwareCommand
 
         $post = new AdminPost();
         $post->setCurrentLocale('en');
-        $post->setTitle('Welcome to OJS!');
-        $post->setSlug('Welcome to OJS!');
+        $post->setTitle('Welcome to VIPA!');
+        $post->setSlug('Welcome to VIPA!');
         $post->setContent(
             'Hello! We are now online and waiting for your submissions. ' .
             'Our readers will be able to follow you and read your work ' .
@@ -102,7 +102,7 @@ class SamplesCommand extends ContainerAwareCommand
 
         $publisher = new Publisher();
         $publisher->setCurrentLocale('en');
-        $publisher->setName('OJS');
+        $publisher->setName('VIPA');
         $publisher->setSlug($slug);
         $publisher->setEmail('publisher@example.com');
         $publisher->setAddress('First Avenue, Exampletown');
@@ -212,12 +212,12 @@ class SamplesCommand extends ContainerAwareCommand
 
         $journal = new Journal();
         $journal->setCurrentLocale('en');
-        $journal->setTitle('Introduction to OJS');
-        $journal->setSubtitle('How to use OJS');
-        $journal->setDescription('A journal about OJS');
-        $journal->setTitleAbbr('INTROJS');
+        $journal->setTitle('Introduction to VIPA');
+        $journal->setSubtitle('How to use VIPA');
+        $journal->setDescription('A journal about VIPA');
+        $journal->setTitleAbbr('INTRVIPA');
         $journal->setCurrentLocale('tr');
-        $journal->setTitle('OJS Tanıtım');
+        $journal->setTitle('VIPA Tanıtım');
         $journal->setPublisher($publisher);
         $journal->setUrl('http://vipa.io');
         $journal->setSlug('intro');
@@ -419,7 +419,7 @@ class SamplesCommand extends ContainerAwareCommand
         $issue = new Issue();
         $issue->setCurrentLocale('en');
         $issue->setJournal($journal);
-        $issue->setTitle('First Issue: Hello OJS!');
+        $issue->setTitle('First Issue: Hello VIPA!');
         $issue->setDescription('First issue of the journal');
         $issue->setNumber(1);
         $issue->setPublished(true);
@@ -492,8 +492,8 @@ class SamplesCommand extends ContainerAwareCommand
         $article1->setJournal($journal);
         $article1->setSection($section);
         $article1->setIssue($issue);
-        $article1->setTitle('Getting Started with OJS');
-        $article1->setAbstract('A tutorial about using OJS');
+        $article1->setTitle('Getting Started with VIPA');
+        $article1->setAbstract('A tutorial about using VIPA');
         $article1->setKeywords('vipa, intro, starting');
         $article1->setDoi('10.5281/zenodo.14791');
         $article1->setSubmissionDate(new \DateTime('now'));

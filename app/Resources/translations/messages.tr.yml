@@ -130,7 +130,7 @@ allow_index: 'İndekslenebilir'
 allow_index.list: 'İzin Verilmiş İndex Listesi'
 announcements: Duyurular
 api: 'Uygulama Geliştirme Arayüzü'
-api_motto: 'OJS geliştiriciler için tamamen api üzerinden çalıştırabilir bir sistem vermektedir.'
+api_motto: 'VIPA geliştiriciler için tamamen api üzerinden çalıştırabilir bir sistem vermektedir.'
 application.basic: Temel
 application.contact: İletişim
 application_checklist.required: 'Gerekli?'
@@ -433,9 +433,9 @@ installer.setup: Kur
 installer.update: Yükselt
 installer.update.congrat: 'Tebrikler. Başarıyla güncellediniz.'
 installer.update.welcome.message: 'Veri tabanı farkları üretim veri tabanına uygulanacaktır.'
-installer.update.welcome.title: 'OJS Güncelleyici'
+installer.update.welcome.title: 'VIPA Güncelleyici'
 installer.welcome.message: 'Hoşgeldiniz Mesajı'
-installer.welcome.title: 'OJS Web Yükleyiciye Hoşgeldiniz.'
+installer.welcome.title: 'VIPA Web Yükleyiciye Hoşgeldiniz.'
 institute.country: Ülke
 institute.id: 'Kurum ID'
 institute.merge_as_new_institute: 'Yeni Kurum Olarak Birleştir'
@@ -739,7 +739,7 @@ crossref: Crossref
 'of %count%': '- %count%'
 off: Kapalı
 on: Açık
-vipa: OJS
+vipa: VIPA
 vipa.403: 'Bu sayfayı görüntüleme izniniz yok.'
 vipa.accept_privacy: 'Gizliliğinizi korumak için, lütfen aktivasyon linkine tıklayarak e-posta adresinizi doğrulayın.'
 vipa.activate_now: 'Şimdi Aktifleştir'
@@ -752,14 +752,14 @@ vipa.click_to_Review: 'Eğer daveti kabul ediyorsanız sistemeye girmek için a�
 vipa.found_results: '<strong class="text-danger">%term%</strong> için <strong class="text-danger">%total%</strong> sonuç bulundu.'
 vipa.have_message: 'Sistemden mesajınız var.'
 vipa.install.confirm: 'Kurulumu Onayla'
-vipa.install.title: 'OJS Kurulumu'
-vipa.install.title.confirm: 'OJS kurulumu gerçekleşecek. Onaylıyor musunuz?'
+vipa.install.title: 'VIPA Kurulumu'
+vipa.install.title.confirm: 'VIPA kurulumu gerçekleşecek. Onaylıyor musunuz?'
 vipa.invited: 'Sisteme davet edildiniz.'
 vipa.invited_to_review: 'Hakem Davet Formu'
 vipa.mail_validation: 'Butona tıklamak çalışmaz ise, adresi tarayıcı penceresine yapıştırarak deneyin.'
 vipa.one_more_step: 'Bir Adım Daha'
 vipa.password_reset: 'Şifre Sıfırlama'
-vipa.password_reset_link: 'OJS şifresini sıfırlamak için aşağıdaki linke tıklayınız.'
+vipa.password_reset_link: 'VIPA şifresini sıfırlamak için aşağıdaki linke tıklayınız.'
 vipa.password_reset_now: 'Şimdi Sıfırla'
 vipa.password_reset_process: 'Şifre Sıfırlama Süreci'
 vipa.password_reset_request: 'Şifrenizi sıfırlamanız gerekmektedir.'
@@ -767,12 +767,12 @@ vipa.password_reseted: 'Şifreniz sıfırlandı.'
 vipa.preview_article: 'Göndermeden Önce Taslağı Görüntüle'
 vipa.required_field: 'Bu alan zorunludur!'
 vipa.selected: (Seçili)
-vipa.setup: 'OJS Ayarları'
+vipa.setup: 'VIPA Ayarları'
 vipa.setup_not_completed: '<a href="%setup_url%">Dergi Ayarları</a> tamamlanmamış gözüküyor'
-vipa.title: OJS
+vipa.title: VIPA
 vipa.tos_accept: 'Kaydolarak <a target="_blank" href="%tos%">kullanım şartlarını</a> kabul ediyorsunuz.'
 vipa.uniq_name: 'Bu sizin uygulamada kısa adınız olacak.'
-vipa.updater: 'OJS Güncelleyici'
+vipa.updater: 'VIPA Güncelleyici'
 vipa.view_in_browser: 'Bunu tarayıcınızda görüntüleyin.'
 vipa.welcome_msg: 'Sisteme katıldınız.'
 onlineSubmission: 'Online Makalem'

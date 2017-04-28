@@ -26,8 +26,8 @@
         <li role="presentation"><a href="#applications" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.journal_application"|trans }}</a></li>
         <li role="presentation"><a href="{{ path('vipa_admin_stats_issue') }}">{{ "stats.issue"|trans }}</a></li>
         <li role="presentation"><a href="#other" aria-controls="messages" role="tab" data-toggle="tab">{{ "other.statistics"|trans }}</a></li>
-        {{ twigEventDispatch({'event_name': 'OJS_ADMIN_STATS_DOI_TABS'})|raw }}
-        {{ twigEventDispatch({'event_name': 'OJS_ADMIN_STATS_EXTRA_TABS'})|raw }}
+        {{ twigEventDispatch({'event_name': 'VIPA_ADMIN_STATS_DOI_TABS'})|raw }}
+        {{ twigEventDispatch({'event_name': 'VIPA_ADMIN_STATS_EXTRA_TABS'})|raw }}
     </ul>
 
     <div id="statistics" class="tab-content">
@@ -279,13 +279,13 @@
                     </table>
         </div>
         {{ twigEventDispatch({
-            'event_name': 'OJS_ADMIN_STATS_DOI_CONTENT',
+            'event_name': 'VIPA_ADMIN_STATS_DOI_CONTENT',
             'doi_article_monthly': doiArticleMonthly is defined ? doiArticleMonthly : null ,
             'doi_article_yearly':  doiArticleYearly is defined ? doiArticleYearly : null
         })|raw }}
 
         {{ twigEventDispatch({
-            'event_name': 'OJS_ADMIN_STATS_EXTRA_CONTENT',
+            'event_name': 'VIPA_ADMIN_STATS_EXTRA_CONTENT',
             'doi_journal_monthly':  doiJournalMonthly is defined ? doiJournalMonthly : null,
             'doi_journal_yearly':  doiJournalYearly is defined ? doiJournalYearly : null
         })|raw }}
@@ -305,7 +305,7 @@
         analytics.createChart('#issueFiles', data['issueFileDownloads']);
         analytics.createApplicationChart('#application', data['application']);
 
-        {{ twigEventDispatch({'event_name': 'OJS_ADMIN_STATS_DOI_SCRIPT'})|raw }}
-        {{ twigEventDispatch({'event_name': 'OJS_ADMIN_STATS_EXTRA_SCRIPT'})|raw }}
+        {{ twigEventDispatch({'event_name': 'VIPA_ADMIN_STATS_DOI_SCRIPT'})|raw }}
+        {{ twigEventDispatch({'event_name': 'VIPA_ADMIN_STATS_EXTRA_SCRIPT'})|raw }}
     </script>
 {% endblock %}

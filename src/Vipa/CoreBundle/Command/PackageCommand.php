@@ -24,7 +24,7 @@ class PackageCommand extends ContainerAwareCommand
     {
         $this
             ->setName('vipa:package')
-            ->setDescription('Creates an installable package of OJS')
+            ->setDescription('Creates an installable package of VIPA')
             ->addArgument('type', InputArgument::REQUIRED, 'Package type: ZIP, DEB or YUM');
     }
 

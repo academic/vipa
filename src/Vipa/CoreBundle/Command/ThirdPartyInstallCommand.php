@@ -67,7 +67,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
         ],
         'market' => array(
             'name' => 'MarketBundle',
-            'description' => 'Market bundle for OJS',
+            'description' => 'Market bundle for VIPA',
             'repositories' => array(
                 array(
                     'type' => 'vcs',
@@ -83,7 +83,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
         ),
         'dergipark' => array(
             'name' => 'OjsDergiparkBundle',
-            'description' => 'Dergipark bundle for OJS',
+            'description' => 'Dergipark bundle for VIPA',
             'repositories' => array(
                 array(
                     'type' => 'vcs',
@@ -105,7 +105,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             ->setName('vipa:install:package')
             ->addArgument('packageName', InputArgument::OPTIONAL, 'Package Name')
             ->addOption('list', 'l', null, 'Lists all available packages', null)
-            ->setDescription('OJS Package Installation');
+            ->setDescription('VIPA Package Installation');
     }
 
     /**
@@ -154,7 +154,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
         $event = new CoreEvent([
             'bundleName' => $this->packageName
         ]);
-        $dispatcher->dispatch(CoreEvents::OJS_INSTALL_3PARTY, $event);
+        $dispatcher->dispatch(CoreEvents::VIPA_INSTALL_3PARTY, $event);
     }
 
     private function composerUpdate(OutputInterface $output, KernelInterface $kernel)

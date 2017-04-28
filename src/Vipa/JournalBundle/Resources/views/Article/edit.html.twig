@@ -22,7 +22,7 @@
                 'back': {'href': path('vipa_journal_article_index', {'journalId': entity.journal.id})},
             })
         }}
-        {{ twigEventDispatch({'event_name': 'OJS_ARTICLE_EDIT_VIEW', entity: entity})|raw }}
+        {{ twigEventDispatch({'event_name': 'VIPA_ARTICLE_EDIT_VIEW', entity: entity})|raw }}
     </div>
 
     {{ getLogs(entity) }}

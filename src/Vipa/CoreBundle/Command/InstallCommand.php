@@ -225,7 +225,7 @@ class InstallCommand extends ContainerAwareCommand
             . "to add some sample data.\n"
         );
         $event = new CoreEvent();
-        $dispatcher->dispatch(CoreEvents::OJS_INSTALL_BASE, $event);
+        $dispatcher->dispatch(CoreEvents::VIPA_INSTALL_BASE, $event);
     }
 
     protected function printWelcome()

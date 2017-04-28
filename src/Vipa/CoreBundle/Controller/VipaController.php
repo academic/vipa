@@ -36,7 +36,7 @@ class VipaController extends Controller
         $dispatcher = $this->get('event_dispatcher');
 
         $event = new PermissionEvent($this, $attributes, $object, $field);
-        $dispatcher->dispatch(CoreEvents::OJS_PERMISSION_CHECK, $event);
+        $dispatcher->dispatch(CoreEvents::VIPA_PERMISSION_CHECK, $event);
         if (!is_null($event->getResult())) {
             return $event->getResult();
         }

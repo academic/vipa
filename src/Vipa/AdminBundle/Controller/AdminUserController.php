@@ -471,7 +471,7 @@ class AdminUserController extends Controller
             }
 
             $event = new MergeEvent($primaryUser, $slaveUsers);
-            $dispatcher->dispatch(MergeEvents::OJS_ADMIN_USER_MERGE, $event);
+            $dispatcher->dispatch(MergeEvents::VIPA_ADMIN_USER_MERGE, $event);
 
 
             $em->flush();

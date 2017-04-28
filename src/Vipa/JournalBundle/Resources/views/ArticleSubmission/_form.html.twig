@@ -23,7 +23,7 @@
             <br>
             {{ form_row(form.translations) }}
             {{ twigEventDispatch({
-                'event_name': 'OJS_JOURNAL_ARTICLE_EVENT_FORM',
+                'event_name': 'VIPA_JOURNAL_ARTICLE_EVENT_FORM',
                 'form': form,
                 'dispatch': dispatch is defined ? dispatch : false
             })|raw }}
@@ -60,7 +60,7 @@
                 {% endfilter %}
             </textarea>
 
-            {{ twigEventDispatch({'event_name': 'OJS_SUBMISSION_CITATION_FORM_EXTRA'})|raw }}
+            {{ twigEventDispatch({'event_name': 'VIPA_SUBMISSION_CITATION_FORM_EXTRA'})|raw }}
 
             {% for citiationForm in form.citations %}
                 {{ include('@VipaJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': citiationForm }) }}

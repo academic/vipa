@@ -128,7 +128,7 @@ allow_index: 'Allow Index'
 allow_index.list: 'Allow Index List'
 announcements: Announcements
 api: 'Application Development Interface'
-api_motto: 'OJS provides a complete RESTful API for developers.'
+api_motto: 'VIPA provides a complete RESTful API for developers.'
 application.basic: Basic
 application.contact: Contact
 application_checklist.required: 'Required?'
@@ -399,7 +399,7 @@ form.item.update: 'Form Item Update'
 form.items: 'Form Items'
 full_file: 'Full File'
 fullname: 'Full Name'
-globalFooter.text: "<p>\nOJS  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of a manuscript to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
+globalFooter.text: "<p>\nVIPA  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of a manuscript to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
 haveNoJournals: 'You have no journals'
 help.preSubmission.header: ' Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.'
 helptext.authors.will.see: 'Authors <strong>will</strong> see this field.'
@@ -434,9 +434,9 @@ installer.setup: Setup
 installer.update: Upgrade
 installer.update.congrat: 'Update successful'
 installer.update.welcome.message: 'Database differences will be apply to production database.'
-installer.update.welcome.title: 'OJS Updater'
+installer.update.welcome.title: 'VIPA Updater'
 installer.welcome.message: 'Welcome Message'
-installer.welcome.title: 'Welcome to OJS Web Installer'
+installer.welcome.title: 'Welcome to VIPA Web Installer'
 institute.country: Country
 institute.id: ID
 institute.merge_as_new_institute: 'Merge as a new Publisher'
@@ -741,7 +741,7 @@ crossref: Crossref
 'of %count%': 'of %count%'
 off: Off
 on: On
-vipa: OJS
+vipa: VIPA
 vipa.403: 'You don''t have a permission to view this page.'
 vipa.accept_privacy: 'To protect your privacy, please confirm your email address by clicking on the activation link'
 vipa.activate_now: 'Activate Now'
@@ -752,16 +752,16 @@ vipa.change_password: 'Password Change'
 vipa.changed_password: 'Your password has been changed'
 vipa.click_to_Review: 'Click on the link below for login to website if you accept the invitation'
 vipa.found_results: '<strong class="text-danger">%total%</strong> results were found for <strong class="text-danger">%term%</strong>'
-vipa.have_message: 'You have a new message from OJS'
+vipa.have_message: 'You have a new message from VIPA'
 vipa.install.confirm: 'Confirm Installation'
 vipa.install.title: 'Vipa Installation'
 vipa.install.title.confirm: 'Installlation will start. OK?'
-vipa.invited: 'You have been invited to OJS'
+vipa.invited: 'You have been invited to VIPA'
 vipa.invited_to_review: 'Review Invitation Form'
 vipa.mail_validation: 'If the clicking the button below does not work try copying and pasting this URL to your browser window.'
 vipa.one_more_step: 'One More Step'
 vipa.password_reset: 'Password Reset'
-vipa.password_reset_link: 'Click the link below for reset to OJS account password'
+vipa.password_reset_link: 'Click the link below for reset to VIPA account password'
 vipa.password_reset_now: 'Reset Now'
 vipa.password_reset_process: 'Password Reset Process'
 vipa.password_reset_request: 'You are requested to reset password'
@@ -769,14 +769,14 @@ vipa.password_reseted: 'Your password has been reset'
 vipa.preview_article: 'Preview Article Before Submission'
 vipa.required_field: 'This field is required!'
 vipa.selected: '(selected)'
-vipa.setup: 'OJS Setup'
+vipa.setup: 'VIPA Setup'
 vipa.setup_not_completed: 'It seems that you have not finished  <a href=''%setup_url%''>Journal Setup</a>'
-vipa.title: OJS
+vipa.title: VIPA
 vipa.tos_accept: 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
 vipa.uniq_name: 'This will be your unique short name in application'
-vipa.updater: 'OJS Updater'
+vipa.updater: 'VIPA Updater'
 vipa.view_in_browser: 'View this in your browser'
-vipa.welcome_msg: 'You have joined to OJS'
+vipa.welcome_msg: 'You have joined to VIPA'
 onlineSubmission: 'Online Submission'
 optional: Optional
 orcid.login: 'Orcid login'

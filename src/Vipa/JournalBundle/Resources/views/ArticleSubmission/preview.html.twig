@@ -152,7 +152,7 @@
                                         <span class="badge">{{ citation.orderNum + 1 }}</span> {{ citation.raw }}
                                     </td>
                                 </tr>
-                                {{ twigEventDispatch({'event_name': 'OJS_SUBMISSION_CITATION_VIEW', 'citation': citation})|raw }}
+                                {{ twigEventDispatch({'event_name': 'VIPA_SUBMISSION_CITATION_VIEW', 'citation': citation})|raw }}
                                 </table>
                             {% endfor %}
                     </div>
