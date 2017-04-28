@@ -27,7 +27,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@github.com:vipa/WorkflowBundle.git',
+                    'url' => 'git@github.com:ojs/WorkflowBundle.git',
                 ),
             ),
             'require' => array(
@@ -43,7 +43,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@github.com:vipa/EndorsementBundle.git',
+                    'url' => 'git@github.com:ojs/EndorsementBundle.git',
                 ),
             ),
             'require' => array(
@@ -55,13 +55,13 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
         ),
         'doi' => [
             'name'        => 'DoiBundle',
-            'description' => 'OJS DOI Bundle',
+            'description' => 'Vipa DOI Bundle',
             'require'     => ["vipa/doi-bundle" => "dev-master"],
             'extra'       => ['bundle-class' => 'Vipa\\DoiBundle\\VipaDoiBundle'],
         ],
         'citation' =>[
             'name'         => 'CitationBundle',
-            'description'  => 'OJS Citation Bundle',
+            'description'  => 'Vipa Citation Bundle',
             'require'      => ["vipa/citation-bundle" => "dev-master"],
             'extra'        => ['bundle-class' => 'Vipa\\CitationBundle\\VipaCitationBundle'],
         ],
@@ -78,23 +78,23 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
                 "bulutyazilim/market-bundle" => "dev-master",
             ),
             'extra' => array(
-                'bundle-class' => 'Vipa\\MarketBundle\\VipaMarketBundle',
+                'bundle-class' => 'Ojs\\MarketBundle\\OjsMarketBundle',
             ),
         ),
         'dergipark' => array(
-            'name' => 'VipaDergiparkBundle',
+            'name' => 'OjsDergiparkBundle',
             'description' => 'Dergipark bundle for OJS',
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'https://bitbucket.org/ulakbim/vipadergiparkbundle.git',
+                    'url' => 'https://bitbucket.org/ulakbim/ojsdergiparkbundle.git',
                 ),
             ),
             'require' => array(
-                "vipa/dergipark-bundle" => "dev-master",
+                "ojs/dergipark-bundle" => "dev-master",
             ),
             'extra' => array(
-                'bundle-class' => 'Vipa\\DergiparkBundle\\VipaDergiparkBundle',
+                'bundle-class' => 'Ojs\\DergiparkBundle\\OjsDergiparkBundle',
             ),
         )
     );
