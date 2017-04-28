@@ -1,8 +1,8 @@
-\Ojs\JournalBundle\Entity\Institution:
+\Vipa\JournalBundle\Entity\Institution:
   institution:
     email: <email()>
     currentLocale: en
-    name: Ojs Institution
+    name: Vipa Institution
     url: ""
     about: null
     phone: '01234567810'

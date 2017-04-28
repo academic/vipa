@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\ArticleFile:
+Vipa\JournalBundle\Entity\ArticleFile:
     properties:
         type:
             - NotBlank: { groups: [submission], message: 'type.field.article.files.not.be.blank' }

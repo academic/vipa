@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\JournalApplicationFile:
+Vipa\JournalBundle\Entity\JournalApplicationFile:
   type: entity
   table: journal_application_file
-  repositoryClass: Ojs\JournalBundle\Entity\JournalApplicationFileRepository
+  repositoryClass: Vipa\JournalBundle\Entity\JournalApplicationFileRepository
   lifecycleCallbacks: {  }
   id:
     id:

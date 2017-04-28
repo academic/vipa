@@ -1,4 +1,4 @@
 services:
-#    ojs_analytics.example:
-#        class: Ojs\AnalyticsBundle\Example
+#    vipa_analytics.example:
+#        class: Vipa\AnalyticsBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]

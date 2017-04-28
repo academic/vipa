@@ -1,32 +1,32 @@
-ojs_journal_index_index:
+vipa_journal_index_index:
     path:     /{journalId}/index/
-    defaults: { _controller: "OjsJournalBundle:JournalIndex:index", journal: 0 }
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:index", journal: 0 }
     requirements:
       journal: \d+
 
-ojs_journal_index_show:
+vipa_journal_index_show:
     path:     /{journalId}/index/{id}/show
-    defaults: { _controller: "OjsJournalBundle:JournalIndex:show" }
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:show" }
 
-ojs_journal_index_new:
+vipa_journal_index_new:
     path:     /{journalId}/index/new/
-    defaults: { _controller: "OjsJournalBundle:JournalIndex:new",journal: null }
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:new",journal: null }
 
-ojs_journal_index_create:
+vipa_journal_index_create:
     path:     /{journalId}/index/create/
-    defaults: { _controller: "OjsJournalBundle:JournalIndex:create",journal: null }
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:create",journal: null }
     methods:  POST
 
-ojs_journal_index_edit:
+vipa_journal_index_edit:
     path:     /{journalId}/index/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:JournalIndex:edit" }
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:edit" }
 
-ojs_journal_index_update:
+vipa_journal_index_update:
     path:     /{journalId}/index/{id}/update
-    defaults: { _controller: "OjsJournalBundle:JournalIndex:update" }
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:update" }
     methods: [PUT]
 
-ojs_journal_index_delete:
+vipa_journal_index_delete:
     path:     /{journalId}/index/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:JournalIndex:delete" }
+    defaults: { _controller: "VipaJournalBundle:JournalIndex:delete" }
     methods: [DELETE]

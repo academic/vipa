@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\JournalSubmissionFile:
+Vipa\JournalBundle\Entity\JournalSubmissionFile:
   submission_file:
     title: "Journal Submission File"
     detail: "Journal Submission detail"

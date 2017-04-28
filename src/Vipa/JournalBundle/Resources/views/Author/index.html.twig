@@ -11,7 +11,7 @@
 {% block body -%}
     <h1>{{ 'title.authors'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    {% if is_granted('CREATE', getEntity('OjsJournalBundle:Author')) %}
+    {% if is_granted('CREATE', getEntity('VipaJournalBundle:Author')) %}
         <a href="{{ path('ojs_journal_author_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>

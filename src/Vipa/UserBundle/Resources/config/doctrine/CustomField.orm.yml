@@ -1,7 +1,7 @@
-Ojs\UserBundle\Entity\CustomField:
+Vipa\UserBundle\Entity\CustomField:
   type: entity
   table: custom_field
-  repositoryClass: Ojs\UserBundle\Entity\CustomFieldRepository
+  repositoryClass: Vipa\UserBundle\Entity\CustomFieldRepository
   id:
     id:
       type: integer
@@ -32,7 +32,7 @@ Ojs\UserBundle\Entity\CustomField:
   manyToOne:
     user:
       #cascade: [persist]
-      targetEntity: Ojs\UserBundle\Entity\User
+      targetEntity: Vipa\UserBundle\Entity\User
       joinColumn:
         name: user_id
         referencedColumnName: id

@@ -1,38 +1,38 @@
-ojs_journal_theme_index:
+vipa_journal_theme_index:
     path:     /{journalId}/theme/
-    defaults: { _controller: "OjsJournalBundle:JournalTheme:index" }
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:index" }
 
-ojs_journal_theme_show:
+vipa_journal_theme_show:
     path:     /{journalId}/theme/{id}/show
-    defaults: { _controller: "OjsJournalBundle:JournalTheme:show" }
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:show" }
 
-ojs_journal_theme_new:
+vipa_journal_theme_new:
     path:     /{journalId}/theme/new
-    defaults: { _controller: "OjsJournalBundle:JournalTheme:new" }
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:new" }
 
-ojs_journal_theme_create:
+vipa_journal_theme_create:
     path:     /{journalId}/theme/create
-    defaults: { _controller: "OjsJournalBundle:JournalTheme:create" }
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:create" }
     methods: [POST]
 
-ojs_journal_theme_edit:
+vipa_journal_theme_edit:
     path:     /{journalId}/theme/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:JournalTheme:edit" }
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:edit" }
 
-ojs_journal_theme_update:
+vipa_journal_theme_update:
     path:     /{journalId}/theme/{id}/update
-    defaults: { _controller: "OjsJournalBundle:JournalTheme:update" }
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:update" }
     methods: [PUT]
 
-ojs_journal_theme_delete:
+vipa_journal_theme_delete:
     path:     /{journalId}/theme/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:JournalTheme:delete" }
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:delete" }
     methods: [DELETE]
 
-ojs_journal_theme_globals:
+vipa_journal_theme_globals:
     path:     /{journalId}/theme/global-themes
-    defaults: { _controller: "OjsJournalBundle:JournalTheme:globalThemes" }
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:globalThemes" }
 
-ojs_journal_global_theme_clone:
+vipa_journal_global_theme_clone:
     path:     /{journalId}/theme/{id}/clone
-    defaults: { _controller: "OjsJournalBundle:JournalTheme:cloneGlobalTheme" }
+    defaults: { _controller: "VipaJournalBundle:JournalTheme:cloneGlobalTheme" }

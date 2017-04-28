@@ -1,7 +1,7 @@
-Ojs\AdminBundle\Entity\AdminPage:
+Vipa\AdminBundle\Entity\AdminPage:
     type: entity
     table: admin_page
-    repositoryClass: Ojs\AdminBundle\Entity\AdminPageRepository
+    repositoryClass: Vipa\AdminBundle\Entity\AdminPageRepository
     id:
         id:
             type: integer

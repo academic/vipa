@@ -1,47 +1,47 @@
-ojs_oai_homepage:
+vipa_oai_homepage:
     path: /
-    defaults: { _controller: "OjsOAIBundle:Default:index" }
+    defaults: { _controller: "VipaOAIBundle:Default:index" }
 
-ojs_oai_identify:
+vipa_oai_identify:
     path: /?verb=Identify
-    defaults: { _controller: "OjsOAIBundle:Default:identify" }
+    defaults: { _controller: "VipaOAIBundle:Default:identify" }
 
-ojs_oai_list_records:
+vipa_oai_list_records:
     path: /?verb=ListRecords
-    defaults: { _controller: "OjsOAIBundle:Default:records" }
+    defaults: { _controller: "VipaOAIBundle:Default:records" }
 
-ojs_oai_list_sets:
+vipa_oai_list_sets:
     path: /?verb=ListSets
-    defaults: { _controller: "OjsOAIBundle:Default:listSets" }
+    defaults: { _controller: "VipaOAIBundle:Default:listSets" }
 
-ojs_oai_list_metadata_formats:
+vipa_oai_list_metadata_formats:
     path: /?verb=ListMetadataFormats
-    defaults: { _controller: "OjsOAIBundle:Default:listMetadataFormats" }
+    defaults: { _controller: "VipaOAIBundle:Default:listMetadataFormats" }
 
-ojs_oai_list_identifiers:
+vipa_oai_list_identifiers:
     path: /?verb=ListIdentifiers
-    defaults: { _controller: "OjsOAIBundle:Default:listIdentifier" }
+    defaults: { _controller: "VipaOAIBundle:Default:listIdentifier" }
     
-ojs_oai_journal_homepage:
+vipa_oai_journal_homepage:
     path: '/{slug}/'
-    defaults: { _controller: "OjsOAIBundle:Journal:index" }
+    defaults: { _controller: "VipaOAIBundle:Journal:index" }
 
-ojs_oai_journal_identify:
+vipa_oai_journal_identify:
     path: '/{slug}/?verb=Identify'
-    defaults: { _controller: "OjsOAIBundle:Journal:identify" }
+    defaults: { _controller: "VipaOAIBundle:Journal:identify" }
 
-ojs_oai_journal_list_records:
+vipa_oai_journal_list_records:
     path: '/{slug}/?verb=ListRecords'
-    defaults: { _controller: "OjsOAIBundle:Journal:records" }
+    defaults: { _controller: "VipaOAIBundle:Journal:records" }
 
-ojs_oai_journal_list_sets:
+vipa_oai_journal_list_sets:
     path: '/{slug}/?verb=ListSets'
-    defaults: { _controller: "OjsOAIBundle:Journal:listSets" }
+    defaults: { _controller: "VipaOAIBundle:Journal:listSets" }
 
-ojs_oai_journal_list_metadata_formats:
+vipa_oai_journal_list_metadata_formats:
     path: '/{slug}/?verb=ListMetadataFormats'
-    defaults: { _controller: "OjsOAIBundle:Journal:listMetadataFormats" }
+    defaults: { _controller: "VipaOAIBundle:Journal:listMetadataFormats" }
 
-ojs_oai_journal_list_identifiers:
+vipa_oai_journal_list_identifiers:
     path: '/{slug}/?verb=ListIdentifiers'
-    defaults: { _controller: "OjsOAIBundle:Journal:listIdentifier" }
+    defaults: { _controller: "VipaOAIBundle:Journal:listIdentifier" }

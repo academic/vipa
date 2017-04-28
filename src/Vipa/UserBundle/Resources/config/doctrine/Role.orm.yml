@@ -1,7 +1,7 @@
-Ojs\UserBundle\Entity\Role:
+Vipa\UserBundle\Entity\Role:
   type: entity
   table: role
-  repositoryClass: Ojs\UserBundle\Entity\RoleRepository
+  repositoryClass: Vipa\UserBundle\Entity\RoleRepository
   cache:
       usage: NONSTRICT_READ_WRITE
   id:

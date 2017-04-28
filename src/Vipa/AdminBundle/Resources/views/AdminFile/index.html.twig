@@ -14,7 +14,7 @@
     <h1>{{ "file.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
 
-    {% if is_granted('CREATE', getEntity('OjsAdminBundle:AdminFile')) %}
+    {% if is_granted('CREATE', getEntity('VipaAdminBundle:AdminFile')) %}
         <a href="{{ path('ojs_admin_file_new') }}" class="btn btn-success">
             {{ "create"|trans }}
         </a>

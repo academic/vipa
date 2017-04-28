@@ -1,10 +1,10 @@
-Ojs\JournalBundle\Entity\JournalAnnouncement:
+Vipa\JournalBundle\Entity\JournalAnnouncement:
     table: journal_announcement
     type: entity
-    repositoryClass: Ojs\JournalBundle\Entity\JournalAnnouncementRepository
+    repositoryClass: Vipa\JournalBundle\Entity\JournalAnnouncementRepository
     manyToOne:
         journal:
-            targetEntity: Ojs\JournalBundle\Entity\Journal
+            targetEntity: Vipa\JournalBundle\Entity\Journal
             joinColumn:
                 name: journal_id
                 referencedColumnName: id

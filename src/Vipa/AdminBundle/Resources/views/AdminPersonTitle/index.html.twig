@@ -14,7 +14,7 @@
     <h1>{{ "title.person_titles"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
 
-    {% if is_granted('CREATE', getEntity('OjsJournalBundle:PersonTitle')) %}
+    {% if is_granted('CREATE', getEntity('VipaJournalBundle:PersonTitle')) %}
         <a href="{{ path('ojs_admin_person_title_new') }}" class="btn btn-success">
             {{ "create"|trans }}
         </a>

@@ -41,16 +41,16 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/list.js/dist/list.min.js'
         - '%kernel.root_dir%/../web/vendor/downloadjs/download.min.js'
         - '@BulutYazilimLocationBundle/Resources/public/js/location.js'
-        - '@OjsSiteBundle/Resources/public/js/block.js'
+        - '@VipaSiteBundle/Resources/public/js/block.js'
         - '@A2lixTranslationFormBundle/Resources/public/js/a2lix_translation_bootstrap.js'
         - '@TetranzSelect2EntityBundle/Resources/public/js/select2entity.js'
-        - '@OjsAdminBundle/Resources/public/js/dashboard.js'
+        - '@VipaAdminBundle/Resources/public/js/dashboard.js'
         - '%kernel.root_dir%/../web/bundles/bazingajstranslation/js/translator.min.js'
         - 'https://formbuilder.online/assets/js/form-builder.min.js'
         - 'https://formbuilder.online/assets/js/form-render.min.js'
         - '%kernel.root_dir%/../web/vendor/katex/dist/katex.min.js'
         - '%kernel.root_dir%/../web/vendor/katex/dist/contrib/auto-render.min.js'
-        - '@OjsJournalBundle/Resources/public/js/submission.js'
+        - '@VipaJournalBundle/Resources/public/js/submission.js'
     admin_main_css:
       inputs:
         - '%kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.min.css'
@@ -67,7 +67,7 @@ assetic:
         - 'https://formbuilder.online/assets/css/form-render.min.css'
         - '%kernel.root_dir%/../web/vendor/katex/dist/katex.min.css'
     advanced_search_js:
-      inputs: ['@OjsCoreBundle/Resources/public/js/search.js']
+      inputs: ['@VipaCoreBundle/Resources/public/js/search.js']
     submission_js:
       inputs:
         - '%kernel.root_dir%/../web/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js'
@@ -82,9 +82,9 @@ assetic:
     jqueryui_css:
       input: ['%kernel.root_dir%/../web/assets/app/css/plugins/jqueryui/jquery-ui.min.css']
     site_css:
-      input: ['@OjsSiteBundle/Resources/public/css/main.css']
+      input: ['@VipaSiteBundle/Resources/public/css/main.css']
     timeline_css:
-      input: ['@OjsSiteBundle/Resources/public/css/timeline.css']
+      input: ['@VipaSiteBundle/Resources/public/css/timeline.css']
     hovercard_js:
       inputs:
         - '%kernel.root_dir%/../web/assets/app/js/plugins/hovercard/hovercard.min.js'

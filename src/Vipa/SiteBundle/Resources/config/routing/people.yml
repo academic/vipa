@@ -1,4 +1,4 @@
-ojs_site_people_index:
+vipa_site_people_index:
     path:     /{page}
     host:     "%base_host%"
-    defaults: { _controller: "OjsSiteBundle:People:index", page: 1 }
+    defaults: { _controller: "VipaSiteBundle:People:index", page: 1 }

@@ -15,7 +15,7 @@
             <h1>{{ "user.list"|trans }}</h1>
             {% include '::flashbag.html.twig' %}
 
-            {% if is_granted('CREATE', getEntity('OjsUserBundle:User')) %}
+            {% if is_granted('CREATE', getEntity('VipaUserBundle:User')) %}
                 <a href="{{ path('ojs_admin_user_new') }}" class="btn btn-success">
                     {{ "user.new"|trans }}
                 </a>

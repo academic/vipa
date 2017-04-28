@@ -1,30 +1,30 @@
-ojs_journal_article_file_index:
+vipa_journal_article_file_index:
     path:     /{journalId}/article/{articleId}/file
-    defaults: { _controller: "OjsJournalBundle:ArticleFile:index" }
+    defaults: { _controller: "VipaJournalBundle:ArticleFile:index" }
 
-ojs_journal_article_file_show:
+vipa_journal_article_file_show:
     path:     /{journalId}/article/{articleId}/file/{id}/show
-    defaults: { _controller: "OjsJournalBundle:ArticleFile:show" }
+    defaults: { _controller: "VipaJournalBundle:ArticleFile:show" }
 
-ojs_journal_article_file_new:
+vipa_journal_article_file_new:
     path:     /{journalId}/article/{articleId}/file/new
-    defaults: { _controller: "OjsJournalBundle:ArticleFile:new" }
+    defaults: { _controller: "VipaJournalBundle:ArticleFile:new" }
 
-ojs_journal_article_file_create:
+vipa_journal_article_file_create:
     path:     /{journalId}/article/{articleId}/file/create/
-    defaults: { _controller: "OjsJournalBundle:ArticleFile:create" }
+    defaults: { _controller: "VipaJournalBundle:ArticleFile:create" }
     methods: [POST]
 
-ojs_journal_article_file_edit:
+vipa_journal_article_file_edit:
     path:     /{journalId}/article/{articleId}/file/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:ArticleFile:edit" }
+    defaults: { _controller: "VipaJournalBundle:ArticleFile:edit" }
 
-ojs_journal_article_file_update:
+vipa_journal_article_file_update:
     path:     /{journalId}/article/{articleId}/file/{id}/update
-    defaults: { _controller: "OjsJournalBundle:ArticleFile:update" }
+    defaults: { _controller: "VipaJournalBundle:ArticleFile:update" }
     methods:  [PUT]
 
-ojs_journal_article_file_delete:
+vipa_journal_article_file_delete:
     path:     /{journalId}/article/{articleId}/file/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:ArticleFile:delete" }
+    defaults: { _controller: "VipaJournalBundle:ArticleFile:delete" }
     methods:  [DELETE]

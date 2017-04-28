@@ -1,90 +1,90 @@
-Ojs\JournalBundle\Entity\ArticleTypes:
+Vipa\JournalBundle\Entity\ArticleTypes:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Article', field: articleType}
+    - { entityName: 'VipaJournalBundle:Article', field: articleType}
 
-Ojs\JournalBundle\Entity\PersonTitle:
+Vipa\JournalBundle\Entity\PersonTitle:
   checkUse:
-    - { entityName: 'OjsJournalBundle:JournalContact', field: title}
-    - { entityName: 'OjsUserBundle:User', field: title}
+    - { entityName: 'VipaJournalBundle:JournalContact', field: title}
+    - { entityName: 'VipaUserBundle:User', field: title}
 
-Ojs\JournalBundle\Entity\PublisherTheme:
+Vipa\JournalBundle\Entity\PublisherTheme:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Publisher', field: theme}
+    - { entityName: 'VipaJournalBundle:Publisher', field: theme}
 
-Ojs\JournalBundle\Entity\PublisherDesign:
+Vipa\JournalBundle\Entity\PublisherDesign:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Publisher', field: design}
+    - { entityName: 'VipaJournalBundle:Publisher', field: design}
 
-Ojs\JournalBundle\Entity\Index:
+Vipa\JournalBundle\Entity\Index:
   checkUse:
-    - { entityName: 'OjsJournalBundle:JournalIndex', field: index}
+    - { entityName: 'VipaJournalBundle:JournalIndex', field: index}
 
-Ojs\JournalBundle\Entity\PublisherTypes:
+Vipa\JournalBundle\Entity\PublisherTypes:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Publisher', field: publisherType}
-    - { entityName: 'OjsJournalBundle:Institution', field: institutionType}
+    - { entityName: 'VipaJournalBundle:Publisher', field: publisherType}
+    - { entityName: 'VipaJournalBundle:Institution', field: institutionType}
 
-Ojs\JournalBundle\Entity\JournalTheme:
+Vipa\JournalBundle\Entity\JournalTheme:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Journal', field: theme}
+    - { entityName: 'VipaJournalBundle:Journal', field: theme}
 
-Ojs\JournalBundle\Entity\ContactTypes:
+Vipa\JournalBundle\Entity\ContactTypes:
   checkUse:
-    - { entityName: 'OjsJournalBundle:JournalContact', field: contactType}
+    - { entityName: 'VipaJournalBundle:JournalContact', field: contactType}
 
-Ojs\JournalBundle\Entity\Board:
+Vipa\JournalBundle\Entity\Board:
   checkUse:
-    - { entityName: 'OjsJournalBundle:BoardMember', field: board}
+    - { entityName: 'VipaJournalBundle:BoardMember', field: board}
 
-Ojs\JournalBundle\Entity\Lang:
+Vipa\JournalBundle\Entity\Lang:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Journal', field: mandatoryLang}
-    - { entityName: 'OjsJournalBundle:Journal', field: languages, type: m2m}
-    - { entityName: 'OjsJournalBundle:Article', field: languages, type: m2m}
+    - { entityName: 'VipaJournalBundle:Journal', field: mandatoryLang}
+    - { entityName: 'VipaJournalBundle:Journal', field: languages, type: m2m}
+    - { entityName: 'VipaJournalBundle:Article', field: languages, type: m2m}
 
-Ojs\JournalBundle\Entity\Period:
+Vipa\JournalBundle\Entity\Period:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Journal', field: periods, type: m2m}
+    - { entityName: 'VipaJournalBundle:Journal', field: periods, type: m2m}
 
-Ojs\JournalBundle\Entity\Subject:
+Vipa\JournalBundle\Entity\Subject:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Journal', field: subjects, type: m2m}
-    - { entityName: 'OjsJournalBundle:Article', field: subjects, type: m2m}
-    - { entityName: 'OjsUserBundle:User', field: subjects, type: m2m}
-    - { entityName: 'OjsJournalBundle:Subject', field: parent}
+    - { entityName: 'VipaJournalBundle:Journal', field: subjects, type: m2m}
+    - { entityName: 'VipaJournalBundle:Article', field: subjects, type: m2m}
+    - { entityName: 'VipaUserBundle:User', field: subjects, type: m2m}
+    - { entityName: 'VipaJournalBundle:Subject', field: parent}
 
-Ojs\JournalBundle\Entity\Institution:
+Vipa\JournalBundle\Entity\Institution:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Author', field: institution}
-    - { entityName: 'OjsJournalBundle:JournalContact', field: institution}
-    - { entityName: 'OjsJournalBundle:Institution', field: parent}
+    - { entityName: 'VipaJournalBundle:Author', field: institution}
+    - { entityName: 'VipaJournalBundle:JournalContact', field: institution}
+    - { entityName: 'VipaJournalBundle:Institution', field: parent}
 
-Ojs\JournalBundle\Entity\Section:
+Vipa\JournalBundle\Entity\Section:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Article', field: section}
-    - { entityName: 'OjsJournalBundle:Issue', field: sections, type: m2m}
+    - { entityName: 'VipaJournalBundle:Article', field: section}
+    - { entityName: 'VipaJournalBundle:Issue', field: sections, type: m2m}
 
-Ojs\JournalBundle\Entity\ArticleFile:
+Vipa\JournalBundle\Entity\ArticleFile:
   preDelete:
-    - { entityName: 'OjsAnalyticsBundle:ArticleFileStatistic', field: 'articleFile' }
+    - { entityName: 'VipaAnalyticsBundle:ArticleFileStatistic', field: 'articleFile' }
 
-Ojs\JournalBundle\Entity\IssueFile:
+Vipa\JournalBundle\Entity\IssueFile:
   preDelete:
-    - { entityName: 'OjsAnalyticsBundle:IssueFileStatistic', field: 'issueFile' }
+    - { entityName: 'VipaAnalyticsBundle:IssueFileStatistic', field: 'issueFile' }
 
-Ojs\JournalBundle\Entity\Article:
+Vipa\JournalBundle\Entity\Article:
   preDelete:
-    - { entityName: 'OjsAnalyticsBundle:ArticleStatistic', field: 'article' }
+    - { entityName: 'VipaAnalyticsBundle:ArticleStatistic', field: 'article' }
 
-Ojs\JournalBundle\Entity\Issue:
+Vipa\JournalBundle\Entity\Issue:
   preDelete:
-    - { entityName: 'OjsAnalyticsBundle:IssueStatistic', field: 'issue' }
+    - { entityName: 'VipaAnalyticsBundle:IssueStatistic', field: 'issue' }
 
-Ojs\JournalBundle\Entity\Publisher:
+Vipa\JournalBundle\Entity\Publisher:
   checkUse:
-    - { entityName: 'OjsJournalBundle:Journal', field: publisher}
-    - { entityName: 'OjsJournalBundle:Publisher', field: parent}
+    - { entityName: 'VipaJournalBundle:Journal', field: publisher}
+    - { entityName: 'VipaJournalBundle:Publisher', field: parent}
   preDelete:
-    - { entityName: 'OjsJournalBundle:PublisherTheme', field: publisher}
-    - { entityName: 'OjsJournalBundle:PublisherDesign', field: publisher}
-    - { entityName: 'OjsAdminBundle:PublisherManagers', field: publisher}
+    - { entityName: 'VipaJournalBundle:PublisherTheme', field: publisher}
+    - { entityName: 'VipaJournalBundle:PublisherDesign', field: publisher}
+    - { entityName: 'VipaAdminBundle:PublisherManagers', field: publisher}

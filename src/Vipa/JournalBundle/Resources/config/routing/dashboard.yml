@@ -1,8 +1,8 @@
-ojs_user_index:
+vipa_user_index:
     path:  /user
     host: "%base_host%"
-    defaults: { _controller: "OjsJournalBundle:Manager:userIndex" }
+    defaults: { _controller: "VipaJournalBundle:Manager:userIndex" }
 
-ojs_user_myjournals:
+vipa_user_myjournals:
     path:  /editor/myjournals
-    defaults: { _controller: "OjsJournalBundle:Manager:myJournals" }
+    defaults: { _controller: "VipaJournalBundle:Manager:myJournals" }

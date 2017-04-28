@@ -1,30 +1,30 @@
-ojs_journal_block_index:
+vipa_journal_block_index:
     path:     /{journalId}/block
-    defaults: { _controller: "OjsJournalBundle:Block:index" }
+    defaults: { _controller: "VipaJournalBundle:Block:index" }
 
-ojs_journal_block_show:
+vipa_journal_block_show:
     path:     /{journalId}/block/{id}/show
-    defaults: { _controller: "OjsJournalBundle:Block:show" }
+    defaults: { _controller: "VipaJournalBundle:Block:show" }
 
-ojs_journal_block_new:
+vipa_journal_block_new:
     path:     /{journalId}/block/new
-    defaults: { _controller: "OjsJournalBundle:Block:new" }
+    defaults: { _controller: "VipaJournalBundle:Block:new" }
 
-ojs_journal_block_create:
+vipa_journal_block_create:
     path:     /{journalId}/block/create
-    defaults: { _controller: "OjsJournalBundle:Block:create" }
+    defaults: { _controller: "VipaJournalBundle:Block:create" }
     methods:  POST
 
-ojs_journal_block_edit:
+vipa_journal_block_edit:
     path:     /{journalId}/block/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:Block:edit" }
+    defaults: { _controller: "VipaJournalBundle:Block:edit" }
 
-ojs_journal_block_update:
+vipa_journal_block_update:
     path:     /{journalId}/block/{id}/update
-    defaults: { _controller: "OjsJournalBundle:Block:update" }
+    defaults: { _controller: "VipaJournalBundle:Block:update" }
     methods: [PUT]
 
-ojs_journal_block_delete:
+vipa_journal_block_delete:
     path:     /{journalId}/block/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:Block:delete" }
+    defaults: { _controller: "VipaJournalBundle:Block:delete" }
     methods: [DELETE]

@@ -1,16 +1,16 @@
-ojs_admin_mail_template_index:
+vipa_admin_mail_template_index:
     path:  /
-    defaults: { _controller: "OjsAdminBundle:AdminMailTemplate:index" }
+    defaults: { _controller: "VipaAdminBundle:AdminMailTemplate:index" }
 
-ojs_admin_mail_template_show:
+vipa_admin_mail_template_show:
     path:  /{id}/show
-    defaults: { _controller: "OjsAdminBundle:AdminMailTemplate:show" }
+    defaults: { _controller: "VipaAdminBundle:AdminMailTemplate:show" }
 
-ojs_admin_mail_template_edit:
+vipa_admin_mail_template_edit:
     path:  /{id}/edit
-    defaults: { _controller: "OjsAdminBundle:AdminMailTemplate:edit" }
+    defaults: { _controller: "VipaAdminBundle:AdminMailTemplate:edit" }
 
-ojs_admin_mail_template_update:
+vipa_admin_mail_template_update:
     path:  /{id}/update
-    defaults: { _controller: "OjsAdminBundle:AdminMailTemplate:update" }
+    defaults: { _controller: "VipaAdminBundle:AdminMailTemplate:update" }
     methods:  [PUT]

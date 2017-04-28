@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Institution:
+Vipa\JournalBundle\Entity\Institution:
     type: entity
     table: institution
-    repositoryClass: Ojs\JournalBundle\Entity\InstitutionRepository
+    repositoryClass: Vipa\JournalBundle\Entity\InstitutionRepository
     cache:
         usage: NONSTRICT_READ_WRITE
     id:
@@ -17,11 +17,11 @@ Ojs\JournalBundle\Entity\Institution:
             orderBy:
                   lft: ASC
         institutionContacts:
-            targetEntity: Ojs\JournalBundle\Entity\JournalContact
+            targetEntity: Vipa\JournalBundle\Entity\JournalContact
             mappedBy: institution
     manyToOne:
         institutionType:
-            targetEntity: Ojs\JournalBundle\Entity\PublisherTypes
+            targetEntity: Vipa\JournalBundle\Entity\PublisherTypes
             joinColumn:
                 name: institution_type_id
                 referencedColumnName: id

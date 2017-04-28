@@ -1,17 +1,17 @@
-Ojs\AdminBundle\Entity\PublisherManagers:
+Vipa\AdminBundle\Entity\PublisherManagers:
     type: entity
     table: publisher_managers
-    repositoryClass: Ojs\AdminBundle\Entity\PublisherManagersRepository
+    repositoryClass: Vipa\AdminBundle\Entity\PublisherManagersRepository
 
     manyToOne:
         publisher:
-            targetEntity: Ojs\JournalBundle\Entity\Publisher
+            targetEntity: Vipa\JournalBundle\Entity\Publisher
             inversedBy: publisherManagers
             joinColumn:
                 name: publisher_id
                 referencedColumnName: id
         user:
-            targetEntity: Ojs\UserBundle\Entity\User
+            targetEntity: Vipa\UserBundle\Entity\User
             joinColumn:
                 name: user_id
                 referencedColumnName: id

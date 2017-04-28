@@ -1,4 +1,4 @@
-\Ojs\JournalBundle\Entity\PublisherTypes:
+\Vipa\JournalBundle\Entity\PublisherTypes:
   i_type0:
       currentLocale: en
       name:  Other

@@ -18,7 +18,7 @@
             $('.tree').toggle();
             return false;" class="btn btn-info">{{ 'button.toggle_tree'|trans }}
     </a>
-    {% if is_granted('CREATE', getEntity('OjsJournalBundle:Subject')) %}
+    {% if is_granted('CREATE', getEntity('VipaJournalBundle:Subject')) %}
         <a href="{{ path('ojs_admin_subject_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>

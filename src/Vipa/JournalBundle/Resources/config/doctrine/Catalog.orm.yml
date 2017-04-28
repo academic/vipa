@@ -1,5 +1,5 @@
-Ojs\JournalBundle\Entity\Catalog:
-    repositoryClass: Ojs\JournalBundle\Entity\CatalogRepository
+Vipa\JournalBundle\Entity\Catalog:
+    repositoryClass: Vipa\JournalBundle\Entity\CatalogRepository
     table: catalog
     type: entity
     cache:

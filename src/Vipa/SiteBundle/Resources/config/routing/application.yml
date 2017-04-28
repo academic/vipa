@@ -1,15 +1,15 @@
-ojs_apply_journal:
+vipa_apply_journal:
   path: /journal
-  defaults: { _controller: "%ojs_site.application_controller.class%:journal" }
+  defaults: { _controller: "%vipa_site.application_controller.class%:journal" }
 
-ojs_apply_publisher:
+vipa_apply_publisher:
   path: /publisher
-  defaults: { _controller: "OjsSiteBundle:Application:publisher" }
+  defaults: { _controller: "VipaSiteBundle:Application:publisher" }
 
-ojs_apply_institute_success:
+vipa_apply_institute_success:
   path: /publisher/success
-  defaults: { _controller: "OjsSiteBundle:Application:instituteSuccess" }
+  defaults: { _controller: "VipaSiteBundle:Application:instituteSuccess" }
 
-ojs_apply_journal_success:
+vipa_apply_journal_success:
   path: /journal/success
-  defaults: { _controller: "OjsSiteBundle:Application:journalSuccess" }
+  defaults: { _controller: "VipaSiteBundle:Application:journalSuccess" }

@@ -1,6 +1,6 @@
-Ojs\AdminBundle\Entity\AdminPost:
+Vipa\AdminBundle\Entity\AdminPost:
   type: entity
-  repositoryClass: Ojs\AdminBundle\Entity\AdminPostRepository
+  repositoryClass: Vipa\AdminBundle\Entity\AdminPostRepository
   table: admin_post
   cache:
       usage: NONSTRICT_READ_WRITE

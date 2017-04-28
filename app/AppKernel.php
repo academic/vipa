@@ -43,6 +43,16 @@ class AppKernel extends Kernel
             new Presta\SitemapBundle\PrestaSitemapBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Baskin\HistoryBundle\BaskinHistoryBundle(),
+            new OpenJournalSoftware\BibtexBundle\OpenJournalSoftwareBibtexBundle(),
+            new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
+            new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle(),
+            new Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),
+            new BulutYazilim\LocationBundle\BulutYazilimLocationBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
+
+            //Vipa related bundles
             new Vipa\CoreBundle\VipaCoreBundle(),
             new Vipa\SiteBundle\VipaSiteBundle(),
             new Vipa\AdminBundle\VipaAdminBundle(),
@@ -50,17 +60,9 @@ class AppKernel extends Kernel
             new Vipa\JournalBundle\VipaJournalBundle(),
             new Vipa\UserBundle\VipaUserBundle(),
             new Vipa\OAIBundle\VipaOAIBundle(),
-            new Vipa\ExportBundle\VipaExportBundle(),
-            new BulutYazilim\LocationBundle\BulutYazilimLocationBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
             new Vipa\AnalyticsBundle\VipaAnalyticsBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new JMS\TranslationBundle\JMSTranslationBundle(),
+            new Vipa\ExportBundle\VipaExportBundle(),
             new Vipa\ImportBundle\ImportBundle(),
-            new \OpenJournalSoftware\BibtexBundle\OpenJournalSoftwareBibtexBundle(),
-            new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
-            new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle(),
-            new Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

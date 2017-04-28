@@ -1,16 +1,16 @@
-ojs_journal_mail_template_index:
+vipa_journal_mail_template_index:
     path:     /{journalId}/mail-template/
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:index" }
+    defaults: { _controller: "VipaJournalBundle:MailTemplate:index" }
 
-ojs_journal_mail_template_show:
+vipa_journal_mail_template_show:
     path:     /{journalId}/mail-template/{id}/show
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:show" }
+    defaults: { _controller: "VipaJournalBundle:MailTemplate:show" }
 
-ojs_journal_mail_template_edit:
+vipa_journal_mail_template_edit:
     path:     /{journalId}/mail-template/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:edit" }
+    defaults: { _controller: "VipaJournalBundle:MailTemplate:edit" }
 
-ojs_journal_mail_template_update:
+vipa_journal_mail_template_update:
     path:     /{journalId}/mail-template/{id}/update
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:update" }
+    defaults: { _controller: "VipaJournalBundle:MailTemplate:update" }
     methods: [PUT]

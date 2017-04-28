@@ -1,8 +1,8 @@
-Ojs\JournalBundle\Entity\ArticleAttribute:
+Vipa\JournalBundle\Entity\ArticleAttribute:
   lifecycleCallbacks: {}
   type: entity
   table: article_attribute
-  repositoryClass: Ojs\JournalBundle\Entity\ArticleAttributeRepository
+  repositoryClass: Vipa\JournalBundle\Entity\ArticleAttributeRepository
   id:
     id:
       type: integer

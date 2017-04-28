@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\BoardMember:
+Vipa\JournalBundle\Entity\BoardMember:
     type: entity
     table: board_member
-    repositoryClass: Ojs\JournalBundle\Entity\BoardMemberRepository
+    repositoryClass: Vipa\JournalBundle\Entity\BoardMemberRepository
     id:
         id:
             type: integer
@@ -17,7 +17,7 @@ Ojs\JournalBundle\Entity\BoardMember:
             inversedBy: boardMembers
             cascade: ["persist","merge"]
         user:
-            targetEntity: Ojs\UserBundle\Entity\User
+            targetEntity: Vipa\UserBundle\Entity\User
             joinColumn:
                 name: user_id
                 referencedColumnName: id

@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\BoardTranslation:
+Vipa\JournalBundle\Entity\BoardTranslation:
   type: entity
   table: board_translations
   cache:

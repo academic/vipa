@@ -1,7 +1,7 @@
-Ojs\UserBundle\Entity\User:
+Vipa\UserBundle\Entity\User:
   type:  entity
   table: users
-  repositoryClass: Ojs\UserBundle\Entity\UserRepository
+  repositoryClass: Vipa\UserBundle\Entity\UserRepository
   cache:
     usage: NONSTRICT_READ_WRITE
   attributeOverride:
@@ -130,27 +130,27 @@ Ojs\UserBundle\Entity\User:
         - versioned
   oneToMany:
     customFields:
-      targetEntity: Ojs\UserBundle\Entity\CustomField
+      targetEntity: Vipa\UserBundle\Entity\CustomField
       mappedBy: user
     multipleMails:
-      targetEntity: Ojs\UserBundle\Entity\MultipleMail
+      targetEntity: Vipa\UserBundle\Entity\MultipleMail
       mappedBy: user
     oauthAccounts:
-      targetEntity: Ojs\UserBundle\Entity\UserOauthAccount
+      targetEntity: Vipa\UserBundle\Entity\UserOauthAccount
       mappedBy: user
     authorDetails:
-      targetEntity: Ojs\JournalBundle\Entity\Author
+      targetEntity: Vipa\JournalBundle\Entity\Author
       mappedBy: user
       cascade: ["persist"]
     journalUsers:
-      targetEntity: Ojs\JournalBundle\Entity\JournalUser
+      targetEntity: Vipa\JournalBundle\Entity\JournalUser
       mappedBy: user
       fetch: EXTRA_LAZY
       cache:
         usage: NONSTRICT_READ_WRITE
   manyToOne:
     title:
-      targetEntity: Ojs\JournalBundle\Entity\PersonTitle
+      targetEntity: Vipa\JournalBundle\Entity\PersonTitle
       joinColumn:
         name: title_id
         referencedColumnName: id
@@ -160,19 +160,19 @@ Ojs\UserBundle\Entity\User:
         name: country_id
         referencedColumnName: id
     institution:
-      targetEntity: Ojs\JournalBundle\Entity\Institution
+      targetEntity: Vipa\JournalBundle\Entity\Institution
       joinColumn:
         name: institution_id
         referencedColumnName: id
     merged:
-      targetEntity: Ojs\UserBundle\Entity\User
+      targetEntity: Vipa\UserBundle\Entity\User
       joinColumn:
         name: merged_id
         referencedColumnName: id
       inversedBy: mergeUsers
   manyToMany:
     subjects:
-      targetEntity: Ojs\JournalBundle\Entity\Subject
+      targetEntity: Vipa\JournalBundle\Entity\Subject
       cascade: ["persist"]
       mappedBy: null
       inversedBy: users
@@ -192,7 +192,7 @@ Ojs\UserBundle\Entity\User:
       cache:
           usage: NONSTRICT_READ_WRITE
     restrictedJournals:
-      targetEntity: Ojs\JournalBundle\Entity\Journal
+      targetEntity: Vipa\JournalBundle\Entity\Journal
       mappedBy: bannedUsers
   gedmo:
     soft_deleteable:

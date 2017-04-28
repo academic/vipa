@@ -1,58 +1,58 @@
-ojs_journal_user_index:
+vipa_journal_user_index:
     path:     /{journalId}/user
-    defaults: { _controller: "OjsJournalBundle:JournalUser:index" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:index" }
 
-ojs_journal_user_new:
+vipa_journal_user_new:
     path:     /{journalId}/user/new
-    defaults: { _controller: "OjsJournalBundle:JournalUser:newUser" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:newUser" }
 
-ojs_journal_user_create:
+vipa_journal_user_create:
     path:     /{journalId}/user/create
-    defaults: { _controller: "OjsJournalBundle:JournalUser:createUser" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:createUser" }
 
-ojs_journal_user_add:
+vipa_journal_user_add:
     path:     /{journalId}/user/add
-    defaults: { _controller: "OjsJournalBundle:JournalUser:addUser" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:addUser" }
     methods:  [GET, POST]
 
-ojs_journal_user_edit:
+vipa_journal_user_edit:
     path:     /{journalId}/user/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:JournalUser:editUser" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:editUser" }
 
-ojs_journal_user_update:
+vipa_journal_user_update:
     path:     /{journalId}/user/{id}/update
-    defaults: { _controller: "OjsJournalBundle:JournalUser:updateUser" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:updateUser" }
     methods:  [PUT]
 
-ojs_journal_user_delete:
+vipa_journal_user_delete:
     path:     /{journalId}/user/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:JournalUser:deleteUser" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:deleteUser" }
     methods:  [DELETE]
 
-ojs_journal_user_register_list:
+vipa_journal_user_register_list:
     path:  /join
-    defaults: { _controller: "OjsJournalBundle:JournalUser:registerAsAuthor" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:registerAsAuthor" }
 
-ojs_journal_user_register:
+vipa_journal_user_register:
     path:  /join/{journalId}
-    defaults: { _controller: "OjsJournalBundle:JournalUser:registerAsAuthor" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:registerAsAuthor" }
 
-ojs_journal_user_my:
+vipa_journal_user_my:
     path:  /my
-    defaults: { _controller: "OjsJournalBundle:JournalUser:journals" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:journals" }
 
-ojs_journal_user_leave:
+vipa_journal_user_leave:
     path: /leave/{journalId}
-    defaults: { _controller: "OjsJournalBundle:JournalUser:leaveJournal" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:leaveJournal" }
 
-ojs_journal_user_leave_role:
+vipa_journal_user_leave_role:
     path: /leave/{journalId}/role/{roleId}
-    defaults: { _controller: "OjsJournalBundle:JournalUser:leaveJournal" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:leaveJournal" }
 
-ojs_journal_user_search:
+vipa_journal_user_search:
     path: /user/search
-    defaults: { _controller: "OjsJournalBundle:JournalUser:getUserByUsername" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:getUserByUsername" }
 
-ojs_journal_user_search_based_journal:
+vipa_journal_user_search_based_journal:
     path: /{journalId}/user/search
-    defaults: { _controller: "OjsJournalBundle:JournalUser:getUserBasedJournal" }
+    defaults: { _controller: "VipaJournalBundle:JournalUser:getUserBasedJournal" }

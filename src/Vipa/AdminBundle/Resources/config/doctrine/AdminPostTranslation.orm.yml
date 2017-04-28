@@ -1,4 +1,4 @@
-Ojs\AdminBundle\Entity\AdminPostTranslation:
+Vipa\AdminBundle\Entity\AdminPostTranslation:
     type: entity
     table: admin_post_translations
     cache:

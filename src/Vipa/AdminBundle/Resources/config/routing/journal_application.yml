@@ -1,23 +1,23 @@
-ojs_admin_application_journal_index:
+vipa_admin_application_journal_index:
   path:     /journal
-  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:index" }
+  defaults: { _controller: "VipaAdminBundle:AdminJournalApplication:index" }
 
-ojs_admin_application_journal_show:
+vipa_admin_application_journal_show:
   path:     /journal/{id}
-  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:detail" }
+  defaults: { _controller: "VipaAdminBundle:AdminJournalApplication:detail" }
 
-ojs_admin_application_journal_edit:
+vipa_admin_application_journal_edit:
   path:     /journal/edit/{id}
-  defaults: { _controller: "%ojs_core.journal_application_controller.class%:edit" }
+  defaults: { _controller: "%vipa_core.journal_application_controller.class%:edit" }
 
-ojs_admin_application_journal_update:
+vipa_admin_application_journal_update:
   path:     /journal/update/{id}
-  defaults: { _controller: "%ojs_core.journal_application_controller.class%:update" }
+  defaults: { _controller: "%vipa_core.journal_application_controller.class%:update" }
 
-ojs_admin_application_journal_save:
+vipa_admin_application_journal_save:
   path:     /journal/{id}/save
-  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:save" }
+  defaults: { _controller: "VipaAdminBundle:AdminJournalApplication:save" }
 
-ojs_admin_application_journal_reject:
+vipa_admin_application_journal_reject:
   path:     /journal/{id}/reject
-  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:reject" }
+  defaults: { _controller: "VipaAdminBundle:AdminJournalApplication:reject" }

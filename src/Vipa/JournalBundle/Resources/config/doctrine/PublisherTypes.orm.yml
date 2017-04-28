@@ -1,12 +1,12 @@
-Ojs\JournalBundle\Entity\PublisherTypes:
+Vipa\JournalBundle\Entity\PublisherTypes:
     type: entity
     table: publisher_types
-    repositoryClass: Ojs\JournalBundle\Entity\PublisherTypesRepository
+    repositoryClass: Vipa\JournalBundle\Entity\PublisherTypesRepository
     cache:
         usage: NONSTRICT_READ_WRITE
     oneToMany:
         publishers:
-            targetEntity: Ojs\JournalBundle\Entity\Publisher
+            targetEntity: Vipa\JournalBundle\Entity\Publisher
             mappedBy: publisherType
             fetch: EXTRA_LAZY
             cascade: ["persist"]

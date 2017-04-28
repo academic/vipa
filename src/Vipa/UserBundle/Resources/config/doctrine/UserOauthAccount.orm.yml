@@ -1,7 +1,7 @@
-Ojs\UserBundle\Entity\UserOauthAccount:
+Vipa\UserBundle\Entity\UserOauthAccount:
   type: entity
   table: user_oauth_accounts
-  repositoryClass: Ojs\UserBundle\Entity\UserOauthAccountRepository
+  repositoryClass: Vipa\UserBundle\Entity\UserOauthAccountRepository
   id:
     id:
       generator:
@@ -19,7 +19,7 @@ Ojs\UserBundle\Entity\UserOauthAccount:
       nullable: true
   manyToOne:
     user:
-      targetEntity: Ojs\UserBundle\Entity\User
+      targetEntity: Vipa\UserBundle\Entity\User
       joinColumn:
         name: user_id
         referencedColumnName: id

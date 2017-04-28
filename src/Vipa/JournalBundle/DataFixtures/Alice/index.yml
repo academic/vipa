@@ -1,4 +1,4 @@
-\Ojs\JournalBundle\Entity\Index:
+\Vipa\JournalBundle\Entity\Index:
   index1:
       name: Open Access Library (oalib)
       status: 1

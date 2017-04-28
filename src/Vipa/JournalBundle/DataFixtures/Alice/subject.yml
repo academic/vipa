@@ -1,4 +1,4 @@
-\Ojs\JournalBundle\Entity\Subject:
+\Vipa\JournalBundle\Entity\Subject:
   subject1:
     currentLocale: en
     subject: Computer Science

@@ -1,144 +1,144 @@
 parameters:
-    ojs_api.contact_type.handler.class: Ojs\ApiBundle\Handler\ContactTypesHandler
-    ojs_api.contact_type.class: Ojs\JournalBundle\Entity\ContactTypes
-    ojs_api.journal.handler.class: Ojs\ApiBundle\Handler\JournalHandler
-    ojs_api.journal.class: Ojs\JournalBundle\Entity\Journal
-    ojs_api.publisher.handler.class: Ojs\ApiBundle\Handler\PublisherHandler
-    ojs_api.publisher.class: Ojs\JournalBundle\Entity\Publisher
-    ojs_api.institution.handler.class: Ojs\ApiBundle\Handler\InstitutionHandler
-    ojs_api.institution.class: Ojs\JournalBundle\Entity\Institution
-    ojs_api.subject.handler.class: Ojs\ApiBundle\Handler\SubjectHandler
-    ojs_api.subject.class: Ojs\JournalBundle\Entity\Subject
-    ojs_api.user.handler.class: Ojs\ApiBundle\Handler\UserHandler
-    ojs_api.user.class: Ojs\UserBundle\Entity\User
-    ojs_api.lang.handler.class: Ojs\ApiBundle\Handler\LangHandler
-    ojs_api.lang.class: Ojs\JournalBundle\Entity\Lang
-    ojs_api.index.handler.class: Ojs\ApiBundle\Handler\IndexHandler
-    ojs_api.index.class: Ojs\JournalBundle\Entity\Index
-    ojs_api.period.handler.class: Ojs\ApiBundle\Handler\PeriodHandler
-    ojs_api.period.class: Ojs\JournalBundle\Entity\Period
-    ojs_api.person_title.handler.class: Ojs\ApiBundle\Handler\PersonTitleHandler
-    ojs_api.person_title.class: Ojs\JournalBundle\Entity\PersonTitle
-    ojs_api.publisher_type.handler.class: Ojs\ApiBundle\Handler\PublisherTypeHandler
-    ojs_api.publisher_type.class: Ojs\JournalBundle\Entity\PublisherTypes
-    ojs_api.article_type.handler.class: Ojs\ApiBundle\Handler\ArticleTypeHandler
-    ojs_api.article_type.class: Ojs\JournalBundle\Entity\ArticleTypes
-    ojs_api.contact.handler.class: Ojs\ApiBundle\Handler\ContactHandler
-    ojs_api.contact.class: Ojs\JournalBundle\Entity\JournalContact
-    ojs_api.post.handler.class: Ojs\ApiBundle\Handler\PostHandler
-    ojs_api.post.class: Ojs\AdminBundle\Entity\AdminPost
-    ojs_api.page.handler.class: Ojs\ApiBundle\Handler\PageHandler
-    ojs_api.page.class: Ojs\AdminBundle\Entity\AdminPage
-    ojs_api.announcement.handler.class: Ojs\ApiBundle\Handler\AnnouncementHandler
-    ojs_api.announcement.class: Ojs\AdminBundle\Entity\AdminAnnouncement
-    ojs_api.publisher_theme.handler.class: Ojs\ApiBundle\Handler\PublisherThemeHandler
-    ojs_api.publisher_theme.class: Ojs\JournalBundle\Entity\PublisherTheme
-    ojs_api.publisher_manager.handler.class: Ojs\ApiBundle\Handler\PublisherManagerHandler
-    ojs_api.publisher_manager.class: Ojs\AdminBundle\Entity\PublisherManagers
-    ojs_api.journal_issue.handler.class: Ojs\ApiBundle\Handler\JournalIssueHandler
-    ojs_api.journal_issue.class: Ojs\JournalBundle\Entity\Issue
-    ojs_api.journal_issue_file.handler.class: Ojs\ApiBundle\Handler\JournalIssueFileHandler
-    ojs_api.journal_issue_file.class: Ojs\JournalBundle\Entity\IssueFile
-    ojs_api.journal_theme.handler.class: Ojs\ApiBundle\Handler\JournalThemeHandler
-    ojs_api.journal_theme.class: Ojs\JournalBundle\Entity\JournalTheme
-    ojs_api.journal_board.handler.class: Ojs\ApiBundle\Handler\JournalBoardHandler
-    ojs_api.journal_board.class: Ojs\JournalBundle\Entity\Board
-    ojs_api.journal_section.handler.class: Ojs\ApiBundle\Handler\JournalSectionHandler
-    ojs_api.journal_section.class: Ojs\JournalBundle\Entity\Section
-    ojs_api.journal_article.handler.class: Ojs\ApiBundle\Handler\JournalArticleHandler
-    ojs_api.journal_article.class: Ojs\JournalBundle\Entity\Article
-    ojs_api.journal_article_file.handler.class: Ojs\ApiBundle\Handler\JournalArticleFileHandler
-    ojs_api.journal_article_file.class: Ojs\JournalBundle\Entity\ArticleFile
-    ojs_api.journal_article_author.handler.class: Ojs\ApiBundle\Handler\JournalArticleAuthorHandler
-    ojs_api.journal_article_author.class: Ojs\JournalBundle\Entity\ArticleAuthor
-    ojs_api.journal_article_citation.handler.class: Ojs\ApiBundle\Handler\JournalArticleCitationHandler
-    ojs_api.journal_article_citation.class: Ojs\JournalBundle\Entity\Citation
+    vipa_api.contact_type.handler.class: Vipa\ApiBundle\Handler\ContactTypesHandler
+    vipa_api.contact_type.class: Vipa\JournalBundle\Entity\ContactTypes
+    vipa_api.journal.handler.class: Vipa\ApiBundle\Handler\JournalHandler
+    vipa_api.journal.class: Vipa\JournalBundle\Entity\Journal
+    vipa_api.publisher.handler.class: Vipa\ApiBundle\Handler\PublisherHandler
+    vipa_api.publisher.class: Vipa\JournalBundle\Entity\Publisher
+    vipa_api.institution.handler.class: Vipa\ApiBundle\Handler\InstitutionHandler
+    vipa_api.institution.class: Vipa\JournalBundle\Entity\Institution
+    vipa_api.subject.handler.class: Vipa\ApiBundle\Handler\SubjectHandler
+    vipa_api.subject.class: Vipa\JournalBundle\Entity\Subject
+    vipa_api.user.handler.class: Vipa\ApiBundle\Handler\UserHandler
+    vipa_api.user.class: Vipa\UserBundle\Entity\User
+    vipa_api.lang.handler.class: Vipa\ApiBundle\Handler\LangHandler
+    vipa_api.lang.class: Vipa\JournalBundle\Entity\Lang
+    vipa_api.index.handler.class: Vipa\ApiBundle\Handler\IndexHandler
+    vipa_api.index.class: Vipa\JournalBundle\Entity\Index
+    vipa_api.period.handler.class: Vipa\ApiBundle\Handler\PeriodHandler
+    vipa_api.period.class: Vipa\JournalBundle\Entity\Period
+    vipa_api.person_title.handler.class: Vipa\ApiBundle\Handler\PersonTitleHandler
+    vipa_api.person_title.class: Vipa\JournalBundle\Entity\PersonTitle
+    vipa_api.publisher_type.handler.class: Vipa\ApiBundle\Handler\PublisherTypeHandler
+    vipa_api.publisher_type.class: Vipa\JournalBundle\Entity\PublisherTypes
+    vipa_api.article_type.handler.class: Vipa\ApiBundle\Handler\ArticleTypeHandler
+    vipa_api.article_type.class: Vipa\JournalBundle\Entity\ArticleTypes
+    vipa_api.contact.handler.class: Vipa\ApiBundle\Handler\ContactHandler
+    vipa_api.contact.class: Vipa\JournalBundle\Entity\JournalContact
+    vipa_api.post.handler.class: Vipa\ApiBundle\Handler\PostHandler
+    vipa_api.post.class: Vipa\AdminBundle\Entity\AdminPost
+    vipa_api.page.handler.class: Vipa\ApiBundle\Handler\PageHandler
+    vipa_api.page.class: Vipa\AdminBundle\Entity\AdminPage
+    vipa_api.announcement.handler.class: Vipa\ApiBundle\Handler\AnnouncementHandler
+    vipa_api.announcement.class: Vipa\AdminBundle\Entity\AdminAnnouncement
+    vipa_api.publisher_theme.handler.class: Vipa\ApiBundle\Handler\PublisherThemeHandler
+    vipa_api.publisher_theme.class: Vipa\JournalBundle\Entity\PublisherTheme
+    vipa_api.publisher_manager.handler.class: Vipa\ApiBundle\Handler\PublisherManagerHandler
+    vipa_api.publisher_manager.class: Vipa\AdminBundle\Entity\PublisherManagers
+    vipa_api.journal_issue.handler.class: Vipa\ApiBundle\Handler\JournalIssueHandler
+    vipa_api.journal_issue.class: Vipa\JournalBundle\Entity\Issue
+    vipa_api.journal_issue_file.handler.class: Vipa\ApiBundle\Handler\JournalIssueFileHandler
+    vipa_api.journal_issue_file.class: Vipa\JournalBundle\Entity\IssueFile
+    vipa_api.journal_theme.handler.class: Vipa\ApiBundle\Handler\JournalThemeHandler
+    vipa_api.journal_theme.class: Vipa\JournalBundle\Entity\JournalTheme
+    vipa_api.journal_board.handler.class: Vipa\ApiBundle\Handler\JournalBoardHandler
+    vipa_api.journal_board.class: Vipa\JournalBundle\Entity\Board
+    vipa_api.journal_section.handler.class: Vipa\ApiBundle\Handler\JournalSectionHandler
+    vipa_api.journal_section.class: Vipa\JournalBundle\Entity\Section
+    vipa_api.journal_article.handler.class: Vipa\ApiBundle\Handler\JournalArticleHandler
+    vipa_api.journal_article.class: Vipa\JournalBundle\Entity\Article
+    vipa_api.journal_article_file.handler.class: Vipa\ApiBundle\Handler\JournalArticleFileHandler
+    vipa_api.journal_article_file.class: Vipa\JournalBundle\Entity\ArticleFile
+    vipa_api.journal_article_author.handler.class: Vipa\ApiBundle\Handler\JournalArticleAuthorHandler
+    vipa_api.journal_article_author.class: Vipa\JournalBundle\Entity\ArticleAuthor
+    vipa_api.journal_article_citation.handler.class: Vipa\ApiBundle\Handler\JournalArticleCitationHandler
+    vipa_api.journal_article_citation.class: Vipa\JournalBundle\Entity\Citation
 
 services:
-    ojs_api.contact_type.handler:
-        class: "%ojs_api.contact_type.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.contact_type.class%', '@form.factory']
-    ojs_api.journal.handler:
-        class: "%ojs_api.journal.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal.class%', '@form.factory', '@ojs_api_handler_helper', '@kernel']
-    ojs_api.publisher.handler:
-        class: "%ojs_api.publisher.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.publisher.class%', '@form.factory']
-    ojs_api.institution.handler:
-        class: "%ojs_api.institution.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.institution.class%', '@form.factory']
-    ojs_api.subject.handler:
-        class: "%ojs_api.subject.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.subject.class%', '@form.factory']
-    ojs_api.user.handler:
-        class: "%ojs_api.user.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.user.class%', '@form.factory']
-    ojs_api.lang.handler:
-        class: "%ojs_api.lang.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.lang.class%', '@form.factory']
-    ojs_api.index.handler:
-        class: "%ojs_api.index.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.index.class%', '@form.factory']
-    ojs_api.period.handler:
-        class: "%ojs_api.period.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.period.class%', '@form.factory']
-    ojs_api.person_title.handler:
-        class: "%ojs_api.person_title.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.person_title.class%', '@form.factory']
-    ojs_api.publisher_type.handler:
-        class: "%ojs_api.publisher_type.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.publisher_type.class%', '@form.factory']
-    ojs_api.article_type.handler:
-        class: "%ojs_api.article_type.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.article_type.class%', '@form.factory']
-    ojs_api.contact.handler:
-        class: "%ojs_api.contact.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.contact.class%', '@form.factory']
-    ojs_api.post.handler:
-        class: "%ojs_api.post.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.post.class%', '@form.factory']
-    ojs_api.page.handler:
-        class: "%ojs_api.page.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.page.class%', '@form.factory']
-    ojs_api.announcement.handler:
-        class: "%ojs_api.announcement.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.announcement.class%', '@form.factory']
-    ojs_api.publisher_theme.handler:
-        class: "%ojs_api.publisher_theme.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.publisher_theme.class%', '@form.factory']
-    ojs_api.publisher_manager.handler:
-        class: "%ojs_api.publisher_manager.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.publisher_manager.class%', '@form.factory']
-    ojs_api.journal_issue.handler:
-        class: "%ojs_api.journal_issue.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_issue.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@ojs_api_handler_helper']
-    ojs_api.journal_issue_file.handler:
-        class: "%ojs_api.journal_issue_file.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_issue_file.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@ojs_api_handler_helper']
-    ojs_api.journal_theme.handler:
-        class: "%ojs_api.journal_theme.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_theme.class%', '@form.factory', '@ojs.journal_service']
-    ojs_api.journal_board.handler:
-        class: "%ojs_api.journal_board.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_board.class%', '@form.factory', '@ojs.journal_service']
-    ojs_api.journal_section.handler:
-        class: "%ojs_api.journal_section.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_section.class%', '@form.factory', '@ojs.journal_service']
-    ojs_api.journal_article.handler:
-        class: "%ojs_api.journal_article.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_article.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@ojs_api_handler_helper']
-    ojs_api.journal_article_file.handler:
-        class: "%ojs_api.journal_article_file.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_article_file.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@ojs_api_handler_helper']
-    ojs_api.journal_article_author.handler:
-        class: "%ojs_api.journal_article_author.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_article_author.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@ojs_api_handler_helper']
-    ojs_api.journal_article_citation.handler:
-        class: "%ojs_api.journal_article_citation.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_article_citation.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@ojs_api_handler_helper', '%citation_types%']
+    vipa_api.contact_type.handler:
+        class: "%vipa_api.contact_type.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.contact_type.class%', '@form.factory']
+    vipa_api.journal.handler:
+        class: "%vipa_api.journal.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.journal.class%', '@form.factory', '@vipa_api_handler_helper', '@kernel']
+    vipa_api.publisher.handler:
+        class: "%vipa_api.publisher.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.publisher.class%', '@form.factory']
+    vipa_api.institution.handler:
+        class: "%vipa_api.institution.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.institution.class%', '@form.factory']
+    vipa_api.subject.handler:
+        class: "%vipa_api.subject.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.subject.class%', '@form.factory']
+    vipa_api.user.handler:
+        class: "%vipa_api.user.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.user.class%', '@form.factory']
+    vipa_api.lang.handler:
+        class: "%vipa_api.lang.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.lang.class%', '@form.factory']
+    vipa_api.index.handler:
+        class: "%vipa_api.index.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.index.class%', '@form.factory']
+    vipa_api.period.handler:
+        class: "%vipa_api.period.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.period.class%', '@form.factory']
+    vipa_api.person_title.handler:
+        class: "%vipa_api.person_title.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.person_title.class%', '@form.factory']
+    vipa_api.publisher_type.handler:
+        class: "%vipa_api.publisher_type.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.publisher_type.class%', '@form.factory']
+    vipa_api.article_type.handler:
+        class: "%vipa_api.article_type.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.article_type.class%', '@form.factory']
+    vipa_api.contact.handler:
+        class: "%vipa_api.contact.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.contact.class%', '@form.factory']
+    vipa_api.post.handler:
+        class: "%vipa_api.post.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.post.class%', '@form.factory']
+    vipa_api.page.handler:
+        class: "%vipa_api.page.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.page.class%', '@form.factory']
+    vipa_api.announcement.handler:
+        class: "%vipa_api.announcement.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.announcement.class%', '@form.factory']
+    vipa_api.publisher_theme.handler:
+        class: "%vipa_api.publisher_theme.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.publisher_theme.class%', '@form.factory']
+    vipa_api.publisher_manager.handler:
+        class: "%vipa_api.publisher_manager.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.publisher_manager.class%', '@form.factory']
+    vipa_api.journal_issue.handler:
+        class: "%vipa_api.journal_issue.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.journal_issue.class%', '@form.factory', '@vipa.journal_service', '@kernel', '@vipa_api_handler_helper']
+    vipa_api.journal_issue_file.handler:
+        class: "%vipa_api.journal_issue_file.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.journal_issue_file.class%', '@form.factory', '@vipa.journal_service', '@kernel', '@vipa_api_handler_helper']
+    vipa_api.journal_theme.handler:
+        class: "%vipa_api.journal_theme.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.journal_theme.class%', '@form.factory', '@vipa.journal_service']
+    vipa_api.journal_board.handler:
+        class: "%vipa_api.journal_board.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.journal_board.class%', '@form.factory', '@vipa.journal_service']
+    vipa_api.journal_section.handler:
+        class: "%vipa_api.journal_section.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.journal_section.class%', '@form.factory', '@vipa.journal_service']
+    vipa_api.journal_article.handler:
+        class: "%vipa_api.journal_article.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.journal_article.class%', '@form.factory', '@vipa.journal_service', '@kernel', '@vipa_api_handler_helper']
+    vipa_api.journal_article_file.handler:
+        class: "%vipa_api.journal_article_file.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.journal_article_file.class%', '@form.factory', '@vipa.journal_service', '@kernel', '@vipa_api_handler_helper']
+    vipa_api.journal_article_author.handler:
+        class: "%vipa_api.journal_article_author.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.journal_article_author.class%', '@form.factory', '@vipa.journal_service', '@kernel', '@vipa_api_handler_helper']
+    vipa_api.journal_article_citation.handler:
+        class: "%vipa_api.journal_article_citation.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%vipa_api.journal_article_citation.class%', '@form.factory', '@vipa.journal_service', '@kernel', '@vipa_api_handler_helper', '%citation_types%']
 
-    ojs_api.twig.api_extension:
-        class: Ojs\ApiBundle\Service\Twig\ApiTwigExtension
+    vipa_api.twig.api_extension:
+        class: Vipa\ApiBundle\Service\Twig\ApiTwigExtension
         arguments:
             - "@router"
         tags:

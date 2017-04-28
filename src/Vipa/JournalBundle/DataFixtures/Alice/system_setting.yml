@@ -1,4 +1,4 @@
-\Ojs\AdminBundle\Entity\SystemSetting:
+\Vipa\AdminBundle\Entity\SystemSetting:
   setting:
     userRegistrationActive: true
     publisherApplicationActive: true

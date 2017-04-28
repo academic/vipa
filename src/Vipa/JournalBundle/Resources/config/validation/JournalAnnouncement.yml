@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\JournalAnnouncementTranslation:
+Vipa\JournalBundle\Entity\JournalAnnouncementTranslation:
   properties:
     title:
       - NotBlank: ~

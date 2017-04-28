@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\PublisherDesign:
+Vipa\JournalBundle\Entity\PublisherDesign:
     type: entity
     table: publisher_design
-    repositoryClass: Ojs\JournalBundle\Entity\PublisherDesignRepository
+    repositoryClass: Vipa\JournalBundle\Entity\PublisherDesignRepository
     id:
         id:
             type: integer
@@ -10,7 +10,7 @@ Ojs\JournalBundle\Entity\PublisherDesign:
                 strategy: AUTO
     manyToOne:
         publisher:
-            targetEntity: Ojs\JournalBundle\Entity\Publisher
+            targetEntity: Vipa\JournalBundle\Entity\Publisher
             inversedBy: publisherDesigns
             joinColumn:
                 name: publisher_id

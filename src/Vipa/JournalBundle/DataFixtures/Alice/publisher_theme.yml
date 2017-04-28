@@ -1,4 +1,4 @@
-\Ojs\JournalBundle\Entity\PublisherTheme:
+\Vipa\JournalBundle\Entity\PublisherTheme:
   publisherTheme:
       title: Publisher Theme
       public: false

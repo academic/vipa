@@ -1,42 +1,42 @@
-ojs_journal_article_author_index:
+vipa_journal_article_author_index:
     path:     /{journalId}/article/{articleId}/author
-    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:index" }
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:index" }
 
-ojs_journal_article_author_sort:
+vipa_journal_article_author_sort:
     path:     /{journalId}/article/{articleId}/author/sort
-    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:authorSort" }
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:authorSort" }
 
-ojs_journal_article_author_show:
+vipa_journal_article_author_show:
     path:     /{journalId}/article/{articleId}/author/{id}/show
-    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:show" }
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:show" }
 
-ojs_journal_article_author_new:
+vipa_journal_article_author_new:
     path:     /{journalId}/article/{articleId}/author/new
-    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:new" }
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:new" }
 
-ojs_journal_article_author_add:
+vipa_journal_article_author_add:
     path:     /{journalId}/article/{articleId}/author/add
-    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:add" }
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:add" }
 
-ojs_journal_article_author_create:
+vipa_journal_article_author_create:
     path:     /{journalId}/article/{articleId}/author/create/
-    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:create" }
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:create" }
     methods: [POST]
 
-ojs_journal_article_author_edit:
+vipa_journal_article_author_edit:
     path:     /{journalId}/article/{articleId}/author/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:edit" }
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:edit" }
 
-ojs_journal_article_author_update:
+vipa_journal_article_author_update:
     path:     /{journalId}/article/{articleId}/author/{id}/update
-    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:update" }
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:update" }
     methods:  [PUT]
 
-ojs_journal_article_author_delete:
+vipa_journal_article_author_delete:
     path:     /{journalId}/article/{articleId}/author/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:delete" }
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:delete" }
     methods:  [DELETE]
 
-ojs_journal_article_author_search:
+vipa_journal_article_author_search:
     path: /{journalId}/author/search
-    defaults: { _controller: "OjsJournalBundle:ArticleAuthor:getAuthorBasedJournal" }
+    defaults: { _controller: "VipaJournalBundle:ArticleAuthor:getAuthorBasedJournal" }

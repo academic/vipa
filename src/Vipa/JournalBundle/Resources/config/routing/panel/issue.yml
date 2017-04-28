@@ -1,54 +1,54 @@
-ojs_journal_issue_index:
+vipa_journal_issue_index:
     path:     /{journalId}/issue
-    defaults: { _controller: "OjsJournalBundle:Issue:index" }
+    defaults: { _controller: "VipaJournalBundle:Issue:index" }
 
-ojs_journal_issue_new:
+vipa_journal_issue_new:
     path:     /{journalId}/issue/new
-    defaults: { _controller: "OjsJournalBundle:Issue:new" }
+    defaults: { _controller: "VipaJournalBundle:Issue:new" }
 
-ojs_journal_issue_create:
+vipa_journal_issue_create:
     path:     /{journalId}/issue/create
-    defaults: { _controller: "OjsJournalBundle:Issue:create" }
+    defaults: { _controller: "VipaJournalBundle:Issue:create" }
     methods:  [POST]
 
-ojs_journal_issue_show:
+vipa_journal_issue_show:
     path:     /{journalId}/issue/{id}
-    defaults: { _controller: "OjsJournalBundle:Issue:show" }
+    defaults: { _controller: "VipaJournalBundle:Issue:show" }
 
-ojs_journal_issue_edit:
+vipa_journal_issue_edit:
     path:     /{journalId}/issue/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:Issue:edit" }
+    defaults: { _controller: "VipaJournalBundle:Issue:edit" }
 
-ojs_journal_issue_update:
+vipa_journal_issue_update:
     path:     /{journalId}/issue/{id}/update
-    defaults: { _controller: "OjsJournalBundle:Issue:update" }
+    defaults: { _controller: "VipaJournalBundle:Issue:update" }
     methods:  [PUT]
 
-ojs_journal_issue_delete:
+vipa_journal_issue_delete:
     path:     /{journalId}/issue/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:Issue:delete" }
+    defaults: { _controller: "VipaJournalBundle:Issue:delete" }
     methods:  [DELETE]
 
-ojs_journal_issue_arrange:
+vipa_journal_issue_arrange:
     path:     /{journalId}/issue/{id}/arrange
-    defaults: { _controller: "OjsJournalBundle:Issue:arrange" }
+    defaults: { _controller: "VipaJournalBundle:Issue:arrange" }
 
-ojs_journal_issue_arrange_sort:
+vipa_journal_issue_arrange_sort:
     path:     /{journalId}/issue/{id}/{sectionId}/sort
-    defaults: { _controller: "OjsJournalBundle:Issue:arrangeSort" }
+    defaults: { _controller: "VipaJournalBundle:Issue:arrangeSort" }
 
-ojs_journal_issue_article_add:
+vipa_journal_issue_article_add:
     path:     /{journalId}/issue/{id}/add-article/{articleId}
-    defaults: { _controller: "OjsJournalBundle:Issue:addArticle" }
+    defaults: { _controller: "VipaJournalBundle:Issue:addArticle" }
 
-ojs_journal_issue_article_remove:
+vipa_journal_issue_article_remove:
     path:     /{journalId}/issue/{id}/remove-article/{articleId}
-    defaults: { _controller: "OjsJournalBundle:Issue:removeArticle" }
+    defaults: { _controller: "VipaJournalBundle:Issue:removeArticle" }
 
-ojs_journal_issue_view:
+vipa_journal_issue_view:
     path:     /{journalId}/issue/{id}/article
-    defaults: { _controller: "OjsJournalBundle:Issue:view" }
+    defaults: { _controller: "VipaJournalBundle:Issue:view" }
 
-ojs_journal_issue_make_last:
+vipa_journal_issue_make_last:
     path:     /{journalId}/issue/{id}/make-last
-    defaults: { _controller: "OjsJournalBundle:Issue:makeLastIssue" }
+    defaults: { _controller: "VipaJournalBundle:Issue:makeLastIssue" }

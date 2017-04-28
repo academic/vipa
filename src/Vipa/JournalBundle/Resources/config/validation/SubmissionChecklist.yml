@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\SubmissionChecklist:
+Vipa\JournalBundle\Entity\SubmissionChecklist:
     properties:
         label:
             - NotBlank: ~

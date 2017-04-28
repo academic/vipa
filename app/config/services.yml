@@ -3,7 +3,7 @@ services:
     arguments:
       - "@doctrine.orm.entity_manager"
       - "@request_stack"
-    class: Ojs\AnalyticsBundle\Listener\AnalyticsSubscriber
+    class: Vipa\AnalyticsBundle\Listener\AnalyticsSubscriber
     tags:
       -
         name: kernel.event_subscriber
@@ -11,15 +11,15 @@ services:
   api_key_user_provider:
     arguments:
       - "@doctrine.orm.default_entity_manager"
-    class: Ojs\ApiBundle\Security\ApiKeyUserProvider
+    class: Vipa\ApiBundle\Security\ApiKeyUserProvider
 
   apikey_authenticator:
     arguments:
       - "@api_key_user_provider"
-    class: Ojs\ApiBundle\Security\ApiKeyAuthenticator
+    class: Vipa\ApiBundle\Security\ApiKeyAuthenticator
 
   form.type.journal_user:
-    class: Ojs\JournalBundle\Form\Type\JournalUserType
+    class: Vipa\JournalBundle\Form\Type\JournalUserType
     tags:
       -
         alias: vipa_journalbundle_journaluser
@@ -41,7 +41,7 @@ services:
     arguments:
       - "@doctrine.orm.entity_manager"
       - "@liip_imagine.filter.manager"
-    class: Ojs\SiteBundle\Twig\CommonExtension
+    class: Vipa\SiteBundle\Twig\CommonExtension
     tags:
       -
         name: twig.extension
@@ -49,7 +49,7 @@ services:
   vipa.user_provider.username_email:
     arguments:
       - "@doctrine.orm.entity_manager"
-    class: Ojs\UserBundle\Service\EmailUserProvider
+    class: Vipa\UserBundle\Service\EmailUserProvider
 
   twig.extension.intl:
     class: Twig_Extensions_Extension_Intl

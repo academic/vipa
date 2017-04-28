@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\JournalContact:
+Vipa\JournalBundle\Entity\JournalContact:
     properties:
         fullName:
             - NotBlank: ~

@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\Citation:
+Vipa\JournalBundle\Entity\Citation:
     properties:
         raw:
             - NotBlank: { groups: [submission], message: 'Raw fields of citations can not be blank.' }

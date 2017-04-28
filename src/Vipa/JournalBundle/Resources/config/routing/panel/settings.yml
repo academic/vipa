@@ -1,21 +1,21 @@
-ojs_journal_settings_index:
+vipa_journal_settings_index:
     path:  /{journalId}/settings/
-    defaults: { _controller: "OjsJournalBundle:Manager:journalSettings" }
+    defaults: { _controller: "VipaJournalBundle:Manager:journalSettings" }
 
-ojs_journal_settings_update:
+vipa_journal_settings_update:
     path:  /{journalId}/settings/update
-    defaults: { _controller: "OjsJournalBundle:Manager:updateJournal" }
+    defaults: { _controller: "VipaJournalBundle:Manager:updateJournal" }
     methods:  [PUT, POST]
 
-ojs_article_types_settings_index:
+vipa_article_types_settings_index:
     path:  /{journalId}/settings/article-types
-    defaults: { _controller: "OjsJournalBundle:Manager:ArticleTypesSettings" }
+    defaults: { _controller: "VipaJournalBundle:Manager:ArticleTypesSettings" }
 
-ojs_article_types_settings_update:
+vipa_article_types_settings_update:
     path:  /{journalId}/settings/article-types/update
-    defaults: { _controller: "OjsJournalBundle:Manager:updateArticleTypes" }
+    defaults: { _controller: "VipaJournalBundle:Manager:updateArticleTypes" }
     methods:  [PUT, POST]
 
-ojs_journal_settings_submission:
+vipa_journal_settings_submission:
     path:  /{journalId}/settings/submission
-    defaults: { _controller: "OjsJournalBundle:SubmissionSetting:edit" }
+    defaults: { _controller: "VipaJournalBundle:SubmissionSetting:edit" }

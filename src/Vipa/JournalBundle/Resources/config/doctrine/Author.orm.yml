@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Author:
+Vipa\JournalBundle\Entity\Author:
   type: entity
   table: author
-  repositoryClass: Ojs\JournalBundle\Entity\AuthorRepository
+  repositoryClass: Vipa\JournalBundle\Entity\AuthorRepository
   oneToMany:
     articleAuthors:
       targetEntity: ArticleAuthor
@@ -9,7 +9,7 @@ Ojs\JournalBundle\Entity\Author:
       cascade: ["persist"]
   manyToOne:
     title:
-      targetEntity: Ojs\JournalBundle\Entity\PersonTitle
+      targetEntity: Vipa\JournalBundle\Entity\PersonTitle
       joinColumn:
         name: title_id
         referencedColumnName: id
@@ -19,7 +19,7 @@ Ojs\JournalBundle\Entity\Author:
         name: institution_id
         referencedColumnName: id
     user:
-      targetEntity: Ojs\UserBundle\Entity\User
+      targetEntity: Vipa\UserBundle\Entity\User
       joinColumn:
         name: user_id
         referencedColumnName: id

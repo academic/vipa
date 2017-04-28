@@ -1,34 +1,34 @@
-ojs_journal_journal_contact_index:
+vipa_journal_journal_contact_index:
     path:  /{journalId}/contact/
-    defaults: { _controller: "OjsJournalBundle:JournalContact:index" }
+    defaults: { _controller: "VipaJournalBundle:JournalContact:index" }
 
-ojs_journal_journal_contact_sort:
+vipa_journal_journal_contact_sort:
     path:     /{journalId}/contact/sort
-    defaults: { _controller: "OjsJournalBundle:JournalContact:sort" }
+    defaults: { _controller: "VipaJournalBundle:JournalContact:sort" }
 
-ojs_journal_journal_contact_show:
+vipa_journal_journal_contact_show:
     path:  /{journalId}/contact/{id}/show
-    defaults: { _controller: "OjsJournalBundle:JournalContact:show" }
+    defaults: { _controller: "VipaJournalBundle:JournalContact:show" }
 
-ojs_journal_journal_contact_new:
+vipa_journal_journal_contact_new:
     path:  /{journalId}/contact/new
-    defaults: { _controller: "OjsJournalBundle:JournalContact:new" }
+    defaults: { _controller: "VipaJournalBundle:JournalContact:new" }
 
-ojs_journal_journal_contact_create:
+vipa_journal_journal_contact_create:
     path:  /{journalId}/contact/create
-    defaults: { _controller: "OjsJournalBundle:JournalContact:create" }
+    defaults: { _controller: "VipaJournalBundle:JournalContact:create" }
     methods: [POST]
 
-ojs_journal_journal_contact_edit:
+vipa_journal_journal_contact_edit:
     path:  /{journalId}/contact/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:JournalContact:edit" }
+    defaults: { _controller: "VipaJournalBundle:JournalContact:edit" }
 
-ojs_journal_journal_contact_update:
+vipa_journal_journal_contact_update:
     path:  /{journalId}/contact/{id}/update
-    defaults: { _controller: "OjsJournalBundle:JournalContact:update" }
+    defaults: { _controller: "VipaJournalBundle:JournalContact:update" }
     methods: [PUT]
 
-ojs_journal_journal_contact_delete:
+vipa_journal_journal_contact_delete:
     path:  /{journalId}/contact/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:JournalContact:delete" }
+    defaults: { _controller: "VipaJournalBundle:JournalContact:delete" }
     methods: [DELETE]

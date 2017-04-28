@@ -14,7 +14,7 @@
     <h1>{{ "lang.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
 
-    {% if is_granted('CREATE', getEntity('OjsJournalBundle:Lang')) %}
+    {% if is_granted('CREATE', getEntity('VipaJournalBundle:Lang')) %}
         <a href="{{ path('ojs_admin_language_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>

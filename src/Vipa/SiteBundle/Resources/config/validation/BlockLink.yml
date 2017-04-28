@@ -1,4 +1,4 @@
-Ojs\SiteBundle\Entity\BlockLink:
+Vipa\SiteBundle\Entity\BlockLink:
     properties:
         text:
             - NotBlank: ~

@@ -1,13 +1,13 @@
-Ojs\JournalBundle\Entity\Journal:
+Vipa\JournalBundle\Entity\Journal:
   journal:
     currentLocale: en
     issn: null
     eissn: 2148-2357
-    subtitle: Ojs Help
-    title: Ojs Help Journal
-    titleAbbr: Ojs Help
+    subtitle: Vipa Help
+    title: Vipa Help Journal
+    titleAbbr: Vipa Help
     titleTransliterated: null
-    url: "http://ojs.io"
+    url: "http://vipa.io"
     slug: help
     publisher: 1
     subjects: [1, 2]

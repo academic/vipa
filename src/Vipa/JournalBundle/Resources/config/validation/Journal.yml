@@ -1,9 +1,9 @@
-Ojs\JournalBundle\Entity\JournalTranslation:
+Vipa\JournalBundle\Entity\JournalTranslation:
   properties:
     title:
       - NotBlank: ~
 
-Ojs\JournalBundle\Entity\Journal:
+Vipa\JournalBundle\Entity\Journal:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: ['issn']
@@ -20,10 +20,10 @@ Ojs\JournalBundle\Entity\Journal:
             - NotBlank: {groups: [adminJournalEdit]}
         issn:
             - Issn: ~
-            - Ojs\JournalBundle\Validator\Constraints\JournalIssn: { message: 'issn.in.use' }
+            - Vipa\JournalBundle\Validator\Constraints\JournalIssn: { message: 'issn.in.use' }
         eissn:
             - Issn: ~
-            - Ojs\JournalBundle\Validator\Constraints\JournalIssn: { message: 'eissn.in.use' }
+            - Vipa\JournalBundle\Validator\Constraints\JournalIssn: { message: 'eissn.in.use' }
         founded:
             - NotBlank: ~
             - GreaterThan:

@@ -1,30 +1,30 @@
-ojs_admin_index_index:
+vipa_admin_index_index:
     path:     /
-    defaults: { _controller: "OjsAdminBundle:AdminIndex:index" }
+    defaults: { _controller: "VipaAdminBundle:AdminIndex:index" }
 
-ojs_admin_index_show:
+vipa_admin_index_show:
     path:     /{id}/show
-    defaults: { _controller: "OjsAdminBundle:AdminIndex:show" }
+    defaults: { _controller: "VipaAdminBundle:AdminIndex:show" }
 
-ojs_admin_index_new:
+vipa_admin_index_new:
     path:     /new
-    defaults: { _controller: "OjsAdminBundle:AdminIndex:new" }
+    defaults: { _controller: "VipaAdminBundle:AdminIndex:new" }
 
-ojs_admin_index_create:
+vipa_admin_index_create:
     path:     /create
-    defaults: { _controller: "OjsAdminBundle:AdminIndex:create" }
+    defaults: { _controller: "VipaAdminBundle:AdminIndex:create" }
     methods:  POST
 
-ojs_admin_index_edit:
+vipa_admin_index_edit:
     path:     /{id}/edit
-    defaults: { _controller: "OjsAdminBundle:AdminIndex:edit" }
+    defaults: { _controller: "VipaAdminBundle:AdminIndex:edit" }
 
-ojs_admin_index_update:
+vipa_admin_index_update:
     path:     /{id}/update
-    defaults: { _controller: "OjsAdminBundle:AdminIndex:update" }
+    defaults: { _controller: "VipaAdminBundle:AdminIndex:update" }
     methods: [PUT]
 
-ojs_admin_index_delete:
+vipa_admin_index_delete:
     path:     /{id}/delete
-    defaults: { _controller: "OjsAdminBundle:AdminIndex:delete" }
+    defaults: { _controller: "VipaAdminBundle:AdminIndex:delete" }
     methods: [DELETE]

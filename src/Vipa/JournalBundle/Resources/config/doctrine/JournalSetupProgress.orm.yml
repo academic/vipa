@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\JournalSetupProgress:
+Vipa\JournalBundle\Entity\JournalSetupProgress:
     type: entity
     table: journal_setup_progress
     id:
@@ -14,7 +14,7 @@ Ojs\JournalBundle\Entity\JournalSetupProgress:
                 name: journal_id
                 referencedColumnName: id
         user:
-            targetEntity: Ojs\UserBundle\Entity\User
+            targetEntity: Vipa\UserBundle\Entity\User
             joinColumn:
                 name: user_id
                 referencedColumnName: id

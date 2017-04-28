@@ -1,4 +1,4 @@
-\Ojs\JournalBundle\Entity\ArticleAttribute:
+\Vipa\JournalBundle\Entity\ArticleAttribute:
   a_attribute1:
     article: '@article1'
     attribute: <text(20)>

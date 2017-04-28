@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Citation:
+Vipa\JournalBundle\Entity\Citation:
   type: entity
   table: citation
-  repositoryClass: Ojs\JournalBundle\Entity\CitationRepository
+  repositoryClass: Vipa\JournalBundle\Entity\CitationRepository
   manyToMany:
     articles:
       targetEntity: Article

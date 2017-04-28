@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\MailTemplate:
+Vipa\JournalBundle\Entity\MailTemplate:
     properties:
         template:
             - NotBlank: ~

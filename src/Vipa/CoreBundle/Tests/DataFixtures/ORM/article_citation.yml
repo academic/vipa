@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\Citation:
+Vipa\JournalBundle\Entity\Citation:
   article_citation:
     articles: [1]
     orderNum: <randomDigit()>

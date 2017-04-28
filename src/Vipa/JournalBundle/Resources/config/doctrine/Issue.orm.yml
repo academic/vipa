@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Issue:
+Vipa\JournalBundle\Entity\Issue:
   type: entity
   table: issue
-  repositoryClass: Ojs\JournalBundle\Entity\IssueRepository
+  repositoryClass: Vipa\JournalBundle\Entity\IssueRepository
   cache:
     usage: NONSTRICT_READ_WRITE
   manyToOne:
@@ -24,12 +24,12 @@ Ojs\JournalBundle\Entity\Issue:
       fetch: EXTRA_LAZY
       cascade: ["persist", "remove"]
     statistics:
-      targetEntity: Ojs\AnalyticsBundle\Entity\IssueStatistic
+      targetEntity: Vipa\AnalyticsBundle\Entity\IssueStatistic
       mappedBy: issue
       cascade: ["persist", "remove"]
   manyToMany:
     catalogs:
-      targetEntity: Ojs\JournalBundle\Entity\Catalog
+      targetEntity: Vipa\JournalBundle\Entity\Catalog
       cascade: ["persist", "remove"] ## Is cascade.remove only removes reference from pivot table?
       joinTable:
           name: issue_catalogs

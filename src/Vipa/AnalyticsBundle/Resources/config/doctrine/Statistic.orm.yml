@@ -1,4 +1,4 @@
-Ojs\AnalyticsBundle\Entity\Statistic:
+Vipa\AnalyticsBundle\Entity\Statistic:
     type: entity
     table: statistic
     inheritanceType: SINGLE_TABLE

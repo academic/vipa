@@ -3,12 +3,12 @@ vipa_api_doc:
   prefix:   /public/v1/doc
 
 vipa_api_home:
-    resource: "@OjsApiBundle/Resources/config/routing.yml"
+    resource: "@VipaApiBundle/Resources/config/routing.yml"
     prefix:   /
     
 vipa_rest:
   type: rest
-  resource: "@OjsApiBundle/Resources/config/routing_rest.yml"
+  resource: "@VipaApiBundle/Resources/config/routing_rest.yml"
   requirements:
     id:           \d+
     publisherId:  \d+

@@ -1,4 +1,4 @@
-Ojs\AdminBundle\Entity\AdminAnnouncement:
+Vipa\AdminBundle\Entity\AdminAnnouncement:
     properties:
         title:
             - NotBlank: ~

@@ -754,7 +754,7 @@ vipa.click_to_Review: 'Click on the link below for login to website if you accep
 vipa.found_results: '<strong class="text-danger">%total%</strong> results were found for <strong class="text-danger">%term%</strong>'
 vipa.have_message: 'You have a new message from OJS'
 vipa.install.confirm: 'Confirm Installation'
-vipa.install.title: 'Ojs Installation'
+vipa.install.title: 'Vipa Installation'
 vipa.install.title.confirm: 'Installlation will start. OK?'
 vipa.invited: 'You have been invited to OJS'
 vipa.invited_to_review: 'Review Invitation Form'

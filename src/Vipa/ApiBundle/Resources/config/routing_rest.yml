@@ -1,6 +1,6 @@
 api_contact_types:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/ContactTypesRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/ContactTypesRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -8,7 +8,7 @@ api_contact_types:
 
 api_journal:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/JournalRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/JournalRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -16,7 +16,7 @@ api_journal:
 
 api_publisher:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/PublisherRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/PublisherRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -24,7 +24,7 @@ api_publisher:
 
 api_institution:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/InstitutionRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/InstitutionRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -32,7 +32,7 @@ api_institution:
 
 api_subject:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/SubjectRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/SubjectRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -40,7 +40,7 @@ api_subject:
 
 api_user:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/UserRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/UserRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -48,7 +48,7 @@ api_user:
 
 api_lang:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/LangRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/LangRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -56,7 +56,7 @@ api_lang:
 
 api_index:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/IndexRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/IndexRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -64,7 +64,7 @@ api_index:
 
 api_period:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/PeriodRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/PeriodRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -72,7 +72,7 @@ api_period:
 
 api_person_title:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/PersonTitleRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/PersonTitleRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -80,7 +80,7 @@ api_person_title:
 
 api_publisher_type:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/PublisherTypeRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/PublisherTypeRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -88,7 +88,7 @@ api_publisher_type:
 
 api_article_type:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/ArticleTypeRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/ArticleTypeRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -96,7 +96,7 @@ api_article_type:
 
 api_contact:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/ContactRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/ContactRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -104,7 +104,7 @@ api_contact:
 
 api_post:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/PostRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/PostRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -112,7 +112,7 @@ api_post:
 
 api_page:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/PageRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/PageRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -120,7 +120,7 @@ api_page:
 
 api_announcement:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/AnnouncementRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/AnnouncementRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -128,7 +128,7 @@ api_announcement:
 
 api_publisher_theme:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/PublisherThemeRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/PublisherThemeRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -136,7 +136,7 @@ api_publisher_theme:
 
 api_publisher_manager:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Admin/PublisherManagerRestController.php"
+  resource:     "@VipaApiBundle/Controller/Admin/PublisherManagerRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
   options:
@@ -144,7 +144,7 @@ api_publisher_manager:
 
 api_journal_issue:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Journal/JournalIssueRestController.php"
+  resource:     "@VipaApiBundle/Controller/Journal/JournalIssueRestController.php"
   prefix:       /v1/journal/{journalId}
   name_prefix:  api_1_
   options:
@@ -152,7 +152,7 @@ api_journal_issue:
 
 api_journal_issue_file:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Journal/JournalIssueFileRestController.php"
+  resource:     "@VipaApiBundle/Controller/Journal/JournalIssueFileRestController.php"
   prefix:       /v1/journal/{journalId}/issue/{issueId}
   name_prefix:  api_1_issue_
   options:
@@ -160,7 +160,7 @@ api_journal_issue_file:
 
 api_journal_theme:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Journal/JournalThemeRestController.php"
+  resource:     "@VipaApiBundle/Controller/Journal/JournalThemeRestController.php"
   prefix:       /v1/journal/{journalId}
   name_prefix:  api_1_
   options:
@@ -168,7 +168,7 @@ api_journal_theme:
 
 api_journal_board:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Journal/JournalBoardRestController.php"
+  resource:     "@VipaApiBundle/Controller/Journal/JournalBoardRestController.php"
   prefix:       /v1/journal/{journalId}
   name_prefix:  api_1_
   options:
@@ -176,7 +176,7 @@ api_journal_board:
 
 api_journal_section:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Journal/JournalSectionRestController.php"
+  resource:     "@VipaApiBundle/Controller/Journal/JournalSectionRestController.php"
   prefix:       /v1/journal/{journalId}
   name_prefix:  api_1_
   options:
@@ -184,7 +184,7 @@ api_journal_section:
 
 api_journal_article:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Journal/JournalArticleRestController.php"
+  resource:     "@VipaApiBundle/Controller/Journal/JournalArticleRestController.php"
   prefix:       /v1/journal/{journalId}
   name_prefix:  api_1_
   options:
@@ -192,7 +192,7 @@ api_journal_article:
 
 api_journal_article_file:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Journal/JournalArticleFileRestController.php"
+  resource:     "@VipaApiBundle/Controller/Journal/JournalArticleFileRestController.php"
   prefix:       /v1/journal/{journalId}/article/{articleId}
   name_prefix:  api_1_article_
   options:
@@ -200,7 +200,7 @@ api_journal_article_file:
 
 api_journal_article_author:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Journal/JournalArticleAuthorRestController.php"
+  resource:     "@VipaApiBundle/Controller/Journal/JournalArticleAuthorRestController.php"
   prefix:       /v1/journal/{journalId}/article/{articleId}
   name_prefix:  api_1_article_
   options:
@@ -208,7 +208,7 @@ api_journal_article_author:
 
 api_journal_article_citation:
   type:         rest
-  resource:     "@OjsApiBundle/Controller/Journal/JournalArticleCitationRestController.php"
+  resource:     "@VipaApiBundle/Controller/Journal/JournalArticleCitationRestController.php"
   prefix:       /v1/journal/{journalId}/article/{articleId}
   name_prefix:  api_1_article_
   options:
@@ -216,7 +216,7 @@ api_journal_article_citation:
 
 api_analytics :
   type: rest
-  resource:     "@OjsApiBundle/Controller/AnalyticsRestController.php"
+  resource:     "@VipaApiBundle/Controller/AnalyticsRestController.php"
   prefix:       /v1/
   name_prefix:  api_1_
   options:

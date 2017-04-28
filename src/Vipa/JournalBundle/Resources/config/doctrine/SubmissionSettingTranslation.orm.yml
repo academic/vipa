@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\SubmissionSettingTranslation:
+Vipa\JournalBundle\Entity\SubmissionSettingTranslation:
   type: entity
   table: submission_setting_translations
   cache:

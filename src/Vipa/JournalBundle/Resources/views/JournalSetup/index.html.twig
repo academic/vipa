@@ -78,7 +78,7 @@
                         <div class="col-sm-12">
                             <hr/>
                             <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: OjsJournalSetup.step1('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 1}) }}');">
+                               onclick="javascript: VipaJournalSetup.step1('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 1}) }}');">
                                 <i class="fa fa-save"></i>
                                 {{ "save.next"|trans }}
                                 <i class="fa fa-chevron-right"></i>
@@ -97,11 +97,11 @@
                     <div class="col-sm-12">
                         <hr>
                         <a class="btn btn-danger btn-lg"
-                           onclick="javascript:OjsJournalSetup.backTo(1);">
+                           onclick="javascript:VipaJournalSetup.backTo(1);">
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsJournalSetup.step2('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 2}) }}');">
+                           onclick="javascript: VipaJournalSetup.step2('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 2}) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -119,11 +119,11 @@
                     <div class="col-sm-12">
                         <hr>
                         <a class="btn btn-danger btn-lg"
-                           onclick="javascript:OjsJournalSetup.backTo(2);">
+                           onclick="javascript:VipaJournalSetup.backTo(2);">
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsJournalSetup.step3('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 3}) }}');">
+                           onclick="javascript: VipaJournalSetup.step3('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 3}) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -159,11 +159,11 @@
                     <div class="col-sm-12">
                         <hr>
                         <a class="btn btn-danger btn-lg"
-                           onclick="javascript:OjsJournalSetup.backTo(3);">
+                           onclick="javascript:VipaJournalSetup.backTo(3);">
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsJournalSetup.step4('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 4}) }}');">
+                           onclick="javascript: VipaJournalSetup.step4('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 4}) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -234,11 +234,11 @@
                     <div class="col-sm-12">
                         <hr>
                         <a class="btn btn-danger btn-lg"
-                           onclick="javascript:OjsJournalSetup.backTo(4);">
+                           onclick="javascript:VipaJournalSetup.backTo(4);">
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsJournalSetup.step5('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 5}) }}');">
+                           onclick="javascript: VipaJournalSetup.step5('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 5}) }}');">
                             <i class="fa fa-chevron-right"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -255,11 +255,11 @@
                     <div class="col-sm-12">
                         <hr>
                         <a class="btn btn-danger btn-lg"
-                           onclick="javascript:OjsJournalSetup.backTo(5);">
+                           onclick="javascript:VipaJournalSetup.backTo(5);">
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsJournalSetup.step6('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 6}) }}');">
+                           onclick="javascript: VipaJournalSetup.step6('{{ path('ojs_journal_setup_step_control', {setupId: setupId, step: 6}) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.finish"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -295,14 +295,14 @@
         });
     </script>
     <script type="text/javascript">
-        OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+        VipaCommon.api.userApikey = "{{app.user.apiKey}}";
         var currentStep = parseInt(window.location.hash.replace("#", ""));
         window.onbeforeunload = function () {
             //return "{{"sure_data_lost"|trans}}";
         };
         function loadCurrentStep(currentStep) {
-            OjsJournalSetup.hideAllSteps();
-            OjsJournalSetup.prepareStep["step" + currentStep]();
+            VipaJournalSetup.hideAllSteps();
+            VipaJournalSetup.prepareStep["step" + currentStep]();
         }
         $(window).on("hashchange", function (event) {
             var currentStep = parseInt(window.location.hash.replace("#", ""));
@@ -316,7 +316,7 @@
             if (currentStep) {
                 loadCurrentStep(currentStep);
             }
-            OjsJournalSetup.activatedSteps["step1"] = true;
+            VipaJournalSetup.activatedSteps["step1"] = true;
         });
     </script>
     {{ form_javascript(steps.step2) }}

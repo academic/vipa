@@ -1,7 +1,7 @@
-Ojs\AdminBundle\Entity\AdminAnnouncement:
+Vipa\AdminBundle\Entity\AdminAnnouncement:
     table: admin_announcement
     type: entity
-    repositoryClass: Ojs\AdminBundle\Entity\AdminAnnouncementRepository
+    repositoryClass: Vipa\AdminBundle\Entity\AdminAnnouncementRepository
     cache:
         usage: NONSTRICT_READ_WRITE
     id:

@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\JournalAnnouncementTranslation:
+Vipa\JournalBundle\Entity\JournalAnnouncementTranslation:
   type: entity
   table: journal_announcement_translations
   id:

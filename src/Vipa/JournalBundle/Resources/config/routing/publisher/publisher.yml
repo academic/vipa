@@ -1,16 +1,16 @@
-ojs_publisher_manager_edit:
+vipa_publisher_manager_edit:
     path:  /edit
-    defaults: { _controller: "OjsJournalBundle:ManagerPublisher:edit" }
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisher:edit" }
 
-ojs_publisher_manager_update:
+vipa_publisher_manager_update:
     path:  /update
-    defaults: { _controller: "OjsJournalBundle:ManagerPublisher:update" }
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisher:update" }
     methods:  [PUT]
 
 publisher_theme:
-    resource: "@OjsJournalBundle/Resources/config/routing/publisher/theme.yml"
+    resource: "@VipaJournalBundle/Resources/config/routing/publisher/theme.yml"
     prefix:   /theme
 
 publisher_design:
-    resource: "@OjsJournalBundle/Resources/config/routing/publisher/design.yml"
+    resource: "@VipaJournalBundle/Resources/config/routing/publisher/design.yml"
     prefix:   /design

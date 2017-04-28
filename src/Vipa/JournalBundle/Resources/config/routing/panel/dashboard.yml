@@ -1,5 +1,5 @@
-ojs_journal_dashboard_index:
+vipa_journal_dashboard_index:
     path:     /{journalId}/dashboard
-    defaults: { _controller: "%ojs_journal.dashboard_controller.class%:index" }
+    defaults: { _controller: "%vipa_journal.dashboard_controller.class%:index" }
     options:
         expose: true

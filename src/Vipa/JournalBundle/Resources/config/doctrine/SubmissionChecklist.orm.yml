@@ -1,6 +1,6 @@
-Ojs\JournalBundle\Entity\SubmissionChecklist:
+Vipa\JournalBundle\Entity\SubmissionChecklist:
   type: entity
-  repositoryClass: Ojs\JournalBundle\Entity\SubmissionChecklistRepository
+  repositoryClass: Vipa\JournalBundle\Entity\SubmissionChecklistRepository
   table: submission_checklist
   cache:
     usage: NONSTRICT_READ_WRITE
@@ -37,7 +37,7 @@ Ojs\JournalBundle\Entity\SubmissionChecklist:
           - versioned
   manyToOne:
     journal:
-      targetEntity: Ojs\JournalBundle\Entity\Journal
+      targetEntity: Vipa\JournalBundle\Entity\Journal
       joinColumn:
         referencedColumnName: id
         name: journal_id

@@ -14,7 +14,7 @@
     <h1>{{ "title.default_journal_theme"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
 
-    {% if is_granted('CREATE', getEntity('OjsAdminBundle:AdminJournalTheme')) %}
+    {% if is_granted('CREATE', getEntity('VipaAdminBundle:AdminJournalTheme')) %}
         <a href="{{ path('ojs_admin_journal_theme_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>

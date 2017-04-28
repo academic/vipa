@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\MailTemplate:
+Vipa\JournalBundle\Entity\MailTemplate:
     type: entity
     table: mail_template
-    repositoryClass: Ojs\JournalBundle\Entity\MailTemplateRepository
+    repositoryClass: Vipa\JournalBundle\Entity\MailTemplateRepository
     id:
         id:
             type: integer
@@ -10,7 +10,7 @@ Ojs\JournalBundle\Entity\MailTemplate:
                 strategy: AUTO
     manyToOne:
         journal:
-          targetEntity: Ojs\JournalBundle\Entity\Journal
+          targetEntity: Vipa\JournalBundle\Entity\Journal
           joinColumn:
             name: journal_id
             referencedColumnName: id

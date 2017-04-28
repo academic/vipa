@@ -56,11 +56,11 @@
                     </div>
                     <div class="panel-body">
                         <div class="col-md-6 col-xs-12 margin-bot">
-                            {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminLeftMenu', {'template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
+                            {{ knp_menu_render('VipaAdminBundle:MenuBuilder:adminLeftMenu', {'template': 'VipaAdminBundle:Menu:knp_menu.html.twig'}) }}
                         </div>
                         <div class="col-md-6 col-xs-12">
-                            {% set menuItem = knp_menu_get('OjsAdminBundle:MenuBuilder:adminRightMenu') %}
-                            {{ knp_menu_render(menuItem, {'template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
+                            {% set menuItem = knp_menu_get('VipaAdminBundle:MenuBuilder:adminRightMenu') %}
+                            {{ knp_menu_render(menuItem, {'template': 'VipaAdminBundle:Menu:knp_menu.html.twig'}) }}
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="col-sm-12">
-                            {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminApplicationMenu', {'template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
+                            {{ knp_menu_render('VipaAdminBundle:MenuBuilder:adminApplicationMenu', {'template': 'VipaAdminBundle:Menu:knp_menu.html.twig'}) }}
                         </div>
                     </div>
                 </div>

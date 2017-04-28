@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\IssueFileTranslation:
+Vipa\JournalBundle\Entity\IssueFileTranslation:
     type: entity
     table: issue_file_translations
     id:

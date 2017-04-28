@@ -1,9 +1,9 @@
-Ojs\JournalBundle\Entity\Publisher:
+Vipa\JournalBundle\Entity\Publisher:
   default:
     email: <email()>
     currentLocale: en
     slug: www
-    name: Ojs
+    name: Vipa
     url: ""
     about: null
     phone: '01234567810'

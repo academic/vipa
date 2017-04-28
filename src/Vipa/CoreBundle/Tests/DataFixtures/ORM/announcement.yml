@@ -1,4 +1,4 @@
-Ojs\AdminBundle\Entity\AdminAnnouncement:
+Vipa\AdminBundle\Entity\AdminAnnouncement:
   announcement:
     title: <text(50)>
     image: <text(20)>

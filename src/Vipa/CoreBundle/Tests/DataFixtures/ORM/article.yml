@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\Article:
+Vipa\JournalBundle\Entity\Article:
   article:
     currentLocale: en
     doi: 10.5281/zenodo.1445
@@ -6,10 +6,10 @@ Ojs\JournalBundle\Entity\Article:
     lastPage: 5
     Anonymous: false
     journal: 1
-    keywords: "help, ojs, open journal"
+    keywords: "help, vipa, open journal"
     pubdate: <dateTimeThisYear()>
     status: 1
-    title: Getting Started with Ojs
+    title: Getting Started with Vipa
     submitterUser: 1
     issue: 1
     orderNum: <randomDigit()>

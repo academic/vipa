@@ -1,5 +1,5 @@
 parameters:
-    ojs_site.application_controller.class: "OjsSiteBundle:Application"
+    vipa_site.application_controller.class: "VipaSiteBundle:Application"
 
 services:
     twig.extension.loader:

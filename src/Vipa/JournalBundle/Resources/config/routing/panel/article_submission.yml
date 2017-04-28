@@ -1,32 +1,32 @@
-ojs_journal_submission_me:
+vipa_journal_submission_me:
     path:     /{journalId}/submission/me
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:index" }
+    defaults: { _controller: "VipaJournalBundle:ArticleSubmission:index" }
 
-ojs_journal_submission_all:
+vipa_journal_submission_all:
     path:     /{journalId}/submission/all
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:index", all: true }
+    defaults: { _controller: "VipaJournalBundle:ArticleSubmission:index", all: true }
 
-ojs_journal_submission_start:
+vipa_journal_submission_start:
   path:     /{journalId}/submission/start
-  defaults: { _controller: "OjsJournalBundle:ArticleSubmission:start" }
+  defaults: { _controller: "VipaJournalBundle:ArticleSubmission:start" }
 
-ojs_journal_submission_new:
+vipa_journal_submission_new:
   path:     /{journalId}/submission/new
-  defaults: { _controller: "OjsJournalBundle:ArticleSubmission:new" }
+  defaults: { _controller: "VipaJournalBundle:ArticleSubmission:new" }
 
-ojs_journal_submission_edit:
+vipa_journal_submission_edit:
   path:     /{journalId}/submission/edit/{id}
-  defaults: { _controller: "OjsJournalBundle:ArticleSubmission:edit" }
+  defaults: { _controller: "VipaJournalBundle:ArticleSubmission:edit" }
 
-ojs_journal_submission_preview:
+vipa_journal_submission_preview:
   path:     /{journalId}/submission/preview/{articleId}
-  defaults: { _controller: "OjsJournalBundle:ArticleSubmission:preview" }
+  defaults: { _controller: "VipaJournalBundle:ArticleSubmission:preview" }
 
-ojs_journal_submission_orcid:
+vipa_journal_submission_orcid:
   path:     /{journalId}/submission/orcid
-  defaults: { _controller: "OjsJournalBundle:ArticleSubmission:getOrcidAuthor" }
+  defaults: { _controller: "VipaJournalBundle:ArticleSubmission:getOrcidAuthor" }
 
-ojs_journal_submission_cancel:
+vipa_journal_submission_cancel:
     path:     /{journalId}/submission/cancel/{id}
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:cancel"}
+    defaults: { _controller: "VipaJournalBundle:ArticleSubmission:cancel"}
 

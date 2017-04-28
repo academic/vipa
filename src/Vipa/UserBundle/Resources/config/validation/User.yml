@@ -1,4 +1,4 @@
-Ojs\UserBundle\Entity\User:
+Vipa\UserBundle\Entity\User:
   constraints:
     - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
         fields: usernameCanonical
@@ -7,7 +7,7 @@ Ojs\UserBundle\Entity\User:
         groups:
           - journal_user
           - Default
-          - ojs_register
+          - vipa_register
           - editProfile
     - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
         fields: emailCanonical
@@ -16,23 +16,23 @@ Ojs\UserBundle\Entity\User:
         groups:
           - journal_user
           - Default
-          - ojs_register
+          - vipa_register
           - editProfile
   properties:
     username:
-      - NotBlank: { groups: [Default, ojs_register, editProfile, journal_user] }
+      - NotBlank: { groups: [Default, vipa_register, editProfile, journal_user] }
     password:
       - NotBlank: { groups: [Default, editProfile, journal_user] }
       - Length: { min: 6, groups: [Default, editProfile] }
     plainPassword:
-      - NotBlank: { groups: [ojs_register] }
-      - Length: { min: 6, groups: [ojs_register] }
+      - NotBlank: { groups: [vipa_register] }
+      - Length: { min: 6, groups: [vipa_register] }
     email:
-      - NotBlank: { groups: [Default, ojs_register, editProfile, journal_user] }
-      - Email: { groups: [Default, ojs_register, editProfile, journal_user] }
-      - Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid', groups: [ojs_register, journal_user] }
-      - Ojs\UserBundle\Validator\Constraints\DisposableEmail: { message: 'user.invalid.mail.domain', groups: [ojs_register, journal_user] }
+      - NotBlank: { groups: [Default, vipa_register, editProfile, journal_user] }
+      - Email: { groups: [Default, vipa_register, editProfile, journal_user] }
+      - Vipa\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid', groups: [vipa_register, journal_user] }
+      - Vipa\UserBundle\Validator\Constraints\DisposableEmail: { message: 'user.invalid.mail.domain', groups: [vipa_register, journal_user] }
     firstName:
-      - NotBlank: { groups: [Default, ojs_register, editProfile, journal_user] }
+      - NotBlank: { groups: [Default, vipa_register, editProfile, journal_user] }
     lastName:
-      - NotBlank: { groups: [Default, ojs_register, journal_user] }
+      - NotBlank: { groups: [Default, vipa_register, journal_user] }

@@ -1,9 +1,9 @@
-ojs_site_cms_page:
+vipa_site_cms_page:
     path: /page/{slug}
     host: "%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Cms:page" }
+    defaults: { _controller: "VipaSiteBundle:Cms:page" }
 
-ojs_site_cms_post:
+vipa_site_cms_post:
     path: /post/{slug}
     host: "%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Cms:post" }
+    defaults: { _controller: "VipaSiteBundle:Cms:post" }

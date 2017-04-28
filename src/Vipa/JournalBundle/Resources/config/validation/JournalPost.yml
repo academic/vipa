@@ -1,11 +1,11 @@
-Ojs\JournalBundle\Entity\JournalPostTranslation:
+Vipa\JournalBundle\Entity\JournalPostTranslation:
   properties:
     title:
       - NotBlank: ~
     content:
       - NotBlank: ~
 
-Ojs\JournalBundle\Entity\JournalPost:
+Vipa\JournalBundle\Entity\JournalPost:
     properties:
         translations:
             - Valid: ~

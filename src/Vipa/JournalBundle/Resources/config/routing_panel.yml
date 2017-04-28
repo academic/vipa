@@ -1,74 +1,74 @@
-ojs_journal_dashboard:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/dashboard.yml"
+vipa_journal_dashboard:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/dashboard.yml"
 
-ojs_journal_stats:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/stats.yml"
+vipa_journal_stats:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/stats.yml"
 
-ojs_journal_article:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/article.yml"
+vipa_journal_article:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/article.yml"
 
-ojs_journal_citation:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/citation.yml"
+vipa_journal_citation:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/citation.yml"
 
-ojs_journal_article_file:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/article_file.yml"
+vipa_journal_article_file:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/article_file.yml"
 
-ojs_journal_article_author:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/article_author.yml"
+vipa_journal_article_author:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/article_author.yml"
 
-ojs_journal_journal_contact:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/journal_contact.yml"
+vipa_journal_journal_contact:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/journal_contact.yml"
 
-ojs_journal_issue:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/issue.yml"
+vipa_journal_issue:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/issue.yml"
 
-ojs_journal_board:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/board.yml"
+vipa_journal_board:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/board.yml"
 
-ojs_journal_theme:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/theme.yml"
+vipa_journal_theme:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/theme.yml"
 
-ojs_journal_design:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/design.yml"
+vipa_journal_design:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/design.yml"
 
-ojs_journal_issue_file:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/issue_file.yml"
+vipa_journal_issue_file:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/issue_file.yml"
 
-ojs_journal_section:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/section.yml"
+vipa_journal_section:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/section.yml"
 
-ojs_journal_index:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/journal_index.yml"
+vipa_journal_index:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/journal_index.yml"
 
-ojs_journal_mail_template:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/mail_template.yml"
+vipa_journal_mail_template:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/mail_template.yml"
 
-ojs_journal_checklist:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/checklist.yml"
+vipa_journal_checklist:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/checklist.yml"
 
-ojs_journal_file:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/journal_submission_file.yml"
+vipa_journal_file:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/journal_submission_file.yml"
 
-ojs_journal_settings:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/settings.yml"
+vipa_journal_settings:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/settings.yml"
 
-ojs_journal_users:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/user.yml"
+vipa_journal_users:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/user.yml"
 
-ojs_journal_article_submission:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/article_submission.yml"
+vipa_journal_article_submission:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/article_submission.yml"
 
-ojs_journal_announcement:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/announcement.yml"
+vipa_journal_announcement:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/announcement.yml"
 
-ojs_journal_page:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/page.yml"
+vipa_journal_page:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/page.yml"
 
-ojs_journal_post:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/post.yml"
+vipa_journal_post:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/post.yml"
 
-ojs_journal_filemanager:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/file.yml"
+vipa_journal_filemanager:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/file.yml"
 
-ojs_journal_block:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/block.yml"
+vipa_journal_block:
+    resource: "@VipaJournalBundle/Resources/config/routing/panel/block.yml"

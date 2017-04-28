@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\SubjectTranslation:
+Vipa\JournalBundle\Entity\SubjectTranslation:
     type: entity
     table: subject_translations
     cache:

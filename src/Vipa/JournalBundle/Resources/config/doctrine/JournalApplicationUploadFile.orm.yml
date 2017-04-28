@@ -1,11 +1,11 @@
-Ojs\JournalBundle\Entity\JournalApplicationUploadFile:
+Vipa\JournalBundle\Entity\JournalApplicationUploadFile:
   type: entity
   table: journal_application_upload_file
-  repositoryClass: Ojs\JournalBundle\Entity\JournalApplicationUploadFileRepository
+  repositoryClass: Vipa\JournalBundle\Entity\JournalApplicationUploadFileRepository
   lifecycleCallbacks: {  }
   manyToOne:
     journal:
-      targetEntity: Ojs\JournalBundle\Entity\Journal
+      targetEntity: Vipa\JournalBundle\Entity\Journal
       joinColumn:
         referencedColumnName: id
         name: journal_id

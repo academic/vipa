@@ -1,29 +1,29 @@
-ojs_admin_page_index:
+vipa_admin_page_index:
     path:     /
-    defaults: { _controller: "OjsAdminBundle:AdminPage:index" }
+    defaults: { _controller: "VipaAdminBundle:AdminPage:index" }
 
-ojs_admin_page_show:
+vipa_admin_page_show:
     path:     /{id}/show
-    defaults: { _controller: "OjsAdminBundle:AdminPage:show" }
+    defaults: { _controller: "VipaAdminBundle:AdminPage:show" }
 
-ojs_admin_page_new:
+vipa_admin_page_new:
     path:     /new
-    defaults: { _controller: "OjsAdminBundle:AdminPage:new" }
+    defaults: { _controller: "VipaAdminBundle:AdminPage:new" }
 
-ojs_admin_page_create:
+vipa_admin_page_create:
     path:     /create
-    defaults: { _controller: "OjsAdminBundle:AdminPage:create" }
+    defaults: { _controller: "VipaAdminBundle:AdminPage:create" }
     methods: [POST]
 
-ojs_admin_page_edit:
+vipa_admin_page_edit:
     path:     /{id}/edit
-    defaults: { _controller: "OjsAdminBundle:AdminPage:edit" }
+    defaults: { _controller: "VipaAdminBundle:AdminPage:edit" }
 
-ojs_admin_page_update:
+vipa_admin_page_update:
     path:     /{id}/update
-    defaults: { _controller: "OjsAdminBundle:AdminPage:update" }
+    defaults: { _controller: "VipaAdminBundle:AdminPage:update" }
     methods: [POST,PUT]
 
-ojs_admin_page_delete:
+vipa_admin_page_delete:
     path:     /{id}/delete
-    defaults: { _controller: "OjsAdminBundle:AdminPage:delete" }
+    defaults: { _controller: "VipaAdminBundle:AdminPage:delete" }

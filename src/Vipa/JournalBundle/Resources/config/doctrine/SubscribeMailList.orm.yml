@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\SubscribeMailList:
+Vipa\JournalBundle\Entity\SubscribeMailList:
     type: entity
     table: subscribe_mail_list
     manyToOne:

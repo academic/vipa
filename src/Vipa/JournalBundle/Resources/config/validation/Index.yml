@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\Index:
+Vipa\JournalBundle\Entity\Index:
   properties:
     name:
       - NotBlank: ~

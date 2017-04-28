@@ -77,7 +77,7 @@
     "pagerfanta/pagerfanta": "1.0.3",
     "white-october/pagerfanta-bundle": "~1.0",
     "apy/datagrid-bundle": "~2.2",
-    "ojs/import-bundle": "~1.0",
+    "vipa/import-bundle": "dev-master",
     "jms/di-extra-bundle": "~1.7",
     "stephanecollot/datetimepicker-bundle": "~1.0",
     "problematic/acl-manager-bundle": "~1.0",

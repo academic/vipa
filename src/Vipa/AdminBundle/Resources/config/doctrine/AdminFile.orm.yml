@@ -1,7 +1,7 @@
-Ojs\AdminBundle\Entity\AdminFile:
+Vipa\AdminBundle\Entity\AdminFile:
     type: entity
     table: admin_file
-    repositoryClass: Ojs\AdminBundle\Entity\AdminFileRepository
+    repositoryClass: Vipa\AdminBundle\Entity\AdminFileRepository
     id:
         id:
             type: integer

@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\PublisherTheme:
+Vipa\JournalBundle\Entity\PublisherTheme:
     properties:
         title:
             - NotBlank: ~

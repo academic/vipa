@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\PeriodTranslation:
+Vipa\JournalBundle\Entity\PeriodTranslation:
     type: entity
     table: period_translations
     cache:

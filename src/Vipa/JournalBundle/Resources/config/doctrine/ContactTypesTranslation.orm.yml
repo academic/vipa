@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\ContactTypesTranslation:
+Vipa\JournalBundle\Entity\ContactTypesTranslation:
     type: entity
     table: contact_types_translations
     cache:

@@ -1,5 +1,5 @@
-Ojs\JournalBundle\Entity\Article:
-  repositoryClass: Ojs\JournalBundle\Entity\ArticleRepository
+Vipa\JournalBundle\Entity\Article:
+  repositoryClass: Vipa\JournalBundle\Entity\ArticleRepository
   table: article
   type: entity
   cache:
@@ -35,19 +35,19 @@ Ojs\JournalBundle\Entity\Article:
       cache:
         usage: NONSTRICT_READ_WRITE
     articleType:
-      targetEntity: Ojs\JournalBundle\Entity\ArticleTypes
+      targetEntity: Vipa\JournalBundle\Entity\ArticleTypes
       joinColumn:
         name: article_type_id
         referencedColumnName: id
       fetch: EXTRA_LAZY
     submitterUser:
-      targetEntity: Ojs\UserBundle\Entity\User
+      targetEntity: Vipa\UserBundle\Entity\User
       joinColumn:
         name: submitter_id
         referencedColumnName: id
       cascade: ["persist"]
     language:
-      targetEntity: Ojs\JournalBundle\Entity\Lang
+      targetEntity: Vipa\JournalBundle\Entity\Lang
       joinColumn:
         name: article_lang_id
         referencedColumnName: id
@@ -67,16 +67,16 @@ Ojs\JournalBundle\Entity\Article:
       mappedBy: article
       cascade: ["persist", "remove"]
     articleSubmissionFiles:
-      targetEntity: Ojs\JournalBundle\Entity\ArticleSubmissionFile
+      targetEntity: Vipa\JournalBundle\Entity\ArticleSubmissionFile
       mappedBy: article
       cascade: ["persist", "remove"]
     statistics:
-      targetEntity: Ojs\AnalyticsBundle\Entity\ArticleStatistic
+      targetEntity: Vipa\AnalyticsBundle\Entity\ArticleStatistic
       mappedBy: article
       cascade: ["persist", "remove"]
   manyToMany:
     catalogs:
-      targetEntity: Ojs\JournalBundle\Entity\Catalog
+      targetEntity: Vipa\JournalBundle\Entity\Catalog
       cascade: ["persist", "remove"] ## Is cascade.remove only removes reference from pivot table?
       joinTable:
           name: article_catalogs
@@ -87,7 +87,7 @@ Ojs\JournalBundle\Entity\Article:
               catalog_id:
                   referencedColumnName: id
     subjects:
-      targetEntity: Ojs\JournalBundle\Entity\Subject
+      targetEntity: Vipa\JournalBundle\Entity\Subject
       cascade: ["persist"]
       joinTable:
         name: article_subject

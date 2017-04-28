@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Board:
+Vipa\JournalBundle\Entity\Board:
     type: entity
     table: board
-    repositoryClass: Ojs\JournalBundle\Entity\BoardRepository
+    repositoryClass: Vipa\JournalBundle\Entity\BoardRepository
     cache:
         usage: NONSTRICT_READ_WRITE
     id:

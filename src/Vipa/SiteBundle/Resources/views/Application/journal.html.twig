@@ -90,14 +90,14 @@
                         </div>
 
                         <div id="contacts" data-index="{{ form.journalContacts|length }}" data-prototype="{% filter escape %}
-                            {{- include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': form.journalContacts.vars.prototype, 'removable': true }) -}}
+                            {{- include('@VipaSite/Application/_journal_contact_form.html.twig', { 'form': form.journalContacts.vars.prototype, 'removable': true }) -}}
                         {% endfilter %}">
                             {% for journalContact in form.journalContacts %}
                                 {% set removable = true %}
                                 {% if loop.index == 1 or loop.index == 2 %}
                                     {% set removable = false %}
                                 {% endif %}
-                                {{ include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': journalContact ,'removable': removable }) }}
+                                {{ include('@VipaSite/Application/_journal_contact_form.html.twig', { 'form': journalContact ,'removable': removable }) }}
                             {% endfor %}
                         </div>
 

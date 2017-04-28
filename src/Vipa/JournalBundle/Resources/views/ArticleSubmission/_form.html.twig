@@ -36,11 +36,11 @@
         <div class="panel-heading">{{ "article.authors"|trans }}</div>
         <div class="submission-subform-container panel-body">
                         <textarea class="submission-subform-template">{%- filter escape -%}
-                                {{ include('@OjsJournal/ArticleSubmission/_articleauthor_subform.html.twig', { 'form': form.articleAuthors.vars.prototype }) }}
+                                {{ include('@VipaJournal/ArticleSubmission/_articleauthor_subform.html.twig', { 'form': form.articleAuthors.vars.prototype }) }}
                         {% endfilter %}</textarea>
 
             {% for articleauthorForm in form.articleAuthors %}
-                {{ include('@OjsJournal/ArticleSubmission/_articleauthor_subform.html.twig', { 'form': articleauthorForm }) }}
+                {{ include('@VipaJournal/ArticleSubmission/_articleauthor_subform.html.twig', { 'form': articleauthorForm }) }}
             {% endfor %}
         </div>
         <div class="panel-footer">
@@ -56,14 +56,14 @@
         <div class="submission-subform-container panel-body" id="citation-forms-container">
             <textarea class="submission-subform-template">
                 {%- filter escape -%}
-                    {{ include('@OjsJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': form.citations.vars.prototype }) }}
+                    {{ include('@VipaJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': form.citations.vars.prototype }) }}
                 {% endfilter %}
             </textarea>
 
             {{ twigEventDispatch({'event_name': 'OJS_SUBMISSION_CITATION_FORM_EXTRA'})|raw }}
 
             {% for citiationForm in form.citations %}
-                {{ include('@OjsJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': citiationForm }) }}
+                {{ include('@VipaJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': citiationForm }) }}
             {% endfor %}
         </div>
         <div class="panel-footer">
@@ -78,11 +78,11 @@
         <div class="panel-heading">{{ "article.files"|trans }}</div>
         <div class="submission-subform-container panel-body">
                         <textarea class="submission-subform-template">{%- filter escape -%}
-                            {{ include('@OjsJournal/ArticleSubmission/_articlefile_subform.html.twig', { 'form': form.articleFiles.vars.prototype }) }}
+                            {{ include('@VipaJournal/ArticleSubmission/_articlefile_subform.html.twig', { 'form': form.articleFiles.vars.prototype }) }}
                         {% endfilter %}</textarea>
 
             {% for articlefileForm in form.articleFiles %}
-                {{ include('@OjsJournal/ArticleSubmission/_articlefile_subform.html.twig', { 'form': articlefileForm }) }}
+                {{ include('@VipaJournal/ArticleSubmission/_articlefile_subform.html.twig', { 'form': articlefileForm }) }}
             {% endfor %}
         </div>
         <div class="panel-footer">

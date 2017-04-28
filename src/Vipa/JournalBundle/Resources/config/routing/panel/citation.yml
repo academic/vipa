@@ -1,30 +1,30 @@
-ojs_journal_citation_index:
+vipa_journal_citation_index:
     path:     /{journalId}/article/{articleId}/citation/
-    defaults: { _controller: "OjsJournalBundle:Citation:index" }
+    defaults: { _controller: "VipaJournalBundle:Citation:index" }
 
-ojs_journal_citation_show:
+vipa_journal_citation_show:
     path:     /{journalId}/article/{articleId}/citation/{id}/show
-    defaults: { _controller: "OjsJournalBundle:Citation:show" }
+    defaults: { _controller: "VipaJournalBundle:Citation:show" }
 
-ojs_journal_citation_new:
+vipa_journal_citation_new:
     path:     /{journalId}/article/{articleId}/citation/new
-    defaults: { _controller: "OjsJournalBundle:Citation:new" }
+    defaults: { _controller: "VipaJournalBundle:Citation:new" }
 
-ojs_journal_citation_create:
+vipa_journal_citation_create:
     path:     /{journalId}/article/{articleId}/citation/create
-    defaults: { _controller: "OjsJournalBundle:Citation:create" }
+    defaults: { _controller: "VipaJournalBundle:Citation:create" }
     methods:  POST
 
-ojs_journal_citation_edit:
+vipa_journal_citation_edit:
     path:     /{journalId}/article/{articleId}/citation/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:Citation:edit" }
+    defaults: { _controller: "VipaJournalBundle:Citation:edit" }
 
-ojs_journal_citation_update:
+vipa_journal_citation_update:
     path:     /{journalId}/article/{articleId}/citation/{id}/update
-    defaults: { _controller: "OjsJournalBundle:Citation:update" }
+    defaults: { _controller: "VipaJournalBundle:Citation:update" }
     methods:  [PUT]
 
-ojs_journal_citation_delete:
+vipa_journal_citation_delete:
     path:     /{journalId}/article/{articleId}/citation/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:Citation:delete" }
+    defaults: { _controller: "VipaJournalBundle:Citation:delete" }
     methods:  [DELETE]

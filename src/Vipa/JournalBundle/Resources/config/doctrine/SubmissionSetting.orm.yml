@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\SubmissionSetting:
+Vipa\JournalBundle\Entity\SubmissionSetting:
   type: entity
   table: submission_setting
-  repositoryClass: Ojs\JournalBundle\Entity\SubmissionSettingRepository
+  repositoryClass: Vipa\JournalBundle\Entity\SubmissionSettingRepository
   cache:
     usage: NONSTRICT_READ_WRITE
   id:

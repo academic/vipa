@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\JournalIndex:
+Vipa\JournalBundle\Entity\JournalIndex:
   type: entity
   table: journal_index
-  repositoryClass: Ojs\JournalBundle\Entity\JournalIndexRepository
+  repositoryClass: Vipa\JournalBundle\Entity\JournalIndexRepository
   id:
     id:
       type: integer
@@ -17,13 +17,13 @@ Ojs\JournalBundle\Entity\JournalIndex:
       type: boolean
   manyToOne:
     journal:
-      targetEntity: Ojs\JournalBundle\Entity\Journal
+      targetEntity: Vipa\JournalBundle\Entity\Journal
       inversedBy: journalIndexs
       joinColumn:
         name: journal_id
         referencedColumnName: id
     index:
-      targetEntity: Ojs\JournalBundle\Entity\Index
+      targetEntity: Vipa\JournalBundle\Entity\Index
       joinColumn:
         name: index_id
         referencedColumnName: id

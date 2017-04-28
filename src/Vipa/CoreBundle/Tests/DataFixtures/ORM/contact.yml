@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\JournalContact:
+Vipa\JournalBundle\Entity\JournalContact:
   contact:
     fullName: <text(50)>
     address: <text(200)>

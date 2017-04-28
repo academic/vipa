@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Journal:
+Vipa\JournalBundle\Entity\Journal:
   type: entity
   table: journal
-  repositoryClass: Ojs\JournalBundle\Entity\JournalRepository
+  repositoryClass: Vipa\JournalBundle\Entity\JournalRepository
   cache:
     usage: NONSTRICT_READ_WRITE
   manyToOne:
@@ -16,24 +16,24 @@ Ojs\JournalBundle\Entity\Journal:
         referencedColumnName: id
       inversedBy: journals
     theme:
-      targetEntity: Ojs\JournalBundle\Entity\JournalTheme
+      targetEntity: Vipa\JournalBundle\Entity\JournalTheme
       joinColumn:
         name: theme_id
         referencedColumnName: id
     continuedAsJournal:
-      targetEntity: Ojs\JournalBundle\Entity\Journal
+      targetEntity: Vipa\JournalBundle\Entity\Journal
       joinColumn:
         name: continued_as_journal_id
         referencedColumnName: id
         nullable: true
     formerlyKnownAsJournal:
-      targetEntity: Ojs\JournalBundle\Entity\Journal
+      targetEntity: Vipa\JournalBundle\Entity\Journal
       joinColumn:
         name: formerly_known_as_journal_id
         referencedColumnName: id
         nullable: true
     design:
-      targetEntity: Ojs\JournalBundle\Entity\Design
+      targetEntity: Vipa\JournalBundle\Entity\Design
       joinColumn:
         nullable: true
         name: design_id
@@ -44,7 +44,7 @@ Ojs\JournalBundle\Entity\Journal:
         name: country_id
         referencedColumnName: id
     mandatoryLang:
-      targetEntity: Ojs\JournalBundle\Entity\Lang
+      targetEntity: Vipa\JournalBundle\Entity\Lang
       joinColumn:
         name: mandatory_lang_id
         referencedColumnName: id
@@ -79,52 +79,52 @@ Ojs\JournalBundle\Entity\Journal:
       cache:
         usage: NONSTRICT_READ_WRITE
     journalIndexs:
-      targetEntity: Ojs\JournalBundle\Entity\JournalIndex
+      targetEntity: Vipa\JournalBundle\Entity\JournalIndex
       mappedBy: journal
       cascade: ["persist", "remove"]
       fetch: EXTRA_LAZY
       cache:
         usage: NONSTRICT_READ_WRITE
     submissionChecklist:
-      targetEntity: Ojs\JournalBundle\Entity\SubmissionChecklist
+      targetEntity: Vipa\JournalBundle\Entity\SubmissionChecklist
       mappedBy: journal
       cascade: ["persist", "remove"]
       fetch: EXTRA_LAZY
       cache:
         usage: NONSTRICT_READ_WRITE
     journalSubmissionFiles:
-      targetEntity: Ojs\JournalBundle\Entity\JournalSubmissionFile
+      targetEntity: Vipa\JournalBundle\Entity\JournalSubmissionFile
       mappedBy: journal
       cascade: ["persist", "remove"]
       fetch: EXTRA_LAZY
       cache:
         usage: NONSTRICT_READ_WRITE
     journalUsers:
-      targetEntity: Ojs\JournalBundle\Entity\JournalUser
+      targetEntity: Vipa\JournalBundle\Entity\JournalUser
       mappedBy: journal
       fetch: EXTRA_LAZY
       cascade: ["remove"]
     journalContacts:
-      targetEntity: Ojs\JournalBundle\Entity\JournalContact
+      targetEntity: Vipa\JournalBundle\Entity\JournalContact
       mappedBy: journal
       cascade: ["persist", "remove"]
       cache:
         usage: NONSTRICT_READ_WRITE
     statistics:
-      targetEntity: Ojs\AnalyticsBundle\Entity\JournalStatistic
+      targetEntity: Vipa\AnalyticsBundle\Entity\JournalStatistic
       mappedBy: journal
       cascade: ["persist", "remove"]
     journalApplicationUploadFiles:
-      targetEntity: Ojs\JournalBundle\Entity\JournalApplicationUploadFile
+      targetEntity: Vipa\JournalBundle\Entity\JournalApplicationUploadFile
       mappedBy: journal
       cascade: ["remove"]
     subscribeMailLists:
-      targetEntity: Ojs\JournalBundle\Entity\SubscribeMailList
+      targetEntity: Vipa\JournalBundle\Entity\SubscribeMailList
       mappedBy: journal
       cascade: ["remove"]
   manyToMany:
     catalogs:
-      targetEntity: Ojs\JournalBundle\Entity\Catalog
+      targetEntity: Vipa\JournalBundle\Entity\Catalog
       cascade: ["persist", "remove"] ## Is cascade.remove only removes reference from pivot table?
       joinTable:
           name: journal_catalogs
@@ -135,7 +135,7 @@ Ojs\JournalBundle\Entity\Journal:
               catalog_id:
                   referencedColumnName: id
     languages:
-      targetEntity: Ojs\JournalBundle\Entity\Lang
+      targetEntity: Vipa\JournalBundle\Entity\Lang
       cascade: ["persist"]
       joinTable:
         inverseJoinColumns:
@@ -151,7 +151,7 @@ Ojs\JournalBundle\Entity\Journal:
       cache:
         usage: NONSTRICT_READ_WRITE
     periods:
-      targetEntity: Ojs\JournalBundle\Entity\Period
+      targetEntity: Vipa\JournalBundle\Entity\Period
       cascade: ["persist"]
       joinTable:
         inverseJoinColumns:
@@ -166,7 +166,7 @@ Ojs\JournalBundle\Entity\Journal:
       cache:
         usage: NONSTRICT_READ_WRITE
     subjects:
-      targetEntity: Ojs\JournalBundle\Entity\Subject
+      targetEntity: Vipa\JournalBundle\Entity\Subject
       cascade: ["persist"]
       mappedBy: null
       inversedBy: journals
@@ -183,7 +183,7 @@ Ojs\JournalBundle\Entity\Journal:
       cache:
         usage: NONSTRICT_READ_WRITE
     articleTypes:
-      targetEntity: Ojs\JournalBundle\Entity\ArticleTypes
+      targetEntity: Vipa\JournalBundle\Entity\ArticleTypes
       cascade: ["persist"]
       mappedBy: null
       inversedBy: journals
@@ -200,7 +200,7 @@ Ojs\JournalBundle\Entity\Journal:
       cache:
         usage: NONSTRICT_READ_WRITE
     bannedUsers:
-      targetEntity: Ojs\UserBundle\Entity\User
+      targetEntity: Vipa\UserBundle\Entity\User
       cascade: ["persist"]
       inversedBy: restrictedJournals
       joinTable:

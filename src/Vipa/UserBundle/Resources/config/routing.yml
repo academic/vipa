@@ -1,35 +1,35 @@
-ojs_user_oauth:
-    resource: "@OjsUserBundle/Resources/config/routing/oauth.yml"
+vipa_user_oauth:
+    resource: "@VipaUserBundle/Resources/config/routing/oauth.yml"
     prefix:   /oauth
 
 confirm_email_warning:
     path:  /unconfirmed
-    defaults: { _controller: "OjsUserBundle:Security:unconfirmed" }
+    defaults: { _controller: "VipaUserBundle:Security:unconfirmed" }
 
 login:
     path: /login
     host: "%base_host%"
-    defaults: { _controller: "OjsUserBundle:Security:login" }
+    defaults: { _controller: "VipaUserBundle:Security:login" }
 
 email_confirm:
     path: /confirm/email/{code}
-    defaults: { _controller: "OjsUserBundle:Security:confirmEmail" }
+    defaults: { _controller: "VipaUserBundle:Security:confirmEmail" }
 
 multiplemail_confirm:
     path: /confirm/multiplemail/{code}
-    defaults: { _controller: "OjsUserBundle:Security:multipleMailConfirm" }
+    defaults: { _controller: "VipaUserBundle:Security:multipleMailConfirm" }
 
-ojs_user_multiple_mail:
+vipa_user_multiple_mail:
     path: /user/multiple_mails
-    defaults: { _controller: "OjsUserBundle:MultipleMail:multipleMail"}
+    defaults: { _controller: "VipaUserBundle:MultipleMail:multipleMail"}
 
-ojs_user_multiple_mail_add:
+vipa_user_multiple_mail_add:
     path: /user/multiple_mails/add
-    defaults: { _controller: "OjsUserBundle:MultipleMail:addMultipleMail"}
+    defaults: { _controller: "VipaUserBundle:MultipleMail:addMultipleMail"}
 
-ojs_user_multiple_mail_delete:
+vipa_user_multiple_mail_delete:
     path: /user/multiple_mail/delete/{id}
-    defaults: { _controller: "OjsUserBundle:MultipleMail:deleteMultipleMail"}
+    defaults: { _controller: "VipaUserBundle:MultipleMail:deleteMultipleMail"}
 
 logout:
     host: "%base_host%"
@@ -40,16 +40,16 @@ login_check:
 
 regenerate_apikey:
     path: /user/apikey/regenerate
-    defaults: { _controller: "OjsUserBundle:UserApi:regenerateAPI" }
+    defaults: { _controller: "VipaUserBundle:UserApi:regenerateAPI" }
 
-ojs_user_get_apikey:
+vipa_user_get_apikey:
     path: /user/apikey
-    defaults: { _controller: "OjsUserBundle:UserApi:getApiKey" }
+    defaults: { _controller: "VipaUserBundle:UserApi:getApiKey" }
 
 user_create_password:
     path: /password/create
-    defaults: { _controller: "OjsUserBundle:Security:createPassword" }
+    defaults: { _controller: "VipaUserBundle:Security:createPassword" }
 
-ojs_user_redirect:
+vipa_user_redirect:
     path: /login-redirect
-    defaults: { _controller: "OjsUserBundle:Security:redirect" }
+    defaults: { _controller: "VipaUserBundle:Security:redirect" }

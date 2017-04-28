@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\JournalUser:
+Vipa\JournalBundle\Entity\JournalUser:
   properties:
     user:
       - NotBlank: { groups: [create] }

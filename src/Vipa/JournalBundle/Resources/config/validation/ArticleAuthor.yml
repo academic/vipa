@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\ArticleAuthor:
+Vipa\JournalBundle\Entity\ArticleAuthor:
     properties:
         author:
             - Valid: ~

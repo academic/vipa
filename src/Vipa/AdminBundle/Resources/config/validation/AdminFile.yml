@@ -1,4 +1,4 @@
-Ojs\AdminBundle\Entity\AdminFile:
+Vipa\AdminBundle\Entity\AdminFile:
     properties:
         name:
             - NotBlank: ~

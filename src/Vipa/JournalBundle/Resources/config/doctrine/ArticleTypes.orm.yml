@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\ArticleTypes:
+Vipa\JournalBundle\Entity\ArticleTypes:
   type: entity
   table: article_types
-  repositoryClass: Ojs\JournalBundle\Entity\ArticleTypesRepository
+  repositoryClass: Vipa\JournalBundle\Entity\ArticleTypesRepository
   id:
     id:
       type: integer

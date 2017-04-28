@@ -1,9 +1,9 @@
-Ojs\JournalBundle\Entity\IssueFileTranslation:
+Vipa\JournalBundle\Entity\IssueFileTranslation:
   properties:
     title:
       - NotBlank: ~
 
-Ojs\JournalBundle\Entity\IssueFile:
+Vipa\JournalBundle\Entity\IssueFile:
     properties:
         translations:
             - Valid: ~

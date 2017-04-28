@@ -1,3 +1,3 @@
 dashboard:
     path:  /dashboard
-    defaults: { _controller: "OjsAdminBundle:Admin:dashboardCheck" }
+    defaults: { _controller: "VipaAdminBundle:Admin:dashboardCheck" }

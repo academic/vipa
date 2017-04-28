@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\IssueFile:
+Vipa\JournalBundle\Entity\IssueFile:
     type: entity
     table: issue_file
-    repositoryClass: Ojs\JournalBundle\Entity\IssueFileRepository
+    repositoryClass: Vipa\JournalBundle\Entity\IssueFileRepository
     id:
         id:
             type: integer
@@ -18,7 +18,7 @@ Ojs\JournalBundle\Entity\IssueFile:
             cascade: ["persist"]
     oneToMany:
         statistics:
-            targetEntity: Ojs\AnalyticsBundle\Entity\IssueFileStatistic
+            targetEntity: Vipa\AnalyticsBundle\Entity\IssueFileStatistic
             mappedBy: issueFile
             cascade: ["persist"]
     fields:

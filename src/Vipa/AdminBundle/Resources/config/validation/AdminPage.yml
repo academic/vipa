@@ -1,11 +1,11 @@
-Ojs\AdminBundle\Entity\AdminPageTranslation:
+Vipa\AdminBundle\Entity\AdminPageTranslation:
   properties:
     title:
       - NotBlank: ~
     body:
       - NotBlank: ~
 
-Ojs\AdminBundle\Entity\AdminPage:
+Vipa\AdminBundle\Entity\AdminPage:
     properties:
         translations:
             - Valid: ~

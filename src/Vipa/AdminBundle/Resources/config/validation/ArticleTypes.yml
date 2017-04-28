@@ -1,9 +1,9 @@
-Ojs\JournalBundle\Entity\ArticleTypesTranslation:
+Vipa\JournalBundle\Entity\ArticleTypesTranslation:
   properties:
     name:
       - NotBlank: ~
 
-Ojs\JournalBundle\Entity\ArticleTypes:
+Vipa\JournalBundle\Entity\ArticleTypes:
     properties:
         translations:
             - Valid: ~

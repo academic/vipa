@@ -1,34 +1,34 @@
-ojs_journal_checklist_index:
+vipa_journal_checklist_index:
     path:     /{journalId}/checklist/
-    defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:index" }
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:index" }
 
-ojs_journal_checklist_sort:
+vipa_journal_checklist_sort:
     path:     /{journalId}/checklist/sort
-    defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:sort" }
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:sort" }
 
-ojs_journal_checklist_show:
+vipa_journal_checklist_show:
     path:     /{journalId}/checklist/{id}/show
-    defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:show" }
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:show" }
 
-ojs_journal_checklist_new:
+vipa_journal_checklist_new:
     path:     /{journalId}/checklist/new
-    defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:new" }
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:new" }
 
-ojs_journal_checklist_create:
+vipa_journal_checklist_create:
     path:     /{journalId}/checklist/create
-    defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:create" }
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:create" }
     methods:  POST
 
-ojs_journal_checklist_edit:
+vipa_journal_checklist_edit:
     path:     /{journalId}/checklist/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:edit" }
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:edit" }
 
-ojs_journal_checklist_update:
+vipa_journal_checklist_update:
     path:     /{journalId}/checklist/{id}/update
-    defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:update" }
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:update" }
     methods: [PUT]
 
-ojs_journal_checklist_delete:
+vipa_journal_checklist_delete:
     path:     /{journalId}/checklist/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:delete" }
+    defaults: { _controller: "VipaJournalBundle:SubmissionChecklist:delete" }
     methods: [DELETE]

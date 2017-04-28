@@ -1,9 +1,9 @@
-Ojs\JournalBundle\Entity\BoardTranslation:
+Vipa\JournalBundle\Entity\BoardTranslation:
   properties:
     name:
       - NotBlank: ~
 
-Ojs\JournalBundle\Entity\Board:
+Vipa\JournalBundle\Entity\Board:
     properties:
         translations:
             - Valid: ~

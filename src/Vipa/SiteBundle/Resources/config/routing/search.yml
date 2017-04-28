@@ -1,14 +1,14 @@
-ojs_search_advanced:
+vipa_search_advanced:
     path: /search/advanced
     host: "%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Search:advanced" }
+    defaults: { _controller: "VipaSiteBundle:Search:advanced" }
 
-ojs_search_index:
+vipa_search_index:
     path:     /search/{page}
     host: "%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Search:index",page: 1 }
+    defaults: { _controller: "VipaSiteBundle:Search:index",page: 1 }
 
-ojs_tags_cloud:
+vipa_tags_cloud:
     path: /tags/cloud
     host: "%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Search:tagCloud" }
+    defaults: { _controller: "VipaSiteBundle:Search:tagCloud" }

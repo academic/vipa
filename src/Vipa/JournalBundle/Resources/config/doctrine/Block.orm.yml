@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Block:
+Vipa\JournalBundle\Entity\Block:
   type: entity
   table: blocks
-  repositoryClass: Ojs\JournalBundle\Entity\BlockRepository
+  repositoryClass: Vipa\JournalBundle\Entity\BlockRepository
   cache:
       usage: NONSTRICT_READ_WRITE
   id:

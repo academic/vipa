@@ -1,29 +1,29 @@
-ojs_admin_application_publisher_index:
+vipa_admin_application_publisher_index:
   path:     /publisher
-  defaults: { _controller: "OjsAdminBundle:AdminPublisherApplication:index" }
+  defaults: { _controller: "VipaAdminBundle:AdminPublisherApplication:index" }
 
-ojs_admin_application_publisher_show:
+vipa_admin_application_publisher_show:
   path:     /publisher/{id}
-  defaults: { _controller: "OjsAdminBundle:AdminPublisherApplication:detail" }
+  defaults: { _controller: "VipaAdminBundle:AdminPublisherApplication:detail" }
 
-ojs_admin_application_publisher_edit:
+vipa_admin_application_publisher_edit:
   path:     /publisher/{id}/edit
-  defaults: { _controller: "OjsAdminBundle:AdminPublisherApplication:edit" }
+  defaults: { _controller: "VipaAdminBundle:AdminPublisherApplication:edit" }
 
-ojs_admin_application_publisher_update:
+vipa_admin_application_publisher_update:
   path:     /publisher/{id}/update
-  defaults: { _controller: "OjsAdminBundle:AdminPublisherApplication:update" }
+  defaults: { _controller: "VipaAdminBundle:AdminPublisherApplication:update" }
   methods:  [PUT]
 
-ojs_admin_application_publisher_delete:
+vipa_admin_application_publisher_delete:
   path:     /publisher/{id}/delete
-  defaults: { _controller: "OjsAdminBundle:AdminPublisherApplication:delete" }
+  defaults: { _controller: "VipaAdminBundle:AdminPublisherApplication:delete" }
   methods:  [DELETE]
 
-ojs_admin_application_publisher_save:
+vipa_admin_application_publisher_save:
   path:  /publisher/{id}/save
-  defaults: { _controller: "OjsAdminBundle:AdminPublisherApplication:save" }
+  defaults: { _controller: "VipaAdminBundle:AdminPublisherApplication:save" }
 
-ojs_admin_application_publisher_reject:
+vipa_admin_application_publisher_reject:
   path:  /publisher/{id}/reject
-  defaults: { _controller: "OjsAdminBundle:AdminPublisherApplication:reject" }
+  defaults: { _controller: "VipaAdminBundle:AdminPublisherApplication:reject" }

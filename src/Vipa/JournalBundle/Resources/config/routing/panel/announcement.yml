@@ -1,30 +1,30 @@
-ojs_journal_announcement_index:
+vipa_journal_announcement_index:
     path:     /{journalId}/announcement
-    defaults: { _controller: "OjsJournalBundle:JournalAnnouncement:index" }
+    defaults: { _controller: "VipaJournalBundle:JournalAnnouncement:index" }
 
-ojs_journal_announcement_new:
+vipa_journal_announcement_new:
     path:     /{journalId}/announcement/new
-    defaults: { _controller: "OjsJournalBundle:JournalAnnouncement:new" }
+    defaults: { _controller: "VipaJournalBundle:JournalAnnouncement:new" }
 
-ojs_journal_announcement_create:
+vipa_journal_announcement_create:
     path:     /{journalId}/announcement/create
-    defaults: { _controller: "OjsJournalBundle:JournalAnnouncement:create" }
+    defaults: { _controller: "VipaJournalBundle:JournalAnnouncement:create" }
     methods:  [POST]
 
-ojs_journal_announcement_show:
+vipa_journal_announcement_show:
     path:     /{journalId}/announcement/{id}/show
-    defaults: { _controller: "OjsJournalBundle:JournalAnnouncement:show" }
+    defaults: { _controller: "VipaJournalBundle:JournalAnnouncement:show" }
 
-ojs_journal_announcement_edit:
+vipa_journal_announcement_edit:
     path:     /{journalId}/announcement/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:JournalAnnouncement:edit" }
+    defaults: { _controller: "VipaJournalBundle:JournalAnnouncement:edit" }
 
-ojs_journal_announcement_update:
+vipa_journal_announcement_update:
     path:     /{journalId}/announcement/{id}/update
-    defaults: { _controller: "OjsJournalBundle:JournalAnnouncement:update" }
+    defaults: { _controller: "VipaJournalBundle:JournalAnnouncement:update" }
     methods:  [PUT]
 
-ojs_journal_announcement_delete:
+vipa_journal_announcement_delete:
     path:     /{journalId}/announcement/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:JournalAnnouncement:delete" }
+    defaults: { _controller: "VipaJournalBundle:JournalAnnouncement:delete" }
     methods:  [DELETE]

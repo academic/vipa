@@ -4,7 +4,7 @@ app_extra:
 
 journal_publisher_hosting:
   prefix: /
-  resource: '@OjsSiteBundle/Resources/config/routing/hosting.yml'
+  resource: '@VipaSiteBundle/Resources/config/routing/hosting.yml'
   condition: 'not (context.getHost() matches "/%base_host%/")'
 
 _bazinga_jstranslation:
@@ -15,21 +15,21 @@ PrestaSitemapBundle:
     prefix:   /
 
 vipa_admin:
-  resource: '@OjsAdminBundle/Resources/config/routing.yml'
+  resource: '@VipaAdminBundle/Resources/config/routing.yml'
   prefix: admin
   requirements:
     id: \d+
 
 vipa_admin_root:
-  resource: '@OjsAdminBundle/Resources/config/routing_root.yml'
+  resource: '@VipaAdminBundle/Resources/config/routing_root.yml'
   prefix:   /
 
 vipa_oai:
-  resource: '@OjsOAIBundle/Resources/config/routing.yml'
+  resource: '@VipaOAIBundle/Resources/config/routing.yml'
   prefix: /api/public/oai
 
 vipa_journal:
-  resource: '@OjsJournalBundle/Resources/config/routing.yml'
+  resource: '@VipaJournalBundle/Resources/config/routing.yml'
   prefix:   /
   requirements:
     id: \d+
@@ -37,11 +37,11 @@ vipa_journal:
     journalId: \d+
 
 vipa_core:
-  resource: '@OjsCoreBundle/Resources/config/routing.yml'
+  resource: '@VipaCoreBundle/Resources/config/routing.yml'
   prefix:   /
 
 vipa_journal_panel:
-  resource: '@OjsJournalBundle/Resources/config/routing_panel.yml'
+  resource: '@VipaJournalBundle/Resources/config/routing_panel.yml'
   prefix: /journal
   requirements:
     id:           \d+
@@ -52,11 +52,11 @@ vipa_journal_panel:
     boardId:      \d+
 
 auth:
-  resource: '@OjsUserBundle/Resources/config/routing.yml'
+  resource: '@VipaUserBundle/Resources/config/routing.yml'
   prefix:   /
 
 vipa_user:
-  resource: '@OjsUserBundle/Controller/'
+  resource: '@VipaUserBundle/Controller/'
   type: annotation
 
 vipa_location:
@@ -64,7 +64,7 @@ vipa_location:
   prefix:   /
 
 vipa_export:
-  resource: '@OjsExportBundle/Resources/config/routing.yml'
+  resource: '@VipaExportBundle/Resources/config/routing.yml'
   prefix:   /
 
 oneup_uploader:
@@ -78,7 +78,7 @@ _liip_imagine:
 change_locale:
   path: '/locale/{code}'
   defaults:
-    _controller: 'OjsJournalBundle:Common:changeLocale'
+    _controller: 'VipaJournalBundle:Common:changeLocale'
 
 fos_js_routing:
   resource: '@FOSJsRoutingBundle/Resources/config/routing/routing.xml'
@@ -87,7 +87,7 @@ jb_fileupload_crop:
   resource: '@JbFileUploaderBundle/Resources/config/routing.yml'
 
 vipa_site:
-  resource: '@OjsSiteBundle/Resources/config/routing.yml'
+  resource: '@VipaSiteBundle/Resources/config/routing.yml'
   prefix:   /
 
 fos_user:

@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\JournalTheme:
+Vipa\JournalBundle\Entity\JournalTheme:
   type: entity
   table: journal_theme
-  repositoryClass: Ojs\JournalBundle\Entity\JournalThemeRepository
+  repositoryClass: Vipa\JournalBundle\Entity\JournalThemeRepository
   cache:
     usage: NONSTRICT_READ_WRITE
   id:

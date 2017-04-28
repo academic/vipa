@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\IssueFile:
+Vipa\JournalBundle\Entity\IssueFile:
   issue_file:
     currentLocale: en
     issue: 1

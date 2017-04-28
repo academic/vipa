@@ -1,30 +1,30 @@
-ojs_journal_section_index:
+vipa_journal_section_index:
     path:     /{journalId}/section/
-    defaults: { _controller: "OjsJournalBundle:Section:index" }
+    defaults: { _controller: "VipaJournalBundle:Section:index" }
 
-ojs_journal_section_show:
+vipa_journal_section_show:
     path:     /{journalId}/section/{id}/show
-    defaults: { _controller: "OjsJournalBundle:Section:show" }
+    defaults: { _controller: "VipaJournalBundle:Section:show" }
 
-ojs_journal_section_new:
+vipa_journal_section_new:
     path:     /{journalId}/section/new
-    defaults: { _controller: "OjsJournalBundle:Section:new" }
+    defaults: { _controller: "VipaJournalBundle:Section:new" }
 
-ojs_journal_section_create:
+vipa_journal_section_create:
     path:     /{journalId}/section/create
-    defaults: { _controller: "OjsJournalBundle:Section:create" }
+    defaults: { _controller: "VipaJournalBundle:Section:create" }
     methods: [POST]
 
-ojs_journal_section_edit:
+vipa_journal_section_edit:
     path:     /{journalId}/section/{id}/edit
-    defaults: { _controller: "OjsJournalBundle:Section:edit" }
+    defaults: { _controller: "VipaJournalBundle:Section:edit" }
 
-ojs_journal_section_update:
+vipa_journal_section_update:
     path:     /{journalId}/section/{id}/update
-    defaults: { _controller: "OjsJournalBundle:Section:update" }
+    defaults: { _controller: "VipaJournalBundle:Section:update" }
     methods: [PUT]
 
-ojs_journal_section_delete:
+vipa_journal_section_delete:
     path:     /{journalId}/section/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:Section:delete" }
+    defaults: { _controller: "VipaJournalBundle:Section:delete" }
     methods: [DELETE]

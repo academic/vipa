@@ -1,7 +1,7 @@
-Ojs\AdminBundle\Entity\SystemSetting:
+Vipa\AdminBundle\Entity\SystemSetting:
   type: entity
   table: system_settings
-  repositoryClass: Ojs\AdminBundle\Entity\SystemSettingRepository
+  repositoryClass: Vipa\AdminBundle\Entity\SystemSettingRepository
   cache:
     usage: NONSTRICT_READ_WRITE
   id:

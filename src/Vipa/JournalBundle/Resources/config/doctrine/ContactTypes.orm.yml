@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\ContactTypes:
+Vipa\JournalBundle\Entity\ContactTypes:
   type: entity
   table: contact_types
-  repositoryClass: Ojs\JournalBundle\Entity\ContactTypesRepository
+  repositoryClass: Vipa\JournalBundle\Entity\ContactTypesRepository
   cache:
       usage: NONSTRICT_READ_WRITE
   id:

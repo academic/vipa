@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\ArticleTranslation:
+Vipa\JournalBundle\Entity\ArticleTranslation:
   properties:
     title:
       - NotBlank: { groups: [submission], message: 'title.field.for.default.lang.can.not.be.blank' }
@@ -7,7 +7,7 @@ Ojs\JournalBundle\Entity\ArticleTranslation:
     abstract:
       - NotBlank: { groups: [submission], message: 'abstract.field.for.default.lang.can.not.be.blank' }
 
-Ojs\JournalBundle\Entity\Article:
+Vipa\JournalBundle\Entity\Article:
     properties:
         translations:
             - Valid: ~
@@ -36,6 +36,6 @@ Ojs\JournalBundle\Entity\Article:
                 minMessage: "must.specify.least.one.article.citation"
                 maxMessage: "You cannot specify more than {{ limit }} citation"
         status:
-            - Ojs\JournalBundle\Validator\Constraints\ArticleStatus: { message: 'article.status_can_not_be_published_without_author'}
+            - Vipa\JournalBundle\Validator\Constraints\ArticleStatus: { message: 'article.status_can_not_be_published_without_author'}
         submissionDate:
             - NotBlank: ~

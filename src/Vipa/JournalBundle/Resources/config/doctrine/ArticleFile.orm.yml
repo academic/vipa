@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\ArticleFile:
+Vipa\JournalBundle\Entity\ArticleFile:
     type: entity
     table: article_file
-    repositoryClass: Ojs\JournalBundle\Entity\ArticleFileRepository
+    repositoryClass: Vipa\JournalBundle\Entity\ArticleFileRepository
     id:
         id:
             type: integer
@@ -10,7 +10,7 @@ Ojs\JournalBundle\Entity\ArticleFile:
                 strategy: AUTO
     oneToMany:
         statistics:
-            targetEntity: Ojs\AnalyticsBundle\Entity\ArticleFileStatistic
+            targetEntity: Vipa\AnalyticsBundle\Entity\ArticleFileStatistic
             mappedBy: articleFile
             cascade: ["persist"]
     manyToOne:

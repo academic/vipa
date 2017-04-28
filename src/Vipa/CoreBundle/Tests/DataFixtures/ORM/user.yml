@@ -1,4 +1,4 @@
-\Ojs\UserBundle\Entity\User:
+\Vipa\UserBundle\Entity\User:
   user:
     username (unique): <text(20)>
     password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'

@@ -1,7 +1,7 @@
-Ojs\UserBundle\Entity\MultipleMail:
+Vipa\UserBundle\Entity\MultipleMail:
     type: entity
     table: multiple_mail
-    repositoryClass: Ojs\UserBundle\Entity\MultipleMailRepository
+    repositoryClass: Vipa\UserBundle\Entity\MultipleMailRepository
     id:
         id:
           type: integer
@@ -28,7 +28,7 @@ Ojs\UserBundle\Entity\MultipleMail:
           nullable: true
     manyToOne:
         user:
-          targetEntity: Ojs\UserBundle\Entity\User
+          targetEntity: Vipa\UserBundle\Entity\User
           joinColumn:
             name: user_id
             referencedColumnName: id

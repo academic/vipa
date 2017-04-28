@@ -1,28 +1,28 @@
-ojs_installer_homepage:
+vipa_installer_homepage:
     path: /install
-    defaults: { _controller: "OjsInstallerBundle:Home:index" }
-ojs_installer_check:
+    defaults: { _controller: "VipaInstallerBundle:Home:index" }
+vipa_installer_check:
     path: /install/check
-    defaults: { _controller: "OjsInstallerBundle:Check:check" }
-ojs_installer_configure:
+    defaults: { _controller: "VipaInstallerBundle:Check:check" }
+vipa_installer_configure:
     path: /install/configure
-    defaults: { _controller: "OjsInstallerBundle:Config:configure" }
-ojs_installer_save_configure:
+    defaults: { _controller: "VipaInstallerBundle:Config:configure" }
+vipa_installer_save_configure:
     path: /install/saveconfiguration
-    defaults: { _controller: "OjsInstallerBundle:Config:save" }
-ojs_installer_setup:
+    defaults: { _controller: "VipaInstallerBundle:Config:save" }
+vipa_installer_setup:
     path: /install/setup
-    defaults: { _controller: "OjsInstallerBundle:Setup:setup" }
-ojs_installer_create_admin:
+    defaults: { _controller: "VipaInstallerBundle:Setup:setup" }
+vipa_installer_create_admin:
     path: /install/createadmin
-    defaults: { _controller: "OjsInstallerBundle:Setup:createUser" }
-ojs_installer_summary:
+    defaults: { _controller: "VipaInstallerBundle:Setup:createUser" }
+vipa_installer_summary:
     path: /install/summary
-    defaults: { _controller: "OjsInstallerBundle:Summary:summary" }
+    defaults: { _controller: "VipaInstallerBundle:Summary:summary" }
 
-ojs_installer_update:
+vipa_installer_update:
     path: /update
-    defaults: { _controller: "OjsInstallerBundle:Update:index" }
-ojs_installer_update_confirm:
+    defaults: { _controller: "VipaInstallerBundle:Update:index" }
+vipa_installer_update_confirm:
     path: /update/confirm
-    defaults: { _controller: "OjsInstallerBundle:Update:update" }
+    defaults: { _controller: "VipaInstallerBundle:Update:update" }

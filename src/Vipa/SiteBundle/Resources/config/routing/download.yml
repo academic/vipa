@@ -1,7 +1,7 @@
-ojs_site_download_article:
+vipa_site_download_article:
   path: /article-file/{articleFile}
-  defaults: { _controller: "OjsSiteBundle:Download:articleFile" }
+  defaults: { _controller: "VipaSiteBundle:Download:articleFile" }
 
-ojs_site_download_issue:
+vipa_site_download_issue:
   path: /issue-file/{issueFile}
-  defaults: { _controller: "OjsSiteBundle:Download:issueFile" }
+  defaults: { _controller: "VipaSiteBundle:Download:issueFile" }

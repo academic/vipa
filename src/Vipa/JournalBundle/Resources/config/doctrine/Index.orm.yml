@@ -1,6 +1,6 @@
-Ojs\JournalBundle\Entity\Index:
+Vipa\JournalBundle\Entity\Index:
   type: entity
-  repositoryClass: Ojs\JournalBundle\Entity\IndexRepository
+  repositoryClass: Vipa\JournalBundle\Entity\IndexRepository
   table: indexes
   cache:
       usage: NONSTRICT_READ_WRITE

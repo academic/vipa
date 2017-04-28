@@ -1,10 +1,10 @@
-Ojs\JournalBundle\Entity\JournalSubmissionFile:
+Vipa\JournalBundle\Entity\JournalSubmissionFile:
     type: entity
     table: journal_submission_file
-    repositoryClass: Ojs\JournalBundle\Entity\JournalSubmissionFileRepository
+    repositoryClass: Vipa\JournalBundle\Entity\JournalSubmissionFileRepository
     manyToOne:
       journal:
-        targetEntity: Ojs\JournalBundle\Entity\Journal
+        targetEntity: Vipa\JournalBundle\Entity\Journal
         joinColumn:
           referencedColumnName: id
           name: journal_id

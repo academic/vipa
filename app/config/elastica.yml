@@ -1,5 +1,5 @@
 parameters:
-  fos_elastica.client.class: Ojs\CoreBundle\Service\ElasticaClient
+  fos_elastica.client.class: Vipa\CoreBundle\Service\ElasticaClient
 fos_elastica:
   clients:
     #you can change to your setting
@@ -62,7 +62,7 @@ fos_elastica:
                   type: string
           persistence:
             driver: orm
-            model: Ojs\UserBundle\Entity\User
+            model: Vipa\UserBundle\Entity\User
             provider: ~
             listener: "%elastica_listener%"
             finder: ~
@@ -127,7 +127,7 @@ fos_elastica:
                   index: not_analyzed
           persistence:
             driver: orm
-            model: Ojs\JournalBundle\Entity\Article
+            model: Vipa\JournalBundle\Entity\Article
             provider: ~
             listener: "%elastica_listener%"
             finder: ~
@@ -158,7 +158,7 @@ fos_elastica:
                 name: { index: not_analyzed }
           persistence:
             driver: orm
-            model: Ojs\JournalBundle\Entity\Publisher
+            model: Vipa\JournalBundle\Entity\Publisher
             provider: ~
             listener: "%elastica_listener%"
             finder: ~
@@ -239,7 +239,7 @@ fos_elastica:
             mandatoryLang: {index: not_analyzed}
           persistence:
             driver: orm
-            model: Ojs\JournalBundle\Entity\Journal
+            model: Vipa\JournalBundle\Entity\Journal
             provider: ~
             listener: "%elastica_listener%"
             finder: ~
@@ -265,7 +265,7 @@ fos_elastica:
               type: string
           persistence:
             driver: orm
-            model: Ojs\JournalBundle\Entity\Subject
+            model: Vipa\JournalBundle\Entity\Subject
             provider: ~
             listener: "%elastica_listener%"
             finder: ~
@@ -291,7 +291,7 @@ fos_elastica:
                         slug: { boost: 1 ,type: string}
           persistence:
             driver: orm
-            model: Ojs\JournalBundle\Entity\Citation
+            model: Vipa\JournalBundle\Entity\Citation
             provider: ~
             listener: "%elastica_listener%"
             finder: ~
@@ -306,7 +306,7 @@ fos_elastica:
               type: string
           persistence:
             driver: orm
-            model: Ojs\JournalBundle\Entity\JournalPage
+            model: Vipa\JournalBundle\Entity\JournalPage
             provider: ~
             listener: "%elastica_listener%"
             finder: ~
@@ -362,7 +362,7 @@ fos_elastica:
                               type: string
           persistence:
             driver: orm
-            model: Ojs\JournalBundle\Entity\Author
+            model: Vipa\JournalBundle\Entity\Author
             provider: ~
             listener: "%elastica_listener%"
             finder: ~

@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Period:
+Vipa\JournalBundle\Entity\Period:
     type: entity
     table: period
-    repositoryClass: Ojs\JournalBundle\Entity\PeriodRepository
+    repositoryClass: Vipa\JournalBundle\Entity\PeriodRepository
     cache:
       usage: NONSTRICT_READ_WRITE
     id:

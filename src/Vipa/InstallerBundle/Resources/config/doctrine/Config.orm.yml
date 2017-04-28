@@ -1,7 +1,7 @@
-Ojs\InstallerBundle\Entity\Config:
+Vipa\InstallerBundle\Entity\Config:
   type: entity
   table: config
-  repositoryClass: Ojs\InstallerBundle\Entity\ConfigRepository
+  repositoryClass: Vipa\InstallerBundle\Entity\ConfigRepository
   id:
     id:
       id: true

@@ -1,4 +1,4 @@
-\Ojs\JournalBundle\Entity\SubmissionChecklist:
+\Vipa\JournalBundle\Entity\SubmissionChecklist:
     checkItem1:
         locale: en
         label: The title page should include

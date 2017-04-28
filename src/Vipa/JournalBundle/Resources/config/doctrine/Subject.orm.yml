@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Subject:
+Vipa\JournalBundle\Entity\Subject:
     type: entity
     table: subject
-    repositoryClass: Ojs\JournalBundle\Entity\SubjectRepository
+    repositoryClass: Vipa\JournalBundle\Entity\SubjectRepository
     cache:
         usage: NONSTRICT_READ_WRITE
     id:
@@ -71,14 +71,14 @@ Ojs\JournalBundle\Entity\Subject:
             nullable: true
     manyToMany:
         users:
-            targetEntity: Ojs\UserBundle\Entity\User
+            targetEntity: Vipa\UserBundle\Entity\User
             cascade: {  }
             mappedBy: subjects
             inversedBy: null
             joinTable: {  }
             orderBy: null
         journals:
-            targetEntity: Ojs\JournalBundle\Entity\Journal
+            targetEntity: Vipa\JournalBundle\Entity\Journal
             cascade: {  }
             mappedBy: subjects
             inversedBy: null

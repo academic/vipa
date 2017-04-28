@@ -49,7 +49,7 @@ twig:
       - '::uploadfields.html.twig'
       - 'BraincraftedBootstrapBundle:Form:bootstrap.html.twig'
       - 'TetranzSelect2EntityBundle:Form:fields.html.twig'
-      - 'OjsCoreBundle:Form:fields.html.twig'
+      - 'VipaCoreBundle:Form:fields.html.twig'
   globals:
     languages : "%languages%"
     base_host: "%base_host%"
@@ -119,7 +119,7 @@ apy_data_grid:
 jms_di_extra:
   locations:
     all_bundles: false
-    bundles: [OjsJournalBundle]
+    bundles: [VipaJournalBundle]
     directories: ["%kernel.root_dir%/../src"]
 
 sc_datetimepicker:
@@ -136,7 +136,7 @@ a2lix_translation_form:
 fos_user:
   db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
   firewall_name: main
-  user_class: Ojs\UserBundle\Entity\User
+  user_class: Vipa\UserBundle\Entity\User
   registration:
     form:
       type: vipa_user_register

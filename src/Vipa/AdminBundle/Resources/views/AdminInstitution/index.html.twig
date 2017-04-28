@@ -14,7 +14,7 @@
     <h1>{{ 'title.institutions'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
 
-    {% if is_granted('CREATE', getEntity('OjsJournalBundle:institution')) %}
+    {% if is_granted('CREATE', getEntity('VipaJournalBundle:institution')) %}
         <a href="{{ path('ojs_admin_institution_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>

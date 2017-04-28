@@ -1,4 +1,4 @@
-Ojs\UserBundle\Entity\Role:
+Vipa\UserBundle\Entity\Role:
     properties:
         name:
           - NotBlank: ~

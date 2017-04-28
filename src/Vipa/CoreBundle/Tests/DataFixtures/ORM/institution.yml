@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\Institution:
+Vipa\JournalBundle\Entity\Institution:
   institution:
     email: <email()>
     currentLocale: en

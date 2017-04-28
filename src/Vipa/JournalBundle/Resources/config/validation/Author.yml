@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\AuthorTranslation:
+Vipa\JournalBundle\Entity\AuthorTranslation:
   properties:
 
-Ojs\JournalBundle\Entity\Author:
+Vipa\JournalBundle\Entity\Author:
     properties:
         translations:
             - Valid: ~

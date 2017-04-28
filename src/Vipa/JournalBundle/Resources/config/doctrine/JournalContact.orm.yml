@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\JournalContact:
+Vipa\JournalBundle\Entity\JournalContact:
     type: entity
     table: journal_contact
-    repositoryClass: Ojs\JournalBundle\Entity\JournalContactRepository
+    repositoryClass: Vipa\JournalBundle\Entity\JournalContactRepository
     cache:
         usage: NONSTRICT_READ_WRITE
     id:
@@ -12,7 +12,7 @@ Ojs\JournalBundle\Entity\JournalContact:
                 strategy: AUTO
     manyToOne:
           title:
-                targetEntity: Ojs\JournalBundle\Entity\PersonTitle
+                targetEntity: Vipa\JournalBundle\Entity\PersonTitle
                 joinColumn:
                   name: title_id
                   referencedColumnName: id
@@ -22,19 +22,19 @@ Ojs\JournalBundle\Entity\JournalContact:
                   name: country_id
                   referencedColumnName: id
           journal:
-                targetEntity: Ojs\JournalBundle\Entity\Journal
+                targetEntity: Vipa\JournalBundle\Entity\Journal
                 joinColumn:
                   name: journal_id
                   referencedColumnName: id
                 inversedBy: journalContacts
           institution:
-                targetEntity: Ojs\JournalBundle\Entity\Institution
+                targetEntity: Vipa\JournalBundle\Entity\Institution
                 joinColumn:
                   name: institution_id
                   referencedColumnName: id
                 inversedBy: institutionContacts
           contactType:
-                targetEntity: Ojs\JournalBundle\Entity\ContactTypes
+                targetEntity: Vipa\JournalBundle\Entity\ContactTypes
                 joinColumn:
                   name: contact_type_id
                   referencedColumnName: id

@@ -1,44 +1,44 @@
-ojs_admin_user_index:
+vipa_admin_user_index:
     path:     /
-    defaults: { _controller: "OjsAdminBundle:AdminUser:index" }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:index" }
 
-ojs_admin_user_show:
+vipa_admin_user_show:
     path:  /{id}/show
-    defaults: { _controller: "OjsAdminBundle:AdminUser:show" }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:show" }
 
-ojs_admin_user_new:
+vipa_admin_user_new:
     path:  /new
-    defaults: { _controller: "OjsAdminBundle:AdminUser:new" }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:new" }
 
-ojs_admin_user_create:
+vipa_admin_user_create:
     path:  /create
-    defaults: { _controller: "OjsAdminBundle:AdminUser:create" }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:create" }
 
-ojs_admin_user_edit:
+vipa_admin_user_edit:
     path:  /{id}/edit
-    defaults: { _controller: "OjsAdminBundle:AdminUser:edit" }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:edit" }
 
-ojs_admin_user_update:
+vipa_admin_user_update:
     path:  /{id}/update
-    defaults: { _controller: "OjsAdminBundle:AdminUser:update" }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:update" }
     methods:  [PUT]
 
-ojs_admin_user_block:
+vipa_admin_user_block:
     path: /{id}/block
-    defaults: { _controller: "OjsAdminBundle:AdminUser:block" }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:block" }
 
-ojs_admin_user_unblock:
+vipa_admin_user_unblock:
     path: /{id}/unblock
-    defaults: { _controller: "OjsAdminBundle:AdminUser:unblock" }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:unblock" }
 
-ojs_admin_user_password:
+vipa_admin_user_password:
     path:  /{id}/password
-    defaults: { _controller: "OjsAdminBundle:AdminUser:changePassword" }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:changePassword" }
 
-ojs_admin_user_merge:
+vipa_admin_user_merge:
     path:  /merge
-    defaults: { _controller: "OjsAdminBundle:AdminUser:merge", user: null }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:merge", user: null }
 
-ojs_admin_user_primary_merge:
+vipa_admin_user_primary_merge:
     path:  /{id}/merge
-    defaults: { _controller: "OjsAdminBundle:AdminUser:merge" }
+    defaults: { _controller: "VipaAdminBundle:AdminUser:merge" }

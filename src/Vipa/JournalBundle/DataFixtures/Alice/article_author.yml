@@ -1,4 +1,4 @@
-\Ojs\JournalBundle\Entity\ArticleAuthor:
+\Vipa\JournalBundle\Entity\ArticleAuthor:
   a_author1:
     author: '@author1'
     article: '@article1'

@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\Issue:
+Vipa\JournalBundle\Entity\Issue:
   issue:
     currentLocale: tr
     datePublished: <dateTimeThisYear()>
@@ -8,6 +8,6 @@ Ojs\JournalBundle\Entity\Issue:
     year: <dateTimeThisYear()>
     journal: 1
     special: 0
-    tags: "fisrt issue, ojs"
+    tags: "fisrt issue, vipa"
     description: <text(50)>
     sections: [1]

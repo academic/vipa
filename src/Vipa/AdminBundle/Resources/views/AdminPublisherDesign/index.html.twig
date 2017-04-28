@@ -14,7 +14,7 @@
     <h1>{{ "publisherdesign.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
 
-    {% if is_granted('CREATE', getEntity('OjsJournalBundle:PublisherDesign')) %}
+    {% if is_granted('CREATE', getEntity('VipaJournalBundle:PublisherDesign')) %}
         <a href="{{ path('ojs_admin_publisher_design_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>

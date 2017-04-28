@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\PublisherTheme:
+Vipa\JournalBundle\Entity\PublisherTheme:
     type: entity
     table: publisher_theme
-    repositoryClass: Ojs\JournalBundle\Entity\PublisherThemeRepository
+    repositoryClass: Vipa\JournalBundle\Entity\PublisherThemeRepository
     cache:
         usage: NONSTRICT_READ_WRITE
     id:
@@ -12,7 +12,7 @@ Ojs\JournalBundle\Entity\PublisherTheme:
                 strategy: AUTO
     manyToOne:
         publisher:
-            targetEntity: Ojs\JournalBundle\Entity\Publisher
+            targetEntity: Vipa\JournalBundle\Entity\Publisher
             inversedBy: publisherThemes
             joinColumn:
                 name: publisher_id

@@ -1,9 +1,9 @@
-Ojs\JournalBundle\Entity\SectionTranslation:
+Vipa\JournalBundle\Entity\SectionTranslation:
   properties:
     title:
       - NotBlank: ~
 
-Ojs\JournalBundle\Entity\Section:
+Vipa\JournalBundle\Entity\Section:
     properties:
         translations:
             - Valid: ~

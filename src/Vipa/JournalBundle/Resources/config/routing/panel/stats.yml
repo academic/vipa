@@ -1,5 +1,5 @@
-ojs_journal_stats_index:
+vipa_journal_stats_index:
     path:     /{journalId}/stats
-    defaults: { _controller: "OjsJournalBundle:Stats:index" }
+    defaults: { _controller: "VipaJournalBundle:Stats:index" }
     options:
         expose: true

@@ -1,10 +1,10 @@
-Ojs\AnalyticsBundle\Entity\ArticleFileStatistic:
+Vipa\AnalyticsBundle\Entity\ArticleFileStatistic:
     type: entity
-    repositoryClass: Ojs\AnalyticsBundle\Entity\ArticleFileStatisticRepository
+    repositoryClass: Vipa\AnalyticsBundle\Entity\ArticleFileStatisticRepository
     lifecycleCallbacks: {  }
     manyToOne:
         articleFile:
-            targetEntity: Ojs\JournalBundle\Entity\ArticleFile
+            targetEntity: Vipa\JournalBundle\Entity\ArticleFile
             inversedBy: statistics
             joinColumn:
                 name: article_file_id

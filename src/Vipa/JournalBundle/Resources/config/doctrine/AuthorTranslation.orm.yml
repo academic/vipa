@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\AuthorTranslation:
+Vipa\JournalBundle\Entity\AuthorTranslation:
     type: entity
     table: author_translations
     id:

@@ -1,6 +1,6 @@
-\Ojs\AdminBundle\Entity\AdminJournalTheme:
+\Vipa\AdminBundle\Entity\AdminJournalTheme:
   theme1_notpublic:
-      title: Ojs Theme
+      title: Vipa Theme
       public: false
       css: "html{}"
   theme2:

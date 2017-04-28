@@ -1,4 +1,4 @@
-\Ojs\JournalBundle\Entity\PublisherDesign:
+\Vipa\JournalBundle\Entity\PublisherDesign:
   publisherDesign:
       title: Publisher Design
       public: false

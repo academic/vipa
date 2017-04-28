@@ -1,30 +1,30 @@
-ojs_admin_publisher_design_index:
+vipa_admin_publisher_design_index:
     path:  /
-    defaults: { _controller: "OjsAdminBundle:AdminPublisherDesign:index" }
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherDesign:index" }
 
-ojs_admin_publisher_design_show:
+vipa_admin_publisher_design_show:
     path:  /{id}/show
-    defaults: { _controller: "OjsAdminBundle:AdminPublisherDesign:show" }
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherDesign:show" }
 
-ojs_admin_publisher_design_new:
+vipa_admin_publisher_design_new:
     path:  /new
-    defaults: { _controller: "OjsAdminBundle:AdminPublisherDesign:new" }
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherDesign:new" }
 
-ojs_admin_publisher_design_create:
+vipa_admin_publisher_design_create:
     path:  /create
-    defaults: { _controller: "OjsAdminBundle:AdminPublisherDesign:create" }
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherDesign:create" }
     methods: [POST]
 
-ojs_admin_publisher_design_edit:
+vipa_admin_publisher_design_edit:
     path:  /{id}/edit
-    defaults: { _controller: "OjsAdminBundle:AdminPublisherDesign:edit" }
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherDesign:edit" }
 
-ojs_admin_publisher_design_update:
+vipa_admin_publisher_design_update:
     path:  /{id}/update
-    defaults: { _controller: "OjsAdminBundle:AdminPublisherDesign:update" }
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherDesign:update" }
     methods:  [PUT]
 
-ojs_admin_publisher_design_delete:
+vipa_admin_publisher_design_delete:
     path:  /{id}/delete
-    defaults: { _controller: "OjsAdminBundle:AdminPublisherDesign:delete" }
+    defaults: { _controller: "VipaAdminBundle:AdminPublisherDesign:delete" }
     methods:  [DELETE]

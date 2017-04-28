@@ -1,4 +1,4 @@
-ojs_core_tag_search:
+vipa_core_tag_search:
     path:  /tag/search
-    defaults: { _controller: "OjsCoreBundle:Tags:tagSearch" }
+    defaults: { _controller: "VipaCoreBundle:Tags:tagSearch" }
     methods:  [GET]

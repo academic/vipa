@@ -1,6 +1,6 @@
-Ojs\JournalBundle\Entity\Section:
+Vipa\JournalBundle\Entity\Section:
     type: entity
-    repositoryClass: Ojs\JournalBundle\Entity\SectionRepository
+    repositoryClass: Vipa\JournalBundle\Entity\SectionRepository
     table: section
     cache:
         usage: NONSTRICT_READ_WRITE

@@ -1,4 +1,4 @@
-Ojs\AdminBundle\Entity\PublisherManagers:
+Vipa\AdminBundle\Entity\PublisherManagers:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [publisher, user]

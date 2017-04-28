@@ -1,40 +1,40 @@
 parameters:
-  ojs_core.journal_application_controller.class: "OjsAdminBundle:AdminJournalApplication"
-  ojs_admin.journal_controller.class: "OjsAdminBundle:AdminJournal"
+  vipa_core.journal_application_controller.class: "VipaAdminBundle:AdminJournalApplication"
+  vipa_admin.journal_controller.class: "VipaAdminBundle:AdminJournal"
 
 services:
   admin.event_listener:
-    class: Ojs\AdminBundle\EventListener\AdminEventListener
-    arguments: ["@router", "@doctrine.orm.entity_manager", "@ojs_mailer"]
+    class: Vipa\AdminBundle\EventListener\AdminEventListener
+    arguments: ["@router", "@doctrine.orm.entity_manager", "@vipa_mailer"]
     tags:
       - { name: kernel.event_subscriber }
 
-  ojs.graph.data.generator:
-    class: Ojs\AnalyticsBundle\Utils\GraphDataGenerator
+  vipa.graph.data.generator:
+    class: Vipa\AnalyticsBundle\Utils\GraphDataGenerator
     arguments: ["@doctrine.orm.entity_manager", "%locale%"]
 
   form.type.journal_application:
-    class: Ojs\AdminBundle\Form\Type\JournalApplicationType
+    class: Vipa\AdminBundle\Form\Type\JournalApplicationType
     tags:
       -
-        alias: ojs_journalbundle_journalapplication
+        alias: vipa_journalbundle_journalapplication
         name: form.type
 
   form.type.admin.journal_application:
-    class: Ojs\AdminBundle\Form\Type\AdminJournalApplicationType
+    class: Vipa\AdminBundle\Form\Type\AdminJournalApplicationType
     tags:
       -
-        alias: ojs_adminbundle_journalapplication
+        alias: vipa_adminbundle_journalapplication
         name: form.type
 
   form.type.admin.journal_edit:
-    class: Ojs\AdminBundle\Form\Type\JournalEditType
+    class: Vipa\AdminBundle\Form\Type\JournalEditType
     tags:
       -
-        alias: ojs_adminbundle_journal_edit_type
+        alias: vipa_adminbundle_journal_edit_type
         name: form.type
 
-  ojs_admin.admin_events:
-    class: Ojs\AdminBundle\Events\AdminEvents
+  vipa_admin.admin_events:
+    class: Vipa\AdminBundle\Events\AdminEvents
     tags:
-      - { name: ojs.mail.event}
+      - { name: vipa.mail.event}

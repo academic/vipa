@@ -1,30 +1,30 @@
-ojs_publisher_manager_theme_index:
+vipa_publisher_manager_theme_index:
     path:  /
-    defaults: { _controller: "OjsJournalBundle:ManagerPublisherTheme:index" }
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:index" }
 
-ojs_publisher_manager_theme_show:
+vipa_publisher_manager_theme_show:
     path:  /{id}/show
-    defaults: { _controller: "OjsJournalBundle:ManagerPublisherTheme:show" }
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:show" }
 
-ojs_publisher_manager_theme_new:
+vipa_publisher_manager_theme_new:
     path:  /new
-    defaults: { _controller: "OjsJournalBundle:ManagerPublisherTheme:new" }
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:new" }
 
-ojs_publisher_manager_theme_create:
+vipa_publisher_manager_theme_create:
     path:  /create
-    defaults: { _controller: "OjsJournalBundle:ManagerPublisherTheme:create" }
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:create" }
     methods: [POST]
 
-ojs_publisher_manager_theme_edit:
+vipa_publisher_manager_theme_edit:
     path:  /{id}/edit
-    defaults: { _controller: "OjsJournalBundle:ManagerPublisherTheme:edit" }
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:edit" }
 
-ojs_publisher_manager_theme_update:
+vipa_publisher_manager_theme_update:
     path:  /{id}/update
-    defaults: { _controller: "OjsJournalBundle:ManagerPublisherTheme:update" }
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:update" }
     methods:  [PUT]
 
-ojs_publisher_manager_theme_delete:
+vipa_publisher_manager_theme_delete:
     path:  /{id}/delete
-    defaults: { _controller: "OjsJournalBundle:ManagerPublisherTheme:delete" }
+    defaults: { _controller: "VipaJournalBundle:ManagerPublisherTheme:delete" }
     methods:  [DELETE]

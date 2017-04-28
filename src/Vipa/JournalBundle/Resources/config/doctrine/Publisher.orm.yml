@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Publisher:
+Vipa\JournalBundle\Entity\Publisher:
     type: entity
     table: publisher
-    repositoryClass: Ojs\JournalBundle\Entity\PublisherRepository
+    repositoryClass: Vipa\JournalBundle\Entity\PublisherRepository
     cache:
         usage: NONSTRICT_READ_WRITE
     id:
@@ -24,17 +24,17 @@ Ojs\JournalBundle\Entity\Publisher:
             cache:
                   usage: NONSTRICT_READ_WRITE
         publisherThemes:
-            targetEntity: Ojs\JournalBundle\Entity\PublisherTheme
+            targetEntity: Vipa\JournalBundle\Entity\PublisherTheme
             mappedBy: publisher
         publisherDesigns:
-            targetEntity: Ojs\JournalBundle\Entity\PublisherDesign
+            targetEntity: Vipa\JournalBundle\Entity\PublisherDesign
             mappedBy: publisher
         publisherManagers:
-            targetEntity: Ojs\AdminBundle\Entity\PublisherManagers
+            targetEntity: Vipa\AdminBundle\Entity\PublisherManagers
             mappedBy: publisher
     manyToOne:
         publisherType:
-            targetEntity: Ojs\JournalBundle\Entity\PublisherTypes
+            targetEntity: Vipa\JournalBundle\Entity\PublisherTypes
             joinColumn:
                 name: publisher_type_id
                 referencedColumnName: id
@@ -56,13 +56,13 @@ Ojs\JournalBundle\Entity\Publisher:
               gedmo:
                 - treeParent
         theme:
-          targetEntity: Ojs\JournalBundle\Entity\PublisherTheme
+          targetEntity: Vipa\JournalBundle\Entity\PublisherTheme
           joinColumn:
             name: theme_id
             referencedColumnName: id
           inversedBy: publishers
         design:
-          targetEntity: Ojs\JournalBundle\Entity\PublisherDesign
+          targetEntity: Vipa\JournalBundle\Entity\PublisherDesign
           joinColumn:
             name: design_id
             referencedColumnName: id

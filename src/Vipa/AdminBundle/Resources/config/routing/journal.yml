@@ -1,30 +1,30 @@
-ojs_admin_journal_index:
+vipa_admin_journal_index:
     path:  /
-    defaults: { _controller: "OjsAdminBundle:AdminJournal:index" }
+    defaults: { _controller: "VipaAdminBundle:AdminJournal:index" }
 
-ojs_admin_journal_show:
+vipa_admin_journal_show:
     path:  /{id}/show
-    defaults: { _controller: "OjsAdminBundle:AdminJournal:show" }
+    defaults: { _controller: "VipaAdminBundle:AdminJournal:show" }
 
-ojs_admin_journal_new:
+vipa_admin_journal_new:
     path:  /new
-    defaults: { _controller: "OjsAdminBundle:AdminJournal:new" }
+    defaults: { _controller: "VipaAdminBundle:AdminJournal:new" }
 
-ojs_admin_journal_create:
+vipa_admin_journal_create:
     path:  /create
-    defaults: { _controller: "OjsAdminBundle:AdminJournal:create" }
+    defaults: { _controller: "VipaAdminBundle:AdminJournal:create" }
     methods: [POST]
 
-ojs_admin_journal_edit:
+vipa_admin_journal_edit:
     path:  /{id}/edit
-    defaults: { _controller: "%ojs_admin.journal_controller.class%:edit" }
+    defaults: { _controller: "%vipa_admin.journal_controller.class%:edit" }
 
-ojs_admin_journal_update:
+vipa_admin_journal_update:
     path:  /{id}/update
-    defaults: { _controller: "%ojs_admin.journal_controller.class%:update" }
+    defaults: { _controller: "%vipa_admin.journal_controller.class%:update" }
     methods:  [PUT]
 
-ojs_admin_journal_autocomplete:
+vipa_admin_journal_autocomplete:
     path:  /autocomplete
-    defaults: { _controller: "OjsAdminBundle:AdminJournal:autoComplete" }
+    defaults: { _controller: "VipaAdminBundle:AdminJournal:autoComplete" }
     methods:  [GET]
