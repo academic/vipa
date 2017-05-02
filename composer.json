@@ -1,13 +1,14 @@
 {
-  "name": "ojs/ojs",
+  "name": "vipa/vipa",
   "license": "MIT",
   "type": "project",
-  "description": "Open Journal Software",
+  "description": "Virtual Intelligent Publishing Assistant",
   "version": "2.4.0-dev",
   "keywords": [
-    "ojs",
+    "vipa",
     "journal software",
-    "open journal software"
+    "open journal software",
+    "Virtual Intelligent Publishing Assistant"
   ],
   "support": {
     "email": "hi@ojs.io"
