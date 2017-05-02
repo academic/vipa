@@ -9,7 +9,7 @@
         <target>docs/phpdoc</target>
     </transformer>
     <files>
-        <directory>./src/Ojs</directory>
+        <directory>./src/Vipa</directory>
     </files>
     <logging>
         <level>warn</level>

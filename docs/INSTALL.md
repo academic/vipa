@@ -130,7 +130,7 @@ $ rm -rf html
 
 # Obtain the latest code
 
-$ git clone https://github.com/ojs/ojs.git
+$ git clone https://github.com/academic/vipa.git
 $ cd vipa
 
 ```

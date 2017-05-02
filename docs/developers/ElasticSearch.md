@@ -7,7 +7,7 @@
 More on http://www.elasticsearch.org/
 
 
-###ElasticSearch in Ojs
+###ElasticSearch in Vipa
 
 We use ElasticSearch with [FriendsOfSymfony/FOSElasticaBundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle) for searching articles,journals and users full-texts and suggestions. 
 

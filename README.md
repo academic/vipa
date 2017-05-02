@@ -1,6 +1,6 @@
 # Virtual Intelligent Publishing Assistant (VIPA)
 
-[![Build Status](https://travis-ci.org/academic/vipa.svg?branch=master)](https://travis-ci.org/ojs/ojs)
+[![Build Status](https://travis-ci.org/academic/vipa.svg?branch=master)](https://travis-ci.org/academic/vipa)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/academic/vipa/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ojs/ojs/?branch=master)
 [![OpenCollective](https://opencollective.com/ojs/backers/badge.svg)](#backers) 
 [![OpenCollective](https://opencollective.com/ojs/sponsors/badge.svg)](#sponsors)

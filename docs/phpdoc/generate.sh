@@ -1,1 +1,1 @@
-phpdoc -d ./src/Ojs -t ./docs/phpdoc
+phpdoc -d ./src/Vipa -t ./docs/phpdoc

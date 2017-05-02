@@ -29,4 +29,4 @@ http://phpdoc.org/phpDocumentor.phar
 Generate Docs
 -------------
 
-Run `phpdoc -d ./src/Ojs -t ./docs/phpdoc` in applicatioın root folder
+Run `phpdoc -d ./src/Vipa -t ./docs/phpdoc` in applicatioın root folder

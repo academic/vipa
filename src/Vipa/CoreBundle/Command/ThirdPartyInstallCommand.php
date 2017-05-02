@@ -27,7 +27,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@github.com:ojs/WorkflowBundle.git',
+                    'url' => 'git@github.com:vipa/WorkflowBundle.git',
                 ),
             ),
             'require' => array(
@@ -43,7 +43,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@github.com:ojs/EndorsementBundle.git',
+                    'url' => 'git@github.com:vipa/EndorsementBundle.git',
                 ),
             ),
             'require' => array(

@@ -11,12 +11,12 @@ In every change of assets you must run `php app/console assetic:dump` or you can
 Both Uglifycss and uglifyjs projects are using in _assetic_ asset management configuration. These two projects' code included in the master repo. But if you want to install them to your system you can use npm : `npm install uglifycss -g`
 
 ###Bower
-Ojs project is using [**bower**](http://bower.io) for Js and Css package management. It can be installed via npm `npm install -g bower`.
+Vipa project is using [**bower**](http://bower.io) for Js and Css package management. It can be installed via npm `npm install -g bower`.
 Bower packages are configured under `bower.json`. Packages will be automatically installed while _vipa:install_ process. If you want to update packages or in stall new package run `bower install && bower update` 
 
 Here some important packages that will be installed via bower.
 ####Bootstrap
-> Bootstrap is the most popular HTML, CSS, and JS framework for developing **responsive**, **mobile first** projects on the web. The Ojs project's all pages are based on Bootstrap.
+> Bootstrap is the most popular HTML, CSS, and JS framework for developing **responsive**, **mobile first** projects on the web. The Vipa project's all pages are based on Bootstrap.
 
 ####Jquery
 > jQuery is a fast, small, and feature-rich JavaScript library. It makes things like **HTML document traversal** and manipulation, **event handling**, animation, and **Ajax** much simpler with an easy-to-use API that works across a multitude of browsers.
