@@ -63,8 +63,8 @@ assetic:
         - '%kernel.root_dir%/../web/assets/app/css/_history.css'
         - '%kernel.root_dir%/../web/vendor/sweetalert/dist/sweetalert.css'
         - '%kernel.root_dir%/../web/vendor/fancybox/source/jquery.fancybox.css'
-        - 'https://formbuilder.online/assets/css/form-builder.min.css'
-        - 'https://formbuilder.online/assets/css/form-render.min.css'
+        - '%kernel.root_dir%/../web/assets/app/css/formBuilder-2.1.2/dist/form-builder.min.css'
+        - '%kernel.root_dir%/../web/assets/app/css/formBuilder-2.1.2/dist/form-render.min.css'
         - '%kernel.root_dir%/../web/vendor/katex/dist/katex.min.css'
     advanced_search_js:
       inputs: ['@VipaCoreBundle/Resources/public/js/search.js']
