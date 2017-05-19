@@ -20,84 +20,48 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
 {
     private $packageName;
 
-    private $packageData = array(
-        'workflow' => array(
+    private $packageData = [
+        'workflow' => [
             'name' => 'Workflow',
             'description' => 'Vipa Workflow Plugin',
-            'repositories' => array(
-                array(
-                    'type' => 'vcs',
-                    'url' => 'git@github.com:vipa/WorkflowBundle.git',
-                ),
-            ),
-            'require' => array(
+            'require' => [
                 "vipa/workflow-bundle" => "dev-master",
-            ),
-            'extra' => array(
+            ],
+            'extra' => [
                 'bundle-class' => 'Vipa\\WorkflowBundle\\VipaWorkflowBundle',
-            ),
-        ),
-        'endorsement' => array(
+            ],
+        ],
+        'endorsement' => [
             'name' => 'Endorsement',
             'description' => 'Vipa Endorsement Plugin',
-            'repositories' => array(
-                array(
-                    'type' => 'vcs',
-                    'url' => 'git@github.com:vipa/EndorsementBundle.git',
-                ),
-            ),
-            'require' => array(
+            'require' => [
                 "vipa/endorsement-bundle" => "dev-master",
-            ),
-            'extra' => array(
+            ],
+            'extra' => [
                 'bundle-class' => 'Vipa\\EndorsementBundle\\VipaEndorsementBundle',
-            ),
-        ),
+            ],
+        ],
         'doi' => [
             'name'        => 'DoiBundle',
             'description' => 'Vipa DOI Bundle',
-            'require'     => ["vipa/doi-bundle" => "dev-master"],
-            'extra'       => ['bundle-class' => 'Vipa\\DoiBundle\\VipaDoiBundle'],
+            'require'     => [
+                "vipa/doi-bundle" => "dev-master"
+            ],
+            'extra'       => [
+                'bundle-class' => 'Vipa\\DoiBundle\\VipaDoiBundle'
+            ],
         ],
         'citation' =>[
             'name'         => 'CitationBundle',
             'description'  => 'Vipa Citation Bundle',
-            'require'      => ["vipa/citation-bundle" => "dev-master"],
-            'extra'        => ['bundle-class' => 'Vipa\\CitationBundle\\VipaCitationBundle'],
+            'require'      => [
+                "vipa/citation-bundle" => "dev-master"
+            ],
+            'extra'        => [
+                'bundle-class' => 'Vipa\\CitationBundle\\VipaCitationBundle'
+            ],
         ],
-        'market' => array(
-            'name' => 'MarketBundle',
-            'description' => 'Market bundle for VIPA',
-            'repositories' => array(
-                array(
-                    'type' => 'vcs',
-                    'url' => 'https://bitbucket.org/bulutyazilim/marketbundle.git',
-                ),
-            ),
-            'require' => array(
-                "bulutyazilim/market-bundle" => "dev-master",
-            ),
-            'extra' => array(
-                'bundle-class' => 'Ojs\\MarketBundle\\OjsMarketBundle',
-            ),
-        ),
-        'dergipark' => array(
-            'name' => 'OjsDergiparkBundle',
-            'description' => 'Dergipark bundle for VIPA',
-            'repositories' => array(
-                array(
-                    'type' => 'vcs',
-                    'url' => 'https://bitbucket.org/ulakbim/ojsdergiparkbundle.git',
-                ),
-            ),
-            'require' => array(
-                "ojs/dergipark-bundle" => "dev-master",
-            ),
-            'extra' => array(
-                'bundle-class' => 'Ojs\\DergiparkBundle\\OjsDergiparkBundle',
-            ),
-        )
-    );
+    ];
 
     protected function configure()
     {
