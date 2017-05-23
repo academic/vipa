@@ -13,6 +13,15 @@ fos_elastica:
             stopwords:
               type: standard
               stopwords: [ "and", "of", "the", "ve", "veya", "or", "ile", "da", "de", "mı", "mi" ]
+            classic_analyser:
+              type: custom
+              tokenizer: lowercase
+              filter   : [my_ngram]
+          filter:
+            my_ngram:
+              type: "nGram"
+              min_gram: 3
+              max_gram: 11
       finder: ~
       client: default
       types:
@@ -26,18 +35,21 @@ fos_elastica:
                   type: string
             username:
               type: string
+              analyzer: classic_analyser
             firstName:
               type: string
             lastName:
               type: string
             fullName:
               type: string
+              analyzer: classic_analyser
               fields:
                 raw:
                   type: string
                   index: not_analyzed
             email:
               type: string
+              analyzer: classic_analyser
             avatar:
               type: string
             tags:
