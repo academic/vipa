@@ -184,7 +184,7 @@ server {
     server_name vipa.prod www.vipa.prod local.vipa.prod *.vipa.prod;
     client_max_body_size 1024M;
 
-    root /var/www/vipa;
+    root /var/www/vipa/web;
 
     rewrite ^/app.php?(.*)$ /$1 permanent;
 
@@ -209,7 +209,7 @@ server {
     server_name vipa.dev www.vipa.dev local.vipa.dev *.vipa.dev;
     client_max_body_size 1024M;
 
-    root /var/www/vipa;
+    root /var/www/vipa/web;
 
     rewrite ^/app_dev.php?(.*)$ /$1 permanent;
 
