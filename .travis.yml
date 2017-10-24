@@ -43,4 +43,4 @@ script:
   - ./etc/bin/parallel_phpunit.sh
 
 notifications:
-  slack: ideafield:8GtvUiq3935dZRc1SObHJVcR#ojs-log
+  slack: ideafield:8GtvUiq3935dZRc1SObHJVcR#vipa-log
