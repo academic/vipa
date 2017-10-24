@@ -13,12 +13,12 @@ addons:
 services:
   - mysql
   - postgresql
-  - elasticsearch
   - memcached
 
 sudo: true
 
 before_install:
+  - curl -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.4.deb && sudo dpkg -i --force-confnew elasticsearch-1.7.4.deb && sudo service elasticsearch restart
   - npm install -g bower
 
 before_script:
