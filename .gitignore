@@ -13,7 +13,6 @@ Temporary Items
 ### Composer ###
 composer.phar
 vendor/
-composer.lock
 #bower
 web/vendor/*
 
